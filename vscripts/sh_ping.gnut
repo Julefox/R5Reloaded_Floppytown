@@ -543,7 +543,9 @@ PingTraceResults function DoPingTrace( entity player )
 	#if R5DEV
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
-
+	////////////////////////////////////////
+	///// TO BE DELETED BEFORE RELEASE /////
+	////////////////////////////////////////
 	vector map_pos = <5000,5000,1000>
 
 	#if SERVER
@@ -559,6 +561,9 @@ PingTraceResults function DoPingTrace( entity player )
 	#if CLIENT || UI
 		AddPlayerHint( 4.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\n" + "GetOrigin :     " + (result.hitEnt.GetOrigin() - map_pos) + " " + result.hitEnt.GetAngles() + "\n" + "Proposition : " + (result.endPos - map_pos) )
 	#endif
+	////////////////////////////////////////
+	///// TO BE DELETED BEFORE RELEASE /////
+	////////////////////////////////////////
 
 	return result
 }
