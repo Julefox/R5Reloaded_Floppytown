@@ -544,6 +544,22 @@ PingTraceResults function DoPingTrace( entity player )
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
 
+	vector map_pos = <5000,5000,1000>
+
+	#if SERVER
+		printt( "	Julefox TraceResults:	" )
+		printt( "===========================" )
+		printt( "Ent_Number:	" + result.hitEnt )
+		printt( "Ent_ModelName: " + result.hitEnt.GetModelName() )
+		printt( "Ent_Origin:	" + (result.hitEnt.GetOrigin() -  map_pos) )
+		printt(	"Ping_Origin:   " + (result.endPos - map_pos) )
+		printt( "===========================" )
+	#endif
+
+	#if CLIENT || UI
+		AddPlayerHint( 4.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\n" + "GetOrigin :     " + (result.hitEnt.GetOrigin() - map_pos) + " " + result.hitEnt.GetAngles() + "\n" + "Proposition : " + (result.endPos - map_pos) )
+	#endif
+
 	return result
 }
 #endif
