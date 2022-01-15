@@ -1644,6 +1644,23 @@ void function DynamicLight_Init()
 			entity dlight_station_2_5 = CreateClientSideDynamicLight( <-12352.8574, 32487.2109, -3887.99487>, angle, DLIGHT_LIGHTGREEN, brightness_station )
 			dlight_station_2_5.SetLightExponent( 1.1 )
 			break
+		case "mp_rr_floppytown":
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// SKY
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			float brightness_dev = 8000
+    		entity dlight_dev_0_0 = CreateClientSideDynamicLight( <-465,-286,3000>, angle, DLIGHT_WHITE, brightness_dev )
+			dlight_dev_0_0.SetLightExponent( 1.4)
+			entity dlight_dev_0_1 = CreateClientSideDynamicLight( <-633,5000,3000>, angle, DLIGHT_WHITE, brightness_dev )
+			dlight_dev_0_1.SetLightExponent( 1.4)
+			entity dlight_dev_0_2 = CreateClientSideDynamicLight( <5500,5000,3000>, angle, DLIGHT_WHITE, brightness_dev )
+			dlight_dev_0_2.SetLightExponent( 1.4)
+			entity dlight_dev_0_3 = CreateClientSideDynamicLight( <5400,-530,3000>, angle, DLIGHT_WHITE, brightness_dev )
+			dlight_dev_0_3.SetLightExponent( 1.4)
+			entity dlight_dev_0_4 = CreateClientSideDynamicLight( <2100,2100,3000>, angle, DLIGHT_WHITE, brightness_dev )
+			dlight_dev_0_4.SetLightExponent( 1.4)
+
+			break
 		default:
 			break
 	}
