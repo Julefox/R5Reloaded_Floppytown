@@ -128,18 +128,6 @@ void function Sequence_Playing()
 	{
 		vector pos = GetEnt( "info_player_start" ).GetOrigin()
 		pos.z += 5
-		////////////////////////////////////////
-		///// TO BE DELETED BEFORE RELEASE /////
-		////////////////////////////////////////
-		if ( GetMapName() == "mp_rr_floppytown")	// FloppyTown
-		{
-			pos.x = 0.0
-			pos.y = 0.0
-			pos.z = 80.0
-		}
-		////////////////////////////////////////
-		///// TO BE DELETED BEFORE RELEASE /////
-		////////////////////////////////////////
 	
 		int i = 0
 		foreach ( player in GetPlayerArray() )
@@ -147,15 +135,6 @@ void function Sequence_Playing()
 			// circle
 			float r = float(i) / float(GetPlayerArray().len()) * 2 * PI
 			player.SetOrigin( pos + 500.0 * <sin( r ), cos( r ), 0.0> )
-
-			////////////////////////////////////////
-			///// TO BE DELETED BEFORE RELEASE /////
-			////////////////////////////////////////
-			if ( GetMapName() == "mp_rr_floppytown")
-			{ player.SetOrigin( pos ) }
-			////////////////////////////////////////
-			///// TO BE DELETED BEFORE RELEASE /////
-			////////////////////////////////////////
 	
 			DecideRespawnPlayer( player )
 	
