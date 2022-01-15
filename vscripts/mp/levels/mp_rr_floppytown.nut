@@ -1,5 +1,6 @@
 global function CodeCallback_MapInit
 
+asset Editor_Ref            = $"mdl/dev/editor_ref.rmdl"
 asset Building_Platform     = $"mdl/desertlands/construction_bldg_platform_02.rmdl"
 asset Thunderdome_Wall      = $"mdl/thunderdome/thunderdome_cage_wall_256x256_01.rmdl"
 asset Thunderdome_Ceiling   = $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl"
@@ -58,28 +59,10 @@ entity function CreateFloppytownModel(asset a, vector pos, vector ang, bool mant
 
 void function SpawnMap(vector pos, vector ang)
 {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // FLOOR
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     int Floor_Heigth            = 10;   int Floor_Width             = 15
-
-    int North_Wall_Length_001   = 23;   int North_Wall_Heigth_001   = 10
-
-    int South_Wall_Length_001   = 23;   int South_Wall_Heigth_001   = 7
-
-    int West_Wall_Length_001    = 21;   int West_Wall_Heigth_001    = 7
-
-    int East_Wall_Length_001    = 21;   int East_Wall_Heigth_001    = 7
-
-    int Grass_Heigth_001        = 40;   int Grass_Width_001         = 40
-
-    int Building_001_01         = 2;    int Building_001_02         = 3
-    int Building_001_03         = 9;    int Building_001_04         = 7
-
-    int Building_002_01         = 2;    int Building_002_02         = 5
-    int Building_002_03         = 3;    int Building_002_04         = 5
-    int Building_002_05         = 3;    int Building_002_06         = 2
-    int Building_002_07         = 1;    int Building_002_08         = 3
-    int Building_002_09         = 2;    int Building_002_10         = 2
-    
-    int Geofix_001              = 1;    int Geofix_002              = 7
 
     for (int i=0; i< Floor_Heigth ;i++)
     {   for (int j=0; j< Floor_Width ;j++)
@@ -87,102 +70,211 @@ void function SpawnMap(vector pos, vector ang)
             CreateFloppytownModel(Building_Platform,pos + <592*i,352*j,0>,ang + <0,0,0>,true,20000,-1)
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // NORTH WALL
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int North_Wall_Length_001   = 23;   int North_Wall_Heigth_001   = 10
+
     for (int i=0; i< North_Wall_Length_001 ;i++)
     {   for ( int j=0; j< North_Wall_Heigth_001 ;j++)
         {
             CreateFloppytownModel(Square_Block,pos + <-466,4928.8,0> + <260.7*i,0,224*j>,ang + <0,180,0>,true,20000,-1)
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SOUTH WALL
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int South_Wall_Length_001   = 23;   int South_Wall_Heigth_001   = 7
+
     for (int i=0; i< South_Wall_Length_001 ;i++)
     {   for (int j=0; j< South_Wall_Heigth_001 ;j++)
         {
             CreateFloppytownModel(Thunderdome_Wall,pos + <-462,-360,0> + <256*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
         }
     }
-    for (int i=0; i< West_Wall_Length_001 ;i++)
-    {   for (int j=0; j< West_Wall_Heigth_001 ;j++)
-        {
-            CreateFloppytownModel(Thunderdome_Wall,pos + <-598,-300,0> + <0,256*i,256*j>,ang + <0,90,0>,true,20000,-1)
-        }
-    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // WEST WALL
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int West_Wall_Length_001    = 21;   int West_Wall_Heigth_001    = 7
+
+    //for (int i=0; i< West_Wall_Length_001 ;i++)
+    //{   for (int j=0; j< West_Wall_Heigth_001 ;j++)
+    //    {
+    //        CreateFloppytownModel(Thunderdome_Wall,pos + <-598,-300,0> + <0,256*i,256*j>,ang + <0,90,0>,true,20000,-1)
+    //    }
+    //}
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // EAST WALL
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int East_Wall_Length_001    = 21;   int East_Wall_Heigth_001    = 7
+
     for (int i=0; i< East_Wall_Length_001 ;i++)
     {   for (int j=0; j< East_Wall_Heigth_001 ;j++)
         {
             CreateFloppytownModel(Thunderdome_Wall,pos + <5307,-300,0> + <0,256*i,256*j>,ang + <0,90,0>,true,20000,-1)
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILDING_002
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int Grass_Heigth_001        = 40;   int Grass_Width_001         = 40
+
     for (int i=0; i< Grass_Heigth_001 ;i++)
     {   for (int j=0; j< Grass_Width_001 ;j++)
         {
             CreateFloppytownModel(Grass,pos + <-530,-206,0> + <147*i,128*j,0>,ang + <0,0,0>,true,20000,-1).SetModelScale(2)
         }
     }
-    ///// BUILDING_001 /////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILDING_001
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector Building_001 = pos + <2552, 4390,0>
+    int Building_001_01         = 2;    int Building_001_02         = 3
+    int Building_001_03         = 9;    int Building_001_04         = 7
+    int Building_001_05         = 1;    int Building_001_06         = 7
+
+    //CreateFloppytownModel(Editor_Ref, Building_001,ang + <0,270,0>,true,20000,-1)
     for (int i=0; i< Building_001_01 ;i++)
     {   for ( int j=0; j< Building_001_02 ;j++)
         {
-            CreateFloppytownModel(Building_Platform,pos + <1750,3880,1786> + <592*i,352*j,0>,ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Building_Platform,Building_001 + <-592,-528,1786> + <592*i,352*j,0>,ang + <0,180,0>,true,20000,-1)
         }
     }
-    for (int i=0; i< Building_001_03 ;i++)
+    for (int i=0; i< Building_001_03 ;i++) // 1152
     {   for ( int j=0; j< Building_001_04 ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box,pos + <1750,3956,110> + <0,128*i,256*j>,ang + <0,90,0>,true,20000,-1)
-            CreateFloppytownModel(Square_Shell_Box,pos + <1804,3880,110> + <128*i,0,256*j>,ang + <0,180,0>,true,20000,-1)
-            CreateFloppytownModel(Square_Shell_Box,pos + <2932,3930,110> + <0,128*i,256*j>,ang + <0,-90,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <-592,-512,110> + <0,128*i,256*j>,ang + <0,90,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <-512,540,110> + <128*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <592,-512,110> + <0,128*i,256*j>,ang + <0,270,0>,true,20000,-1)  
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <-512,-540,110> + <128*i,0,256*j>,ang + <0,180,0>,true,20000,-1)
         }
     }
-    for (int i=0; i< Geofix_001 ;i++)
-    {   for ( int j=0; j< Geofix_002 ;j++)
+    for (int i=0; i< Building_001_05 ;i++)
+    {   for ( int j=0; j< Building_001_06 ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box,pos + <2908,3948,110> + <0,128*i,256*j>,ang + <0,90,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <568,512,109.9> + <0,128*i,256*j>,ang + <180,90,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box,Building_001 + <-568,-512,109.9> + <0,128*i,256*j>,ang + <180,270,0>,true,20000,-1)
         }
     }
-    ///// BUILDING_001 /////
-    ///// BUILDING_002 /////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILDING_002
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector Building_002 = pos + <-466,4928.8,0>
+    int Building_002_01         = 3;    int Building_002_02         = 5
+    int Building_002_03         = 3;    int Building_002_04         = 3
+    int Building_002_05         = 2;    int Building_002_06         = 2
+    int Building_002_07         = 4;    int Building_002_08         = 3
+    int Building_002_09         = 2;    int Building_002_10         = 3
+    int Building_002_11         = 1;    int Building_002_12         = 3
+    int Building_002_13         = 1;    int Building_002_14         = 3
+    int Building_002_15         = 2;    int Building_002_16         = 2
+    int Building_002_17         = 2;    int Building_002_18         = 2
+    int Building_002_19         = 3;    int Building_002_20         = 2
+    int Building_002_21         = 3;    int Building_002_22         = 2
+
+    //CreateFloppytownModel(Editor_Ref, Building_002,ang + <0,0,0>,true,20000,-1)
     for (int i=0; i< Building_002_01 ;i++)
     {   for ( int j=0; j< Building_002_02 ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Wall,pos + <170,4546,0> + <0,256*i,256*j>,ang + <0,90,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <256*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Building_002_03 ;i++)
     {   for ( int j=0; j< Building_002_04 ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Wall,pos + <-464,4426,0> + <256*i,0,256*j>,ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <640,-640,0> + <0,256*i,256*j>,ang + <0,-90,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Building_002_05 ;i++)
     {   for ( int j=0; j< Building_002_06 ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Ceiling,pos + <-464,4546,1272> + <256*i,256*j,0>,ang + <0,180,0>,true,20000,-1)
-            CreateFloppytownModel(Thunderdome_Wall,pos + <-462,3928.8,0> + <256*j,0,256*i>,ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <640,-384,768> + <0,256*i,256*j>,ang + <0,-90,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Building_002_07 ;i++)
     {   for ( int j=0; j< Building_002_08 ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Wall,pos + <46,4170,0> + <256*i,0,256*j>,ang + <0,180,0>,true,20000,-1)
-            CreateFloppytownModel(Thunderdome_Wall,pos + <170,4290,0> + <256*i,0,256*j>,ang + <0,90,0>,true,20000,-1)
-            CreateFloppytownModel(Thunderdome_Wall,pos + <-73,4048,0> + <256*i,0,256*j>,ang + <0,90,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <-128,-896,0> + <0,256*i,256*j>,ang + <0,-90,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Building_002_09 ;i++)
     {   for ( int j=0; j< Building_002_10 ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Ceiling,pos + <-450,4048,768.2> + <256*i,256*j,0>,ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <0,-1024,0> + <256*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
         }
     }
-    //CreateFloppytownModel(Thunderdome_Ceiling,pos + <-450,4048,768.4> + <256*2,256,0>,ang + <0,180,0>,true,20000,-1) // same props
-    //CreateFloppytownModel(Thunderdome_Ceiling,pos + <170,4290,768.2> + <0,0,0>,ang + <0,180,0>,true,20000,-1)
+    for (int i=0; i< Building_002_11 ;i++)
+    {   for ( int j=0; j< Building_002_12 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <512,-768,0> + <256*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< Building_002_13 ;i++)
+    {   for ( int j=0; j< Building_002_14 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <384,-896,0> + <256*i,0,256*j>,ang + <0,-90,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< Building_002_15 ;i++)
+    {   for ( int j=0; j< Building_002_16 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Ceiling, Building_002 + <0,-896,768> + <256*i,256*j,0>,ang + <0,0,0>,true,20000,-1)
+        }
+    }
+    CreateFloppytownModel(Thunderdome_Ceiling, Building_002 + <256,-896,768> + <256,256,0>,ang + <0,0,0>,true,20000,-1)
+    for (int i=0; i< 2 ;i++)
+    {   for ( int j=0; j< 2 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <-128,-384,768> + <0,256*i,256*j>,ang + <0,-90,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< 3 ;i++)
+    {   for ( int j=0; j< 2 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Wall, Building_002 + <0,-512,768> + <256*i,0,256*j>,ang + <0,0,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< 3 ;i++)
+    {   for ( int j=0; j< 2 ;j++)
+        {
+            CreateFloppytownModel(Thunderdome_Ceiling, Building_002 + <0,-384,1280> + <256*i,256*j,0>,ang + <0,0,0>,true,20000,-1)
+        }
+    }
 
-    //CreateFloppytownModel(Thunderdome_Ceiling,   pos + <0,0,2000>,ang + <0,0,0>,true,20000,-1)
-    //CreateFloppytownModel(Thunderdome_Ceiling,   pos + <0,0,2256>,ang + <0,0,0>,true,20000,-1)
-    //CreateFloppytownModel(Thunderdome_Wall,      pos + <0,128,2000>,ang + <0,0,0>,true,20000,-1)
-    //CreateFloppytownModel(Thunderdome_Wall,      pos + <0,0,2000>,ang + <0,0,0>,true,20000,-1)
-    //CreateFloppytownModel(Thunderdome_Wall,      pos + <0,-128,2000>,ang + <0,0,0>,true,20000,-1)
-    //CreateFloppytownModel(Thunderdome_Wall,      pos + <0,-128,2256>,ang + <0,0,0>,true,20000,-1)
-    ///// BUILDING_002 /////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILDING_003
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector Building_003 = pos + <1000,1500,0>
+    int Building_003_01         = 6;    int Building_003_02         = 3
+    int Building_003_03         = 0;    int Building_003_04         = 0
+
+    CreateFloppytownModel(Editor_Ref, Building_003, ang + <0,270,0>,true,20000,-1)
+    for (int i=0; i< 3 ;i++)
+    {   for ( int j=0; j< 2 ;j++)
+        {
+            CreateFloppytownModel(Square_Shell_Box, Building_003 + <0,0,0>, ang + <0,0,0>,true,20000,-1)
+        }
+    }
+    
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // GEOFIX
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int Geofix_001              = 0;    int Geofix_002              = 0
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // OTHER
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     CreateFloppytownModel(Cubemap, <10600, 29200, -26000>,ang + <0,0,0>,true,20000,-1).SetModelScale(15) // Hides the tear under the skybox
+
+
 }
