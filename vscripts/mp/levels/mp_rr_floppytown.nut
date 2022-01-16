@@ -52,6 +52,7 @@ void function SpawnAllProps()
 {
     for (int i=0; i<FloppyTownBuildPos.len() && FloppyTownBuildAng.len(); i++)
     { SpawnMap(FloppyTownBuildPos[i],FloppyTownBuildAng[i]) }
+    AreaBuild(FloppyTownBuildPos[0],FloppyTownBuildAng[0])
 }
 
 entity function CreateFloppytownModel(asset a, vector pos, vector ang, bool mantle = false, float fade = 20000, int realm = -1)
@@ -125,7 +126,7 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector South_Wall_001_pos = pos + <5300, -20,0>
 
-    array<int> South_Wall_001_int = [2,9, 11,9, 20,10, 3,13]
+    array<int> South_Wall_001_int = [2,9, 11,9, 20,10, 3,12]
 
     for (int i=0; i< South_Wall_001_int[0] ;i++)
     {   for (int j=0; j< South_Wall_001_int[1] ;j++)
@@ -156,13 +157,32 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // WEST WALL
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector West_Wall_001_pos = pos + <-592,-410,0>
-    array<int> West_Wall_001_int = [12,10]
+    vector West_Wall_001_pos = pos + <-592,-26,0>
+
+    array<int> West_Wall_001_int = [13,4, 11,10, 1,2, 1,11]
 
     for (int i=0; i< West_Wall_001_int[0] ;i++)
     {   for ( int j=0; j< West_Wall_001_int[1] ;j++)
         {
-            CreateFloppytownModel(Wall_Pillar,West_Wall_001_pos + <0,0,0> + <0,128*i,286*j>,ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Wall_Pillar,West_Wall_001_pos + <0,0,1716> + <0,128*i,286*j>,ang + <0,180,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< West_Wall_001_int[2] ;i++)
+    {   for ( int j=0; j< West_Wall_001_int[3] ;j++)
+        {
+            CreateFloppytownModel(Square_Block,West_Wall_001_pos + <0,1664,0> + <0,260.7*i,224*j>,ang + <0,270,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< West_Wall_001_int[4] ;i++)
+    {   for ( int j=0; j< West_Wall_001_int[5] ;j++)
+        {
+            CreateFloppytownModel(Wall_Pillar,West_Wall_001_pos + <0,1536,1144> + <0,128*i,286*j>,ang + <0,180,0>,true,20000,-1)
+        }
+    }
+    for (int i=0; i< West_Wall_001_int[6] ;i++)
+    {   for (int j=0; j< West_Wall_001_int[7] ;j++)
+        {
+            CreateFloppytownModel(Slanted_Slice,West_Wall_001_pos + <-89,4360,0> + <0,529*i,200*j>,ang + <0,270,0>,true,20000,-1)
         }
     }
 
@@ -230,7 +250,7 @@ void function SpawnMap(vector pos, vector ang)
 
     array<int> Build_001_int = [2,3, 9,7, 1,7]
 
-    //CreateFloppytownModel(Editor_Ref, Build_001_pos,ang + <0,270,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_001_pos,ang + <0,270,0>,true,20000,-1)
     for (int i=0; i< Build_001_int[0] ;i++)
     {   for ( int j=0; j< Build_001_int[1] ;j++)
         {
@@ -261,7 +281,7 @@ void function SpawnMap(vector pos, vector ang)
 
     array<int> Build_002_int = [3,5, 3,3, 2,2, 4,3, 2,3, 1,3, 1,3, 2,2, 2,2, 3,2, 3,2]
 
-    //CreateFloppytownModel(Editor_Ref, Build_002_pos,ang + <0,0,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_002_pos,ang + <0,0,0>,true,20000,-1)
     for (int i=0; i< Build_002_int[0] ;i++)
     {   for ( int j=0; j< Build_002_int[1] ;j++)
         {
@@ -335,16 +355,15 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector Build_003_pos = pos + <-528,3218,0>
 
-    array<int> Build_003_int = [1,2, 5,5, 2,3, 1,3, 1,2]
+    array<int> Build_003_int = [1,3, 6,5, 1,3, 1,3, 1,2]
 
-    //CreateFloppytownModel(Editor_Ref, Build_003_pos, ang + <0,180,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_003_pos, ang + <0,180,0>,true,20000,-1)
     for (int i=0; i< Build_003_int[0] ;i++)
     {   for (int j=0; j< Build_003_int[1] ;j++)
         {
             CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos+ <0,-192,0> + <0*i,256*j,1280>, ang + <0,0,0>,true,20000,-1)
         }
     }
-    CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos + <-0.1,208,1279.1>, ang + <0,0,0>,true,20000,-1)
     for (int i=0; i< Build_003_int[2] ;i++)
     {   for ( int j=0; j< Build_003_int[3] ;j++)
         {
@@ -354,7 +373,7 @@ void function SpawnMap(vector pos, vector ang)
     for (int i=0; i< Build_003_int[4] ;i++)
     {   for ( int j=0; j< Build_003_int[5] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,384,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,512,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
         }
     }
     CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos + <0,448,768>, ang + <0,0,0>,true,20000,-1)
@@ -367,7 +386,7 @@ void function SpawnMap(vector pos, vector ang)
     for (int i=0; i< Build_003_int[8] ;i++)
     {   for ( int j=0; j< Build_003_int[9] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,320,896> + <0,128*i,256*j>, ang + <0,0,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,448,896> + <0,128*i,256*j>, ang + <0,0,0>,true,20000,-1) //330
         }
     }
 
@@ -378,7 +397,7 @@ void function SpawnMap(vector pos, vector ang)
 
     array<int> Build_004_int = [3,2, 1,3, 1,2]
 
-    //CreateFloppytownModel(Editor_Ref, Build_004_pos, ang + <0,180,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_004_pos, ang + <0,180,0>,true,20000,-1)
     for (int i=0; i< Build_004_int[0] ;i++)
     {   for (int j=0; j< Build_004_int[1] ;j++)
         {
@@ -405,7 +424,7 @@ void function SpawnMap(vector pos, vector ang)
 
     array<int> Build_005_int = [5,5, 1,3, 1,2]
 
-    //CreateFloppytownModel(Editor_Ref, Build_005_pos, ang + <0,180,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_005_pos, ang + <0,180,0>,true,20000,-1)
     for (int i=0; i< Build_005_int[0] ;i++)
     {   for (int j=0; j< Build_005_int[1] ;j++)
         {
@@ -434,7 +453,7 @@ void function SpawnMap(vector pos, vector ang)
             CreateFloppytownModel(Thunderdome_Wall, Build_006_pos + <256,-256,0> + <0,256*i,256*j>, ang + <0,270,0>,true,20000,-1)
         }
     }
-    //CreateFloppytownModel(Space_Elevator, Build_006_pos + <0,0,1220>, ang + <0,90,0>,true,20000,-1)
+    CreateFloppytownModel(Space_Elevator, Build_006_pos + <0,0,1220>, ang + <0,90,0>,true,20000,-1)
     for (int i=0; i< Build_006_int[2] ;i++)
     {   for ( int j=0; j< Build_006_int[3] ;j++)
         {
@@ -467,7 +486,7 @@ void function SpawnMap(vector pos, vector ang)
 
     array<int> Build_007_int = [5,2, 2,1, 1,2, 2,2, 1,7, 1,9, 1,9, 3,8, 1,9, 1,16, 4,3, 2,1, 2,9, 1,4, 1,8, 1,2, 1,2]
 
-    //CreateFloppytownModel(Editor_Ref, Build_007_pos, ang + <0,180,0>,true,20000,-1)
+    CreateFloppytownModel(Editor_Ref, Build_007_pos, ang + <0,180,0>,true,20000,-1)
     for (int i=0; i< Build_007_int[0] ;i++)
     {   for ( int j=0; j< Build_007_int[1] ;j++)
         {
@@ -590,6 +609,23 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     CreateFloppytownModel(Cubemap, <10600, 29200, -26000>,ang + <0,0,0>,true,20000,-1).SetModelScale(15) // Hides the tear under the skybox
+}
 
+void function AreaBuild(vector pos, vector ang)
+{
+    ///// AREA BUILD /////
+    vector AreaBuild_pos = pos + <-5000,0,0>
+    vector AreaBuild_center_pos = AreaBuild_pos + <1480,0,0>
+    vector AreaBuild_ang = ang + <0,180,0>
+    //////////////////////
 
+    array<int> AreaBuild = [5,7]
+
+    CreateFloppytownModel(Editor_Ref, AreaBuild_pos, AreaBuild_ang,true,20000,-1)
+    for (int i=0; i< AreaBuild[0] ;i++)
+    {   for (int j=0; j< AreaBuild[1] ;j++)
+        {
+            CreateFloppytownModel(Building_Platform,AreaBuild_pos + <592*i,352*j,0>, AreaBuild_ang,true,20000,-1)
+        }
+    }
 }
