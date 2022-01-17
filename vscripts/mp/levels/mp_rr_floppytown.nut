@@ -20,8 +20,8 @@ asset Box_Bottom_A              = $"mdl/desertlands/highrise_square_shell_box_bo
 asset Box_Bottom_B              = $"mdl/desertlands/highrise_square_shell_box_bottom_b.rmdl"
 asset Cubemap                   = $"mdl/menu/menu_cubemap.rmdl"
 
-array<vector> FloppyTownBuildPos   = [<0,0,0>]
-array<vector> FloppyTownBuildAng   = [<0,0,0>]
+vector FloppyTownPos   = <0,0,0>
+vector FloppyTownAng   = <0,0,0>
 
 void function CodeCallback_MapInit()
 {
@@ -50,9 +50,9 @@ void function PrinttPropsCount()
 
 void function SpawnAllProps()
 {
-    for (int i=0; i<FloppyTownBuildPos.len() && FloppyTownBuildAng.len(); i++)
-    { SpawnMap(FloppyTownBuildPos[i],FloppyTownBuildAng[i]) }
-    AreaBuild(FloppyTownBuildPos[0],FloppyTownBuildAng[0])
+    SpawnMap(FloppyTownPos,FloppyTownAng)
+    if ( GetCurrentPlaylistVarInt( "FloppyTown_Area_Build_Enable", 1 ) )
+    { AreaBuild(FloppyTownPos,FloppyTownAng) }
 }
 
 entity function CreateFloppytownModel(asset a, vector pos, vector ang, bool mantle = false, float fade = 20000, int realm = -1)
@@ -67,9 +67,20 @@ entity function CreateFloppytownModel(asset a, vector pos, vector ang, bool mant
     prop.SetScriptName( "FloppyTownEntities" )
     return prop
 }
-
-void function SpawnMap(vector pos, vector ang)
+entity function CreateEditorRef( vector pos, vector ang, string name )
 {
+    entity editor_ref = CreatePropDynamic( Editor_Ref, pos, ang, SOLID_VPHYSICS, 20000 )
+    SetTargetName( editor_ref, name )
+    return editor_ref
+}
+
+void function SpawnMap( vector pos, vector ang )
+{
+    vector AreaBuild_pos        = pos + <-5000,0,0>  
+    vector AreaBuildCenterPos   = AreaBuild_pos + <1480,1232,0>
+
+    CreateEditorRef( pos + <0,0,1>, ang, "Spawn point Floppytown" )
+    CreateEditorRef( pos + <0,0,1>, ang, "Center point Floppytown" )
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // FLOOR
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,14 +89,14 @@ void function SpawnMap(vector pos, vector ang)
     for (int i=0; i< Floor[0] ;i++)
     {   for (int j=0; j< Floor[1] ;j++)
         {
-            CreateFloppytownModel(Building_Platform,pos + <592*i,352*j,0>,ang + <0,0,0>,true,20000,-1)
+            CreateFloppytownModel( Building_Platform, pos + <592*i,352*j,0>, ang + <0,180,0>, true, 20000, -1 )
         }
     }
-
+    /*
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // NORTH WALL
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector North_Wall_pos = pos + <-600, 4930,0>
+    vector North_Wall_pos = pos + <-600, 4930,4000>
 
     array<int> North_Wall_001_int = [2,10, 11,10, 1,12, 4,9, 1,11]
 
@@ -124,7 +135,7 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SOUTH WALL
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector South_Wall_001_pos = pos + <5300, -20,0>
+    vector South_Wall_001_pos = pos + <5300, -20,4000>
 
     array<int> South_Wall_001_int = [2,9, 11,9, 20,10, 3,12]
 
@@ -157,7 +168,7 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // WEST WALL
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector West_Wall_001_pos = pos + <-592,-26,0>
+    vector West_Wall_001_pos = pos + <-592,-26,4000>
 
     array<int> West_Wall_001_int = [13,4, 11,10, 1,2, 1,11]
 
@@ -189,7 +200,7 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EAST WALL
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector East_Wall_001_pos = pos + <5300, 4330,0>
+    vector East_Wall_001_pos = pos + <5300, 4330,4000>
 
     array<int> East_Wall_001_int = [2,13, 1,12, 2,14, 5,9, 2,12, 6,10]
 
@@ -229,28 +240,31 @@ void function SpawnMap(vector pos, vector ang)
             CreateFloppytownModel(Square_Block,East_Wall_001_pos + <0,-4450,0> + <0,260.7*i,224*j>,ang + <0,90,0>,true,20000,-1)
         }
     }
-    
+    */
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // GRASS
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector Grass_001_pos = pos + <128,128,10> // .z 0 - 20 ?
+
     array<int> Grass_001_int = [40,40]
 
+    CreateEditorRef( Grass_001_pos, ang, "Grass 001" )
     for (int i=0; i< Grass_001_int[0] ;i++)
     {   for (int j=0; j< Grass_001_int[1] ;j++)
         {
-            CreateFloppytownModel(Grass,pos + <-530,-206,0> + <147*i,128*j,0>,ang + <0,0,0>,true,20000,-1).SetModelScale(2)
+            CreateFloppytownModel(Grass, Grass_001_pos + <147*i,128*j,0>,ang + <0,0,0>,true,20000,-1).SetModelScale(2)
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_001
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_001_pos = pos + <2552, 4390,0>
+    vector Build_001_pos = pos + <2552, 4390,4000>
 
     array<int> Build_001_int = [2,3, 9,7, 1,7]
 
-    CreateFloppytownModel(Editor_Ref, Build_001_pos,ang + <0,270,0>,true,20000,-1)
+    CreateEditorRef( Build_001_pos, ang, "Build 001" )
     for (int i=0; i< Build_001_int[0] ;i++)
     {   for ( int j=0; j< Build_001_int[1] ;j++)
         {
@@ -277,11 +291,11 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_002
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_002_pos = pos + <-462,4820,0>
+    vector Build_002_pos = AreaBuildCenterPos //pos + <-462,4820,4000>
 
     array<int> Build_002_int = [3,5, 3,3, 2,2, 4,3, 2,3, 1,3, 1,3, 2,2, 2,2, 3,2, 3,2]
 
-    CreateFloppytownModel(Editor_Ref, Build_002_pos,ang + <0,0,0>,true,20000,-1)
+    CreateEditorRef( Build_002_pos, ang, "Build 002" )
     for (int i=0; i< Build_002_int[0] ;i++)
     {   for ( int j=0; j< Build_002_int[1] ;j++)
         {
@@ -353,51 +367,51 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_003
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_003_pos = pos + <-528,3218,0>
+    vector Build_003_pos = pos + <64,3328,0>
 
     array<int> Build_003_int = [1,3, 6,5, 1,3, 1,3, 1,2]
 
-    CreateFloppytownModel(Editor_Ref, Build_003_pos, ang + <0,180,0>,true,20000,-1)
+    CreateEditorRef( Build_003_pos, ang, "Build 003" )
     for (int i=0; i< Build_003_int[0] ;i++)
     {   for (int j=0; j< Build_003_int[1] ;j++)
         {
-            CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos+ <0,-192,0> + <0*i,256*j,1280>, ang + <0,0,0>,true,20000,-1)
+            CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos+ <0,-256,0> + <0*i,256*j,1280>, ang + <0,0,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Build_003_int[2] ;i++)
     {   for ( int j=0; j< Build_003_int[3] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,-256,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,-320,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Build_003_int[4] ;i++)
     {   for ( int j=0; j< Build_003_int[5] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,512,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <64,448,128> + <0,128*i,256*j>, ang + <0,270,0>,true,20000,-1)
         }
     }
-    CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos + <0,448,768>, ang + <0,0,0>,true,20000,-1)
+    CreateFloppytownModel(Thunderdome_Mini_Ceiling, Build_003_pos + <0,384,768>, ang + <0,0,0>,true,20000,-1)
     for (int i=0; i< Build_003_int[6] ;i++)
     {   for ( int j=0; j< Build_003_int[7] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,-320,640> + <0,128*i,256*j>, ang + <0,180,0>,true,20000,-1)
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,-384,640> + <0,128*i,256*j>, ang + <0,180,0>,true,20000,-1)
         }
     }
     for (int i=0; i< Build_003_int[8] ;i++)
     {   for ( int j=0; j< Build_003_int[9] ;j++)
         {
-            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,448,896> + <0,128*i,256*j>, ang + <0,0,0>,true,20000,-1) //330
+            CreateFloppytownModel(Square_Shell_Box, Build_003_pos + <0,384,896> + <0,128*i,256*j>, ang + <0,0,0>,true,20000,-1) //330
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_004
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_004_pos = pos + <-464,2524,0>
+    vector Build_004_pos = pos + <128,2560,0>
 
     array<int> Build_004_int = [3,2, 1,3, 1,2]
 
-    CreateFloppytownModel(Editor_Ref, Build_004_pos, ang + <0,180,0>,true,20000,-1)
+    CreateEditorRef( Build_004_pos, ang, "Build 004" )
     for (int i=0; i< Build_004_int[0] ;i++)
     {   for (int j=0; j< Build_004_int[1] ;j++)
         {
@@ -420,11 +434,11 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_005
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_005_pos = pos + <-464,1830,0>
+    vector Build_005_pos = pos + <128,1856,0>
 
     array<int> Build_005_int = [5,5, 1,3, 1,2]
 
-    CreateFloppytownModel(Editor_Ref, Build_005_pos, ang + <0,180,0>,true,20000,-1)
+    CreateEditorRef( Build_005_pos, ang, "Build 005" )
     for (int i=0; i< Build_005_int[0] ;i++)
     {   for (int j=0; j< Build_005_int[1] ;j++)
         {
@@ -438,22 +452,23 @@ void function SpawnMap(vector pos, vector ang)
             CreateFloppytownModel(Thunderdome_Wall, Build_005_pos + <0,324,512> + <0,256*i,256*j>,ang + <0,0,0>,true,20000,-1)
         }
     }
+    CreateFloppytownModel(Thunderdome_Frame, Build_005_pos + <0,-304,1248>, ang + <0,180,0>,true,20000,-1)
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_006
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_006_pos = pos + <-464,1140,0>
+    vector Build_006_pos = pos + <128,1152,0>
 
     array<int> Build_006_int = [3,7, 1,3, 1,3, 1,7, 2,4]
 
-    //CreateFloppytownModel(Editor_Ref, Build_006_pos, ang + <0,180,0>,true,20000,-1)
+    CreateEditorRef( Build_006_pos, ang, "Build 006" )
     for (int i=0; i< Build_006_int[0] ;i++)
     {   for (int j=0; j< Build_006_int[1] ;j++)
         {
             CreateFloppytownModel(Thunderdome_Wall, Build_006_pos + <256,-256,0> + <0,256*i,256*j>, ang + <0,270,0>,true,20000,-1)
         }
     }
-    CreateFloppytownModel(Space_Elevator, Build_006_pos + <0,0,1220>, ang + <0,90,0>,true,20000,-1)
+    //CreateFloppytownModel(Space_Elevator, Build_006_pos + <0,0,1220>, ang + <0,90,0>,true,20000,-1)
     for (int i=0; i< Build_006_int[2] ;i++)
     {   for ( int j=0; j< Build_006_int[3] ;j++)
         {
@@ -482,11 +497,11 @@ void function SpawnMap(vector pos, vector ang)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_007
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector Build_007_pos = pos + <-420,100,0>
+    vector Build_007_pos = pos + <128,128,0>
 
     array<int> Build_007_int = [5,2, 2,1, 1,2, 2,2, 1,7, 1,9, 1,9, 3,8, 1,9, 1,16, 4,3, 2,1, 2,9, 1,4, 1,8, 1,2, 1,2]
 
-    CreateFloppytownModel(Editor_Ref, Build_007_pos, ang + <0,180,0>,true,20000,-1)
+    CreateEditorRef( Build_007_pos, ang, "Build 007" )
     for (int i=0; i< Build_007_int[0] ;i++)
     {   for ( int j=0; j< Build_007_int[1] ;j++)
         {
@@ -613,15 +628,16 @@ void function SpawnMap(vector pos, vector ang)
 
 void function AreaBuild(vector pos, vector ang)
 {
-    ///// AREA BUILD /////
     vector AreaBuild_pos = pos + <-5000,0,0>
-    vector AreaBuild_center_pos = AreaBuild_pos + <1480,0,0>
     vector AreaBuild_ang = ang + <0,180,0>
-    //////////////////////
+
+    vector AreaBuildCenterPos = AreaBuild_pos + <1480,1232,0>
+    vector AreaBuildCenterAng = AreaBuild_ang + <0,0,0>
 
     array<int> AreaBuild = [5,7]
 
-    CreateFloppytownModel(Editor_Ref, AreaBuild_pos, AreaBuild_ang,true,20000,-1)
+    CreateEditorRef( AreaBuild_pos, ang, "Spawn point Area Buil" )
+    //CreateEditorRef( AreaBuildCenterPos, ang, "Center point Area Build" )//.Hide()
     for (int i=0; i< AreaBuild[0] ;i++)
     {   for (int j=0; j< AreaBuild[1] ;j++)
         {
