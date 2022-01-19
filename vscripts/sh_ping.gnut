@@ -544,6 +544,57 @@ PingTraceResults function DoPingTrace( entity player )
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
 
+	if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+	{
+		if ( result.hitEnt == null )
+		{
+			return result
+		}
+		else
+		{
+			#if SERVER
+				printt( "		TraceResults:		" )
+				printt( "===========================" )
+				printt( "Ent_Number:	" + result.hitEnt )
+				printt( "Ent_ModelName: " + result.hitEnt.GetModelName() )
+				printt( "Ent_Origin:	" + result.hitEnt.GetOrigin() )
+				printt(	"Ping_Origin:   " + result.endPos )
+				if (  result.hitEnt.GetTargetName() != "" )
+				{
+					if ( result.hitEnt.GetTargetName() != "editor_ref" )
+					{
+						printt(	"Target Name: "	+ result.hitEnt.GetTargetName() )
+					}
+					else
+					{
+						printt(	"Editor Ref: "	+ result.hitEnt.GetTargetName() )
+					}
+				}
+				printt( "===========================" )
+			#endif
+
+			#if CLIENT || UI
+				if ( result.hitEnt.GetScriptName() == "editor_ref" ) //result.hitEnt.GetTargetName() != ""
+				{
+					
+					//AddPlayerHint( 2.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\nGetOrigin :     " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() + "\nEditor Ref:     " + (result.hitEnt.GetTargetName()) )
+					AddPlayerHint( 2.0, 0.0, $"rui/hud/gametype_icons/survival/hot_zone", //rui/menu/common/steam_link rui/hud/gamestate/net_latency rui/hud/gametype_icons/survival/hot_zone rui/hud/gametype_icons/obj_foreground_diamond
+					//"Model Name :     "		+ result.hitEnt.GetModelName() +
+					"\nEditor Ref Name : "	+ result.hitEnt.GetTargetName() +
+					"\nEditor Ref Origin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
+					
+				}
+				else
+				{
+					//AddPlayerHint( 2.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\nGetOrigin :     " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
+					AddPlayerHint( 2.0, 0.0, $"rui/hud/gametype_icons/survival/hot_zone",
+					"Name : " + result.hitEnt.GetModelName() +
+					"\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
+				}
+			#endif
+		}
+	}
+
 	return result
 }
 #endif
