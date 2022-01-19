@@ -1,2 +1,4 @@
-vscripts\sh_ping.gnut
-vscripts\gamemodes\_gamemode_survival.nut
+vscripts/mp/levels/mp_rr_playground_common.nut
+vscripts/mp/levels/mp_rr_playground.nut
+vscripts/mp/levels/cl_mp_rr_playground.nut
+levels/mp_rr_playground.rson

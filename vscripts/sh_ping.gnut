@@ -574,20 +574,15 @@ PingTraceResults function DoPingTrace( entity player )
 			#endif
 
 			#if CLIENT || UI
-				if ( result.hitEnt.GetScriptName() == "editor_ref" ) //result.hitEnt.GetTargetName() != ""
+				if ( result.hitEnt.GetScriptName() == "editor_ref" )
 				{
-					
-					//AddPlayerHint( 2.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\nGetOrigin :     " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() + "\nEditor Ref:     " + (result.hitEnt.GetTargetName()) )
-					AddPlayerHint( 2.0, 0.0, $"rui/hud/gametype_icons/survival/hot_zone", //rui/menu/common/steam_link rui/hud/gamestate/net_latency rui/hud/gametype_icons/survival/hot_zone rui/hud/gametype_icons/obj_foreground_diamond
-					//"Model Name :     "		+ result.hitEnt.GetModelName() +
+					AddPlayerHint( 2.0, 0.0, $"",
 					"\nEditor Ref Name : "	+ result.hitEnt.GetTargetName() +
 					"\nEditor Ref Origin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
-					
 				}
 				else
 				{
-					//AddPlayerHint( 2.0, 0.0, $"", "GetName :     " + result.hitEnt.GetModelName() + "\nGetOrigin :     " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
-					AddPlayerHint( 2.0, 0.0, $"rui/hud/gametype_icons/survival/hot_zone",
+					AddPlayerHint( 2.0, 0.0, $"",
 					"Name : " + result.hitEnt.GetModelName() +
 					"\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
 				}
