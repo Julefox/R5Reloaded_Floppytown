@@ -365,8 +365,8 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     }
 
     // Ziplines
-    CreateFloppytownZiplineModel( build001Pos + < 592, 0, 1792.1 >, < 0, -90, 0 > )
-    CreateFloppytownZiplineModel( build001Pos + < -592, 256, 1792.1 >, < 0, 90, 0 > )
+    CreateFloppytownZiplineModel( build001Pos + < 600, 0, 1792.1 >, < 0, -90, 0 > )
+    CreateFloppytownZiplineModel( build001Pos + < -600, 256, 1792.1 >, < 0, 90, 0 > )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_002 //
@@ -696,6 +696,9 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
         }
     }
 
+    // Ziplines
+    CreateFloppytownModel( Zip_Arm, build007Pos + < 1152, 384, 2176 >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_008 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -771,6 +774,9 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Thunderdome_Wall, build010Pos + < -384, 128, 0 > + < 256*i, 0, 256*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
+
+    // Ziplines
+    CreateFloppytownZiplineModel( build010Pos + < -384, 128, 1280 >, < 0, 0, 0 > )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
@@ -914,6 +920,9 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Thunderdome_Mini_Ceiling, build012Pos + < -256, 960, 2272 > + < 256*i, 256*j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
+
+    // Ziplines
+    CreateFloppytownZiplineModel( build012Pos + < -128, 1032, 2304 >, < 0, 0, 0 > )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_013 //
@@ -1192,6 +1201,9 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Square_Shell_Box, build020Pos + < -320, -512, SSB_UpTo0_Patch > + < 128*i, 0, 256*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
         }
     }
+    //CreateZipline( <1544.03125, 2572.64331, 137.872391>, <3705.34375, 3061.00635, 138.614517> )
+    //CreateZipline( <5360.91406, 2993.85083, 2474.17163>, <5360.91406, 2993.85083, 1792> )
+    
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
