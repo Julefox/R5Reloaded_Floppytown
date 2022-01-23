@@ -128,7 +128,7 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // NORTH WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector northWallPos = mapPos + <0, 4864, 0>
-    array< int > northWallInt = [ 2, 10, 4, 10, 7, 10, 1, 12, 4, 10, 1, 12 ]
+    array< int > northWallInt = [ 2, 10, 4, 10, 7, 10, 2, 1, 12, 4, 6, 1, 7 ]
 
     for ( int i=0; i<northWallInt[ 0 ] ;i++ )
     {   for ( int j=0; j<northWallInt[ 1 ] ;j++ )
@@ -148,26 +148,26 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
             CreateFloppytownModel( Square_Block, northWallPos + <2202.8, 0, 0> + <260.7*i, 0, 224*j>,mapAng+ <0, 180, 0>, true, 20000, -1 )
         }
     }
-    for ( int j=0; j<northWallInt[ 5 ] ;j++ )
+    for ( int j=0; j<northWallInt[ 6 ] ;j++ )
     {
-        CreateFloppytownModel( Square_Block, northWallPos + <2062, 140, 0> + <0, 0, 224*j>,mapAng+ <0, 90, 0>, true, 20000, -1 )
+        CreateFloppytownModel( Square_Block, northWallPos + <2062, 140, 1792> + <0, 0, 224*j>,mapAng+ <0, 90, 0>, true, 20000, -1 )
     }
-    for ( int i=0; i<northWallInt[ 6 ] ;i++ )
-    {   for ( int j=0; j<northWallInt[ 7 ] ;j++ )
+    for ( int i=0; i<northWallInt[ 7 ] ;i++ )
+    {   for ( int j=0; j<northWallInt[ 8 ] ;j++ )
         {
             CreateFloppytownModel( Slanted_Slice, northWallPos + < 3900, 0, 0 > + < 529*i, 0, 200*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
         }
     }
-    for ( int i=0; i<northWallInt[ 8 ] ;i++ )
-    {   for ( int j=0; j<northWallInt[ 9 ] ;j++ )
+    for ( int i=0; i<northWallInt[ 9 ] ;i++ )
+    {   for ( int j=0; j<northWallInt[ 10 ] ;j++ )
         {
-            CreateFloppytownModel( Square_Block, northWallPos + < 4500, -64, 0 > + < 260.7*i, 0, 224*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Block, northWallPos + < 4500, -64, 896 > + < 260.7*i, 0, 224*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
         }
     }
-    for ( int i=0; i<northWallInt[ 10 ] ;i++ )
-    {   for ( int j=0; j<northWallInt[ 11 ] ;j++ )
+    for ( int i=0; i<northWallInt[ 11 ] ;i++ )
+    {   for ( int j=0; j<northWallInt[ 12 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, northWallPos + < 5044, -64, 0 > + < 529*i, 0, 200*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, northWallPos + < 5044, -64, 1000 > + < 529*i, 0, 200*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
         }
     }
 
@@ -175,30 +175,30 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // SOUTH WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector southWallPos = mapPos + < 5888, 0, 0 >
-    array< int > southWallInt = [ 2, 13, 11, 12, 19, 11, 3, 14 ]
+    array< int > southWallInt = [ 2, 3, 6, 7, 19, 4, 3, 6 ]
 
     for ( int i=0; i<southWallInt[ 0 ] ;i++ )
     {   for ( int j=0; j<southWallInt[ 1 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, southWallPos + < -500, -80, 0 > + < 529*i, 0, 200*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, southWallPos + < -500, -80, 2000 > + < 529*i, 0, 200*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<southWallInt[ 2 ] ;i++ )
     {   for ( int j=0; j<southWallInt[ 3 ] ;j++ )
         {
-            CreateFloppytownModel( Square_Block, southWallPos + < -3400, 0, 0 > + < 260.7*i, 0, 224*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Block, southWallPos + < -2358, 0, 1120 > + < 260.7*i, 0, 224*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<southWallInt[ 4 ] ;i++ )
     {   for ( int j=0; j<southWallInt[ 5 ] ;j++ )
         {
-            CreateFloppytownModel( Wall_Pillar, southWallPos + < -5840, -32, 0 > + < 128*i, 0, 286*j >, mapAng + < 0, 270, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Wall_Pillar, southWallPos + < -5840, -32, 2002 > + < 128*i, 0, 286*j >, mapAng + < 0, 270, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<southWallInt[ 6 ] ;i++ )
     {   for ( int j=0; j<southWallInt[ 7 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, southWallPos + < -3400, -64, 0 > + < 529*i, 0, 200*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, southWallPos + < -3400, -64, 1600 > + < 529*i, 0, 200*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
 
@@ -206,7 +206,7 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // WEST WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector westWallPos = mapPos + < 0, 0, 0 >
-    array< int > westWallInt = [ 13, 4, 11, 10, 1, 2, 1, 11 ]
+    array< int > westWallInt = [ 13, 4, 11, 8, 1, 2, 1, 5 ]
 
     for ( int i=0; i<westWallInt[ 0 ] ;i++ )
     {   for ( int j=0; j<westWallInt[ 1 ] ;j++ )
@@ -217,7 +217,7 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     for ( int i=0; i<westWallInt[ 2 ] ;i++ )
     {   for ( int j=0; j<westWallInt[ 3 ] ;j++ )
         {
-            CreateFloppytownModel( Square_Block, westWallPos + < 0, 1664, 0 > + < 0, 260.7*i, 224*j >, mapAng + < 0, 270, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Block, westWallPos + < 0, 1664, 448 > + < 0, 260.7*i, 224*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<westWallInt[ 4 ] ;i++ )
@@ -229,7 +229,7 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     for ( int i=0; i<westWallInt[ 6 ] ;i++ )
     {   for ( int j=0; j<westWallInt[ 7 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, westWallPos + < -89, 4360, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 270, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, westWallPos + < -89, 4360, 1200 > + < 0, 529*i, 200*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
         }
     }
 
@@ -237,40 +237,34 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // EAST WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector eastWallPos = mapPos + < 5632, 4335, -0.1 >
-    array< int > eastWallInt = [ 2, 13, 1, 12, 2, 14, 5, 12, 2, 14, 6, 13 ]
+    array< int > eastWallInt = [ 2, 4, 2, 5, 5, 2, 2, 14, 6, 13 ]
 
     for ( int i=0; i<eastWallInt[ 0 ] ;i++ )
     {   for ( int j=0; j<eastWallInt[ 1 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, 0, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, 0, 1600 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<eastWallInt[ 2 ] ;i++ )
     {   for ( int j=0; j<eastWallInt[ 3 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, -529, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, -1058, 1600 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<eastWallInt[ 4 ] ;i++ )
     {   for ( int j=0; j<eastWallInt[ 5 ] ;j++ )
         {
-            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, -1058, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Block, eastWallPos + < 0, -2600, 2240 > + < 0, 260.7*i, 224*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<eastWallInt[ 6 ] ;i++ )
     {   for ( int j=0; j<eastWallInt[ 7 ] ;j++ )
         {
-            CreateFloppytownModel( Square_Block, eastWallPos + < 0, -2600, 0 > + < 0, 260.7*i, 224*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, -2730, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
     for ( int i=0; i<eastWallInt[ 8 ] ;i++ )
     {   for ( int j=0; j<eastWallInt[ 9 ] ;j++ )
-        {
-            CreateFloppytownModel( Slanted_Slice, eastWallPos + < 0, -2730, 0 > + < 0, 529*i, 200*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
-        }
-    }
-    for ( int i=0; i<eastWallInt[ 10 ] ;i++ )
-    {   for ( int j=0; j<eastWallInt[ 11 ] ;j++ )
         {
             CreateFloppytownModel( Square_Block, eastWallPos + < -64, -4450, 0 > + < 0, 260.7*i, 224*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
@@ -374,12 +368,12 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     vector build002Pos = mapPos + < 128, 4352, 0 > //areaCPos//
     array< int > build002Int = [ 3, 5, 3, 3, 2, 2, 4, 3, 2, 3, 1, 3, 1, 3, 2, 2, 2, 2, 3, 2, 3, 2, 1, 2]
 
-    for ( int i=0; i<build002Int[ 0 ] ;i++ )
-    {   for ( int j=0; j<build002Int[ 1 ] ;j++ )
-        {
-            CreateFloppytownModel( Thunderdome_Wall, build002Pos + < 0, 512, 0 > + < 256*i, 0, 256*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
-        }
-    }
+    //for ( int i=0; i<build002Int[ 0 ] ;i++ )  // Side of the building not visible //
+    //{   for ( int j=0; j<build002Int[ 1 ] ;j++ )
+    //    {
+    //        CreateFloppytownModel( Thunderdome_Wall, build002Pos + < 0, 512, 0 > + < 256*i, 0, 256*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+    //    }
+    //}
     for ( int i=0; i<build002Int[ 2 ] ;i++ )
     {   for ( int j=0; j<build002Int[ 3 ] ;j++ )
         {
@@ -392,12 +386,12 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Thunderdome_Wall, build002Pos + < 640, 128, 768 > + < 0, 256*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
         }
     }
-    for ( int i=0; i<build002Int[ 6 ] ;i++ )
-    {   for ( int j=0; j<build002Int[ 7 ] ;j++ )
-        {
-            CreateFloppytownModel( Thunderdome_Wall, build002Pos + < -128, -384, 0 > + < 0, 256*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
-        }
-    }
+    //for ( int i=0; i<build002Int[ 6 ] ;i++ )  // Side of the building not visible //
+    //{   for ( int j=0; j<build002Int[ 7 ] ;j++ )
+    //    {
+    //        CreateFloppytownModel( Thunderdome_Wall, build002Pos + < -128, -384, 0 > + < 0, 256*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
+    //    }
+    //}
     for ( int i=0; i<build002Int[ 8 ] ;i++ )
     {   for ( int j=0; j<build002Int[ 9 ] ;j++ )
         {
@@ -423,12 +417,12 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
         }
     }
     CreateFloppytownModel( Thunderdome_Ceiling, build002Pos + < 256, -384, 768 > + < 256, 256, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
-    for ( int i=0; i<build002Int[ 16 ] ;i++ )
-    {   for ( int j=0; j<build002Int[ 17 ] ;j++ )
-        {
-            CreateFloppytownModel( Thunderdome_Wall, build002Pos + < -128, 128, 768 > + < 0, 256*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
-        }
-    }
+    //for ( int i=0; i<build002Int[ 16 ] ;i++ ) // Side of the building not visible //
+    //{   for ( int j=0; j<build002Int[ 17 ] ;j++ )
+    //    {
+    //        CreateFloppytownModel( Thunderdome_Wall, build002Pos + < -128, 128, 768 > + < 0, 256*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
+    //    }
+    //}
     for ( int i=0; i<build002Int[ 18 ] ;i++ )
     {   for ( int j=0; j<build002Int[ 19 ] ;j++ )
         {
