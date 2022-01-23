@@ -68,6 +68,7 @@ void function InitializeProps()
     PerimeterZone( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_01_10( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_11_20( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
+    Build_21_30( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
 
     if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
@@ -314,7 +315,7 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_001 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build001Pos = mapPos + < 2664, 4352, 0 > //areaCPos//
-    array< int > build001Int = [ 2, 3, 9, 7, 1, 7 ]
+    array< int > build001Int = [ 2, 3, 9, 7, 1, 7, 3, 1, 8, 1, 2, 1, 4, 2 ]
 
     for ( int i=0; i<build001Int[ 0 ] ;i++ )
     {   for ( int j=0; j<build001Int[ 1 ] ;j++ )
@@ -336,6 +337,34 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Square_Shell_Box, build001Pos + < 568, -464, SSB_UpTo0_Patch > + < 0, 128*i, 256*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
+    for ( int i=0; i<build001Int[ 6 ] ;i++ )
+    {   for ( int j=0; j<build001Int[ 7 ] ;j++ )
+        {
+            CreateFloppytownModel( Square_Shell_Box, build001Pos + < 592, -864, SSB_UpTo0_Patch > + < 0, 128*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Shell_Box, build001Pos + < -464, -850, SSB_UpTo0_Patch > + < 0, 128*i, 256*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build001Int[ 8 ] ;i++ )
+    {   for ( int j=0; j<build001Int[ 9 ] ;j++ )
+        {
+            CreateFloppytownModel( Square_Shell_Box, build001Pos + < -400, -912, SSB_UpTo0_Patch > + < 128*i, 0, 256*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+        }
+    }
+    CreateFloppytownModel( Square_Shell_Box, build001Pos + < 568, -848, SSB_UpTo0_Patch >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+    for ( int i=0; i<build001Int[ 10 ] ;i++ )
+    {   for ( int j=0; j<build001Int[ 11 ] ;j++ )
+        {
+            CreateFloppytownModel( Mid_Platform, build001Pos + < -256+64, -720, 256 > + < 512*i, 0*j, 0 >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build001Int[ 12 ] ;i++ )
+    {   for ( int j=0; j<build001Int[ 13 ] ;j++ )
+        {
+            CreateFloppytownModel( Thunderdome_Ceiling, build001Pos + < -384+64, -784, 192 > + < 256*i, 256*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+        }
+    }
+
+    // Ziplines
     CreateFloppytownZiplineModel( build001Pos + < 592, 0, 1792.1 >, < 0, -90, 0 > )
     CreateFloppytownZiplineModel( build001Pos + < -592, 256, 1792.1 >, < 0, 90, 0 > )
 
@@ -343,7 +372,7 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_002 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build002Pos = mapPos + < 128, 4352, 0 > //areaCPos//
-    array< int > build002Int = [ 3, 5, 3, 3, 2, 2, 4, 3, 2, 3, 1, 3, 1, 3, 2, 2, 2, 2, 3, 2, 3, 2 ]
+    array< int > build002Int = [ 3, 5, 3, 3, 2, 2, 4, 3, 2, 3, 1, 3, 1, 3, 2, 2, 2, 2, 3, 2, 3, 2, 1, 2]
 
     for ( int i=0; i<build002Int[ 0 ] ;i++ )
     {   for ( int j=0; j<build002Int[ 1 ] ;j++ )
@@ -412,6 +441,17 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
             CreateFloppytownModel( Thunderdome_Ceiling, build002Pos + < 0, 128, 1280 > + < 256*i, 256*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
+    for ( int i=0; i<build002Int[ 22 ] ;i++ )
+    {   for ( int j=0; j<build002Int[ 23 ] ;j++ )
+        {
+            CreateFloppytownModel( Thunderdome_Wall, build002Pos + < 896, 128, -96 > + < 256*i, 256*j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build002Pos + < 767.6, 128, 200 > + < 256*i, 256*j, 0 >, mapAng + < 25, 0, 0 >, true, 20000, -1 )
+        }
+    }
+    CreateFloppytownModel( Thunderdome_Wall, build002Pos + < 768, 0, -96 > , mapAng + < 0, 0, 0 >, true, 20000, -1 )
+    CreateFloppytownModel( Thunderdome_Mini_Ceiling, build002Pos + < 760, 12, 148 > , mapAng + < -65, 0, 90 >, true, 20000, -1 )
+
+    // Ziplines
     CreateFloppytownZiplineModel( build002Pos + < 640, 256, 1280 >, < 0, -90, 0 > )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1127,6 +1167,33 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILD_020 //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector build020Pos = mapPos + < 1280, 1600, 0 > //areaCPos//
+    array< int > build020Int = [ 2, 2, 8, 1, 6, 1 ]
+
+    for ( int i=0; i<build020Int[ 0 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 1 ] ;j++ )
+        {
+            CreateFloppytownModel( Mid_Platform, build020Pos + < -192, -256, 256 > + < 384*i, 512*j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build020Int[ 2 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 3 ] ;j++ )
+        {
+            CreateFloppytownModel( Square_Shell_Box, build020Pos + < 384, -448, SSB_UpTo0_Patch > + < 0, 128*i, 256*j >, mapAng + < 0, -90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Shell_Box, build020Pos + < -384, -448, SSB_UpTo0_Patch > + < 0, 128*i, 256*j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build020Int[ 4 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 5 ] ;j++ )
+        {
+            CreateFloppytownModel( Square_Shell_Box, build020Pos + < -320, 512, SSB_UpTo0_Patch > + < 128*i, 0, 256*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Shell_Box, build020Pos + < -320, -512, SSB_UpTo0_Patch > + < 128*i, 0, 256*j >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
@@ -1140,6 +1207,49 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
         CreateEditorRef( build017Pos, mapAng, "Build 017" )
         CreateEditorRef( build018Pos, mapAng, "Build 018" )
         CreateEditorRef( build019Pos, mapAng, "Build 019" )
+        CreateEditorRef( build020Pos, mapAng, "Build 020" )
+    }
+}
+
+void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector areaCAng )
+{
+    // var that need to be declared in each function //
+    int SSB_UpTo0 = 128 // set to 0 Square_Shell_Box axis Z
+    float SSB_UpTo0_Patch = SSB_UpTo0 - 0.1
+    ///////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BUILD_021 //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector build021Pos = areaCPos //mapPos + < 0, 0, 0 > //areaCPos//
+    array< int > build021Int = [ 0, 0, 0, 0, 0, 0 ]
+
+    for ( int i=0; i<build021Int[ 0 ] ;i++ )
+    {   for ( int j=0; j<build021Int[ 1 ] ;j++ )
+        {
+            CreateFloppytownModel( Mid_Platform, build021Pos + < 0, 0, 0 > + < 512*i, 0*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build021Int[ 2 ] ;i++ )
+    {   for ( int j=0; j<build021Int[ 3 ] ;j++ )
+        {
+            CreateFloppytownModel( Concrete_Panel, build021Pos + < 0, 0, 0 > + < 128*i, 0, 128*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+        }
+    }
+    for ( int i=0; i<build021Int[ 4 ] ;i++ )
+    {   for ( int j=0; j<build021Int[ 5 ] ;j++ )
+        {
+            CreateFloppytownModel( Thunderdome_Ceiling, build021Pos + < 0, 0, 0 > + < 256*i, 256*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+        }
+    }
+
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    {
+        CreateEditorRef( build021Pos, mapAng, "Build 021" )
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1150,27 +1260,27 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
 
     /*
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // BUILD_010 // BUILD TEMPLATE //
+    // BUILD_020 // BUILD TEMPLATE //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build010Pos = areaCPos //mapPos + < 0, 0, 0 > //areaCPos//
-    array< int > build010Int = [ 0, 0, 0, 0, 0, 0 ]
+    vector build020Pos = areaCPos //mapPos + < 0, 0, 0 > //areaCPos//
+    array< int > build020Int = [ 0, 0, 0, 0, 0, 0 ]
 
-    for ( int i=0; i<build010Int[ 0 ] ;i++ )
-    {   for ( int j=0; j<build010Int[ 1 ] ;j++ )
+    for ( int i=0; i<build020Int[ 0 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 1 ] ;j++ )
         {
-            CreateFloppytownModel( Mid_Platform, build010Pos + < 0, 0, 0 > + < 512*i, 0*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Mid_Platform, build020Pos + < 0, 0, 0 > + < 512*i, 0*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
-    for ( int i=0; i<build010Int[ 2 ] ;i++ )
-    {   for ( int j=0; j<build010Int[ 3 ] ;j++ )
+    for ( int i=0; i<build020Int[ 2 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 3 ] ;j++ )
         {
-            CreateFloppytownModel( Concrete_Panel, build010Pos + < 0, 0, 0 > + < 128*i, 0, 128*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Concrete_Panel, build020Pos + < 0, 0, 0 > + < 128*i, 0, 128*j >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
-    for ( int i=0; i<build010Int[ 4 ] ;i++ )
-    {   for ( int j=0; j<build010Int[ 5 ] ;j++ )
+    for ( int i=0; i<build020Int[ 4 ] ;i++ )
+    {   for ( int j=0; j<build020Int[ 5 ] ;j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build010Pos + < 0, 0, 0 > + < 256*i, 256*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build020Pos + < 0, 0, 0 > + < 256*i, 256*j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     */
