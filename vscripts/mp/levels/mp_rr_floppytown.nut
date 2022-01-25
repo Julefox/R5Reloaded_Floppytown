@@ -36,7 +36,7 @@ void function CodeCallback_MapInit()
 {
     FloppyTown_MapInit_Common()
 
-    printt( "Hello " + GetMapName() )
+    printt( "Hello " + GetMapName() + " !" )
 
     InitializeProps()
 	PrinttPropsCount()
@@ -63,10 +63,11 @@ void function InitializeProps()
     vector areaPos = FloppyTownPos + < -5000, 0, 0 >
     vector areaAng = FloppyTownAng + < 0, 180, 0 >
     // Center of the construction area of the buildings
-    vector areaCPos = areaPos + < 1480, 1232, 0 >
+    vector areaCPos = areaPos + < 1536, 1232, 0 >
     vector areaCAng = areaAng + < 0, 0, 0 >
 
     PerimeterZone( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
+    GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_01_10( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_11_20( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_21_30( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
@@ -89,6 +90,13 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang, bool man
     prop.e.gameModeId = realm
     prop.SetScriptName( "FloppyTownEntities" )
     return prop
+}
+void function CreateFloppytownGrass( vector pos )
+{
+    for ( int i = 0 ; i <  2 ; i++ )
+    {   for ( int j = 0 ; j <  2 ; j++ )
+        { CreateFloppytownModel( Grass, pos + < -32, -32, 4 > + < 100 * i, 100 * j, 0 > , < 0, 0, 0 >, true, 20000, -1 ).SetModelScale( 1.5 ) }
+    }
 }
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
 {
@@ -116,7 +124,10 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // FLOOR //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector floorPos = mapPos
-    array< int > floorInt = [ 5, 14, 1, 3 ] // to make it easier to reference buildings put "6" in "floorInt[ 0 ]"
+    array< int > floorInt = // to make it easier to reference buildings put "6" in "floorInt[ 0 ]"
+    [
+        5, 14, 1, 4
+    ]
 
     for ( int i = 0 ; i < floorInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < floorInt[ 1 ] ; j++ )
@@ -135,7 +146,11 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // NORTH WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector northWallPos = mapPos + <0, 4864, 0>
-    array< int > northWallInt = [ 1, 4, 1, 10, 4, 10, 4, 2, 3, 10, 2, 1, 12, 4, 6, 1, 7 ]
+    array< int > northWallInt =
+    [
+        1, 4, 1, 10, 4, 10, 4, 2, 3, 10,
+        2, 1, 12, 4, 6, 1, 7
+    ]
 
     for ( int i = 0 ; i < northWallInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < northWallInt[ 1 ] ; j++ )
@@ -194,7 +209,10 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // SOUTH WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector southWallPos = mapPos + < 5888, 0, 0 >
-    array< int > southWallInt = [ 2, 3, 5, 7, 1, 3, 19, 4, 3, 6 ]
+    array< int > southWallInt =
+    [
+        2, 3, 5, 7, 1, 3, 19, 4, 3, 6
+    ]
 
     for ( int i = 0 ; i < southWallInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < southWallInt[ 1 ] ; j++ )
@@ -231,7 +249,11 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // WEST WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector westWallPos = mapPos + < 0, 0, 0 >
-    array< int > westWallInt = [ 13, 4, 2, 5, 6, 8, 2, 5, 3, 7, 1, 2, 1, 5 ]
+    array< int > westWallInt =
+    [
+        13, 4, 2, 5, 6, 8, 2, 5, 3, 7,
+        1, 2, 1, 5
+    ]
 
     for ( int i = 0 ; i < westWallInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < westWallInt[ 1 ] ; j++ )
@@ -280,7 +302,11 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     // EAST WALL //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector eastWallPos = mapPos + < 5632, 4335, -0.1 >
-    array< int > eastWallInt = [ 2, 4, 2, 5, 5, 2, 2, 14, 2, 13, 3, 4 ]
+    array< int > eastWallInt =
+    [
+        2, 4, 2, 5, 5, 2, 2, 14, 2, 13,
+        3, 4
+    ]
 
     for ( int i = 0 ; i < eastWallInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < eastWallInt[ 1 ] ; j++ )
@@ -315,22 +341,9 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     for ( int i = 0 ; i < eastWallInt[ 10 ] ; i++ )
     {   for ( int j = 0 ; j < eastWallInt[ 11 ] ; j++ )
         {
-            CreateFloppytownModel( Square_Block, eastWallPos + < -64, -3500-782.1, 2016 > + < 0, 260.7 * i, 224 * j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Square_Block, eastWallPos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // GRASS // NEED TO BE FIXED
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector grassPos = mapPos + < 128, 128, 10 > //areaCPos // .z 0 - 20 ?
-    array< int > grassInt = [ 39, 38 ]
-
-    /* for ( int i = 0 ; i < grassInt[ 0 ] ; i++ )
-    {   for ( int j = 0 ; j < grassInt[ 1 ] ; j++ )
-        {
-            CreateFloppytownModel( Grass, grassPos + < 147 * i, 128 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 ).SetModelScale( 2 )
-        }
-    }*/
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
@@ -339,11 +352,111 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     {
         CreateEditorRef( mapPos, mapAng, "Spawn point Floppytown" )
         CreateEditorRef( mapPos + < ( 1024 * floorInt[ 0 ] ) / 2, ( 352 * floorInt[ 1 ] ) / 2, 0 > , mapAng, "Center point Floppytown" )
-        CreateEditorRef( grassPos, mapAng, "Grass 001" )
         CreateEditorRef( northWallPos, mapAng, "North Wall" )
         CreateEditorRef( southWallPos, mapAng, "South Wall" )
         CreateEditorRef( westWallPos, mapAng, "West Wall" )
         CreateEditorRef( eastWallPos, mapAng, "East Wall" )
+    }
+}
+
+void function GrassInit( vector mapPos, vector mapAng, vector areaCPos, vector areaCAng )
+{
+    // var that need to be declared in each function //
+    int SSB_UpTo0 = 128 // set to 0 Square_Shell_Box axis Z
+    float SSB_UpTo0_Patch = SSB_UpTo0 - 0.1
+    ///////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // GRASS //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    vector grassPos = mapPos + < 128, 128, 10 > //areaCPos // .z 0 - 20 ?
+    array< int > grassInt =
+    [
+        1, 4, 1, 16, 1, 19, 1, 21, 3, 3,
+        6, 15, 2, 8, 2, 9, 4, 3, 8, 3,
+        6, 5, 4, 17, 4, 2, 7, 3, 7, 5,
+        5, 5, 2, 6, 1, 7, 3, 8, 3, 2
+    ]
+
+    for ( int i = 0 ; i < grassInt[ 0 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 1 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 0, 2944, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 2 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 3 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 256, 768, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 4 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 5 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 512, 512, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 6 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 7 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 768, 256, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 8 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 9 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 1024, 512, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 10 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 11 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 1024, 2048, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 12 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 13 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 1636, 512, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 14 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 15 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 1892, 320, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 16 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 17 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 2276, 320, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 18 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 19 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 2276, 1280, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 20 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 21 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 2148, 2360, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 22 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 23 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3072, 1536, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 24 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 25 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3072, 512, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 26 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 27 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3712, 192, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 28 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 29 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 4224, 768, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 30 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 31 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3840, 1792, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 32 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 33 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3840, 1792, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 34 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 35 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 3872, 3372, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 36 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 37 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 4528, 2244, 0 > + < 192 * i, 192 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < grassInt[ 38 ] ; i++ )
+    {   for ( int j = 0 ; j < grassInt[ 39 ] ; j++ )
+        { CreateFloppytownGrass( grassPos + < 4150-128, 3550-128, 0 > + < 192 * i, 192 * j, 0 > ) }
     }
 }
 
@@ -358,7 +471,11 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_001 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build001Pos = mapPos + < 2664, 4352, 0 > //areaCPos//
-    array< int > build001Int = [ 2, 3, 9, 7, 1, 7, 3, 1, 8, 1, 2, 1, 4, 2 ]
+    array< int > build001Int =
+    [
+        2, 3, 9, 7, 1, 7, 3, 1, 8, 1,
+        2, 1, 4, 2
+    ]
 
     for ( int i = 0 ; i < build001Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build001Int[ 1 ] ; j++ )
@@ -397,13 +514,13 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0 ; i < build001Int[ 10 ] ; i++ )
     {   for ( int j = 0 ; j < build001Int[ 11 ] ; j++ )
         {
-            CreateFloppytownModel( Mid_Platform, build001Pos + < -256+64, -720, 256 > + < 512 * i, 0 * j, 0 >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Mid_Platform, build001Pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, mapAng + < 0, 180, 0 >, true, 20000, -1 )
         }
     }
     for ( int i = 0 ; i < build001Int[ 12 ] ; i++ )
     {   for ( int j = 0 ; j < build001Int[ 13 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build001Pos + < -384+64, -784, 192 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build001Pos + < -320, -784, 192 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
 
@@ -415,7 +532,12 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_002 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build002Pos = mapPos + < 128, 4352, 0 > //areaCPos//
-    array< int > build002Int = [ 3, 5, 3, 3, 2, 2, 4, 3, 2, 3, 1, 3, 1, 3, 2, 2, 2, 2, 3, 2, 3, 2, 1, 2]
+    array< int > build002Int =
+    [
+        3, 5, 3, 3, 2, 2, 4, 3, 2, 3,
+        1, 3, 1, 3, 2, 2, 2, 2, 3, 2,
+        3, 2, 1, 2
+    ]
 
     //for ( int i = 0 ; i < build002Int[ 0 ] ; i++ )  // Side of the building not visible //
     //{   for ( int j = 0 ; j < build002Int[ 1 ] ; j++ )
@@ -501,7 +623,10 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_003 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build003Pos = mapPos + < 64, 3328, 0 > //areaCPos//
-    array< int > build003Int = [ 1, 3, 6, 5, 1, 3, 2, 3, 1, 2 ]
+    array< int > build003Int =
+    [
+        1, 3, 6, 5, 1, 3, 2, 3, 1, 2
+    ]
 
     for ( int i = 0 ; i < build003Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build003Int[ 1 ] ; j++ )
@@ -539,7 +664,10 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_004 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build004Pos = mapPos + < 128, 2560, 0 > //areaCPos//
-    array< int > build004Int = [ 3, 2, 1, 3, 1, 2 ]
+    array< int > build004Int =
+    [
+        3, 2, 1, 3, 1, 2 
+    ]
 
     for ( int i = 0 ; i < build004Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build004Int[ 1 ] ; j++ )
@@ -564,7 +692,10 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_005 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build005Pos = mapPos + < 128, 1856, 0 > //areaCPos//
-    array< int > build005Int = [ 5, 5, 1, 3, 1, 2 ]
+    array< int > build005Int =
+    [
+        5, 5, 1, 3, 1, 2
+    ]
 
     for ( int i = 0 ; i < build005Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build005Int[ 1 ] ; j++ )
@@ -585,7 +716,10 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_006 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build006Pos = mapPos + < 128, 1152, 0 > //areaCPos//
-    array< int > build006Int = [ 3, 7, 1, 3, 1, 3, 1, 7, 2, 4 ]
+    array< int > build006Int =
+    [
+        3, 7, 1, 3, 1, 3, 1, 7, 2, 4
+    ]
 
     for ( int i = 0 ; i < build006Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build006Int[ 1 ] ; j++ )
@@ -623,7 +757,13 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_007 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build007Pos = mapPos + < 128, 128, 0 > //areaCPos//
-    array< int > build007Int = [ 5, 2, 2, 1, 1, 2, 2, 2, 1, 7, 1, 9, 1, 9, 3, 8, 1, 9, 1, 16, 4, 3, 2, 1, 2, 9, 1, 4, 1, 8, 1, 2, 1, 2, 3, 2 ]
+    array< int > build007Int =
+    [
+        5, 2, 2, 1, 1, 2, 2, 2, 1, 7,
+        1, 9, 1, 9, 3, 8, 1, 9, 1, 16,
+        4, 3, 2, 1, 2, 9, 1, 4, 1, 8,
+        1, 2, 1, 2, 3, 2
+    ]
 
     for ( int i = 0 ; i < build007Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build007Int[ 1 ] ; j++ )
@@ -745,8 +885,11 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_008 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build008Pos = mapPos + < 2048+512, 128, 0 > //areaCPos//
-    array< int > build008Int = [ 2, 1, 8, 13, 4, 2 ]
+    vector build008Pos = mapPos + < 2560, 128, 0 > //areaCPos//
+    array< int > build008Int =
+    [
+        2, 1, 8, 13, 4, 2
+    ]
 
     for ( int i = 0 ; i < build008Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build008Int[ 1 ] ; j++ )
@@ -763,7 +906,7 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0 ; i < build008Int[ 4 ] ; i++ )
     {   for ( int j = 0 ; j < build008Int[ 5 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build008Pos + < -384, -128, 1632-32 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build008Pos + < -384, -128, 1600 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
 
@@ -771,7 +914,11 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_009 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build009Pos = mapPos + < 3456, 128, 0 > //areaCPos//
-    array< int > build009Int = [ 2, 1, 3, 8, 3, 2, 2, 2, 2, 3, 1, 6 ]
+    array< int > build009Int =
+    [
+        2, 1, 3, 8, 3, 2, 2, 2, 2, 3,
+        1, 6
+    ]
 
     for ( int i = 0 ; i < build009Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build009Int[ 1 ] ; j++ )
@@ -815,7 +962,10 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_010 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build010Pos = mapPos + < 4352, 128, 0 > //areaCPos//
-    array< int > build010Int = [ 4, 1, 4, 5 ]
+    array< int > build010Int =
+    [
+        4, 1, 4, 5
+    ]
 
     for ( int i = 0 ; i < build010Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build010Int[ 1 ] ; j++ )
@@ -862,7 +1012,10 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_011 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build011Pos = mapPos + < 5376, 128, 0 > //areaCPos//
-    array< int > build011Int = [ 2, 3, 2, 8, 2, 8, 4, 8, 4, 8 ]
+    array< int > build011Int =
+    [
+        2, 3, 2, 8, 2, 8, 4, 8, 4, 8
+    ]
 
     for ( int i = 0 ; i < build011Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build011Int[ 1 ] ; j++ )
@@ -900,7 +1053,12 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_012 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build012Pos = mapPos + < 5504, 1920, 0 > //areaCPos//
-    array< int > build012Int = [ 2, 5, 2, 4, 2, 9, 2, 9, 1, 5, 1, 5, 4, 3, 1, 9, 1, 2, 1, 3, 2, 4, 2, 1 ]
+    array< int > build012Int =
+    [
+        2, 5, 2, 4, 2, 9, 2, 9, 1, 5,
+        1, 5, 4, 3, 1, 9, 1, 2, 1, 3,
+        2, 4, 2, 1
+    ]
 
     for ( int i = 0 ; i < build012Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build012Int[ 1 ] ; j++ )
@@ -977,13 +1135,16 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     }
 
     // Ziplines
-    CreateFloppytownZiplineModel( build012Pos + < -128, 1032, 2304 >, < 0, 0, 0 > )
+    CreateFloppytownZiplineModel( build012Pos + < -128, 1024, 2304 >, < 0, 0, 0 > )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_013 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build013Pos = mapPos + < 5504, 3072, 0 > //areaCPos//
-    array< int > build013Int = [ 1, 5, 7, 7, 8, 3, 2, 8 ]
+    array< int > build013Int =
+    [
+        1, 5, 7, 7, 8, 3, 2, 8
+    ]
 
     for ( int i = 0 ; i < build013Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build013Int[ 1 ] ; j++ )
@@ -1006,7 +1167,7 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0; i < build013Int[ 6 ] ; i++ )
     {   for ( int j = 0; j < build013Int[ 7 ] ; j++ )
         {
-           CreateFloppytownModel( Thunderdome_Ceiling, build013Pos + < -256, 0, 1760-32 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+           CreateFloppytownModel( Thunderdome_Ceiling, build013Pos + < -256, 0, 1728 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
 
@@ -1014,7 +1175,10 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_014 // BUILD TEMPLATE //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build014Pos = mapPos + < 4608, 4352, 0 > //areaCPos//
-    array< int > build014Int = [ 4, 4, 4, 4, 2, 3, 4, 4 ]
+    array< int > build014Int =
+    [
+        4, 4, 4, 4, 2, 3, 4, 4
+    ]
 
     for ( int i = 0 ; i < build014Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build014Int[ 1 ] ; j++ )
@@ -1037,15 +1201,18 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0 ; i < build014Int[ 6 ] ; i++ )
     {   for ( int j = 0 ; j < build014Int[ 7 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build014Pos + < -384, -384, 992-32 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build014Pos + < -384, -384, 960 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_015 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build015Pos = mapPos + < 1408, 4480+128, 0 > //areaCPos//
-    array< int > Build_015_int = [ 7, 1, 11, 1, 0, 0 ]
+    vector build015Pos = mapPos + < 1408, 4608, 0 > //areaCPos//
+    array< int > Build_015_int =
+    [
+        7, 1, 11, 1, 0, 0
+    ]
 
     for ( int i = 0 ; i < Build_015_int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < Build_015_int[ 1 ] ; j++ )
@@ -1071,8 +1238,11 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_016 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build016Pos = mapPos + < 4096, 3072, 0 > //areaCPos//
-    array< int > build016Int = [ 3, 5, 3, 3 ]
+    vector build016Pos = mapPos + < 4224, 3072, 0 > //areaCPos//
+    array< int > build016Int =
+    [
+        3, 5, 3, 3
+    ]
 
     for ( int i = 0 ; i < build016Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build016Int[ 1 ] ; j++ )
@@ -1093,8 +1263,11 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_017 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build017Pos = mapPos + < 1152, 2944, 0 > //areaCPos//
-    array< int > build017Int = [ 3, 3 ]
+    vector build017Pos = mapPos + < 1152, 3008, 0 > //areaCPos//
+    array< int > build017Int =
+    [
+        3, 3
+    ]
 
     for ( int i = 0 ; i < build017Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build017Int[ 1 ] ; j++ )
@@ -1114,8 +1287,11 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_018 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build018Pos = mapPos + < 2944, 2176, 0 > //areaCPos//
-    array< int > build018Int = [ 4, 5, 8, 5, 2, 1, 4, 2 ]
+    vector build018Pos = mapPos + < 2688, 2176, 0 > //areaCPos//
+    array< int > build018Int =
+    [
+        4, 5, 8, 5, 2, 1, 4, 2
+    ]
 
     for ( int i = 0 ; i < build018Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build018Int[ 1 ] ; j++ )
@@ -1141,15 +1317,20 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0 ; i < build018Int[ 6 ] ; i++ )
     {   for ( int j = 0 ; j < build018Int[ 7 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build018Pos + < -384, -128, 1248-32 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build018Pos + < -384, -128, 1216 > + < 256 * i, 256 * j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_019 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build019Pos = mapPos + < 3968, 1344, 0 > //areaCPos//
-    array< int > build019Int = [ 1, 2, 8, 5, 3, 5, 3, 5, 12, 5, 12, 5, 4, 5, 1, 5, 3, 5, 3, 1, 1, 4, 1, 4, 6, 1, 6, 1 ]
+    vector build019Pos = mapPos + < 4096, 1344, 0 > //areaCPos//
+    array< int > build019Int =
+    [
+        1, 2, 8, 5, 3, 5, 3, 5, 12, 5,
+        12, 5, 4, 5, 1, 5, 3, 5, 3, 1,
+        1, 4, 1, 4, 6, 1, 6, 1
+    ]
 
     for ( int i = 0 ; i < build019Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build019Int[ 1 ] ; j++ )
@@ -1214,33 +1395,36 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     for ( int i = 0 ; i < build019Int[ 20 ] ; i++ )
     {   for ( int j = 0 ; j < build019Int[ 21 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Mini_Ceiling, build019Pos + < 128, -384, 1248-32 > + < 0 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Mini_Ceiling, build019Pos + < 128, -384, 1216 > + < 0 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     for ( int i = 0 ; i < build019Int[ 22 ] ; i++ )
     {   for ( int j = 0 ; j < build019Int[ 23 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build019Pos + < -64, -384, 1248-32 > + < 0 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build019Pos + < -64, -384, 1216 > + < 0 * i, 256 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     for ( int i = 0 ; i < build019Int[ 24 ] ; i++ )
     {   for ( int j = 0 ; j < build019Int[ 25 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Ceiling, build019Pos + < -1600, -256, 1248-32 > + < 256 * i, 0 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Ceiling, build019Pos + < -1600, -256, 1216 > + < 256 * i, 0 * j, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
         }
     }
     for ( int i = 0 ; i < build019Int[ 26 ] ; i++ )
     {   for ( int j = 0 ; j < build019Int[ 27 ] ; j++ )
         {
-            CreateFloppytownModel( Thunderdome_Mini_Ceiling, build019Pos + < -1600, -64, 1248-32 > + < 256 * i, 0 * j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
+            CreateFloppytownModel( Thunderdome_Mini_Ceiling, build019Pos + < -1600, -64, 1216 > + < 256 * i, 0 * j, 0 >, mapAng + < 0, 90, 0 >, true, 20000, -1 )
         }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BUILD_020 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    vector build020Pos = mapPos + < 1280, 1600, 0 > //areaCPos//
-    array< int > build020Int = [ 2, 2, 8, 1, 6, 1 ]
+    vector build020Pos = mapPos + < 1344, 1600, 0 > //areaCPos//
+    array< int > build020Int =
+    [
+        2, 2, 8, 1, 6, 1
+    ]
 
     for ( int i = 0 ; i < build020Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build020Int[ 1 ] ; j++ )
@@ -1295,7 +1479,10 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_021 //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build021Pos = areaCPos //mapPos + < 0, 0, 0 > //areaCPos//
-    array< int > build021Int = [ 0, 0, 0, 0, 0, 0 ]
+    array< int > build021Int =
+    [
+        0, 0, 0, 0, 0, 0
+    ]
 
     for ( int i = 0 ; i < build021Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build021Int[ 1 ] ; j++ )
@@ -1322,7 +1509,7 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
-        CreateEditorRef( build021Pos, mapAng, "Build 021" )
+        //CreateEditorRef( build021Pos, mapAng, "Build 021" )
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1336,7 +1523,10 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
     // BUILD_020 // BUILD TEMPLATE //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     vector build020Pos = areaCPos //mapPos + < 0, 0, 0 > //areaCPos//
-    array< int > build020Int = [ 0, 0, 0, 0, 0, 0 ]
+    array< int > build020Int =
+    [
+        0, 0, 0, 0, 0, 0
+    ]
 
     for ( int i = 0 ; i < build020Int[ 0 ] ; i++ )
     {   for ( int j = 0 ; j < build020Int[ 1 ] ; j++ )
@@ -1361,7 +1551,10 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
 
 void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector areaCAng )
 {
-    array< int > areaInt = [ 3, 7 ]
+    array< int > areaInt =
+    [
+        3, 7
+    ]
 
     for ( int i = 0 ; i <  areaInt[ 0 ] ; i++ )
     {   for ( int j = 0 ; j <  areaInt[ 1 ] ; j++ )
@@ -1369,6 +1562,10 @@ void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector
             CreateFloppytownModel( Building_Platform_Large, areaPos + < 1024 * i, 352 * j, 0 >, areaAng , true, 20000, -1 )
         }
     }
+    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 128, 0, 0 >, < 0, 90, 0 >, true, 20000, -1 )
+    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < -128, 0, 0 >, < 0, 90, 0 >, true, 20000, -1 )
+    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 0, 128, 0 >, < 0, 0, 0 >, true, 20000, -1 )
+    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 0, -128, 0 >, < 0, 0, 0 >, true, 20000, -1 )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release

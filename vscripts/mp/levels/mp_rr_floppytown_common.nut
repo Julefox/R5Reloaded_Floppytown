@@ -8,6 +8,7 @@ void function FloppyTown_MapInit_Common()
     #if CLIENT
         CreateFakeEnvLightFloppytown()
     #endif */
+	printt( "FloppyTown_MapInit_Common" )
 }
 
 #if CLIENT
