@@ -8,7 +8,7 @@ asset Thunderdome_Ceiling       = $"mdl/thunderdome/thunderdome_cage_ceiling_256
 asset Thunderdome_Mini_Ceiling  = $"mdl/thunderdome/thunderdome_cage_ceiling_256x128_06.rmdl"
 asset Thunderdome_Frame         = $"mdl/thunderdome/thunderdome_cage_frame_256_01.rmdl"
 asset Thunderdome_Wall_256x352  = $"mdl/thunderdome/thunderdome_cage_wall_256x352_01.rmdl"
-asset Thunderdome_Wall_512x352   = $"mdl/thunderdome/thunderdome_cage_wall_512x352_01.rmdl"
+asset Thunderdome_Wall_512x352  = $"mdl/thunderdome/thunderdome_cage_wall_512x352_01.rmdl"
 asset Square_Block              = $"mdl/desertlands/highrise_Square_Block_03.rmdl"
 asset Grass                     = $"mdl/foliage/icelandic_moss_grass_02.rmdl"
 asset Wall_Pillar               = $"mdl/desertlands/desertlands_city_slanted_building_01_wall_pillar_64.rmdl"
@@ -25,6 +25,11 @@ asset Box_Bottom_B              = $"mdl/desertlands/highrise_square_shell_box_bo
 // Zipline Stuff
 asset Security_Fence            = $"mdl/industrial/security_fence_post.rmdl"
 asset Zip_Arm                   = $"mdl/industrial/zipline_arm.rmdl"
+// Ornament Stuff
+array< asset > ornament         =
+[ 
+    $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
+]
 // Dev Assets
 asset Editor_Ref                = $"mdl/dev/editor_ref.rmdl"
 asset Cubemap                   = $"mdl/menu/menu_cubemap.rmdl"
@@ -67,10 +72,11 @@ void function InitializeProps()
     vector areaCAng = areaAng + < 0, 0, 0 >
 
     PerimeterZone( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
-    GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
+    //GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng ) // Disable for performance
     Build_01_10( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_11_20( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_21_30( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
+    Ornament( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
 
     if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
@@ -456,7 +462,7 @@ void function GrassInit( vector mapPos, vector mapAng, vector areaCPos, vector a
     }
     for ( int i = 0 ; i < grassInt[ 38 ] ; i++ )
     {   for ( int j = 0 ; j < grassInt[ 39 ] ; j++ )
-        { CreateFloppytownGrass( grassPos + < 4150-128, 3550-128, 0 > + < 192 * i, 192 * j, 0 > ) }
+        { CreateFloppytownGrass( grassPos + < 4022, 3422, 0 > + < 192 * i, 192 * j, 0 > ) }
     }
 }
 
@@ -1548,6 +1554,13 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
     }
     */
 }
+void function Ornament( vector mapPos, vector mapAng, vector areaCPos, vector areaCAng )
+{
+    for ( int i = 0 ; i < 2 ; i++ )
+    {
+        CreateFloppytownModel( ornament[0], mapPos + < 4950, 390, 0 > + < 0, 220 * i, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+    }
+}
 
 void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector areaCAng )
 {
@@ -1562,10 +1575,6 @@ void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector
             CreateFloppytownModel( Building_Platform_Large, areaPos + < 1024 * i, 352 * j, 0 >, areaAng , true, 20000, -1 )
         }
     }
-    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 128, 0, 0 >, < 0, 90, 0 >, true, 20000, -1 )
-    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < -128, 0, 0 >, < 0, 90, 0 >, true, 20000, -1 )
-    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 0, 128, 0 >, < 0, 0, 0 >, true, 20000, -1 )
-    CreateFloppytownModel( Thunderdome_Wall, areaCPos + < 0, -128, 0 >, < 0, 0, 0 >, true, 20000, -1 )
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
