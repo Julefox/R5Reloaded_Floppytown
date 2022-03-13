@@ -31,7 +31,7 @@ array< asset > ornament         =
     $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
 ]
 // Dev Assets
-asset Editor_Ref                = $"mdl/dev/editor_ref.rmdl"
+asset Editor_Ref                = $"mdl/dev/editor_ref.rmdl" // $"mdl/dev/empty_model.rmdl"
 asset Cubemap                   = $"mdl/menu/menu_cubemap.rmdl"
 
 vector FloppyTownPos   = < 0, 0, 0 > // map origin // Zips appear with "mp_rr_floppytown_scripts.ent", map position change is not available anymore !
@@ -40,6 +40,11 @@ vector FloppyTownAng   = < 0, 0, 0 > // map angles // not usable !
 void function CodeCallback_MapInit()
 {
     FloppyTown_MapInit_Common()
+
+    //SetConVarInt( "sv_max_prop_data_dwords_multiplayer",        5000000 )
+    //SetConVarInt( "sv_max_prop_data_dwords_huge_multiplayer",   5000000 )
+    //SetConVarInt( "sv_max_props_multiplayer",                   3000000 )
+    //SetConVarInt( "sv_max_props_huge_multiplayer",              3000000 )
 
     printt( "Hello " + GetMapName() + " !" )
 
@@ -72,7 +77,7 @@ void function InitializeProps()
     vector areaCAng = areaAng + < 0, 0, 0 >
 
     PerimeterZone( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
-    //GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng ) // Disable for performance
+    GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng ) // Disable for performance
     Build_01_10( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_11_20( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_21_30( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
@@ -1575,6 +1580,12 @@ void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector
             CreateFloppytownModel( Building_Platform_Large, areaPos + < 1024 * i, 352 * j, 0 >, areaAng , true, 20000, -1 )
         }
     }
+    ///////PROPS EXEDENT SIMULATION//////////////////////////////////////////////////
+    //for ( int i = 0 ; i <  1000 ; i++ )
+    //{
+    //    CreateFloppytownModel( Building_Platform_Large, areaPos + <  0, 0, 10 * 0.1 >, areaAng , true, 20000, -1 )
+    //}
+    /////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release

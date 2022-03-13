@@ -513,6 +513,17 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 	return false
 }
 
+#if SERVER
+	void function ResultEnt( entity Ent )
+	{
+		PlayFXOnEntity( $"P_test_angles", Ent )
+			wait 1.5
+		PlayFXOnEntity( $"P_test_angles", Ent )
+			wait 1.5
+		PlayFXOnEntity( $"P_test_angles", Ent )
+	}
+#endif
+
 #if SERVER || CLIENT
 PingTraceResults function DoPingTrace( entity player )
 {
@@ -559,6 +570,9 @@ PingTraceResults function DoPingTrace( entity player )
 				printt( "Ent_ModelName: " + result.hitEnt.GetModelName() )
 				printt( "Ent_Origin:	" + result.hitEnt.GetOrigin() )
 				printt(	"Ping_Origin:   " + result.endPos )
+
+				thread ResultEnt( result.hitEnt )
+
 				if (  result.hitEnt.GetTargetName() != "" )
 				{
 					if ( result.hitEnt.GetTargetName() != "editor_ref" )

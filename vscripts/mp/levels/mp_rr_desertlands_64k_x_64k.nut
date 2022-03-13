@@ -1198,7 +1198,7 @@ array<asset> WE_PROPS =
     $"mdl/props/charm/charm_crow.rmdl",
     $"mdl/props/charm/charm_fireball.rmdl",
     $"mdl/props/charm/charm_gas_canister.rmdl",*/
-    $"mdl/props/charm/charm_jester.rmdl",
+    /* $"mdl/props/charm/charm_jester.rmdl",
     $"mdl/props/charm/charm_lifeline_drone.rmdl",
     $"mdl/props/charm/charm_nessy.rmdl",
     $"mdl/props/charm/charm_nessy_ghost.rmdl",
@@ -1397,8 +1397,8 @@ array<asset> WE_PROPS =
     $"mdl/slum_city/slumcity_industrial_scaffolding_32x128_tarp_c.rmdl",
     $"mdl/slum_city/slumcity_pipe_128_corrugated_metal_a.rmdl",
     $"mdl/slum_city/slumcity_pipe_16_corrugated_metal_a.rmdl",
-    $"mdl/slum_city/slumcity_pipe_256_corrugated_metal_a.rmdl",
-    /*$"mdl/slum_city/slumcity_pipe_32_corrugated_metal_a.rmdl",
+    $"mdl/slum_city/slumcity_pipe_256_corrugated_metal_a.rmdl", */
+    $"mdl/slum_city/slumcity_pipe_32_corrugated_metal_a.rmdl",
     $"mdl/slum_city/slumcity_pipe_32_corrugated_metal_b.rmdl",
     $"mdl/slum_city/slumcity_pipe_64_corrugated_metal_a.rmdl",
     $"mdl/slum_city/slumcity_pipe_64_corrugated_metal_b.rmdl",
@@ -1491,7 +1491,7 @@ array<asset> WE_PROPS =
     $"mdl/utilities/wire_hanging_cluster_03.rmdl",
     $"mdl/utilities/wires_ground_coils_01.rmdl",
     $"mdl/utilities/wires_hanging_64.rmdl",
-    /*$"mdl/vehicle/droppod_fireteam/droppod_fireteam.rmdl",
+    $"mdl/vehicle/droppod_fireteam/droppod_fireteam.rmdl",
     $"mdl/vehicle/droppod_loot/droppod_loot_afterburners.rmdl",
     $"mdl/vehicle/droppod_loot/droppod_loot_animated.rmdl",
     $"mdl/vehicle/droppod_loot/droppod_loot_LL_holo.rmdl",
@@ -1518,7 +1518,7 @@ array<asset> WE_PROPS =
     $"mdl/vistas/desertlands_se.rmdl",
     $"mdl/vistas/iceland_slopeb.rmdl",
     $"mdl/vistas/iceland_sloped.rmdl",
-    $"mdl/water/water_puddle_decal_01.rmdl" */
+    $"mdl/water/water_puddle_decal_01.rmdl"
 ]
 
 void function CodeCallback_MapInit()
