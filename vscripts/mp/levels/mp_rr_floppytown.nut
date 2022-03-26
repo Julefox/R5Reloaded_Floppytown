@@ -40,11 +40,9 @@ vector FloppyTownAng   = < 0, 0, 0 > // map angles // not usable !
 void function CodeCallback_MapInit()
 {
     FloppyTown_MapInit_Common()
-
-    //SetConVarInt( "sv_max_prop_data_dwords_multiplayer",        5000000 )
-    //SetConVarInt( "sv_max_prop_data_dwords_huge_multiplayer",   5000000 )
-    //SetConVarInt( "sv_max_props_multiplayer",                   3000000 )
-    //SetConVarInt( "sv_max_props_huge_multiplayer",              3000000 )
+    Floppytown_MapInit_Library()
+    Floppytown_MapInit_Assembly()
+    Floppytown_MapInit_Generation()
 
     printt( "Hello " + GetMapName() + " !" )
 
@@ -77,18 +75,18 @@ void function InitializeProps()
     vector areaCAng = areaAng + < 0, 0, 0 >
 
     PerimeterZone( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
-    GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng ) // Disable for performance
+    //GrassInit( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng ) // Disable for performance
     Build_01_10( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_11_20( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Build_21_30( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
     Ornament( FloppyTownPos, FloppyTownAng, areaCPos, areaCAng )
 
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         AreaBuild( areaPos, areaAng, areaCPos, areaCAng )
 
-        printt( "FT_Editing is Enable." )
-    } else { printt( "FT_Editing is Disable." ) }
+        printt( "Builder_Editing is Enable." )
+    } else { printt( "Builder_Editing is Disable." ) }
 }
 
 entity function CreateFloppytownModel( asset a, vector pos, vector ang, bool mantle = false, float fade = 20000, int realm = -1 )
@@ -359,7 +357,7 @@ void function PerimeterZone( vector mapPos, vector mapAng, vector areaCPos, vect
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         CreateEditorRef( mapPos, mapAng, "Spawn point Floppytown" )
         CreateEditorRef( mapPos + < ( 1024 * floorInt[ 0 ] ) / 2, ( 352 * floorInt[ 1 ] ) / 2, 0 > , mapAng, "Center point Floppytown" )
@@ -997,7 +995,7 @@ void function Build_01_10( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         CreateEditorRef( build001Pos, mapAng, "Build 001" )
         CreateEditorRef( build002Pos, mapAng, "Build 002" )
@@ -1464,7 +1462,7 @@ void function Build_11_20( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         CreateEditorRef( build011Pos, mapAng, "Build 011" )
         CreateEditorRef( build012Pos, mapAng, "Build 012" )
@@ -1518,7 +1516,7 @@ void function Build_21_30( vector mapPos, vector mapAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         //CreateEditorRef( build021Pos, mapAng, "Build 021" )
     }
@@ -1590,7 +1588,7 @@ void function AreaBuild( vector areaPos, vector areaAng, vector areaCPos, vector
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EDITOR REF MANAGER // DEDICATED SPACE FOR THE CREATION OF EDITOR REF // has to be return false for the release
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if ( GetCurrentPlaylistVarBool( "FT_Editing_Enable", false ) ) // map editing, do not activate in normal use
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
     {
         //CreateEditorRef( areaPos, areaAng, "Spawn point Area Build" )
         //CreateEditorRef( areaCPos, areaAng, "Center point Area Build" ) 
