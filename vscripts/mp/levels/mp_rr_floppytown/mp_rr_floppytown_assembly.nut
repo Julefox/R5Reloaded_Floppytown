@@ -16,7 +16,8 @@ void function Floppytown_MapInit_Assembly()
 //}   }   }   }
 
 void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
-{   for ( int i = 0 ; i <  Xaxis ; i++ )
+{
+    for ( int i = 0 ; i <  Xaxis ; i++ )
     {   for ( int j = 0 ; j <  Yaxis ; j++ )
         {   for ( int k = 0 ; k <  Zaxis ; k++ )
             {
@@ -758,6 +759,14 @@ void function Building_21( vector pos, vector ang )
     {   for ( int j = 0 ; j < 0 ; j++ )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
 }   }
+
+//void function Ornament( vector mapPos, vector mapAng, vector areaCPos, vector areaCAng )
+//{
+//    for ( int i = 0 ; i < 2 ; i++ )
+//    {
+//        CreateFloppytownModel( ornament[0], mapPos + < 4950, 390, 0 > + < 0, 220 * i, 0 >, mapAng + < 0, 0, 0 >, true, 20000, -1 )
+//    }
+//}
 
 void function AreaBuildAreVisible()
 {
