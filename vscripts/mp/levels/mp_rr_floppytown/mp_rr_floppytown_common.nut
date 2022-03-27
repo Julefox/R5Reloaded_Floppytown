@@ -1,14 +1,13 @@
 global function FloppyTown_MapInit_Common
 
 void function FloppyTown_MapInit_Common()
-{
+{	printt( "FloppyTown_MapInit_Common" )
 	/* #if SERVER
 		FakeFT()
 	#endif
     #if CLIENT
         CreateFakeEnvLightFloppytown()
     #endif */
-	printt( "FloppyTown_MapInit_Common" )
 }
 
 #if CLIENT

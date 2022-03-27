@@ -46,8 +46,8 @@ void function CodeCallback_MapInit()
 
     printt( "Hello " + GetMapName() + " !" )
 
-    InitializeProps()
-	PrinttPropsCount()
+    //InitializeProps()
+	//PrinttPropsCount()
 }
 
 int function PropsCount()
