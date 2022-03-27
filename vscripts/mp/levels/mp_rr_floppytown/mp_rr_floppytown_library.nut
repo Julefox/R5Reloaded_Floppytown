@@ -31,7 +31,7 @@ global asset ZIP_ARM                        = $"mdl/industrial/zipline_arm.rmdl"
 
 // Ornament Stuff
 global array< asset > ORNAMENT              =
-[ 
+[
     $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
 ]
 
@@ -43,6 +43,10 @@ global asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
 // Map Origin | Angles
 global const vector FLOPPYTOWN_POS_OFFSET   = < 0, 0, 0 > // map origin // Zips appear with "mp_rr_floppytown_scripts.ent", map position change is not available anymore !
 global const vector FLOPPYTOWN_ANG_OFFSET   = < 0, 0, 0 > // map angles // not usable !
+
+// Map Origin | Angles
+global const vector FT_BUILD_AREA_POS       = FLOPPYTOWN_POS_OFFSET + < -5000, 0, 0 >
+global const vector FT_BUILD_AREA_ANG       = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
 
 // Buildings Origin | Angles
 global const vector FT_BUILDING_POS_01      = FLOPPYTOWN_POS_OFFSET + < 2664, 4352, 0 >
@@ -60,69 +64,72 @@ global const vector FT_BUILDING_ANG_04      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 global const vector FT_BUILDING_POS_05      = FLOPPYTOWN_POS_OFFSET + < 128, 1856, 0 >
 global const vector FT_BUILDING_ANG_05      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_06      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_06      = FLOPPYTOWN_POS_OFFSET + < 128, 1152, 0 >
 global const vector FT_BUILDING_ANG_06      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_07      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_07      = FLOPPYTOWN_POS_OFFSET + < 128, 128, 0 >
 global const vector FT_BUILDING_ANG_07      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_08      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_08      = FLOPPYTOWN_POS_OFFSET + < 2560, 128, 0 >
 global const vector FT_BUILDING_ANG_08      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_09      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_09      = FLOPPYTOWN_POS_OFFSET + < 3456, 128, 0 >
 global const vector FT_BUILDING_ANG_09      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_10      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_10      = FLOPPYTOWN_POS_OFFSET + < 4352, 128, 0 >
 global const vector FT_BUILDING_ANG_10      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_11      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_11      = FLOPPYTOWN_POS_OFFSET + < 5376, 128, 0 >
 global const vector FT_BUILDING_ANG_11      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_12      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_12      = FLOPPYTOWN_POS_OFFSET + < 5504, 1920, 0 >
 global const vector FT_BUILDING_ANG_12      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_13      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_13      = FLOPPYTOWN_POS_OFFSET + < 5504, 3072, 0 >
 global const vector FT_BUILDING_ANG_13      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_14      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_14      = FLOPPYTOWN_POS_OFFSET + < 4608, 4352, 0 >
 global const vector FT_BUILDING_ANG_14      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_15      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_15      = FLOPPYTOWN_POS_OFFSET + < 1408, 4608, 0 >
 global const vector FT_BUILDING_ANG_15      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_16      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_16      = FLOPPYTOWN_POS_OFFSET + < 4224, 3072, 0 >
 global const vector FT_BUILDING_ANG_16      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_17      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_17      = FLOPPYTOWN_POS_OFFSET + < 1152, 3008, 0 >
 global const vector FT_BUILDING_ANG_17      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_18      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_18      = FLOPPYTOWN_POS_OFFSET + < 2688, 2176, 0 >
 global const vector FT_BUILDING_ANG_18      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_19      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_19      = FLOPPYTOWN_POS_OFFSET + < 4096, 1344, 0 >
 global const vector FT_BUILDING_ANG_19      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_20      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_BUILDING_POS_20      = FLOPPYTOWN_POS_OFFSET + < 1344, 1600, 0 >
 global const vector FT_BUILDING_ANG_20      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 global const vector FT_BUILDING_POS_21      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
 global const vector FT_BUILDING_ANG_21      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_22      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
-global const vector FT_BUILDING_ANG_22      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
-
-global const vector FT_BUILDING_POS_23      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
-global const vector FT_BUILDING_ANG_23      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
-
-global const vector FT_BUILDING_POS_24      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
-global const vector FT_BUILDING_ANG_24      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
-
-global const vector FT_BUILDING_POS_25      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
-global const vector FT_BUILDING_ANG_25      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
-
+//global const vector FT_BUILDING_POS_22      = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+//global const vector FT_BUILDING_ANG_22      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
 global const vector FT_FLOOR_ANG            = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
+global const vector FT_FLOOR_POS_GEOFIX     = FT_FLOOR_POS + <5120, 704, 0>
+
+global const vector FT_NORTH_WALL_POS       = FLOPPYTOWN_POS_OFFSET + <0, 4864, 0>
+global const vector FT_NORTH_WALL_ANG       = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
+
+global const vector FT_SOUTH_WALL_POS       = FLOPPYTOWN_POS_OFFSET + < 5888, 0, 0 >
+global const vector FT_SOUTH_WALL_ANG       = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
+
+global const vector FT_WEST_WALL_POS        = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_WEST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
+
+global const vector FT_EAST_WALL_POS        = FLOPPYTOWN_POS_OFFSET + < 5632, 4335, -0.1 >
+global const vector FT_EAST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 //
 global const int    SSB_UP_TO_0               = 128 // set to 0 Square_Shell_Box axis Z
@@ -138,26 +145,21 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
     prop.e.gameModeId = realm
     prop.SetScriptName( "FloppyTownEntities" )
-    return prop
-}
+return prop }
 
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
 {
     entity column   = CreateFloppytownModel( SECURITY_FENCE, pos, ang )
     entity support  = CreateFloppytownModel( ZIP_ARM, pos + < 0, 0, 185 >, ang )
 
-    return [ column, support ]
-}
+return [ column, support ] }
 
 entity function CreateEditorRef( vector pos, vector ang, string name )
 {
     entity editor_ref = CreateFloppytownModel( EDITOR_REF, pos, ang )
     SetTargetName( editor_ref, name )
     editor_ref.SetScriptName( "editor_ref" )
-    return editor_ref
-}
+return editor_ref }
 
 void function Floppytown_MapInit_Library()
-{   printt( "Floppytown_MapInit_Library OK" )
-
-}
+{   printt( "Floppytown_MapInit_Library OK" ) }
