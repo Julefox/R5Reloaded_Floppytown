@@ -4,7 +4,13 @@ void function Floppytown_MapInit_Generation()
 {   printt( "Floppytown_MapInit_Generation OK" )
     Map_Generation()
     Zips_Generation()
-    PrinttPropsCount()
+
+    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) )
+    {   // map editing, do not activate in normal use
+        EditorRefAreVisible()
+        AreaBuildAreVisible()
+        PrinttPropsCount()
+    }
 }
 
 int function PropsCount()
@@ -56,12 +62,6 @@ void function Map_Generation()
 
     // Other
     CreateFloppytownModel( CUBEMAP, < 10600, 29200, -26000 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ).SetModelScale( 15 ) // Hides the tear under the skybox
-
-    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) )
-    {   // map editing, do not activate in normal use
-        EditorRefAreVisible()
-        AreaBuildAreVisible()
-    }
 }
 
 void function Zips_Generation()
