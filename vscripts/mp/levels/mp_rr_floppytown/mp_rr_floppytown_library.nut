@@ -145,7 +145,6 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
     prop.e.gameModeId = realm
     prop.SetScriptName( "FloppyTownEntities" )
-    while( true ){PlayLoopFXOnEntity( $"P_test_angles", prop )}
 return prop }
 
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
