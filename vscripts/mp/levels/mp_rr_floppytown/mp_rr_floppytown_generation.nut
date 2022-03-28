@@ -26,7 +26,7 @@ array< entity > function GetPropsCount()
     return EntitiesCount
 }
 void function PrinttPropsCount()
-{ printt( "Models generated: " + PropsCount() + " | Maximum number of props that can be generated: " + ( 5179 - PropsCount() ) ) }
+{ printt( "Models generated: " + PropsCount() + " / 5000 " + "| Maximum number of props that can be generated: " + ( 5000 - PropsCount() ) ) }
 
 void function Map_Generation()
 {

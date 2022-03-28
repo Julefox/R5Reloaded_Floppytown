@@ -132,8 +132,8 @@ global const vector FT_EAST_WALL_POS        = FLOPPYTOWN_POS_OFFSET + < 5632, 43
 global const vector FT_EAST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 //
-global const int    SSB_UP_TO_0               = 128 // set to 0 Square_Shell_Box axis Z
-global const float  SSB_UP_TO_0_PATCH         = SSB_UP_TO_0 - 0.1
+global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
+global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
 
 entity function CreateFloppytownModel( asset a, vector pos, vector ang )
 {
@@ -145,6 +145,7 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
     prop.e.gameModeId = realm
     prop.SetScriptName( "FloppyTownEntities" )
+    while( true ){PlayLoopFXOnEntity( $"P_test_angles", prop )}
 return prop }
 
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
