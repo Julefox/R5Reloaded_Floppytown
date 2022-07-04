@@ -794,6 +794,19 @@ Scripts:
 	ui/menu_about_game_mode.nut
 	ui/menu_reward_ceremony.nut
 	ui/menu_loadscreen_preview.nut
+
+	ui/CTFMenus/menu_ctf_respawn.nut
+
+	//R5RUI
+	ui/R5RMenus/menu_main.nut
+	ui/R5RMenus/menu_lobby.nut
+	ui/R5RMenus/panel_home.nut
+	ui/R5RMenus/panel_createserver.nut
+	ui/R5RMenus/panel_serverbrowser.nut
+	ui/R5RMenus/panel_mainmenu.nut
+	ui/R5RMenus/panel_playlist.nut
+	ui/R5RMenus/panel_map.nut
+	ui/R5RMenus/panel_visibility.nut
 ]
 
 When: "SERVER && DEV || UI && DEV"
@@ -816,6 +829,7 @@ Scripts:
 	weapons/mp_weapon_dirty_bomb.nut
 	weapons/mp_weapon_deployable_medic.nut
 	weapons/mp_weapon_grenade_bangalore.nut
+	weapons/mp_weapon_frag_drone.nut
 	weapons/mp_weapon_grenade_creeping_bombardment.nut
 	weapons/mp_weapon_grenade_electric_smoke.nut
 	weapons/mp_weapon_creeping_bombardment_weapon.nut
@@ -876,18 +890,25 @@ Scripts:
 [
 	gamemodes/custom_tdm/sh_gamemode_custom_tdm.nut
 	gamemodes/custom_tdm/custom_tdm_settings.nut
+
+	gamemodes/custom_ctf/sh_gamemode_custom_ctf.nut
+	gamemodes/custom_ctf/custom_ctf_settings.nut
 ]
 
 When: "SERVER"
 Scripts:
 [
 	gamemodes/custom_tdm/_gamemode_custom_tdm.nut
+
+	gamemodes/custom_ctf/_gamemode_custom_ctf.nut
 ]
 
 When: "CLIENT"
 Scripts:
 [
 	gamemodes/custom_tdm/cl_gamemode_custom_tdm.nut
+
+	gamemodes/custom_ctf/cl_gamemode_custom_ctf.nut
 ]
 
 

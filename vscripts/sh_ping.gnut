@@ -513,17 +513,6 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 	return false
 }
 
-#if SERVER
-	void function ResultEnt( entity Ent )
-	{
-		PlayFXOnEntity( $"P_test_angles", Ent )
-			wait 1.5
-		PlayFXOnEntity( $"P_test_angles", Ent )
-			wait 1.5
-		PlayFXOnEntity( $"P_test_angles", Ent )
-	}
-#endif
-
 #if SERVER || CLIENT
 PingTraceResults function DoPingTrace( entity player )
 {
@@ -554,55 +543,6 @@ PingTraceResults function DoPingTrace( entity player )
 	#if R5DEV
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
-
-	if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
-	{
-		if ( result.hitEnt == null )
-		{
-			return result
-		}
-		else
-		{
-			#if SERVER
-				printt( "		TraceResults:		" )
-				printt( "===========================" )
-				printt( "Ent_Number:	" + result.hitEnt )
-				printt( "Ent_ModelName: " + result.hitEnt.GetModelName() )
-				printt( "Ent_Origin:	" + result.hitEnt.GetOrigin() )
-				printt(	"Ping_Origin:   " + result.endPos )
-
-				thread ResultEnt( result.hitEnt )
-
-				if (  result.hitEnt.GetTargetName() != "" )
-				{
-					if ( result.hitEnt.GetTargetName() != "editor_ref" )
-					{
-						printt(	"Target Name: "	+ result.hitEnt.GetTargetName() )
-					}
-					else
-					{
-						printt(	"Editor Ref: "	+ result.hitEnt.GetTargetName() )
-					}
-				}
-				printt( "===========================" )
-			#endif
-
-			#if CLIENT || UI
-				if ( result.hitEnt.GetScriptName() == "editor_ref" )
-				{
-					AddPlayerHint( 2.0, 0.0, $"",
-					"\nEditor Ref Name : "	+ result.hitEnt.GetTargetName() +
-					"\nEditor Ref Origin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
-				}
-				else
-				{
-					AddPlayerHint( 2.0, 0.0, $"",
-					"Name : " + result.hitEnt.GetModelName() +
-					"\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
-				}
-			#endif
-		}
-	}
 
 	return result
 }

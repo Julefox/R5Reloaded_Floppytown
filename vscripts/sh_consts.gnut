@@ -97,6 +97,7 @@ global const TEAM_DEATHMATCH            = "tdm"
 global const SURVIVAL                   = "survival"
 global const FREELANCE                  = "freelance"
 global const CUSTOM_TDM                 = "custom_tdm"
+global const CUSTOM_CTF                 = "custom_ctf"
 
 global const FREELANCE_ENABLED          = false
 
@@ -702,6 +703,8 @@ global const DLIGHT_PURPLE = < 1, 0, 1 >
 // Green types
 global const DLIGHT_SEAGREEN   = < 0, 1, 1 >
 global const DLIGHT_LIGHTGREEN = < 0.3, 1, 1 >
+
+global const DLIGHT_RICH_BROWN  = < 0.8, 0.3, 0.1 >
 
 
 //--------------------------------------------------

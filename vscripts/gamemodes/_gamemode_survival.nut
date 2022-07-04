@@ -33,11 +33,16 @@ void function GamemodeSurvival_Init()
 	SurvivalFreefall_Init()
 	Sh_ArenaDeathField_Init()
 	SurvivalShip_Init()
-	
-	if ( GetMapName() == "mp_rr_ashs_redemption" )
+
+	switch(GetMapName())
 	{
-		//tdm map death wall
-		CreateWallTrigger( <-20857, 5702, -25746> )
+		case "mp_rr_aqueduct":
+			CreateWallTrigger( <425, -1590, -1689> )
+			CreateWallTrigger( <774, -6394, 2067> )
+		case "mp_rr_ashs_redemption":
+			CreateWallTrigger( <-20857, 5702, -25746> )
+		default:
+			break
 	}
 
 	FlagInit( "SpawnInDropship", false )
@@ -278,11 +283,11 @@ entity function CreateWallTrigger(vector pos, float box_radius = 30000 )
     map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 350 );map_trigger.SetBelowHeight( 10 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
-    thread FRThrowPlayerBack( map_trigger )
+    thread WallTrigger( map_trigger )
     return map_trigger
 }
 
-void function FRThrowPlayerBack(entity proxy, float speed = 1)
+void function WallTrigger(entity proxy, float speed = 1)
 { bool active = true
     while (active)
     {
@@ -295,18 +300,24 @@ void function FRThrowPlayerBack(entity proxy, float speed = 1)
                     if(proxy.IsTouching(player))
 						{
 							player.Zipline_Stop()
-							vector target_origin = player.GetOrigin()
-							vector proxy_origin = proxy.GetOrigin()
-							vector target_angles = player.GetAngles()
-							vector proxy_angles = proxy.GetAngles()
+							switch(GetMapName())
+								{
+									case "mp_rr_aqueduct":
+										player.TakeDamage(player.GetMaxHealth() + 1, null, null, { damageSourceId=damagedef_suicide, scriptType=DF_BYPASS_SHIELD })
+									default:
+										vector target_origin = player.GetOrigin()
+										vector proxy_origin = proxy.GetOrigin()
+										vector target_angles = player.GetAngles()
+										vector proxy_angles = proxy.GetAngles()
+						
+										vector velocity = target_origin - proxy_origin
+										velocity = velocity * speed
                     
-							vector velocity = target_origin - proxy_origin
-							velocity = velocity * speed
+										vector angles = target_angles - proxy_angles
                     
-							vector angles = target_angles - proxy_angles
-                    
-							velocity = velocity + angles
-							player.SetVelocity(velocity)
+										velocity = velocity + angles
+										player.SetVelocity(velocity)
+								}
 						}
                 }
             }
@@ -439,8 +450,10 @@ void function OnPlayerDamaged( entity victim, var damageInfo )
 		DamageInfo_AddCustomDamageType( damageInfo, DF_KILLSHOT )
 
 		// Notify the player of the damage (even though it's *technically* canceled and we're hijacking the damage in order to not make an alive 100hp player instantly dead with a well placed kraber shot)
-		attacker.NotifyDidDamage( victim, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), DamageInfo_GetCustomDamageType( damageInfo ), DamageInfo_GetDamage( damageInfo ), DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
-
+		if (attacker.IsPlayer() && !IsWorldSpawn(attacker))
+        {
+            attacker.NotifyDidDamage( victim, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), DamageInfo_GetCustomDamageType( damageInfo ), DamageInfo_GetDamage( damageInfo ), DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
+        }
 		// Cancel the damage
 		// Setting damage to 0 cancels all knockback, setting it to 1 doesn't
 		// There might be a better way to do this, but this works well enough
@@ -564,17 +577,21 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	array<entity> victimTeam = GetPlayerArrayOfTeam_Alive( victimTeamNumber )
 	bool teamEliminated = victimTeam.len() == 0
 
+	bool canPlayerBeRespawned = PlayerRespawnEnabled() && !teamEliminated
+
+	// PlayerFullyDoomed MUST be called before HandleSquadElimination
+	// HandleSquadElimination accesses player.p.respawnChanceExpiryTime which is set by PlayerFullyDoomed
+	// if it isn't called in this order, the survivalTime will be 0
+	if ( !canPlayerBeRespawned )
+		PlayerFullyDoomed( victim )
+
 	if ( teamEliminated )
 		HandleSquadElimination( victim.GetTeam() )
 
-	bool canPlayerBeRespawned = PlayerRespawnEnabled() && !teamEliminated
 	int droppableItems = GetAllDroppableItems( victim ).len()
 
 	if ( canPlayerBeRespawned || droppableItems > 0 )
 		CreateSurvivalDeathBoxForPlayer( victim, attacker, damageInfo )
-	
-	if ( !canPlayerBeRespawned )
-		PlayerFullyDoomed( victim )
 }
 
 void function OnClientConnected( entity player )

@@ -75,8 +75,15 @@ void function ServerCallback_TDM_DoAnnouncement(float duration, int type)
         case eTDMAnnounce.VOTING_PHASE:
         {
             clGlobal.levelEnt.Signal( "CloseScoreRUI" )
-            message = "Welcome To Team Deathmatch"
-            subtext = "Made by sal (score UI by shrugtal)"
+				message = "Welcome To Team Deathmatch"
+				subtext = "Made by sal (score UI by shrugtal)"
+            break
+        }
+        case eTDMAnnounce.VOTING_PHASE_GG:
+        {
+            clGlobal.levelEnt.Signal( "CloseScoreRUI" )
+				message = "Welcome To Gun Game"
+				subtext = "Every time you kill someone, your weapon will replaced with a random weapon."
             break
         }
         case eTDMAnnounce.MAP_FLYOVER:
@@ -108,13 +115,14 @@ void function ServerCallback_TDM_DoLocationIntroCutscene_Body()
     float desiredSpawnDuration = Deathmatch_GetIntroCutsceneSpawnDuration()
     float desireNoSpawns = Deathmatch_GetIntroCutsceneNumSpawns()
     
-
     entity player = GetLocalClientPlayer()
     
     if(!IsValid(player)) return
     
-
-    EmitSoundOnEntity( player, "music_skyway_04_smartpistolrun" )
+	if ( IsGunGameMode() )
+		EmitSoundOnEntity( player, "music_tday_05_arenabattle" )
+	else
+		EmitSoundOnEntity( player, "music_skyway_04_smartpistolrun" )
      
     float playerFOV = player.GetFOV()
     
@@ -127,7 +135,6 @@ void function ServerCallback_TDM_DoLocationIntroCutscene_Body()
 
     ////////////////////////////////////////////////////////////////////////////////
     ///////// EFFECTIVE CUTSCENE CODE START
-
 
     array<LocPair> cutsceneSpawns
     for(int i = 0; i < desireNoSpawns; i++)
@@ -155,14 +162,15 @@ void function ServerCallback_TDM_DoLocationIntroCutscene_Body()
 
     if(IsValid(player))
     {
-        FadeOutSoundOnEntity( player, "music_skyway_04_smartpistolrun", 1 )
+        if ( IsGunGameMode() )
+			FadeOutSoundOnEntity( player, "music_tday_05_arenabattle", 1 )
+		else
+			FadeOutSoundOnEntity( player, "music_skyway_04_smartpistolrun", 1 )
     }
     if(IsValid(camera))
     {
         camera.Destroy()
-    }
-    
-    
+    }    
 }
 
 void function ServerCallback_TDM_SetSelectedLocation(int sel)
