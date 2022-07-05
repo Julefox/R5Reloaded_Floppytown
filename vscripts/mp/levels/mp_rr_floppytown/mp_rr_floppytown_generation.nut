@@ -38,12 +38,13 @@ void function Map_Generation()
 {
     Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG, 5, 14, 1 )    // to make it easier to reference buildings put "6" in "floorInt[ 0 ]"
     Ft_Floor( FT_FLOOR_POS_GEOFIX, FT_FLOOR_ANG, 1, 4, 1 )
-    //Ft_Grass( FT_GRASS_POS, FT_GRASS_ANG, 20, 20, 1 )
 
     North_Wall( FT_NORTH_WALL_POS, FT_NORTH_WALL_ANG )
     South_Wall( FT_SOUTH_WALL_POS, FT_SOUTH_WALL_ANG )
     West_Wall( FT_WEST_WALL_POS, FT_WEST_WALL_ANG )
     East_Wall( FT_EAST_WALL_POS, FT_EAST_WALL_ANG )
+
+    CreateWallTriggerAroundTheMap()
 
     Building_01( FT_BUILDING_POS_01, FT_BUILDING_ANG_01 )
     Building_02( FT_BUILDING_POS_02, FT_BUILDING_ANG_02 )
@@ -66,9 +67,6 @@ void function Map_Generation()
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
     //Building_21( FT_BUILDING_POS_21, FT_BUILDING_ANG_21 )
-
-    // Other
-    CreateFloppytownModel( CUBEMAP, < 10600, 29200, -26000 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ).SetModelScale( 15 ) // Hides the tear under the skybox
 }
 
 void function Zips_Generation()

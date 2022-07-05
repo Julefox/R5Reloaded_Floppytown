@@ -1,6 +1,6 @@
-global function FloppyTown_MapInit_Common
+global function Floppytown_MapInit_Common
 
-void function FloppyTown_MapInit_Common()
+void function Floppytown_MapInit_Common()
 {
-	printt( "FloppyTown_MapInit_Common" )
+	printt( "Floppytown_MapInit_Common" )
 }

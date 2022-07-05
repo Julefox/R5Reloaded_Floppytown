@@ -2,7 +2,7 @@ global function ClientCodeCallback_MapInit
 
 void function ClientCodeCallback_MapInit()
 {
-	FloppyTown_MapInit_Common()
+	Floppytown_MapInit_Common()
 
 	//FloppytownLightEnvironment()
 

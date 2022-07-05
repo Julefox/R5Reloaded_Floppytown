@@ -150,6 +150,47 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     prop.SetScriptName( "FloppyTownEntities" )
 return prop }
 
+entity function CreateFloppyWallTrigger(vector pos, float box_radius = 200 )
+{
+    entity map_trigger = CreateEntity( "trigger_cylinder" )
+    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 1800 );map_trigger.SetBelowHeight( 10 );
+    map_trigger.SetOrigin( pos )
+    DispatchSpawn( map_trigger )
+    thread FloppyWallTrigger( map_trigger )
+    return map_trigger
+}
+
+void function FloppyWallTrigger(entity proxy, float speed = 1)
+{   bool active = true
+    while (active)
+    {   if(IsValid(proxy))
+        {   foreach(player in GetPlayerArray())
+            {   if (player.GetPhysics() != MOVETYPE_NOCLIP)//won't affect noclip player
+                {   if(proxy.IsTouching(player))
+				{
+                    player.Zipline_Stop()
+					switch(GetMapName())
+					{
+					    case "mp_rr_aqueduct":
+					    	player.TakeDamage(player.GetMaxHealth() + 1, null, null, { damageSourceId=damagedef_suicide, scriptType=DF_BYPASS_SHIELD })
+					    default:
+					    	vector target_origin = player.GetOrigin()
+					    	vector proxy_origin = proxy.GetOrigin()
+					    	vector target_angles = player.GetAngles()
+					    	vector proxy_angles = proxy.GetAngles()
+
+					    	vector velocity = target_origin - proxy_origin
+					    	velocity = velocity * speed
+
+					    	vector angles = target_angles - proxy_angles
+
+					    	velocity = velocity + angles
+					    	player.SetVelocity(velocity)
+			}   }   }   }
+        } else {active = false ; break}
+        wait 0.01
+}   }
+
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
 {
     entity column   = CreateFloppytownModel( SECURITY_FENCE, pos, ang )

@@ -24,15 +24,6 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis 
                 CreateFloppytownModel( BUILDING_PLATFORM_LARGE, pos + < 1024 * i, 352 * j, 0 * k > , ang )
 }   }   }   }
 
-void function Ft_Grass( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
-{
-    for ( int i = 0 ; i <  Xaxis ; i++ )
-    {   for ( int j = 0 ; j <  Yaxis ; j++ )
-        {   for ( int k = 0 ; k <  Zaxis ; k++ )
-            {
-                CreateFloppytownModel( GRASS, pos + < 112 * i, 112 * j, 0 * k > , ang ).SetModelScale( 1.2 )
-}   }   }   }
-
 void function North_Wall( vector pos, vector ang )
 {
     for ( int i = 0 ; i < 1 ; i++ )
@@ -134,6 +125,10 @@ void function West_Wall( vector pos, vector ang )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < -89, 4360, 1200 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 > ) }
+    }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -58, 4494, 2200 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
 }   }
 
 void function East_Wall( vector pos, vector ang )
@@ -143,9 +138,35 @@ void function East_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 0, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -50, -384, 2400 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    }
+    CreateFloppytownModel( THUNDERDOME_WALL, pos + < 12, -440, 2400 >, FLOPPYTOWN_ANG_OFFSET + < 0, -130, 0 > )
+    for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -1058, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
     }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -50, -1420, 2600 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -60, -1420, 2654 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 50, 180, 0 > ) }
+    }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 22, -1420, 2752 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 50, 180, 0 > ) }
+    }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 26, -1548, 2582 > + < 0 * i, 1024 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > ) }
+    }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 108, -1548, 2680 > + < 0 * i, 1024 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > ) }
+    }
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 38, -1548, 2406 > + < 0, 1024, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < 0, -2600, 2240 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
@@ -162,6 +183,11 @@ void function East_Wall( vector pos, vector ang )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
 }   }
+
+void function CreateWallTriggerAroundTheMap()
+{
+    printt( "insert wall trigger here" )
+}
 
 void function Building_01( vector pos, vector ang )
 {
@@ -801,9 +827,9 @@ void function EditorRefAreVisible()
 
     CreateEditorRef( FT_FLOOR_POS, FT_FLOOR_ANG, "Floor Origin" )
 
-    CreateEditorRef( FT_NORTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "North Wall Origin" )
-    CreateEditorRef( FT_SOUTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "South Wall Origin" )
-    CreateEditorRef( FT_WEST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "West Wall Origin" )
+    //CreateEditorRef( FT_NORTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "North Wall Origin" )
+    //CreateEditorRef( FT_SOUTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "South Wall Origin" )
+    //CreateEditorRef( FT_WEST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "West Wall Origin" )
     CreateEditorRef( FT_EAST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "East Wall Origin" )
 
     CreateEditorRef( FT_BUILDING_POS_01, FLOPPYTOWN_ANG_OFFSET, "Build 01 Origin" )
