@@ -24,6 +24,15 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis 
                 CreateFloppytownModel( BUILDING_PLATFORM_LARGE, pos + < 1024 * i, 352 * j, 0 * k > , ang )
 }   }   }   }
 
+void function Ft_Grass( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
+{
+    for ( int i = 0 ; i <  Xaxis ; i++ )
+    {   for ( int j = 0 ; j <  Yaxis ; j++ )
+        {   for ( int k = 0 ; k <  Zaxis ; k++ )
+            {
+                CreateFloppytownModel( GRASS, pos + < 112 * i, 112 * j, 0 * k > , ang ).SetModelScale( 1.2 )
+}   }   }   }
+
 void function North_Wall( vector pos, vector ang )
 {
     for ( int i = 0 ; i < 1 ; i++ )

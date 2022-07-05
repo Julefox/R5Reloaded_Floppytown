@@ -45,7 +45,7 @@ global const vector FLOPPYTOWN_POS_OFFSET   = < 0, 0, 0 > // map origin // Zips 
 global const vector FLOPPYTOWN_ANG_OFFSET   = < 0, 0, 0 > // map angles // not usable !
 
 // Map Origin | Angles
-global const vector FT_BUILD_AREA_POS       = FLOPPYTOWN_POS_OFFSET + < -5000, 0, 0 >
+global const vector FT_BUILD_AREA_POS       = FLOPPYTOWN_POS_OFFSET + < -5000, 0, 1280 >
 global const vector FT_BUILD_AREA_ANG       = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
 
 // Buildings Origin | Angles
@@ -118,6 +118,9 @@ global const vector FT_BUILDING_ANG_21      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
 global const vector FT_FLOOR_ANG            = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
 global const vector FT_FLOOR_POS_GEOFIX     = FT_FLOOR_POS + <5120, 704, 0>
+
+global const vector FT_GRASS_POS            = FLOPPYTOWN_POS_OFFSET + < -32, -32, 0 >
+global const vector FT_GRASS_ANG            = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 global const vector FT_NORTH_WALL_POS       = FLOPPYTOWN_POS_OFFSET + <0, 4864, 0>
 global const vector FT_NORTH_WALL_ANG       = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
