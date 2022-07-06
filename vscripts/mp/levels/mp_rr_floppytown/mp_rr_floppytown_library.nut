@@ -117,7 +117,6 @@ global const vector FT_BUILDING_ANG_21      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 
 global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
 global const vector FT_FLOOR_ANG            = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
-global const vector FT_FLOOR_POS_GEOFIX     = FT_FLOOR_POS + <5120, 704, 0>
 
 global const vector FT_GRASS_POS            = FLOPPYTOWN_POS_OFFSET + < -32, -32, 0 >
 global const vector FT_GRASS_ANG            = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
@@ -150,17 +149,17 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     prop.SetScriptName( "FloppyTownEntities" )
 return prop }
 
-entity function CreateFloppyWallTrigger(vector pos, float box_radius = 200 )
+entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
 {
     entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 1800 );map_trigger.SetBelowHeight( 10 );
+    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 4000 );map_trigger.SetBelowHeight( 10 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
     thread FloppyWallTrigger( map_trigger )
     return map_trigger
 }
 
-void function FloppyWallTrigger(entity proxy, float speed = 1)
+void function FloppyWallTrigger(entity proxy, float speed = 0.6)
 {   bool active = true
     while (active)
     {   if(IsValid(proxy))
@@ -171,10 +170,9 @@ void function FloppyWallTrigger(entity proxy, float speed = 1)
                     player.Zipline_Stop()
 					switch(GetMapName())
 					{
-					    case "mp_rr_aqueduct":
-					    	player.TakeDamage(player.GetMaxHealth() + 1, null, null, { damageSourceId=damagedef_suicide, scriptType=DF_BYPASS_SHIELD })
 					    default:
 					    	vector target_origin = player.GetOrigin()
+                            target_origin.z = 0.0
 					    	vector proxy_origin = proxy.GetOrigin()
 					    	vector target_angles = player.GetAngles()
 					    	vector proxy_angles = proxy.GetAngles()

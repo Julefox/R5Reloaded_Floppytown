@@ -35,6 +35,10 @@ void function North_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 529, 96, 0 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 144, 58, 2000 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
+    }
+    for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 10 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < 1160, 64, 0 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
     }
@@ -52,6 +56,10 @@ void function North_Wall( vector pos, vector ang )
     {   for ( int j = 0 ; j < 12 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 3900, 0, 0 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
     }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 4028, -50, 2400 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
+    }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 6 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < 4500, -64, 896 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
@@ -59,6 +67,10 @@ void function North_Wall( vector pos, vector ang )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 5044, -64, 1000 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 5172, -114, 2400 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
 }   }
 
 void function South_Wall( vector pos, vector ang )
@@ -66,6 +78,10 @@ void function South_Wall( vector pos, vector ang )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < -500, -80, 2000 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
+    }
+    for ( int i = 0 ; i < 3 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -884, -42, 2600 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
     }
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
@@ -82,7 +98,18 @@ void function South_Wall( vector pos, vector ang )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 6 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < -3400, -64, 1600 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+    }
+    //CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 90 > )
+    for ( int i = 0 ; i < 6 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784, -26, 2800 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
+    }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 > + < 16 * i, 0 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 90 > ) }
+    }
+    
+}
 
 void function West_Wall( vector pos, vector ang )
 {
@@ -137,11 +164,10 @@ void function East_Wall( vector pos, vector ang )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 0, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
     }
-    for ( int i = 0 ; i < 2 ; i++ )
+    for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -50, -384, 2400 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
     }
-    CreateFloppytownModel( THUNDERDOME_WALL, pos + < 12, -440, 2400 >, FLOPPYTOWN_ANG_OFFSET + < 0, -130, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -1058, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
@@ -150,23 +176,7 @@ void function East_Wall( vector pos, vector ang )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -50, -1420, 2600 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
     }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -60, -1420, 2654 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 50, 180, 0 > ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 22, -1420, 2752 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 50, 180, 0 > ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 26, -1548, 2582 > + < 0 * i, 1024 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 108, -1548, 2680 > + < 0 * i, 1024 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > ) }
-    }
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 38, -1548, 2406 > + < 0, 1024, 0 >, FLOPPYTOWN_ANG_OFFSET + < -50, 0, 90 > )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -38, -1420-128, 2488 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 90 > )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < 0, -2600, 2240 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
@@ -175,6 +185,11 @@ void function East_Wall( vector pos, vector ang )
     {   for ( int j = 0 ; j < 14 ; j++ )
         {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -2730, 0 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
     }
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -38, -3114, 2800 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    }
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -38, -2202, 2687 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 90 > )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 13 ; j++ )
         {   CreateFloppytownModel( SQUARE_BLOCK, pos + < -64, -3500, 0 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > ) }
@@ -186,7 +201,23 @@ void function East_Wall( vector pos, vector ang )
 
 void function CreateWallTriggerAroundTheMap()
 {
-    printt( "insert wall trigger here" )
+    // South_Wall()
+    for ( int i = 0 ; i < 12 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 0, -1000, 0 > + < 500 * i, 0 * j, 0 > ) }
+    }
+
+    // West_Wall()
+    for ( int i = 0 ; i < 1 ; i++ )
+    {   for ( int j = 0 ; j < 11 ; j++ )
+        {   CreateFloppyWallTrigger( < -1000, 0, 0 > + < 0 * i, 500 * j, 0 > ) }
+    }
+
+    // East_Wall()
+    //for ( int i = 0 ; i < 1 ; i++ )
+    //{   for ( int j = 0 ; j < 12 ; j++ )
+    //    {   CreateFloppyWallTrigger( < 5594+64, 1221, 0 > + < 0 * i, 64 * j, 0 >, 128 ) }
+    //}
 }
 
 void function Building_01( vector pos, vector ang )
@@ -827,9 +858,9 @@ void function EditorRefAreVisible()
 
     CreateEditorRef( FT_FLOOR_POS, FT_FLOOR_ANG, "Floor Origin" )
 
-    //CreateEditorRef( FT_NORTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "North Wall Origin" )
-    //CreateEditorRef( FT_SOUTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "South Wall Origin" )
-    //CreateEditorRef( FT_WEST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "West Wall Origin" )
+    CreateEditorRef( FT_NORTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "North Wall Origin" )
+    CreateEditorRef( FT_SOUTH_WALL_POS, FLOPPYTOWN_ANG_OFFSET, "South Wall Origin" )
+    CreateEditorRef( FT_WEST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "West Wall Origin" )
     CreateEditorRef( FT_EAST_WALL_POS,  FLOPPYTOWN_ANG_OFFSET, "East Wall Origin" )
 
     CreateEditorRef( FT_BUILDING_POS_01, FLOPPYTOWN_ANG_OFFSET, "Build 01 Origin" )

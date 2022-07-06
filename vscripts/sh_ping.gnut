@@ -564,7 +564,7 @@ PingTraceResults function DoPingTrace( entity player )
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
 
-		if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) ) // map editing, do not activate in normal use
+		if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
 	{
 		if ( result.hitEnt == null )
 		{

@@ -5,17 +5,42 @@ void function Floppytown_MapInit_Generation()
     Map_Generation()
     Zips_Generation()
 
-    if ( GetCurrentPlaylistVarBool( "Builder_Editing_Enable", false ) )
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) )
     {   // map editing, do not activate in normal use
         EditorRefAreVisible()
         AreaBuildAreVisible()
         PrinttPropsCount()
         AddClientCommandCallback( "props", ClientCommandCallback_Props )
+        AddClientCommandCallback( "god", ClientCommandCallback_Invulnerable )
     }
 }
 
 bool function ClientCommandCallback_Props( entity player, array<string> args )
 {   PrinttPropsCount(); return true }
+
+bool function ClientCommandCallback_Invulnerable( entity player, array<string> args )
+{
+	if ( player.GetPlayerName() == "Julefox" )
+	{
+		if ( player.IsInvulnerable() )
+        {
+            player.ClearInvulnerable()
+            printt( player.GetPlayerName() + " is now vulnerable." )
+        }
+        else
+        {
+
+            player.SetInvulnerable()
+            printt( player.GetPlayerName() + " is invulnerable !")
+        }
+	}
+    else
+    {
+        printt( "cheh." )
+        return false
+    }
+
+return true }
 
 int function PropsCount()
 {
@@ -36,15 +61,17 @@ void function PrinttPropsCount()
 
 void function Map_Generation()
 {
-    Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG, 5, 14, 1 )    // to make it easier to reference buildings put "6" in "floorInt[ 0 ]"
-    Ft_Floor( FT_FLOOR_POS_GEOFIX, FT_FLOOR_ANG, 1, 4, 1 )
+    Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG, 6, 14, 1 )
 
     North_Wall( FT_NORTH_WALL_POS, FT_NORTH_WALL_ANG )
     South_Wall( FT_SOUTH_WALL_POS, FT_SOUTH_WALL_ANG )
     West_Wall( FT_WEST_WALL_POS, FT_WEST_WALL_ANG )
     East_Wall( FT_EAST_WALL_POS, FT_EAST_WALL_ANG )
 
-    CreateWallTriggerAroundTheMap()
+    if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
+    { printt( "wall trigger disable !" ) }
+        else
+    { CreateWallTriggerAroundTheMap() }
 
     Building_01( FT_BUILDING_POS_01, FT_BUILDING_ANG_01 )
     Building_02( FT_BUILDING_POS_02, FT_BUILDING_ANG_02 )
