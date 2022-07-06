@@ -152,7 +152,7 @@ return prop }
 entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
 {
     entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 4000 );map_trigger.SetBelowHeight( 10 );
+    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
     thread FloppyWallTrigger( map_trigger )
