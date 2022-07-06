@@ -202,7 +202,27 @@ void function East_Wall( vector pos, vector ang )
 void function CreateWallTriggerAroundTheMap()
 {
     // North_Wall()
-    
+    for ( int i = 0 ; i < 4 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 100, 5858, 0 > + < 190 * i, 0 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < 4 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 1160, 5928, 0 > + < 200 * i, 0 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < 7 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 2404, 5864, 0 > + < 200 * i, 0 * j, 0 > ) }
+    }
+    CreateFloppyWallTrigger( < 4156, 5364, 0 >, 500 )
+    for ( int i = 0 ; i < 5 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 4500, 5800, 0 > + < 250 * i, 0 * j, 0 > ) }
+    }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 1 ; j++ )
+        {   CreateFloppyWallTrigger( < 5230, 5800, 0 > + < 500 * i, 0 * j, 0 > ) }
+    }
 
     // South_Wall()
     for ( int i = 0 ; i < 12 ; i++ )
@@ -221,8 +241,8 @@ void function CreateWallTriggerAroundTheMap()
     {   for ( int j = 0 ; j < 7 ; j++ )
         {   CreateFloppyWallTrigger( < 6529.8, 3215, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
-    CreateFloppyWallTrigger( < 5586+160, 2915, 0 >, 200 )
-    CreateFloppyWallTrigger( < 5586+160, 2915-120, 0 >, 100 )
+    CreateFloppyWallTrigger( < 5746, 2915, 0 >, 200 )
+    CreateFloppyWallTrigger( < 5746, 2795, 0 >, 100 )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
         {   CreateFloppyWallTrigger( < 6632, 2257, 0 > + < 0 * i, 250 * j, 0 > ) }

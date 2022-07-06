@@ -29,8 +29,8 @@ bool function ClientCommandCallback_Invulnerable( entity player, array<string> a
         }
         else
         {
-
             player.SetInvulnerable()
+            
             printt( player.GetPlayerName() + " is invulnerable !")
         }
 	}
