@@ -1,4 +1,6 @@
 global function InitR5RCreateServerPanel
+global function InitR5RNamePanel
+global function InitR5RDescPanel
 
 global function SetSelectedServerMap
 global function SetSelectedServerPlaylist
@@ -10,16 +12,41 @@ struct
 	var menu
 	var panel
 
+	string tempservername
+	string tempserverdesc
+
+	var namepanel
+	var descpanel
+
 	array<var> panels
 } file
 
-struct
+global struct ServerStruct
 {
-	string name
-	string map
-	string playlist
-	int vis
-} NewServer
+	string svServerName
+	string svServerDesc
+	string svMapName
+	string svPlaylist
+	int svVisibility
+}
+
+global ServerStruct ServerSettings
+
+void function InitR5RNamePanel( var panel )
+{
+	file.namepanel = panel
+
+	AddButtonEventHandler( Hud_GetChild( panel, "BtnSaveName"), UIE_CLICK, UpdateServerName )
+	AddButtonEventHandler( Hud_GetChild( panel, "BtnServerName"), UIE_CHANGE, TempSaveNameChanges )
+}
+
+void function InitR5RDescPanel( var panel )
+{
+	file.descpanel = panel
+
+	AddButtonEventHandler( Hud_GetChild( panel, "BtnSaveDesc"), UIE_CLICK, UpdateServerDesc )
+	AddButtonEventHandler( Hud_GetChild( panel, "BtnServerDesc"), UIE_CHANGE, TempSaveDescChanges )
+}
 
 void function InitR5RCreateServerPanel( var panel )
 {
@@ -28,7 +55,7 @@ void function InitR5RCreateServerPanel( var panel )
 
 	//Setup Button EventHandlers
 	Hud_AddEventHandler( Hud_GetChild( file.panel, "BtnStartGame" ), UIE_CLICK, StartNewGame )
-	AddButtonEventHandler( Hud_GetChild( file.panel, "BtnServerName"), UIE_CHANGE, UpdateServerName )
+	
 	array<var> buttons = GetElementsByClassname( file.menu, "createserverbuttons" )
 	foreach ( var elem in buttons ) {
 		Hud_AddEventHandler( elem, UIE_CLICK, OpenSelectedPanel )
@@ -38,42 +65,43 @@ void function InitR5RCreateServerPanel( var panel )
 	file.panels.append(Hud_GetChild(file.panel, "R5RMapPanel"))
 	file.panels.append(Hud_GetChild(file.panel, "R5RPlaylistPanel"))
 	file.panels.append(Hud_GetChild(file.panel, "R5RVisPanel"))
+	file.panels.append(Hud_GetChild(file.menu, "R5RNamePanel"))
+	file.panels.append(Hud_GetChild(file.menu, "R5RDescPanel"))
 
 	//Setup Default Server Config
-	NewServer.name = "R5Reloaded Server"
-	NewServer.map = "mp_rr_aqueduct"
-	NewServer.playlist = "custom_tdm"
-	NewServer.vis = eServerVisibility.OFFLINE
+	ServerSettings.svServerName = "A R5Reloaded Server"
+	ServerSettings.svServerDesc = "This is a R5Reloaded Server"
+	ServerSettings.svMapName = "mp_rr_aqueduct"
+	ServerSettings.svPlaylist = "custom_tdm"
+	ServerSettings.svVisibility = eServerVisibility.OFFLINE
 
-	//Set selected ui
-	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), playlisttoname[NewServer.playlist])
-	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( NewServer.map ) )
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[NewServer.vis])
-	Hud_SetText( Hud_GetChild( file.panel, "BtnServerName" ), "A R5Reloaded Server" )
+	file.tempservername = ServerSettings.svServerName
+	file.tempserverdesc = ServerSettings.svServerDesc
+
+	//Setup Default Server Config
+	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), playlisttoname[ServerSettings.svPlaylist])
+	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( ServerSettings.svMapName ) )
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
 }
 
 void function OpenSelectedPanel( var button )
 {
-	int scriptid = Hud_GetScriptID( button ).tointeger()
-	ShowSelectedPanel( file.panels[scriptid] )
+	//Show panel depending on script id
+	ShowSelectedPanel( file.panels[Hud_GetScriptID( button ).tointeger()] )
+
+	if(Hud_GetScriptID( button ).tointeger() == 3 || Hud_GetScriptID( button ).tointeger() == 4)
+	{
+		Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), true )
+
+		Hud_SetText( Hud_GetChild( file.namepanel, "BtnServerName" ), ServerSettings.svServerName )
+		Hud_SetText( Hud_GetChild( file.descpanel, "BtnServerDesc" ), ServerSettings.svServerDesc )
+	}
 }
 
 void function StartNewGame( var button )
 {
-	//if(!CheckPlaylistAndMapCompatibility())
-		//return
-
+	//Start thread for starting the server
 	thread StartServer()
-}
-
-bool function CheckPlaylistAndMapCompatibility()
-{
-	array<string> playlistmaps = GetPlaylistMaps( NewServer.playlist )
-
-	if(!playlistmaps.contains(NewServer.map))
-		return false
-
-	return true
 }
 
 void function StartServer()
@@ -90,7 +118,7 @@ void function StartServer()
 	}
 
 	//Create new server with selected settings
-	CreateServer(NewServer.name, NewServer.map, NewServer.playlist, NewServer.vis)
+	CreateServer(ServerSettings.svServerName, ServerSettings.svServerDesc, ServerSettings.svMapName, ServerSettings.svPlaylist, ServerSettings.svVisibility)
 
 	//No longer at main menu
 	AtMainMenu = false
@@ -99,37 +127,55 @@ void function StartServer()
 void function SetSelectedServerMap( string map )
 {
 	//set map
-	NewServer.map = map
+	ServerSettings.svMapName = map
 
 	//Set the panel to not visible
 	Hud_SetVisible( file.panels[0], false )
 
 	//Set the new map image
-	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( NewServer.map ) )
+	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( ServerSettings.svMapName ) )
 }
 
 void function SetSelectedServerPlaylist( string playlist )
 {
 	//set playlist
-	NewServer.playlist = playlist
+	ServerSettings.svPlaylist = playlist
 
+	//Get the maps of the new playlist
+	array<string> playlist_maps = GetPlaylistMaps(ServerSettings.svPlaylist)
+	
 	//Set the panel to not visible
 	Hud_SetVisible( file.panels[1], false )
 
 	//Set the new playlist text
-	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), GetUIPlaylistName( NewServer.playlist ) )
+	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), GetUIPlaylistName( ServerSettings.svPlaylist ) )
+
+	//This should ever really be triggered but here just incase
+	//The way this would be triggered is if there are no maps in put in the selected playlist
+	if(playlist_maps.len() == 0) {
+		SetSelectedServerMap("mp_rr_canyonlands_64k_x_64k")
+		RefreshUIMaps()
+		return
+	}
+
+	//Check to see if the current map is allowed on the new selected playlist
+	if(!playlist_maps.contains(ServerSettings.svMapName))
+		SetSelectedServerMap(playlist_maps[0])
+
+	//Refresh Maps
+	RefreshUIMaps()
 }
 
 void function SetSelectedServerVis( int vis )
 {
 	//set visibility
-	NewServer.vis = vis
+	ServerSettings.svVisibility = vis
 
 	//Set the panel to not visible
 	Hud_SetVisible( file.panels[2], false )
 
 	//Set the new visibility text
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[NewServer.vis])
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
 }
 
 void function ShowSelectedPanel(var panel)
@@ -153,6 +199,26 @@ void function HideAllCreateServerPanels()
 
 void function UpdateServerName( var button )
 {
-    //Update the servername when the text is changed
-    NewServer.name = Hud_GetUTF8Text( Hud_GetChild( file.menu, "BtnServerName" ) )
+    ServerSettings.svServerName = file.tempservername
+
+	Hud_SetVisible( file.namepanel, false )
+	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
+}
+
+void function TempSaveNameChanges( var button )
+{
+	file.tempservername = Hud_GetUTF8Text( Hud_GetChild( file.namepanel, "BtnServerName" ) )
+}
+
+void function UpdateServerDesc( var button )
+{
+    ServerSettings.svServerDesc = file.tempserverdesc
+
+	Hud_SetVisible( file.descpanel, false )
+	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
+}
+
+void function TempSaveDescChanges( var button )
+{
+	file.tempserverdesc = Hud_GetUTF8Text( Hud_GetChild( file.descpanel, "BtnServerDesc" ) )
 }
