@@ -514,22 +514,15 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 }
 
 #if SERVER
-	void function ResultEnt( entity Ent )
+	void function ResultEnt( entity ent )
 	{
-		entity ang1 = PlayFXOnEntity( $"P_test_angles", Ent )
+		for ( int i = 0 ; i < 3 ; i++ )
+		{
+			entity fx = PlayFXOnEntity( $"P_test_angles", ent )
 			wait 1.5
 
-		if ( IsValid( ang1 ) ) ang1.Destroy()
-
-		entity ang2 = PlayFXOnEntity( $"P_test_angles", Ent )
-			wait 1.5
-
-		if ( IsValid( ang2 ) ) ang2.Destroy()
-
-		entity ang3 = PlayFXOnEntity( $"P_test_angles", Ent )
-			wait 1.5
-		
-		if ( IsValid( ang3 ) ) ang3.Destroy()
+			if ( IsValid( fx ) ) fx.Destroy()
+		}
 	printt( "FXOnEntity as been destroy." ) }
 #endif
 
