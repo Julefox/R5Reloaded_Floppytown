@@ -25,15 +25,14 @@ global asset CONCRETE_PANEL                 = $"mdl/desertlands/wall_city_panel_
 global asset BOX_BOTTOM_A                   = $"mdl/desertlands/highrise_square_shell_box_bottom_a.rmdl"
 global asset BOX_BOTTOM_B                   = $"mdl/desertlands/highrise_square_shell_box_bottom_b.rmdl"
 
-// Zipline Stuff
+// Zipline Assets
 global asset SECURITY_FENCE                 = $"mdl/industrial/security_fence_post.rmdl"
 global asset ZIP_ARM                        = $"mdl/industrial/zipline_arm.rmdl"
 
-// Ornament Stuff
-global array< asset > ORNAMENT              =
-[
-    $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
-]
+// Ornament Assets
+global asset BEAM_SUPPORT                   = $"mdl/industrial/underbelly_support_beam_256_01.rmdl"
+global asset IMC_CARGO_CONTAINER            = $"mdl/IMC_base/cargo_container_imc_01_white.rmdl"
+global asset VEHICLE_R5_MSC_SUV             = $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
 
 // Dev Assets
 global asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
@@ -132,6 +131,9 @@ global const vector FT_WEST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 
 global const vector FT_EAST_WALL_POS        = FLOPPYTOWN_POS_OFFSET + < 5632, 4335, -0.1 >
 global const vector FT_EAST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
+
+global const vector FT_LITTLE_BRIDGE_POS    = FLOPPYTOWN_POS_OFFSET + < 3840, 128, 2048 >
+global const vector FT_LITTLE_BRIDGE_ANG    = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z

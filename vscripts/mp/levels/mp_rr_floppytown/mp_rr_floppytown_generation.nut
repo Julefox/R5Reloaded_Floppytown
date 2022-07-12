@@ -10,15 +10,16 @@ void function Floppytown_MapInit_Generation()
         EditorRefAreVisible()
         AreaBuildAreVisible()
         PrinttPropsCount()
-        AddClientCommandCallback( "props", ClientCommandCallback_Props )
-        AddClientCommandCallback( "god", ClientCommandCallback_Invulnerable )
+        AddClientCommandCallback( "props",  ClientCommand_Props )
+        AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
+        AddClientCommandCallback( "test",   ClientCommand_Test )
     }
 }
 
-bool function ClientCommandCallback_Props( entity player, array<string> args )
+bool function ClientCommand_Props( entity player, array<string> args )
 {   PrinttPropsCount(); return true }
 
-bool function ClientCommandCallback_Invulnerable( entity player, array<string> args )
+bool function ClientCommand_Invulnerable( entity player, array<string> args )
 {
 	if ( player.GetPlayerName() == "Julefox" )
 	{
@@ -30,7 +31,8 @@ bool function ClientCommandCallback_Invulnerable( entity player, array<string> a
         else
         {
             player.SetInvulnerable()
-            
+            player.SetHealth( 100 )
+
             printt( player.GetPlayerName() + " is invulnerable !")
         }
 	}
@@ -94,6 +96,10 @@ void function Map_Generation()
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
     //Building_21( FT_BUILDING_POS_21, FT_BUILDING_ANG_21 )
+
+    int random = RandomIntRange( 0, 2 )
+    if ( random == 1 )
+    { LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG ) } else {}
 }
 
 void function Zips_Generation()
@@ -105,4 +111,10 @@ void function Zips_Generation()
     CreateFloppytownZiplineModel( FT_BUILDING_POS_12 + < -128, 1024, 2304 >,    < 0, 0, 0 > )
 
     CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_07 + < 1152, 384, 2176 >,   < 0, -90, 0 > )
+}
+
+bool function ClientCommand_Test( entity player, array<string> args )
+{
+    printt( "Player health = " + player.GetHealth() + " / " + player.GetMaxHealth() )
+    return true
 }
