@@ -469,11 +469,17 @@ void function Building_07( vector pos, vector ang )
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 16 ; j++ )
-        {   CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, 320, 0 > + < 0, 128 * i, 128 * j >, ang + < 0, 90, 0 > ) }
+        {
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, 320, 0 > + < 0, 128 * i, 128 * j >, ang + < 0, 90, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, 320, 0 > + < 0, 128 * i, 128 * j >, ang + < 0, -90, 0 > )
+        }
     }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, -64, 1664 > + < 0, 128 * i, 128 * j >, ang + < 0, 90, 0 > ) }
+    for ( int i = 0 ; i < 3 ; i++ )
+    {   for ( int j = 0 ; j < 4 ; j++ )
+        {
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, -64, 1536 > + < 0, 128 * i, 128 * j >, ang + < 0, 90, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, -64, 1536 > + < 0, 128 * i, 128 * j >, ang + < 0, -90, 0 > )
+        }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
@@ -523,7 +529,10 @@ void function Building_08( vector pos, vector ang )
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 13 ; j++ )
-        {   CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256, 0 > + < 128 * i, 0, 128 * j >, ang + < 0, 0, 0 > ) }
+        {
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256, 0 > + < 128 * i, 0, 128 * j >, ang + < 0, 0, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256-16, 0 > + < 128 * i, 0, 128 * j >, ang + < 0, 180, 0 > )
+        }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
