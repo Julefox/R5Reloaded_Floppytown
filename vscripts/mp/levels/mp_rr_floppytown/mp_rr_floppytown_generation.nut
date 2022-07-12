@@ -3,7 +3,13 @@ global function Floppytown_MapInit_Generation
 void function Floppytown_MapInit_Generation()
 {   printt( "Floppytown_MapInit_Generation OK" )
     Map_Generation()
+    Dynamic_Build_Generation()
     Zips_Generation()
+
+    for ( int i = 0 ; i < assetViewerArray.len() ; i++)
+    {
+        PrecacheModel( assetViewerArray[i] )
+    }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) )
     {   // map editing, do not activate in normal use
@@ -13,6 +19,7 @@ void function Floppytown_MapInit_Generation()
         AddClientCommandCallback( "props",  ClientCommand_Props )
         AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
         AddClientCommandCallback( "test",   ClientCommand_Test )
+        AddClientCommandCallback( "asset",  ClientCommand_AssetViewer )
     }
 }
 
@@ -96,10 +103,34 @@ void function Map_Generation()
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
     //Building_21( FT_BUILDING_POS_21, FT_BUILDING_ANG_21 )
+}
 
-    int random = RandomIntRange( 0, 2 )
-    if ( random == 1 )
+void function Dynamic_Build_Generation()
+{
+    int random0 = RandomIntRangeInclusive( 0, 100 )
+    if ( random0 >= 50 )
     { LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG ) } else {}
+
+
+    int random1 = RandomIntRangeInclusive( 0, 100 )
+    int random1_1 = RandomIntRangeInclusive( 0, 1 )
+    if ( random1 <= 20 )
+    {}
+    else if ( random1 <= 60 )
+    {
+        if ( random1_1 == 0 )
+        { BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG ) }
+        else
+        { BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG ) }
+    }
+    else if ( random1 <= 100 )
+    {
+        BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
+        BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
+    }
+
+    printt( "Dynamic_Build_Generation RNG: " + random0 + " / 100" )
+    printt( "Dynamic_Build_Generation RNG: " + random1 + " / 100" + " | " + random1_1 + " / 1" )
 }
 
 void function Zips_Generation()
@@ -116,5 +147,14 @@ void function Zips_Generation()
 bool function ClientCommand_Test( entity player, array<string> args )
 {
     printt( "Player health = " + player.GetHealth() + " / " + player.GetMaxHealth() )
-    return true
-}
+
+return true }
+
+bool function ClientCommand_AssetViewer( entity player, array<string> args )
+{
+    for ( int i = 0 ; i < assetViewerArray.len() ; i++ )
+    {
+        CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 0, 0, 300 * i >, < 0, 0, 0 > )
+    }
+
+return true }

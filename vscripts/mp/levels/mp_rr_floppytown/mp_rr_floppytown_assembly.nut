@@ -278,15 +278,14 @@ void function Building_01( vector pos, vector ang )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 592, -864, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, ang + < 0, -90, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -464, -850, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, ang + < 0, 90, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 584, -864, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, ang + < 0, -90, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -456, -850, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, ang + < 0, 90, 0 > )
         }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -400, -912, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, ang + < 0, 180, 0 > ) }
     }
-    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -848, SSB_UP_TO_0_PATCH >, ang + < 0, 90, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, ang + < 0, 180, 0 > ) }
@@ -879,6 +878,26 @@ void function LittleBridge( vector pos, vector ang )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {   CreateFloppytownModel( BEAM_SUPPORT, pos + < -96, -48, -2 > + < 256 * i, 72 * j, 0 >, ang + < 0, 90, 0 > ) }
     }
+}
+
+void function BalconyLeft( vector pos, vector ang )
+{
+    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -128, 7 >, ang + < 0, -90, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < -128, -32, 7 >, ang + < 0, 180, 0 > )
+    CreateFloppytownModel( RAILING_32, pos + < -128, 16, 7 >, ang + < 0, 180, 0 > )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, ang + < 0, -90, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < 96, -128, 7 >, ang + < 0, -90, 0 > )
+}
+
+void function BalconyRight( vector pos, vector ang )
+{
+    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 128, -128, 7 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < 128, -32, 7 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_32, pos + < 128, 16, 7 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, ang + < 0, -90, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < -96, -128, 7 >, ang + < 0, -90, 0 > )
 }
 
 void function AreaBuildAreVisible()

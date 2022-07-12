@@ -33,6 +33,12 @@ global asset ZIP_ARM                        = $"mdl/industrial/zipline_arm.rmdl"
 global asset BEAM_SUPPORT                   = $"mdl/industrial/underbelly_support_beam_256_01.rmdl"
 global asset IMC_CARGO_CONTAINER            = $"mdl/IMC_base/cargo_container_imc_01_white.rmdl"
 global asset VEHICLE_R5_MSC_SUV             = $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
+global asset RAILING_CORNER_IN              = $"mdl/ola/sewer_railing_01_corner_in.rmdl"
+global asset RAILING_CORNER_OUT             = $"mdl/ola/sewer_railing_01_corner_out.rmdl"
+global asset RAILING_128                    = $"mdl/ola/sewer_railing_01_128.rmdl"
+global asset RAILING_64                     = $"mdl/ola/sewer_railing_01_64.rmdl"
+global asset RAILING_32                     = $"mdl/ola/sewer_railing_01_32.rmdl"
+global asset RAILING_16                     = $"mdl/ola/sewer_railing_01_16.rmdl"
 
 // Dev Assets
 global asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
@@ -135,9 +141,35 @@ global const vector FT_EAST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 global const vector FT_LITTLE_BRIDGE_POS    = FLOPPYTOWN_POS_OFFSET + < 3840, 128, 2048 >
 global const vector FT_LITTLE_BRIDGE_ANG    = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
+global const vector FT_BALCONY_LEFT_POS     = FT_BUILDING_POS_01 + < -272, -584, 640 >
+global const vector FT_BALCONY_LEFT_ANG     = FT_BUILDING_ANG_01 + < 0, 0, 0 >
+
+global const vector FT_BALCONY_RIGHT_POS    = FT_BUILDING_POS_01 + < 368, -584, 640 >
+global const vector FT_BALCONY_RIGHT_ANG    = FT_BUILDING_ANG_01 + < 0, 0, 0 >
+
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
+
+global array< asset > assetViewerArray =
+[
+    $"mdl/desertlands/railing_metal_dirty_64_01.rmdl",
+    $"mdl/desertlands/railing_metal_dirty_64_02.rmdl",
+    $"mdl/desertlands/railing_metal_dirty_64_panel_01.rmdl",
+    $"mdl/desertlands/railing_metal_dirty_64x24_01.rmdl",
+    $"mdl/desertlands/railing_metal_dirty_64x24_panel_01.rmdl",
+    $"mdl/desertlands/railing_post_metal_dirty_01.rmdl",
+    $"mdl/desertlands/railing_stairs_metal_dirty_24_01.rmdl",
+    $"mdl/desertlands/railing_stairs_metal_dirty_48_01.rmdl",
+    $"mdl/ola/sewer_railing_01_128.rmdl",
+    $"mdl/ola/sewer_railing_01_16.rmdl",
+    $"mdl/ola/sewer_railing_01_32.rmdl",
+    $"mdl/ola/sewer_railing_01_64.rmdl",
+    $"mdl/ola/sewer_railing_01_corner_in.rmdl",
+    $"mdl/ola/sewer_railing_01_corner_out.rmdl",
+    $"mdl/ola/sewer_railing_01_stairend.rmdl",
+    $"mdl/ola/sewer_railing_02_128.rmdl",
+]
 
 entity function CreateFloppytownModel( asset a, vector pos, vector ang )
 {
@@ -148,6 +180,12 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     if ( realm> -1 )
     { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
     prop.e.gameModeId = realm
+
+        /* if ( a == THUNDERDOME_CEILING )
+        {
+            
+        } */
+
     prop.SetScriptName( "FloppyTownEntities" )
 return prop }
 
