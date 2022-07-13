@@ -186,7 +186,7 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
             
         } */
 
-    prop.SetScriptName( "FloppyTownEntities" )
+    prop.SetScriptName( "FloppytownEntities" )
 return prop }
 
 entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )

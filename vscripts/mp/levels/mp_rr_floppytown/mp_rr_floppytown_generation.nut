@@ -21,6 +21,14 @@ void function Floppytown_MapInit_Generation()
         AddClientCommandCallback( "test",   ClientCommand_Test )
         AddClientCommandCallback( "asset",  ClientCommand_AssetViewer )
     }
+
+	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
+    { printt( "wall trigger disable !" ) }
+        else
+    { CreateWallTriggerAroundTheMap() }
+	
+	Ang()
+
 }
 
 bool function ClientCommand_Props( entity player, array<string> args )
@@ -61,7 +69,7 @@ int function PropsCount()
 
 array< entity > function GetPropsCount()
 {
-    array< entity > EntitiesCount = GetEntArrayByScriptName( "FloppyTownEntities" )
+    array< entity > EntitiesCount = GetEntArrayByScriptName( "FloppytownEntities" )
     return EntitiesCount
 }
 
@@ -161,6 +169,25 @@ void function Zips_Generation()
 	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 64, -550, 832 >,   < 0, 180, 0 > )
 	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < -448, -934, 176 >,   < 0, 140, 0 > )
 	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 448+128, -934, 176 >,   < 0, -140, 0 > )
+}
+
+void function Ang()
+{
+	array<entity> props = 		GetEntArrayByScriptName( "FloppytownEntities" )
+	array<entity> triggers = 	GetEntArrayByScriptName( "trigger_cylinder" )
+	array<entity> editors = 	GetEntArrayByScriptName( "editor_ref" )
+
+	entity script_mover = CreateFloppytownModel( EMPTY, < 0, 0, 0 >, < 0, 0, 0 > )
+
+	foreach ( prop in props )
+	{ prop.SetParent( script_mover ) }
+	foreach ( trigger in triggers )
+	{ trigger.SetParent( script_mover ) }
+	foreach ( editor in editors )
+	{ editor.SetParent( script_mover ) }
+
+	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
+	script_mover.SetAngles( < -30, 0, 0 > )
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )
