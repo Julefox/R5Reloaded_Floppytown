@@ -107,39 +107,46 @@ void function Map_Generation()
 
 void function Dynamic_Build_Generation()
 {
-    int rng_0 = RandomIntRangeInclusive( 0, 100 )
-
-    int rng_1 = RandomIntRangeInclusive( 0, 100 )
-    int rng_1_1 = RandomIntRangeInclusive( 0, 1 )
+	array<string> rng_0_choice = [ "hide", "visible" ]
+	string rng_0 = rng_0_choice.getrandom()
+	array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
+	string rng_1 = rng_1_choice.getrandom()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
-		rng_0 = 100
-		rng_1 = 100
+		rng_0 = "visible"
+		rng_1 = "both"
     }
 
 	// rng_0
-	if ( rng_0 >= 50 )
-    { LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG ) } else {}
+	switch ( rng_0 )
+	{
+		case "hide":
+			break
+		case "visible":
+			LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG )
+		break
+	}
 
 	// rng_1
-    if ( rng_1 <= 20 )
-    {}
-    else if ( rng_1 <= 60 )
-    {
-        if ( rng_1_1 == 0 )
-        { BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG ) }
-        else
-        { BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG ) }
-    }
-    else if ( rng_1 <= 100 )
-    {
-        BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
-        BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
-    }
+	switch ( rng_1 )
+	{
+		case "none":
+			break
+		case "left":
+			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
+			break
+		case "right":
+			BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
+			break
+		case "both":
+			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
+    	    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
+		break
+	}
 
-    printt( "Dynamic_Build_Generation RNG: " + rng_0 + " / 100" )
-    printt( "Dynamic_Build_Generation RNG: " + rng_1 + " / 100" + " | " + rng_1_1 + " / 1" )
+	printt( "Dynamic_Build_Generation RNG: Little Bridge = " + rng_0 )
+	printt( "Dynamic_Build_Generation RNG: Balcony       = " + rng_1 )
 }
 
 void function Zips_Generation()

@@ -40,7 +40,7 @@ void function LoadLobbyAfterLeave()
 	}
 
 	//Create lobby server
-	CreateServer("Lobby VM", "Lobby VM", "mp_lobby", "menufall", eServerVisibility.OFFLINE)
+	CreateServer("Floppytown", "Floppytown", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
 
 	//Refresh Server Browser
 	RefreshServerListing()

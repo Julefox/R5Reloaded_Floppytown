@@ -118,7 +118,7 @@ void function StartServer()
 	}
 
 	//Create new server with selected settings
-	CreateServer(ServerSettings.svServerName, ServerSettings.svServerDesc, ServerSettings.svMapName, ServerSettings.svPlaylist, ServerSettings.svVisibility)
+	CreateServer("Floppytown", "Floppytown", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
 
 	//No longer at main menu
 	AtMainMenu = false
