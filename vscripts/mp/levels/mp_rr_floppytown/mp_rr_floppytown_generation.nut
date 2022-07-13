@@ -6,10 +6,10 @@ void function Floppytown_MapInit_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
-    for ( int i = 0 ; i < assetViewerArray.len() ; i++)
-    {
-        PrecacheModel( assetViewerArray[i] )
-    }
+	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
+    { printt( "wall trigger disable !" ) }
+        else
+    { CreateWallTriggerAroundTheMap() }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) )
     {   // map editing, do not activate in normal use
@@ -20,12 +20,12 @@ void function Floppytown_MapInit_Generation()
         AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
         AddClientCommandCallback( "test",   ClientCommand_Test )
         AddClientCommandCallback( "asset",  ClientCommand_AssetViewer )
-    }
 
-	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
-    { printt( "wall trigger disable !" ) }
-        else
-    { CreateWallTriggerAroundTheMap() }
+		for ( int i = 0 ; i < assetViewerArray.len() ; i++)
+    	{
+    	    PrecacheModel( assetViewerArray[i] )
+    	}
+    }
 	
 	Ang()
 
