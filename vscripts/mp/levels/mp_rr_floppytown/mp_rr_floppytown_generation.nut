@@ -85,11 +85,6 @@ void function Map_Generation()
     West_Wall( FT_WEST_WALL_POS, FT_WEST_WALL_ANG )
     East_Wall( FT_EAST_WALL_POS, FT_EAST_WALL_ANG )
 
-    if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
-    { printt( "wall trigger disable !" ) }
-        else
-    { CreateWallTriggerAroundTheMap() }
-
     Building_01( FT_BUILDING_POS_01, FT_BUILDING_ANG_01 )
     Building_02( FT_BUILDING_POS_02, FT_BUILDING_ANG_02 )
     Building_03( FT_BUILDING_POS_03, FT_BUILDING_ANG_03 )
