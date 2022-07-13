@@ -187,7 +187,7 @@ void function Ang()
 	{ editor.SetParent( script_mover ) }
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( < -30, 0, 0 > )
+	script_mover.SetAngles( < 0, 0, 0 > )
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )
