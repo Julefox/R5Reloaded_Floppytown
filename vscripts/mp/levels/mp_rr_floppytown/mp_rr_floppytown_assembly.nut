@@ -286,6 +286,7 @@ void function Building_01( vector pos, vector ang )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -400, -912, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, ang + < 0, 180, 0 > ) }
     }
+    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -860, SSB_UP_TO_0_PATCH >, ang + < 0, 90, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, ang + < 0, 180, 0 > ) }

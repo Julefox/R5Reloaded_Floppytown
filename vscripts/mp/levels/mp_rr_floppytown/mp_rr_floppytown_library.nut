@@ -141,10 +141,10 @@ global const vector FT_EAST_WALL_ANG        = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 global const vector FT_LITTLE_BRIDGE_POS    = FLOPPYTOWN_POS_OFFSET + < 3840, 128, 2048 >
 global const vector FT_LITTLE_BRIDGE_ANG    = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BALCONY_LEFT_POS     = FT_BUILDING_POS_01 + < -272, -584, 640 >
+global const vector FT_BALCONY_LEFT_POS     = FT_BUILDING_POS_01 + < -272, -584, 576 >
 global const vector FT_BALCONY_LEFT_ANG     = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 
-global const vector FT_BALCONY_RIGHT_POS    = FT_BUILDING_POS_01 + < 368, -584, 640 >
+global const vector FT_BALCONY_RIGHT_POS    = FT_BUILDING_POS_01 + < 368, -584, 576 >
 global const vector FT_BALCONY_RIGHT_ANG    = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 
 //

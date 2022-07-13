@@ -107,30 +107,39 @@ void function Map_Generation()
 
 void function Dynamic_Build_Generation()
 {
-    int random0 = RandomIntRangeInclusive( 0, 100 )
-    if ( random0 >= 50 )
+    int rng_0 = RandomIntRangeInclusive( 0, 100 )
+
+    int rng_1 = RandomIntRangeInclusive( 0, 100 )
+    int rng_1_1 = RandomIntRangeInclusive( 0, 1 )
+
+	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
+    {
+		rng_0 = 100
+		rng_1 = 100
+    }
+
+	// rng_0
+	if ( rng_0 >= 50 )
     { LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG ) } else {}
 
-
-    int random1 = RandomIntRangeInclusive( 0, 100 )
-    int random1_1 = RandomIntRangeInclusive( 0, 1 )
-    if ( random1 <= 20 )
+	// rng_1
+    if ( rng_1 <= 20 )
     {}
-    else if ( random1 <= 60 )
+    else if ( rng_1 <= 60 )
     {
-        if ( random1_1 == 0 )
+        if ( rng_1_1 == 0 )
         { BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG ) }
         else
         { BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG ) }
     }
-    else if ( random1 <= 100 )
+    else if ( rng_1 <= 100 )
     {
         BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
         BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
     }
 
-    printt( "Dynamic_Build_Generation RNG: " + random0 + " / 100" )
-    printt( "Dynamic_Build_Generation RNG: " + random1 + " / 100" + " | " + random1_1 + " / 1" )
+    printt( "Dynamic_Build_Generation RNG: " + rng_0 + " / 100" )
+    printt( "Dynamic_Build_Generation RNG: " + rng_1 + " / 100" + " | " + rng_1_1 + " / 1" )
 }
 
 void function Zips_Generation()
@@ -142,12 +151,13 @@ void function Zips_Generation()
     CreateFloppytownZiplineModel( FT_BUILDING_POS_12 + < -128, 1024, 2304 >,    < 0, 0, 0 > )
 
     CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_07 + < 1152, 384, 2176 >,   < 0, -90, 0 > )
+	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 64, -550, 832 >,   < 0, 180, 0 > )
+	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < -448, -934, 176 >,   < 0, 140, 0 > )
+	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 448+128, -934, 176 >,   < 0, -140, 0 > )
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-    printt( "Player health = " + player.GetHealth() + " / " + player.GetMaxHealth() )
-
 return true }
 
 bool function ClientCommand_AssetViewer( entity player, array<string> args )
