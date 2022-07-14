@@ -59,7 +59,7 @@ global const vector FT_BUILDING_ANG_15      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 
 global const vector FT_BUILDING_POS_16      = FLOPPYTOWN_POS_OFFSET + < 4224, 3072, 0 >
 global const vector FT_BUILDING_ANG_16      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
-global const vector FT_BUILDING_POS_17      = FLOPPYTOWN_POS_OFFSET + < 1152, 3008, 0 >
+global const vector FT_BUILDING_POS_17      = FLOPPYTOWN_POS_OFFSET + < 1152, 3008, -6 >
 global const vector FT_BUILDING_ANG_17      = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 global const vector FT_BUILDING_POS_18      = FLOPPYTOWN_POS_OFFSET + < 2688, 2176, 0 >
