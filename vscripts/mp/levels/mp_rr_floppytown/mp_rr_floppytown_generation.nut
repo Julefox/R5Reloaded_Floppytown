@@ -26,6 +26,8 @@ void function Floppytown_MapInit_Generation()
     	    PrecacheModel( assetViewerArray[i] )
     	}
     }
+
+    thread SkyboxAnimation()
 	
 	Ang()
 
@@ -216,6 +218,23 @@ void function Ang()
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
 	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+}
+
+void function SkyboxAnimation()
+{
+    vector pos = < -22156.67, 844.36, -26894.61 >
+    vector ang = < 0, 0, 0 >
+    while ( true )
+    {
+        entity Fx = PlayFX( SPACE_DEBRIS_COMET, pos, ang )
+        entity Fx0 = PlayFX( $"P_test_angles", pos, ang )
+        printt("PlayFX( NOW )")
+
+        wait 6
+        Fx.Destroy()
+        Fx0.Destroy()
+        WaitFrame()
+    }
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )

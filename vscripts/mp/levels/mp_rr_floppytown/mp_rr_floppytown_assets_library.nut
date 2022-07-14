@@ -212,6 +212,37 @@ global asset ELECTRICAL_TRANSFORMER_01          = $"mdl/eden/eden_electrical_tra
 global asset RUBBER_FLOOR_01                    = $"mdl/mendoko/mendoko_rubber_floor_01.rmdl"
 
 
+/////--- Fx ---/////
+global asset ROCK_IMPACT_XL                     = $"P_sw_rock_impact_XL"
+global asset SPACE_DEBRIS_COMET                 = $"P_space_debris_comet"
+global asset CORE_EXP                           = $"P_sw_core_exp"
+
+    //$"P_harvester_beam_hld",
+	//$"P_harvester_damaged_1",
+	//$"P_harvester_beam_end",
+	//$"P_harvester_beam_air",
+    //$"P_wind_cruising",
+    //$"P_coreroom_sparks",
+    //$"P_toxic_air_blown",
+	//$"P_toxic_air_256_floor",
+	//$"P_toxic_air_256_thin",
+	//$"P_toxic_air_256_top",
+	//$"P_toxic_air_256",
+    //$"P_wrth_tt_portal_sky",
+	//$"P_wrth_tt_portal_base",
+	//$"P_wrth_tt_portal_lab",
+    //$"P_wrth_tt_portal_screen_flash"
+    //$"P_wrth_tt_phase",
+    //$"P_titan_smoke_marker",
+    //$"P_sprint_FP",
+    //$"P_npe_goal"
+    //$"P_npe_pit_orange"
+    //$"P_npe_streaks_400_blue",  
+    //$"P_health_hex",    
+    //$"P_phase_shift_main_xo",
+	//$"P_phase_shift_screen",
+    //$"P_adrenaline_screen_CP",
+    //$"P_tpod_screen_distort",
 
 
 /////--- Dev Assets ---/////
