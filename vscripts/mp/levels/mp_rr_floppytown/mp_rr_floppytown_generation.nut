@@ -117,6 +117,7 @@ void function Dynamic_Build_Generation()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
+        printt( "RNG Update: -> disable" )
 		rng_0 = "visible"
 		rng_1 = "both"
     }
@@ -210,9 +211,11 @@ void function Ang()
 	{ trigger.SetParent( script_mover ) }
 	foreach ( editor in editors )
 	{ editor.SetParent( script_mover ) }
+    foreach ( prop in props )
+	{ prop.SetParent( script_mover ) }
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
+	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )

@@ -118,7 +118,7 @@ void function StartServer()
 	}
 
 	//Create new server with selected settings
-	CreateServer("Floppytown", "Floppytown", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
+	CreateServer("In development floppytown", "Please do not try to join, you will not be able to join, the map is in development", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
 
 	//No longer at main menu
 	AtMainMenu = false

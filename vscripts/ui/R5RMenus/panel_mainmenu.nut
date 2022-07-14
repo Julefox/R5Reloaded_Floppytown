@@ -48,7 +48,7 @@ void function LaunchLobby()
 	RuiSetBool( Hud_GetRui( Hud_GetChild( file.panel, "Status" ) ), "showSpinner", true )
 
 	//Create lobby server
-	CreateServer("Floppytown", "Floppytown", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
+	CreateServer("In development floppytown", "Please do not try to join, you will not be able to join, the map is in development", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
 }
 
 void function SetupRUI()

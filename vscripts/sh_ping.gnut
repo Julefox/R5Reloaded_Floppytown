@@ -518,12 +518,27 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 	{
 		for ( int i = 0 ; i < 3 ; i++ )
 		{
-			entity fx = PlayFXOnEntity( $"P_test_angles", ent )
-			wait 1.5
+			if ( IsValid( ent ) )
+			{
+				entity fx = PlayFXOnEntity( $"P_test_angles", ent )
+					wait 1.5
 
-			if ( IsValid( fx ) ) fx.Destroy()
+				if ( IsValid( fx ) ) fx.Destroy()
+			}
 		}
-	printt( "FXOnEntity as been destroy." ) }
+	printt( "ResultEnt(): FXOnEntity as been destroy." ) }
+
+	void function FindBestZiplineLocation( entity ent )
+	{
+        if ( IsValid( ent ) )
+        {
+        	entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > )
+            printt( "Zip_Best_Placement:    " + fx.GetOrigin() )
+        		wait 1.5
+
+        	if ( IsValid( fx ) ) fx.Destroy()
+        }
+	printt( "FindBestZiplineLocation(): FXOnEntity as been destroy." ) }
 #endif
 
 #if SERVER || CLIENT
@@ -568,10 +583,16 @@ PingTraceResults function DoPingTrace( entity player )
 			#if SERVER
 				printt( "		TraceResults:		" )
 				printt( "===========================" )
-				printt( "Ent_Number:	" + result.hitEnt )
-				printt( "Ent_ModelName: " + result.hitEnt.GetModelName() )
-				printt( "Ent_Origin:	" + result.hitEnt.GetOrigin() )
-				printt(	"Ping_Origin:   " + result.endPos )
+				printt( "Ent_Number:            " + result.hitEnt )
+				printt( "Ent_ModelName:         " + result.hitEnt.GetModelName() )
+				printt( "Ent_Origin:            " + result.hitEnt.GetOrigin() )
+				
+				if ( result.hitEnt.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
+				{
+					thread FindBestZiplineLocation( result.hitEnt )
+				}
+				
+				printt(	"Ping_Origin:           " + result.endPos )
 
 				thread ResultEnt( result.hitEnt )
 
@@ -602,6 +623,13 @@ PingTraceResults function DoPingTrace( entity player )
 					"Name : " + result.hitEnt.GetModelName() +
 					"\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
 				}
+			#endif
+
+			#if SERVER
+				//if ( result.hitEnt.GetScriptName() == "FloppytownEntities" )
+				//{ result.hitEnt.Destroy() }
+				//else if ( result.hitEnt.GetScriptName() == "editor_ref" )
+				//{ result.hitEnt.Destroy() }
 			#endif
 		}
 	}

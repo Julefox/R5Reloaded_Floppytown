@@ -503,7 +503,12 @@ void function Building_07( vector pos, vector ang )
     CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 768, 448, 2560 >, ang + < 0, 90, 0 > )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, ang + < 0, 0, 0 > ) }
+        {
+            if ( j == 1 )
+            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256.1 > + < 0 * i, 0, 256 * j >, ang + < 0, 0, 0 > ) }
+            else
+            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, ang + < 0, 0, 0 > ) }
+        }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
