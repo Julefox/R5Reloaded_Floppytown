@@ -2,49 +2,6 @@ untyped
 
 globalize_all_functions
 
-// Map Assets
-global asset BUILDING_PLATFORM              = $"mdl/desertlands/construction_bldg_platform_02.rmdl"
-global asset BUILDING_PLATFORM_LARGE        = $"mdl/desertlands/construction_bldg_platform_01.rmdl"
-global asset THUNDERDOME_WALL               = $"mdl/thunderdome/thunderdome_cage_wall_256x256_01.rmdl"
-global asset THUNDERDOME_CEILING            = $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl"
-global asset THUNDERDOME_MINI_CEILING       = $"mdl/thunderdome/thunderdome_cage_ceiling_256x128_06.rmdl"
-global asset THUNDERDOME_FRAME              = $"mdl/thunderdome/thunderdome_cage_frame_256_01.rmdl"
-global asset THUNDERDOME_WALL_256x352       = $"mdl/thunderdome/thunderdome_cage_wall_256x352_01.rmdl"
-global asset THUNDERDOME_WALL_512x352       = $"mdl/thunderdome/thunderdome_cage_wall_512x352_01.rmdl"
-global asset SQUARE_BLOCK                   = $"mdl/desertlands/highrise_Square_Block_03.rmdl"
-global asset GRASS                          = $"mdl/foliage/icelandic_moss_grass_02.rmdl"
-global asset WALL_PILLAR                    = $"mdl/desertlands/desertlands_city_slanted_building_01_wall_pillar_64.rmdl"
-global asset SLANTED_SLICE                  = $"mdl/desertlands/desertlands_city_slanted_building_01_slice_01.rmdl"
-global asset SQUARE_SHELL_BOX               = $"mdl/desertlands/highrise_square_shell_box_128_c.rmdl"
-global asset PIPE_GRATE                     = $"mdl/desertlands/city_pipe_grate_medium_128.rmdl"
-global asset SPACE_ELEVATOR                 = $"mdl/levels_terrain/mp_rr_desertlands/desertlands_space_elevator_platform_01.rmdl"
-global asset CARGO_SMALL                    = $"mdl/desertlands/industrial_cargo_container_small_03.rmdl"
-global asset COLUMN_STACK                   = $"mdl/desertlands/construction_bldg_column_stack_01.rmdl"
-global asset MID_PLATFORM                   = $"mdl/levels_terrain/mp_rr_desertlands/desertlands_z12_mid_platform_01.rmdl"
-global asset CONCRETE_PANEL                 = $"mdl/desertlands/wall_city_panel_concrete_128_01.rmdl"
-global asset BOX_BOTTOM_A                   = $"mdl/desertlands/highrise_square_shell_box_bottom_a.rmdl"
-global asset BOX_BOTTOM_B                   = $"mdl/desertlands/highrise_square_shell_box_bottom_b.rmdl"
-
-// Zipline Assets
-global asset SECURITY_FENCE                 = $"mdl/industrial/security_fence_post.rmdl"
-global asset ZIP_ARM                        = $"mdl/industrial/zipline_arm.rmdl"
-
-// Ornament Assets
-global asset BEAM_SUPPORT                   = $"mdl/industrial/underbelly_support_beam_256_01.rmdl"
-global asset IMC_CARGO_CONTAINER            = $"mdl/IMC_base/cargo_container_imc_01_white.rmdl"
-global asset VEHICLE_R5_MSC_SUV             = $"mdl/vehicles_r5/land/msc_suv_partum/veh_land_msc_suv_partum_static.rmdl"
-global asset RAILING_CORNER_IN              = $"mdl/ola/sewer_railing_01_corner_in.rmdl"
-global asset RAILING_CORNER_OUT             = $"mdl/ola/sewer_railing_01_corner_out.rmdl"
-global asset RAILING_128                    = $"mdl/ola/sewer_railing_01_128.rmdl"
-global asset RAILING_64                     = $"mdl/ola/sewer_railing_01_64.rmdl"
-global asset RAILING_32                     = $"mdl/ola/sewer_railing_01_32.rmdl"
-global asset RAILING_16                     = $"mdl/ola/sewer_railing_01_16.rmdl"
-
-// Dev Assets
-global asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
-global asset CUBEMAP                        = $"mdl/menu/menu_cubemap.rmdl"
-global asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
-
 // Map Origin | Angles
 global const vector FLOPPYTOWN_POS_OFFSET   = < 0, 0, 0 > // map origin // Zips appear with "mp_rr_floppytown_scripts.ent", map position change is not available anymore !
 global const vector FLOPPYTOWN_ANG_OFFSET   = < 0, 0, 0 > // map angles // not usable !
@@ -150,26 +107,6 @@ global const vector FT_BALCONY_RIGHT_ANG    = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
-
-global array< asset > assetViewerArray =
-[
-    $"mdl/desertlands/railing_metal_dirty_64_01.rmdl",
-    $"mdl/desertlands/railing_metal_dirty_64_02.rmdl",
-    $"mdl/desertlands/railing_metal_dirty_64_panel_01.rmdl",
-    $"mdl/desertlands/railing_metal_dirty_64x24_01.rmdl",
-    $"mdl/desertlands/railing_metal_dirty_64x24_panel_01.rmdl",
-    $"mdl/desertlands/railing_post_metal_dirty_01.rmdl",
-    $"mdl/desertlands/railing_stairs_metal_dirty_24_01.rmdl",
-    $"mdl/desertlands/railing_stairs_metal_dirty_48_01.rmdl",
-    $"mdl/ola/sewer_railing_01_128.rmdl",
-    $"mdl/ola/sewer_railing_01_16.rmdl",
-    $"mdl/ola/sewer_railing_01_32.rmdl",
-    $"mdl/ola/sewer_railing_01_64.rmdl",
-    $"mdl/ola/sewer_railing_01_corner_in.rmdl",
-    $"mdl/ola/sewer_railing_01_corner_out.rmdl",
-    $"mdl/ola/sewer_railing_01_stairend.rmdl",
-    $"mdl/ola/sewer_railing_02_128.rmdl",
-]
 
 entity function CreateFloppytownModel( asset a, vector pos, vector ang )
 {

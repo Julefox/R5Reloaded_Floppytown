@@ -172,7 +172,7 @@ void function Ang()
 	array<entity> triggers = 	GetEntArrayByScriptName( "trigger_cylinder" )
 	array<entity> editors = 	GetEntArrayByScriptName( "editor_ref" )
 
-	entity script_mover = CreateFloppytownModel( EMPTY, < 0, 0, 0 >, < 0, 0, 0 > )
+	entity script_mover = CreateFloppytownModel( EMPTY, FLOPPYTOWN_POS_OFFSET, FLOPPYTOWN_ANG_OFFSET )
 
 	foreach ( prop in props )
 	{ prop.SetParent( script_mover ) }
@@ -182,7 +182,7 @@ void function Ang()
 	{ editor.SetParent( script_mover ) }
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( < 0, 0, 0 > )
+	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
 }
 
 bool function ClientCommand_Test( entity player, array<string> args )
