@@ -228,32 +228,31 @@ global const asset ROCK_IMPACT_XL                     = $"P_sw_rock_impact_XL"
 global const asset SPACE_DEBRIS_COMET                 = $"P_space_debris_comet"
 global const asset CORE_EXP                           = $"P_sw_core_exp"
 global const asset SPRINT_FP                          = $"P_sprint_FP"
-
-    //$"P_harvester_beam_hld",
-	//$"P_harvester_damaged_1",
-	//$"P_harvester_beam_end",
-	//$"P_harvester_beam_air",
-    //$"P_wind_cruising",
-    //$"P_coreroom_sparks",
-    //$"P_toxic_air_blown",
-	//$"P_toxic_air_256_floor",
-	//$"P_toxic_air_256_thin",
-	//$"P_toxic_air_256_top",
-	//$"P_toxic_air_256",
-    //$"P_wrth_tt_portal_sky",
-	//$"P_wrth_tt_portal_base",
-	//$"P_wrth_tt_portal_lab",
-    //$"P_wrth_tt_portal_screen_flash"
-    //$"P_wrth_tt_phase",
-    //$"P_titan_smoke_marker",
-    //$"P_npe_goal"
-    //$"P_npe_pit_orange"
-    //$"P_npe_streaks_400_blue",  
-    //$"P_health_hex",    
-    //$"P_phase_shift_main_xo",
-	//$"P_phase_shift_screen",
-    //$"P_adrenaline_screen_CP",
-    //$"P_tpod_screen_distort",
+global const asset HARVESTER_BEAM_AIR                 = $"P_harvester_beam_air"
+global const asset HARVESTER_BEAM_END                 = $"P_harvester_beam_end"
+global const asset HARVESTER_BEAM_HLD                 = $"P_harvester_beam_hld"
+global const asset HARVESTER_DAMAGED                  = $"P_harvester_damaged_1"
+global const asset WIND_CRUISING                      = $"P_wind_cruising"
+global const asset COREROOM_SPARKS                    = $"P_coreroom_sparks"
+global const asset TOXIC_AIR_BLOWN                    = $"P_toxic_air_blown"
+global const asset TOXIC_AIR_256_FLOOR                = $"P_toxic_air_256_floor"
+global const asset TOXIC_AIR_256_THIN                 = $"P_toxic_air_256_thin"
+global const asset TOXIC_AIR_256_TOP                  = $"P_toxic_air_256_top"
+global const asset TOXIC_AIR_256                      = $"P_toxic_air_256"
+global const asset WRAITH_TT_PORTAL_SKY               = $"P_wrth_tt_portal_sky"
+global const asset WRAITH_TT_PORTAL_BASE              = $"P_wrth_tt_portal_base"
+global const asset WRAITH_TT_PORTAL_LAB               = $"P_wrth_tt_portal_lab"
+global const asset WRAITH_TT_PORTAL_FLASH             = $"P_wrth_tt_portal_screen_flash"
+global const asset WRAITH_TT_PHASE                    = $"P_wrth_tt_phase"
+global const asset TITAN_SMOKE_MARKER                 = $"P_titan_smoke_marker"
+global const asset NPE_GOAL                           = $"P_npe_goal"
+global const asset NPE_PIT_ORANGE                     = $"P_npe_pit_orange
+global const asset NPE_STREAKS_BLUE                   = $"P_npe_streaks_400_blue"
+global const asset HEALTH_HEX                         = $"P_health_hex"
+global const asset PHASE_SHIFT_MAIN_XO                = $"P_phase_shift_main_xo"
+global const asset PHASE_SHIFT_SCREEN                 = $"P_phase_shift_screen"
+global const asset ADRENALINE_SCREEN_CP               = $"P_adrenaline_screen_CP"
+global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
 
 
 /////--- Dev Assets ---/////
