@@ -255,6 +255,24 @@ void function Ang()
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
 	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+
+    //thread Yes( script_mover )
+}
+
+void function Yes( entity script_mover )
+{
+    int i = 0
+    int j = 0
+    while( true )
+    {
+        script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET + < 0 + j, 0, 0 > )
+        script_mover.SetAngles( < 0 + i, 0 + i, 0 > )
+        j = j+20
+        if ( i == 360 )
+        {
+            i = i-359
+        }
+    WaitFrame() }
 }
 
 void function SkyboxAnimation()
@@ -274,22 +292,20 @@ void function SkyboxAnimation()
 
 /* void function Sprint()
 {
-    bool IsSprinting = false
     array<entity> players = GetPlayerArray()
 
-    foreach ( player in players)
+    while ( true )
     {
-        if ( player.IsSprinting() )
+        foreach ( player in players)
         {
-            IsSprinting = true
-        }
+            if ( player.IsSprinting() )
+            {
+                PlayFXOnEntity( SPRINT_FP, player )
+                printt("sprint")
+            }
 
-        while ( IsSprinting )
-        {
-            printt(".")
-            WaitFrame()
         }
-    }
+    WaitFrame() }
 } */
 
 
