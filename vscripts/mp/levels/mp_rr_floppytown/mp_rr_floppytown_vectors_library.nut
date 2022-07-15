@@ -192,4 +192,6 @@ entity function CreateEditorRef( vector pos, vector ang, string name )
 return editor_ref }
 
 void function Floppytown_MapInit_Library()
-{   printt( "Floppytown_MapInit_Library OK" ) }
+{
+    printt( "Floppytown_MapInit_Library OK" )
+}

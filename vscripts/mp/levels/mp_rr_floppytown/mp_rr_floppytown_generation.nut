@@ -2,6 +2,7 @@ global function Floppytown_MapInit_Generation
 
 void function Floppytown_MapInit_Generation()
 {   printt( "Floppytown_MapInit_Generation OK" )
+    printt( "" )
     Map_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
@@ -186,10 +187,11 @@ void function Dynamic_Build_Generation()
             break
 
     }
-
+	printt( "" )
 	printt( "Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
 	printt( "Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
     printt( "Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
+    printt( "" )
 }
 
 void function Zips_Generation()
