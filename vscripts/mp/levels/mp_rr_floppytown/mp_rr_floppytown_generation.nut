@@ -4,6 +4,7 @@ void function Floppytown_MapInit_Generation()
 {   printt( "Floppytown_MapInit_Generation OK" )
     printt( "" )
     Map_Generation()
+    Props_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
@@ -113,6 +114,13 @@ void function Map_Generation()
     //Building_21( FT_BUILDING_POS_21, FT_BUILDING_ANG_21 )
 }
 
+void function Props_Generation()
+{
+    for ( int i = 0 ; i < 2 ; i++ )
+    { CreateFloppytownModel( TRAFFIC_BARREL_01, FLOPPYTOWN_POS_OFFSET + < 26, 2160, 1284 > + < 200 * i, 0, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
+    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, FLOPPYTOWN_POS_OFFSET + < 384, 1152-140, 1808 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
+}
+
 void function Dynamic_Build_Generation()
 {
 	array<string> rng_0_choice = [ "hide", "visible" ]
@@ -121,8 +129,7 @@ void function Dynamic_Build_Generation()
 	string rng_1 = rng_1_choice.getrandom()
     array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
     string rng_2 = rng_2_choice.getrandom()
-
-    array<string> rng_3_choice = [ "1", "2", "3", "4", "5"]
+    array<string> rng_3_choice = [ "1", "2", "3", "4", "5" ]
     string rng_3 = rng_3_choice.getrandom()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
@@ -131,10 +138,8 @@ void function Dynamic_Build_Generation()
 		rng_0 = "visible"
 		rng_1 = "both"
         rng_2 = "all"
-        rng_3 = "none"
+        rng_3 = "inDev"
     }
-
-    // rng_3 = "inDev"
 
 	// rng_0
 	switch ( rng_0 )
