@@ -263,9 +263,21 @@ return true }
 
 bool function ClientCommand_AssetViewer( entity player, array<string> args )
 {
+    int j = 1
+    int k = 1
+
     for ( int i = 0 ; i < assetViewerArray.len() ; i++ )
     {
-        CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 0, 0, 300 * i >, < 0, 0, 0 > )
+
+        CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 0, 800 * j, 800 * k >, < 0, 0, 0 > )
+
+        k++
+
+        if ( k == 9 )
+        {
+            j = j+1
+            k = k-8
+        }
     }
 
 return true }
