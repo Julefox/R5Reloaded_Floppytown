@@ -928,6 +928,11 @@ void function cargo_ground_third( vector pos, vector ang )
 }
 // Cargo on the ground end
 
+void function spawn_nessy( vector pos, vector ang )
+{
+    CreateFloppytownModel( NESSY, pos, ang)
+}
+
 //TRAFFIC_BARREL_01
 
 void function AreaBuildAreVisible()

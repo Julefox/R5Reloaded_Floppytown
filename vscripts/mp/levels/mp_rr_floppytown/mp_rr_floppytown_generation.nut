@@ -122,13 +122,19 @@ void function Dynamic_Build_Generation()
     array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
     string rng_2 = rng_2_choice.getrandom()
 
+    array<string> rng_3_choice = [ "1", "2", "3", "4", "5"]
+    string rng_3 = rng_3_choice.getrandom()
+
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
         printt( "RNG Update: -> disable" )
 		rng_0 = "visible"
 		rng_1 = "both"
         rng_2 = "all"
+        rng_3 = "none"
     }
+
+    // rng_3 = "inDev"
 
 	// rng_0
 	switch ( rng_0 )
@@ -156,7 +162,7 @@ void function Dynamic_Build_Generation()
     	    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
 		break
 	}
-
+    // rng_2
     switch ( rng_2 )
     {
         case "all":
@@ -187,10 +193,40 @@ void function Dynamic_Build_Generation()
             break
 
     }
+    // rng_3
+    switch( rng_3 )
+    {
+        case "inDev":
+            spawn_nessy(FT_NESSY_1_POS, FT_NESSY_1_ANG)
+            spawn_nessy(FT_NESSY_2_POS, FT_NESSY_2_ANG)
+            spawn_nessy(FT_NESSY_3_POS, FT_NESSY_3_ANG)
+            spawn_nessy(FT_NESSY_4_POS, FT_NESSY_4_ANG)
+            spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
+            break
+        case "none":
+            break
+        case "1":
+            spawn_nessy(FT_NESSY_1_POS, FT_NESSY_1_ANG)
+            break
+        case "2":
+            spawn_nessy(FT_NESSY_2_POS, FT_NESSY_2_ANG)
+            break
+        case "3":
+            spawn_nessy(FT_NESSY_3_POS, FT_NESSY_3_ANG)
+            break
+        case "4":
+            spawn_nessy(FT_NESSY_4_POS, FT_NESSY_4_ANG)
+            break
+        case "5":
+            spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
+            break
+
+    }
 	printt( "" )
 	printt( "Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
 	printt( "Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
     printt( "Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
+    printt( "Dynamic_Build_Generation RNG: Nessy Location      = Did you really think we were going to give you the rental?" )
     printt( "" )
 }
 

@@ -108,12 +108,28 @@ global const vector FT_BALCONY_RIGHT_ANG    = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 global const vector FT_CARGO_GROUND_FIRST_POS = FLOPPYTOWN_POS_OFFSET + < 1880, 3830, 0 >
 global const vector FT_CARGO_GROUND_FIRST_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
 
-global const vector FT_CARGO_GROUND_SECOND_POS = FLOPPYTOWN_POS_OFFSET + < 3810, 2047, 0  >
+global const vector FT_CARGO_GROUND_SECOND_POS = FLOPPYTOWN_POS_OFFSET + < 3810, 2047, 0 >
 global const vector FT_CARGO_GROUND_SECOND_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
 
-global const vector FT_CARGO_GROUND_THIRD_POS = FLOPPYTOWN_POS_OFFSET + < 2220, 985, 0  >
+global const vector FT_CARGO_GROUND_THIRD_POS = FLOPPYTOWN_POS_OFFSET + < 2220, 985, 0 >
 global const vector FT_CARGO_GROUND_THIRD_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
 //Cargo on the ground end
+
+// Nessy location ?
+global const vector FT_NESSY_1_POS = FLOPPYTOWN_POS_OFFSET + < 2100, 4880, 2240 >
+global const vector FT_NESSY_1_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
+
+global const vector FT_NESSY_2_POS = FLOPPYTOWN_POS_OFFSET + < 10, 4700, 1653 >
+global const vector FT_NESSY_2_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
+
+global const vector FT_NESSY_3_POS = FLOPPYTOWN_POS_OFFSET + < 930, 895, 1930 >
+global const vector FT_NESSY_3_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
+
+global const vector FT_NESSY_4_POS = FLOPPYTOWN_POS_OFFSET + < 3716, 34, 2050 >
+global const vector FT_NESSY_4_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
+
+global const vector FT_NESSY_5_POS = FLOPPYTOWN_POS_OFFSET + < 1513, 2647, 0 >
+global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
