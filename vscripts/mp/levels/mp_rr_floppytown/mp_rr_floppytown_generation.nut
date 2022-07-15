@@ -162,21 +162,28 @@ void function Dynamic_Build_Generation()
             cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
             cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
             cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+            break
         case "first":
             cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
+            break
         case "second":
             cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+            break
         case "third":
             cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+            break
         case "first_second":
             cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
             cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+            break
         case "second_third":
             cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
             cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+            break
         case "first_third":
             cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
             cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+            break
 
     }
 
