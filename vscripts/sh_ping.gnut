@@ -532,12 +532,46 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
         if ( IsValid( ent ) )
         {
         	entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > )
-            printt( "Zip_Placement_Origin:  " + fx.GetOrigin() )
-        		wait 1.5
+			vector fxPos = fx.GetOrigin()
+			
+            printt( "Zip_Placement_Origin:  " + fxPos )
+        		wait 0.5
 
-        	if ( IsValid( fx ) ) fx.Destroy()
+			thread EntFilesGeneratorForZip( fx, fxPos )
+				wait 1.0
+        	if ( IsValid( fx ) )
+			{
+				fx.Destroy()
+				printt( "FindBestZiplineLocation(): FXOnEntity as been destroy." )
+			}
         }
-	printt( "FindBestZiplineLocation(): FXOnEntity as been destroy." ) }
+	}
+
+	void function EntFilesGeneratorForZip( entity fx, vector fxPos )
+	{
+		int j = 0
+
+		printt( "===== .ent file generation =====" )
+		
+		printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
+
+		for ( float i = fxPos.z ; i > 35 ; i = i-304 )
+		{
+			j++
+		}
+
+		for ( float i = fxPos.z ; i > 35 ; i = i-304 )
+		{
+			printt( "\"_zipline_rest_point_" + j + "\" \"" + fxPos.x + " " + fxPos.y + " " + i + "\"" )
+			j--
+		}
+
+		printt( "\"_zipline_rest_point_" + j + "\" \"" + fxPos.x + " " + fxPos.y + " " + "35.0" + "\"" )
+		
+		printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + "35.0" + "\"" )
+
+		printt( "===== end .ent file generation =====" )
+	}
 #endif
 
 ///////////////////////////// Floppytown Tool End /////////////////////////////

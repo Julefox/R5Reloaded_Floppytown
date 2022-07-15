@@ -196,7 +196,6 @@ global asset TABLET_MINI                        = $"mdl/props/tablet/tablet_mini
 global asset LOOT_BIN_HOLDER_INSIDE             = $"mdl/props/loot_bin_holder_inside.rmdl"
 global asset EXOPLANET_MED_POD_01               = $"mdl/props/med_pod/exoplanet_med_pod_01.rmdl"
 global asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exoplanet_med_pod_02.rmdl"
-global asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exoplanet_med_pod_02.rmdl"
 global asset INSIDE_LOOT_BIN                    = $"mdl/props/loot_bin_holder_inside.rmdl"
 global asset NESSY                              = $"mdl/domestic/nessy_doll.rmdl"
 
