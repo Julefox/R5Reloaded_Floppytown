@@ -123,9 +123,9 @@ void function Props_Generation()
     CreateFloppytownModel( GONDOLA_CART_01, FLOPPYTOWN_POS_OFFSET + < 896, 80, 2640 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     { CreateFloppytownModel( THUNDERDOME_MINI_CEILING, FLOPPYTOWN_POS_OFFSET + < 5060, 318, 1664 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, -45, 0 > ) }
-    CreateFloppytownModel( THUNDERDOME_STANDS_AWNING_01, FLOPPYTOWN_POS_OFFSET + < 5568, 835, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( THUNDERDOME_STANDS_AWNING_01, FLOPPYTOWN_POS_OFFSET + < 5184-16, 768-68, 1664+16 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
 }
-// 5568, 835, 1792
+
 void function Dynamic_Build_Generation()
 {
 	array<string> rng_0_choice = [ "hide", "visible" ]
@@ -367,11 +367,9 @@ bool function ClientCommand_AssetViewer( entity player, array<string> args )
     int k = 1
     int l = 0
 
-    entity IsValid = CreateFloppytownModel( EMPTY, < 0, 0, 5000 >, < 0, 0, 0 > )
-
     CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < -2000, 3000, 5480 >, < 0, 0, 0 > ).SetModelScale( 500 )
-    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 600+4000, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
-    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 12600+4000, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
+    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 4600, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
+    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 16600, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
 
     for ( int i = 0 ; i < assetViewerArray.len() ; i++ )
     {
@@ -394,4 +392,3 @@ bool function ClientCommand_AssetViewer( entity player, array<string> args )
     }
 
 return true }
-
