@@ -14,6 +14,8 @@ global asset CONCRETE_PANEL                 = $"mdl/desertlands/wall_city_panel_
 global asset BOX_BOTTOM_A                   = $"mdl/desertlands/highrise_square_shell_box_bottom_a.rmdl"
 global asset BOX_BOTTOM_B                   = $"mdl/desertlands/highrise_square_shell_box_bottom_b.rmdl"
 global asset CARGO_SMALL                    = $"mdl/desertlands/industrial_cargo_container_small_03.rmdl"
+global asset PHARMACETIC_SIGN               = $"mdl/desertlands/desertlands_lobby_couch_02.rmdl"
+global asset PLANTROOM                      = $"mdl/desertlands/desertlands_plantroom_rack_03.rmdl"
 
 // Thunderdome
 global asset THUNDERDOME_WALL_512x352_01    = $"mdl/thunderdome/thunderdome_cage_wall_512x352_01.rmdl"
@@ -152,6 +154,10 @@ global asset MAT_METAL_02                       = $"mdl/industrial/landing_mat_m
 global asset MAT_METAL_02_LARGE                 = $"mdl/industrial/landing_mat_metal_02_large.rmdl"
 global asset MAT_METAL_03                       = $"mdl/industrial/landing_mat_metal_03.rmdl"
 global asset MAT_METAL_03_LARGE                 = $"mdl/industrial/landing_mat_metal_03_large.rmdl"
+global asset VENDING_MACHINE                    = $"mdl/industrial/vending_machine_03.rmdl"
+
+// Utilities
+global asset POWER_GEN                          = $"mdl/utilities/power_gen1.rmdl"
 
 // Ola
 global asset RAILING_CORNER_IN                  = $"mdl/ola/sewer_railing_01_corner_in.rmdl"
@@ -190,6 +196,9 @@ global asset TABLET_MINI                        = $"mdl/props/tablet/tablet_mini
 global asset LOOT_BIN_HOLDER_INSIDE             = $"mdl/props/loot_bin_holder_inside.rmdl"
 global asset EXOPLANET_MED_POD_01               = $"mdl/props/med_pod/exoplanet_med_pod_01.rmdl"
 global asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exoplanet_med_pod_02.rmdl"
+global asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exoplanet_med_pod_02.rmdl"
+global asset INSIDE_LOOT_BIN                    = $"mdl/props/loot_bin_holder_inside.rmdl"
+global asset NESSY                              = $"mdl/domestic/nessy_doll.rmdl"
 
 // ---
 global asset CORE_ENERGY                        = $"mdl/fx/core_energy.rmdl"
@@ -210,6 +219,9 @@ global asset BEACON_SMALL_SCREEN_02_OFF         = $"mdl/eden/beacon_small_screen
 global asset ELECTRICAL_POLE_01                 = $"mdl/eden/eden_electrical_pole_01.rmdl"
 global asset ELECTRICAL_TRANSFORMER_01          = $"mdl/eden/eden_electrical_transformer_01.rmdl"
 global asset RUBBER_FLOOR_01                    = $"mdl/mendoko/mendoko_rubber_floor_01.rmdl"
+
+// Pipes
+// Wait please i need more time
 
 
 /////--- Fx ---/////
