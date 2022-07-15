@@ -104,6 +104,17 @@ global const vector FT_BALCONY_LEFT_ANG     = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 global const vector FT_BALCONY_RIGHT_POS    = FT_BUILDING_POS_01 + < 368, -584, 576 >
 global const vector FT_BALCONY_RIGHT_ANG    = FT_BUILDING_ANG_01 + < 0, 0, 0 >
 
+//Cargo on the ground
+global const vector FT_CARGO_GROUND_FIRST_POS = FLOPPYTOWN_POS_OFFSET + < 1880, 3830, 0 >
+global const vector FT_CARGO_GROUND_FIRST_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
+
+global const vector FT_CARGO_GROUND_SECOND_POS = FLOPPYTOWN_POS_OFFSET + < 3810, 2047, 0  >
+global const vector FT_CARGO_GROUND_SECOND_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
+
+global const vector FT_CARGO_GROUND_THIRD_POS = FLOPPYTOWN_POS_OFFSET + < 2220, 985, 0  >
+global const vector FT_CARGO_GROUND_THIRD_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 >
+//Cargo on the ground end
+
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
