@@ -216,6 +216,7 @@ global asset RUBBER_FLOOR_01                    = $"mdl/mendoko/mendoko_rubber_f
 global asset ROCK_IMPACT_XL                     = $"P_sw_rock_impact_XL"
 global asset SPACE_DEBRIS_COMET                 = $"P_space_debris_comet"
 global asset CORE_EXP                           = $"P_sw_core_exp"
+global asset SPRINT_FP                          = $"P_sprint_FP"
 
     //$"P_harvester_beam_hld",
 	//$"P_harvester_damaged_1",
@@ -234,7 +235,6 @@ global asset CORE_EXP                           = $"P_sw_core_exp"
     //$"P_wrth_tt_portal_screen_flash"
     //$"P_wrth_tt_phase",
     //$"P_titan_smoke_marker",
-    //$"P_sprint_FP",
     //$"P_npe_goal"
     //$"P_npe_pit_orange"
     //$"P_npe_streaks_400_blue",  

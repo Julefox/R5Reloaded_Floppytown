@@ -28,6 +28,7 @@ void function Floppytown_MapInit_Generation()
     }
 
     thread SkyboxAnimation()
+    //thread Sprint()
 	
 	Ang()
 
@@ -227,15 +228,34 @@ void function SkyboxAnimation()
     while ( true )
     {
         entity Fx = PlayFX( SPACE_DEBRIS_COMET, pos, ang )
-        entity Fx0 = PlayFX( $"P_test_angles", pos, ang )
         printt("PlayFX( NOW )")
 
         wait 6
         Fx.Destroy()
-        Fx0.Destroy()
         WaitFrame()
     }
 }
+
+/* void function Sprint()
+{
+    bool IsSprinting = false
+    array<entity> players = GetPlayerArray()
+
+    foreach ( player in players)
+    {
+        if ( player.IsSprinting() )
+        {
+            IsSprinting = true
+        }
+
+        while ( IsSprinting )
+        {
+            printt(".")
+            WaitFrame()
+        }
+    }
+} */
+
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
