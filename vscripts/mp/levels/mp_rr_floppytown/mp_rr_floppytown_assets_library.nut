@@ -94,6 +94,8 @@ global const asset IMC_SMALL_COMMAND_MONITOR          = $"mdl/IMC_base/monitor_c
 global const asset IMC_ANTENNA_LARGE                  = $"mdl/IMC_base/imc_antenna_large.rmdl"
 global const asset IMC_GENERATOR_01                   = $"mdl/IMC_base/generator_IMC_01.rmdl"
 global const asset IMC_THUMPER_GENERATOR_SET_B        = $"mdl/IMC_base/thumper_generator_set_b.rmdl"
+global const asset IMC_TECH_TALLPANEL                 = $"mdl/IMC_base/imc_tech_tallpanel_48_02.rmdl"
+
 
 // Colony
 global const asset COLONY_ANTENNA_01                  = $"mdl/colony/antenna_01_colony_arm.rmdl"

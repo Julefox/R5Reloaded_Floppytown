@@ -907,6 +907,15 @@ void function BalconyRight( vector pos, vector ang )
     CreateFloppytownModel( RAILING_64, pos + < -96, -128, 7 >, ang + < 0, -90, 0 > )
 }
 
+void function MiniBalconyLeft( vector pos, vector ang )
+{
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 0, 0, 0 >, ang + < 0, 90, 0 > )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -64, 9 >, ang + < 0, -90, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < -128, 32, 9 >, ang + < 0, 180, 0 > )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -64, 9 >, ang + < 0, -90, 0 > )
+    CreateFloppytownModel( RAILING_64, pos + < 96, -64, 9 >, ang + < 0, -90, 0 > )
+}
+
 // Cargo on the ground
 void function cargo_ground_first( vector pos, vector ang )
 {

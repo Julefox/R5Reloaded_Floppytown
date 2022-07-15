@@ -123,7 +123,24 @@ void function Props_Generation()
     CreateFloppytownModel( GONDOLA_CART_01, FLOPPYTOWN_POS_OFFSET + < 896, 80, 2640 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     { CreateFloppytownModel( THUNDERDOME_MINI_CEILING, FLOPPYTOWN_POS_OFFSET + < 5060, 318, 1664 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, -45, 0 > ) }
-    CreateFloppytownModel( THUNDERDOME_STANDS_AWNING_01, FLOPPYTOWN_POS_OFFSET + < 5184-16, 768-68, 1664+16 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( THUNDERDOME_STANDS_AWNING_01, FLOPPYTOWN_POS_OFFSET + < 5168, 700, 1680 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( CRATE_MD_01, FLOPPYTOWN_POS_OFFSET + < 32, 2988, 1296 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( UTG_SPIRE, FLOPPYTOWN_POS_OFFSET + < 256, 4608, 1296 >, FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 > )
+    CreateFloppytownModel( DESERTLANDS_SIGN_NEWDAMN_01, FLOPPYTOWN_POS_OFFSET + < 3586, 4832, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > )
+    for ( int i = 0 ; i < 6 ; i++ )
+    {
+        CreateFloppytownModel( IMC_TECH_TALLPANEL, FLOPPYTOWN_POS_OFFSET + < 3256, 3992, 320 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+        CreateFloppytownModel( IMC_TECH_TALLPANEL, FLOPPYTOWN_POS_OFFSET + < 2072, 4154, 320 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
+    }
+    CreateFloppytownModel( BEACON_SERVER_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5376+88, 4288-192, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    MiniBalconyLeft( < 5406, 4640, 2176 >, <0,0,0> )
+    CreateFloppytownModel( METAL_BEAM_256, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( METAL_BEAM_128, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 2048 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( RAILING_CORNER_OUT, FLOPPYTOWN_POS_OFFSET + < 5522, 4686, 2409 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
+    for ( int i = 0 ; i < 3 ; i++ )
+    { CreateFloppytownModel( RAILING_128, FLOPPYTOWN_POS_OFFSET + < 5394, 4686, 2409 > + < -128 * i, 0, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 > ) }
+    for ( int i = 0 ; i < 6 ; i++ )
+    { CreateFloppytownModel( RAILING_128, FLOPPYTOWN_POS_OFFSET + < 5522, 4686-128, 2409 > + < 0, -128 * i, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
 }
 
 void function Dynamic_Build_Generation()
