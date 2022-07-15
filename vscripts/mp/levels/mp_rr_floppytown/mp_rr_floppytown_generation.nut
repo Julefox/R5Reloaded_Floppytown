@@ -6,6 +6,7 @@ void function Floppytown_MapInit_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
+
 	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
     { printt( "wall trigger disable !" ) }
         else
@@ -117,12 +118,15 @@ void function Dynamic_Build_Generation()
 	string rng_0 = rng_0_choice.getrandom()
 	array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
 	string rng_1 = rng_1_choice.getrandom()
+    array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
+    string rng_2 = rng_2_choice.getrandom()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
         printt( "RNG Update: -> disable" )
 		rng_0 = "visible"
 		rng_1 = "both"
+        rng_2 = "all"
     }
 
 	// rng_0
@@ -152,8 +156,33 @@ void function Dynamic_Build_Generation()
 		break
 	}
 
-	printt( "Dynamic_Build_Generation RNG: Little Bridge = " + rng_0 )
-	printt( "Dynamic_Build_Generation RNG: Balcony       = " + rng_1 )
+    switch ( rng_2 )
+    {
+        case "all":
+            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
+            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+        case "first":
+            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
+        case "second":
+            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+        case "third":
+            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+        case "first_second":
+            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
+            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+        case "second_third":
+            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
+            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+        case "first_third":
+            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
+            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+
+    }
+
+	printt( "Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
+	printt( "Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
+    printt( "Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
 }
 
 void function Zips_Generation()
@@ -269,3 +298,4 @@ bool function ClientCommand_AssetViewer( entity player, array<string> args )
     }
 
 return true }
+
