@@ -928,6 +928,8 @@ void function cargo_ground_third( vector pos, vector ang )
 }
 // Cargo on the ground end
 
+//TRAFFIC_BARREL_01
+
 void function AreaBuildAreVisible()
 {
     for ( int i = 0 ; i <  3 ; i++ )
