@@ -761,7 +761,7 @@ void function __IncrementStat_Float( entity player, StatEntry entry, float incre
 	player.p.statValues_Float[entry.indexWithinType] = newValue
 
 	if ( STATS_DEBUG_PRINT_SPAM )
-		printt( "@@@@ STATS __IncrementStat_Float @@@@", player, entry.persistenceFullKey_Current, newValue, "(was " + oldValue + ")" )
+	{ /* printt( "@@@@ STATS __IncrementStat_Float @@@@", player, entry.persistenceFullKey_Current, newValue, "(was " + oldValue + ")" ) */ }
 
 	if ( entry.indexWithinType in player.p.statEntryChangeCallbacks_Float )
 		foreach( StatChangedCallbackType_Float cb in player.p.statEntryChangeCallbacks_Float[entry.indexWithinType] )
