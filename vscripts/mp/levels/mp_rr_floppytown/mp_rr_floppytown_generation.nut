@@ -132,7 +132,15 @@ void function Props_Generation()
         CreateFloppytownModel( IMC_TECH_TALLPANEL, FLOPPYTOWN_POS_OFFSET + < 3256, 3992, 320 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
         CreateFloppytownModel( IMC_TECH_TALLPANEL, FLOPPYTOWN_POS_OFFSET + < 2072, 4154, 320 > + < 0, 0, 256 * i >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
     }
-    CreateFloppytownModel( BEACON_SERVER_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5376+88, 4288-192, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+    for ( int i = 0 ; i < 2 ; i++ )
+    { CreateFloppytownModel( BEACON_SERVER_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5464, 4096, 1792 > + < 0, -64 * i, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 3 ; j++ )
+        {
+            CreateFloppytownModel( BEACON_SERVER_HALF_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5278, 4718, 1792 > + < 128 * i, 0, 128 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+            CreateFloppytownModel( BEACON_SERVER_HALF_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5548, 4576, 1792 > + < 0, -128 * i, 128 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 > )
+        }
+    }
     MiniBalconyLeft( < 5406, 4640, 2176 >, <0,0,0> )
     CreateFloppytownModel( METAL_BEAM_256, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
     CreateFloppytownModel( METAL_BEAM_128, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 2048 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
@@ -140,7 +148,24 @@ void function Props_Generation()
     for ( int i = 0 ; i < 3 ; i++ )
     { CreateFloppytownModel( RAILING_128, FLOPPYTOWN_POS_OFFSET + < 5394, 4686, 2409 > + < -128 * i, 0, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 > ) }
     for ( int i = 0 ; i < 6 ; i++ )
-    { CreateFloppytownModel( RAILING_128, FLOPPYTOWN_POS_OFFSET + < 5522, 4686-128, 2409 > + < 0, -128 * i, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    { CreateFloppytownModel( RAILING_128, FLOPPYTOWN_POS_OFFSET + < 5522, 4558, 2409 > + < 0, -128 * i, 0 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > ) }
+    CreateFloppytownModel( ELECTRICAL_POLE_01, FLOPPYTOWN_POS_OFFSET + < 5504, 4335, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
+    for ( int i = 0 ; i < 5 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        {
+            CreateFloppytownModel( COLUMN_01_STACK, FLOPPYTOWN_POS_OFFSET + < 4992, 768, 0 > + < 0, 152 * i, 168 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+        }
+    }
+    for ( int i = 0 ; i < 4 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        {
+            CreateFloppytownModel( COLUMN_01_STACK, FLOPPYTOWN_POS_OFFSET + < 5248, 1712, 0 > + < 0, -152 * i, 168 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+        }
+    }
+    for ( int i = 0 ; i < 2 ; i++ )
+    {   for ( int j = 0 ; j < 2 ; j++ )
+        { CreateFloppytownModel( COLUMN_01, FLOPPYTOWN_POS_OFFSET + < 5056, 752, 0 > + < 56 * i, 0, 150 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > ) }
+    }
 }
 
 void function Dynamic_Build_Generation()
