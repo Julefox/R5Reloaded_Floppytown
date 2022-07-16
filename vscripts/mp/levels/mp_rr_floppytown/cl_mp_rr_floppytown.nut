@@ -6,6 +6,8 @@ void function ClientCodeCallback_MapInit()
 
 	//FloppytownLightEnvironment()
 
+	ServerCallback_ToneMapping( 16.0, 2.0, 0.1, 0.75 )
+
 	printt( "++++-------------------------------------------------------------------------++++" )
 	printt( ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> WELCOME ON FLOPPYTOWN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<" )
 	printt( "++++-------------------------------------------------------------------------++++" )
