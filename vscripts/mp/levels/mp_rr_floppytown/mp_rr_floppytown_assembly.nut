@@ -5,14 +5,6 @@ globalize_all_functions
 void function Floppytown_MapInit_Assembly()
 {   printt( "Floppytown_MapInit_Assembly:                  The file has been called." ) }
 
-//void function Ft_Geofix( asset a, vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
-//{   for ( int i = 0 ; i <  Xaxis ; i++ )
-//    {   for ( int j = 0 ; j <  Yaxis ; j++ )
-//        {   for ( int k = 0 ; k <  Zaxis ; k++ )
-//            {
-//                CreateFloppytownModel( a, pos + < 1024 * i, 352 * j, 0 * k > , ang )
-//}   }   }   }
-
 void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
 {
     for ( int i = 0 ; i <  Xaxis ; i++ )
