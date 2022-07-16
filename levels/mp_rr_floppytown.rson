@@ -1,6 +1,7 @@
 When: "SERVER"
 Scripts:
 [
+	mp/levels/mp_rr_floppytown/mp_rr_floppytown_dev.nut
 	mp/levels/mp_rr_floppytown/mp_rr_floppytown.nut
 	mp/levels/mp_rr_floppytown/mp_rr_floppytown_vectors_library.nut
 	mp/levels/mp_rr_floppytown/mp_rr_floppytown_assets_library.nut

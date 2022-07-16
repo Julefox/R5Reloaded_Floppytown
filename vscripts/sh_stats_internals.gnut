@@ -864,7 +864,7 @@ void function UpdateCalculatedStatCachedValue( entity player, StatEntry entry, i
 			player.SetPersistentVar( entry.persistenceFullKey_Current, value )
 
 		if ( STATS_DEBUG_PRINT_SPAM )
-			printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value )
+		{	/* printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value ) */ }
 	}
 	else if ( entry.type == eStatType.INT )
 	{
@@ -874,7 +874,7 @@ void function UpdateCalculatedStatCachedValue( entity player, StatEntry entry, i
 			player.SetPersistentVar( entry.persistenceFullKey_Current, value )
 
 		if ( STATS_DEBUG_PRINT_SPAM )
-			printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value )
+		{	/* printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value ) */ }
 	}
 	else if ( entry.type == eStatType.FLOAT )
 	{
@@ -884,7 +884,7 @@ void function UpdateCalculatedStatCachedValue( entity player, StatEntry entry, i
 			player.SetPersistentVar( entry.persistenceFullKey_Current, value )
 
 		if ( STATS_DEBUG_PRINT_SPAM )
-			printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value )
+		{	/* printt( "@@@@ STATS UpdateCalculatedStatCachedValue @@@@", player, entry.persistenceFullKey_Current, value ) */ }
 	}
 }
 #endif

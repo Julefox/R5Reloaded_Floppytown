@@ -447,3 +447,8 @@ ELECTRICAL_POLE_01
 ELECTRICAL_TRANSFORMER_01          
 RUBBER_FLOOR_01                    
 ]
+
+void function Floppytown_MapInit_Asset_Library()
+{
+    printt( "Floppytown_MapInit_Asset_Library:             The file has been called." )
+}

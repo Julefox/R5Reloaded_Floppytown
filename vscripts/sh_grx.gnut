@@ -1542,7 +1542,7 @@ string function GRX_DBG_PREFIX()
 	#elseif UI
 		string vm = "UI"
 	#endif
-	return "<><>GRX<><> " + vm + " " + FUNC_NAME( 1 )
+	return ""//"<><>GRX<><> " + vm + " " + FUNC_NAME( 1 )
 }
 #endif
 
@@ -1949,15 +1949,15 @@ void function UpdatePlayerGRXScriptState( entity player, GRXUserInfo ornull code
 #if GRX_DEBUG_PRINTS
 	if ( !fileLevel.GRX_DEBUG_PRINTS_disableTemporarily )
 	{
-		printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.isInventoryReady", scriptState.isInventoryReady )
-		printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.nextScriptQueryId", scriptState.nextScriptQueryId )
-		printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.operationQueue.len() = ", scriptState.operationQueue.len() )
-		printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.activeOperationOrNull = ", scriptState.activeOperationOrNull == null ? "null" : ("from " + (expect ScriptGRXOperationInfo(scriptState.activeOperationOrNull)).DEV_culprit) )
+		//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.isInventoryReady", scriptState.isInventoryReady )
+		//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.nextScriptQueryId", scriptState.nextScriptQueryId )
+		//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.operationQueue.len() = ", scriptState.operationQueue.len() )
+		//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.activeOperationOrNull = ", scriptState.activeOperationOrNull == null ? "null" : ("from " + (expect ScriptGRXOperationInfo(scriptState.activeOperationOrNull)).DEV_culprit) )
 		#if SERVER
-			printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.hasQueuedOnConnectServersideScriptGRXOperations = ", scriptState.hasQueuedOnConnectServersideScriptGRXOperations )
-			printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.PROTO_haveWeGreenlightedUIForGRX = ", scriptState.PROTO_haveWeGreenlightedUIForGRX )
+			//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.hasQueuedOnConnectServersideScriptGRXOperations = ", scriptState.hasQueuedOnConnectServersideScriptGRXOperations )
+			//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.PROTO_haveWeGreenlightedUIForGRX = ", scriptState.PROTO_haveWeGreenlightedUIForGRX )
 		#elseif UI
-			printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.areOffersReady = ", scriptState.areOffersReady )
+			//printt( GRX_DBG_PREFIX(), "PlayerGRXScriptState.areOffersReady = ", scriptState.areOffersReady )
 		#endif
 	}
 #endif

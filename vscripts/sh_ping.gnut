@@ -551,7 +551,8 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 	{
 		int j = 0
 
-		printt( "\n===== .ent file generation =====" )
+		printt( "" )
+		printt( "===== .ent file generation =====" )
 		
 		printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
 
@@ -680,6 +681,7 @@ PingTraceResults function DoPingTrace( entity player )
 		else
 		{
 			#if SERVER
+				printt( "" )
 				printt( "		TraceResults:		" )
 				printt( "===========================" )
 				printt( "Ent_Number:            " + result.hitEnt )
@@ -710,6 +712,7 @@ PingTraceResults function DoPingTrace( entity player )
 					}
 				}
 				printt( "===========================" )
+				printt( "" )
 			#endif
 
 			#if CLIENT || UI
