@@ -484,7 +484,7 @@ void function UICodeCallback_FullyConnected( string levelname )
 
 	uiGlobal.loadedLevel = levelname
 
-	printt( "UICodeCallback_FullyConnected: " + uiGlobal.loadedLevel + ", IsFullyConnected(): ", IsFullyConnected() )
+	//printt( "UICodeCallback_FullyConnected: " + uiGlobal.loadedLevel + ", IsFullyConnected(): ", IsFullyConnected() )
 
 	//if ( !uiGlobal.loadoutsInitialized )
 	//{

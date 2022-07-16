@@ -328,9 +328,9 @@ var function CodeCallback_ClientCommand( entity player, array<string> args )
 	}
 	else
 	{
-		printl( "############################" )
-		printl( "CommandString: " + commandString  + " was not added via AddClientCommandCallback but is being called in CodeCallback_ClientCommand" )
-		printl( "############################" )
+		//printl( "############################" )
+		//printl( "CommandString: " + commandString  + " was not added via AddClientCommandCallback but is being called in CodeCallback_ClientCommand" )
+		//printl( "############################" )
 		return false
 	}
 }

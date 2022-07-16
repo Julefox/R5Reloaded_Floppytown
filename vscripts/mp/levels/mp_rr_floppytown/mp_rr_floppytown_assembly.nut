@@ -3,9 +3,7 @@ untyped
 globalize_all_functions
 
 void function Floppytown_MapInit_Assembly()
-{   printt( "Floppytown_MapInit_Assembly OK" )
-
-}
+{   printt( "Floppytown_MapInit_Assembly:                  The file has been called." ) }
 
 //void function Ft_Geofix( asset a, vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
 //{   for ( int i = 0 ; i <  Xaxis ; i++ )

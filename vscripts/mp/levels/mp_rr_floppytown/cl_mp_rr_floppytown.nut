@@ -2,12 +2,15 @@ global function ClientCodeCallback_MapInit
 
 void function ClientCodeCallback_MapInit()
 {
+	printt( "" )
 	Floppytown_MapInit_Common()
-
-	//FloppytownLightEnvironment()
+	Floppytown_MapInit_Client()
 
 	ServerCallback_ToneMapping( 16.0, 2.0, 0.1, 0.75 )
 
+	//FloppytownLightEnvironment()
+
+	printt( "" )
 	printt( "++++-------------------------------------------------------------------------++++" )
 	printt( ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> WELCOME ON FLOPPYTOWN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<" )
 	printt( "++++-------------------------------------------------------------------------++++" )
@@ -20,6 +23,7 @@ void function ClientCodeCallback_MapInit()
     printt( "+                                                                               +" )
 	printt( "++++-------------------------------------------------------------------------++++" )
 	printt( "++++-------------------------------------------------------------------------++++" )
+	printt( "" )
 }
 
 void function FloppytownLightEnvironment()
@@ -29,4 +33,9 @@ void function FloppytownLightEnvironment()
 	dlight_dev_0_0.SetLightExponent( 0.1 )
 	entity dlight_dev_0_1 = CreateClientSideDynamicLight( <896, 3264, 336>, <0,0,0>, DLIGHT_WHITE, brightness_dev )
 	dlight_dev_0_1.SetLightExponent( 0.1 )
+}
+
+void function Floppytown_MapInit_Client()
+{
+	printt( "Floppytown_MapInit_Client:                    The file has been called." )
 }

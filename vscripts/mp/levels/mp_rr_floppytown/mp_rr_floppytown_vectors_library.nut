@@ -207,7 +207,7 @@ entity function CreateEditorRef( vector pos, vector ang, string name )
     editor_ref.SetScriptName( "editor_ref" )
 return editor_ref }
 
-void function Floppytown_MapInit_Library()
+void function Floppytown_MapInit_Vectors_Library()
 {
-    printt( "Floppytown_MapInit_Library OK" )
+    printt( "Floppytown_MapInit_Vectors_Library:           The file has been called." )
 }
