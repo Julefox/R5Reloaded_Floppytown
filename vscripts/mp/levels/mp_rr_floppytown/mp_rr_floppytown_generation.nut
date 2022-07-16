@@ -176,7 +176,12 @@ void function Dynamic_Build_Generation()
 	string rng_1 = rng_1_choice.getrandom()
     array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
     string rng_2 = rng_2_choice.getrandom()
-    array<string> rng_3_choice = [ "1", "2", "3", "4", "5" ]
+    array<string> rng_3_choice = []
+    if(rng_0 == "hide") {
+        rng_3_choice = [ "1", "2", "3", "5" ]
+    } else {
+        rng_3_choice = [ "1", "2", "3", "4", "5" ]
+    }
     string rng_3 = rng_3_choice.getrandom()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
