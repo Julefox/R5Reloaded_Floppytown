@@ -16,5 +16,13 @@ void function CodeCallback_MapInit()
     Floppytown_MapInit_Assembly()
     Floppytown_MapInit_Generation()
 
+    printt( "" )
     printt( "Hello " + GetMapName() + " !" )
+    printt( "" )
+
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
+    {
+        printt( "WARNING: DEVELOPER MODE IS ENABLE" )
+    }
+    printt( "" )
 }

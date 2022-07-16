@@ -314,6 +314,7 @@ void function SkyboxAnimation()
 {
     vector pos = < -22156.67, 844.36, -26894.61 >
     vector ang = < 0, 0, 0 >
+    wait 10
     while ( true )
     {
         entity Fx = PlayFX( SPACE_DEBRIS_COMET, pos, ang )
