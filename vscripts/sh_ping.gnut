@@ -551,7 +551,7 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 	{
 		int j = 0
 
-		printt( "===== .ent file generation =====" )
+		printt( "\n===== .ent file generation =====" )
 		
 		printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
 
@@ -570,7 +570,69 @@ bool function ConsiderPingTraceFailed( TraceResults tr )
 		
 		printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + "35.0" + "\"" )
 
-		printt( "===== end .ent file generation =====" )
+		printt( "===== end .ent file generation =====\n" )
+	}
+
+	void function EntFilesGeneratorForProps( entity ent )
+	{
+		vector ent_pos = ent.GetOrigin()
+		vector ent_ang = ent.GetAngles()
+
+		printt( "" )
+		printt( "===== .ent file generation =====" )
+		
+		printt( "{" )
+		printt( "\"SuppressAnimSounds\"" 		+ " " + "\"0\"" )
+		printt( "\"StartDisabled\"" 			+ " " + "\"0\"" )
+		printt( "\"spawnflags\"" 				+ " " + "\"0\"" )
+		printt( "\"skin\"" 						+ " " + "\"0\"" )
+		printt( "\"SetBodyGroup\"" 				+ " " + "\"0\"" )
+		printt( "\"rendermode\"" 				+ " " + "\"0\"" )
+		printt( "\"renderfx\"" 					+ " " + "\"0\"" )
+		printt( "\"rendercolor\"" 				+ " " + "\"255 255 255\"" )
+		printt( "\"renderamt\"" 				+ " " + "\"255\"" )
+		printt( "\"RandomAnimation\"" 			+ " " + "\"0\"" )
+		printt( "\"pressuredelay\"" 			+ " " + "\"0\"" )
+		printt( "\"PerformanceMode\"" 			+ " " + "\"0\"" )
+		printt( "\"mingpulevel\"" 				+ " " + "\"0\"" )
+		printt( "\"mincpulevel\"" 				+ " " + "\"0\"" )
+		printt( "\"MinAnimTime\"" 				+ " " + "\"5\"" )
+		printt( "\"maxgpulevel\"" 				+ " " + "\"0\"" )
+		printt( "\"maxcpulevel\"" 				+ " " + "\"0\"" )
+		printt( "\"MaxAnimTime\"" 				+ " " + "\"10\"" )
+		printt( "\"HoldAnimation\"" 			+ " " + "\"0\"" )
+		printt( "\"gamemode_tdm\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_sur\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_lts\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_lh\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_fd\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_ctf\"" 				+ " " + "\"1\"" )
+		printt( "\"gamemode_cp\"" 				+ " " + "\"1\"" )
+		printt( "\"fadedist\"" 					+ " " + "\"-1\"" )
+		printt( "\"ExplodeRadius\"" 			+ " " + "\"0\"" )
+		printt( "\"ExplodeDamage\"" 			+ " " + "\"0\"" )
+		printt( "\"disableX360\"" 				+ " " + "\"0\"" )
+		printt( "\"disableshadows\"" 			+ " " + "\"0\"" )
+		printt( "\"disablereceiveshadows\"" 	+ " " + "\"0\"" )
+		printt( "\"DisableBoneFollowers\"" 		+ " " + "\"0\"" )
+		printt( "\"DefaultCycle\"" 				+ " " + "\"0\"" )
+		printt( "\"collide_titan\"" 			+ " " + "\"1\"" )
+		printt( "\"collide_ai\"" 				+ " " + "\"1\"" )
+		printt( "\"AnimateInStaticShadow\"" 	+ " " + "\"0\"" )
+		printt( "\"scale\"" 					+ " " + "\"1\"" )
+		printt( "\"angles\"" 					+ " " + "\"" + ent_ang.x + " " + ent_ang.y + " " + ent_ang.z + "\"" )
+		printt( "\"origin\"" 					+ " " + "\"" + ent_pos.x + " " + ent_pos.y + " " + ent_pos.z + "\"" )
+		printt( "\"targetname\"" 				+ " " + "\"\"" )
+		printt( "\"solid\"" 					+ " " + "\"6\"" )
+		printt( "\"model\"" 					+ " " + "\"" + ent.GetModelName() + "\"" )
+		printt( "\"luxelsize\"" 				+ " " + "\"16\"" )
+		printt( "\"lightingMethod\"" 			+ " " + "\"0\"" )
+		printt( "\"DefaultAnim\"" 				+ " " + "\"\"" )
+		printt( "\"ClientSide\"" 				+ " " + "\"1\"" )
+		printt( "\"classname\"" 				+ " " + "\"prop_dynamic\"" )
+		printt( "}" )
+
+		printt( "===== end .ent file generation =====\n" )
 	}
 #endif
 
@@ -629,6 +691,8 @@ PingTraceResults function DoPingTrace( entity player )
 				{
 					thread FindBestZiplineLocation( result.hitEnt )
 				}
+				//else
+				//thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
 				
 				printt(	"Ping_Origin:           " + result.endPos )
 

@@ -22,7 +22,7 @@ void function Floppytown_MapInit_Generation()
         AddClientCommandCallback( "props",  ClientCommand_Props )
         AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
         AddClientCommandCallback( "test",   ClientCommand_Test )
-        AddClientCommandCallback( "asset",  ClientCommand_AssetViewer )
+        AddClientCommandCallback( "asset",  ClientCommand_AssetViewerOpened )
 
 		for ( int i = 0 ; i < assetViewerArray.len() ; i++)
     	{
@@ -403,20 +403,34 @@ bool function ClientCommand_Test( entity player, array<string> args )
 {
 return true }
 
-bool function ClientCommand_AssetViewer( entity player, array<string> args )
+bool function ClientCommand_AssetViewerOpened( entity player, array<string> args )
 {
     int j = 1
     int k = 1
     int l = 0
+    int props_count = 0
+    int max_props_count = assetViewerArray.len() + 4
 
-    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < -2000, 3000, 5480 >, < 0, 0, 0 > ).SetModelScale( 500 )
-    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 4600, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
-    CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 16600, 9000, 5480 >, < 0, 90, 0 > ).SetModelScale( 500 )
+
+    entity wallpaper_0 = CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < -2000, 3000, 5480 >, < 0, 0, 0 > )
+    entity wallpaper_1 = CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 4600, 9000, 5480 >, < 0, 90, 0 > )
+    entity wallpaper_2 = CreateFloppytownModel( YUKI_MEMORIAL_03, FT_BUILD_AREA_POS + < 16600, 9000, 5480 >, < 0, 90, 0 > )
+
+    wallpaper_0.SetScriptName( "assetViewer" )
+    wallpaper_0.SetModelScale( 500 )
+
+    wallpaper_1.SetScriptName( "assetViewer" )
+    wallpaper_1.SetModelScale( 500 )
+
+    wallpaper_2.SetScriptName( "assetViewer" )
+    wallpaper_2.SetModelScale( 500 )
 
     for ( int i = 0 ; i < assetViewerArray.len() ; i++ )
     {
 
-        CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 800 * l, 800 * j, 800 * k >, < 0, 0, 0 > )
+        entity assets = CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 800 * l, 800 * j, 800 * k >, < 0, 0, 0 > )
+
+        assets.SetScriptName( "assetViewer" )
 
         k++
 
@@ -430,7 +444,20 @@ bool function ClientCommand_AssetViewer( entity player, array<string> args )
                 l = l+1
                 j = 10
             }
+        } 
+    }
+
+    foreach ( props in GetEntArrayByScriptName( "assetViewer" ) )
+    { props_count++ }
+
+    
+    if ( props_count >= max_props_count )
+    {
+        foreach ( props in GetEntArrayByScriptName( "assetViewer" ) )
+        {
+            props.Destroy()
         }
+        printt("AssetViewerClosed")
     }
 
 return true }
