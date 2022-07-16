@@ -141,7 +141,7 @@ void function Props_Generation()
             CreateFloppytownModel( BEACON_SERVER_HALF_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5548, 4576, 1792 > + < 0, -128 * i, 128 * j >, FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 > )
         }
     }
-    MiniBalconyLeft( < 5406, 4640, 2176 >, <0,0,0> )
+    MiniBalconyLeft( FLOPPYTOWN_POS_OFFSET + < 5406, 4640, 2176 >, FLOPPYTOWN_ANG_OFFSET + <0,0,0> )
     CreateFloppytownModel( METAL_BEAM_256, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 1792 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
     CreateFloppytownModel( METAL_BEAM_128, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 2048 >, FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
     CreateFloppytownModel( RAILING_CORNER_OUT, FLOPPYTOWN_POS_OFFSET + < 5522, 4686, 2409 >, FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 > )
