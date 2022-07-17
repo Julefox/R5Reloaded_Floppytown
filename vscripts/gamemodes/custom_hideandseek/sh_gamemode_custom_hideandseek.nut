@@ -5,7 +5,9 @@
 
 global function Sh_CustomHideAndSeek_Init
 
-global enum eTDMAnnounce
+global function NewSpawnLoc
+
+global enum eHASAnnounce
 {
 	NONE = 0
 	WAITING_FOR_PLAYERS = 1
@@ -22,16 +24,10 @@ global struct SpawnLoc
     vector angles = <0, 0, 0>
 }
 
-global struct Spawn
+global struct LocationSettingsHAS
 {
     string name
     array<SpawnLoc> spawns
-}
-
-global struct LocationSpawn
-{
-    Spawn seeker
-    Spawn hide
 }
 
 struct {
@@ -47,16 +43,11 @@ void function Sh_CustomHideAndSeek_Init()
                 NewSpawn( //For seeker
                     "Floppytown",
                     [
-                        NewSpawnLoc(<772, 85, 2846>, <12, 89, 0>)
-                    ]
-                ),
-                NewSpawn( //For hidden
-                    "Floppytown",
-                    [
+                        NewSpawnLoc(<772, 85, 2846>, <12, 89, 0>),
                         NewSpawnLoc(<502, 437, 2380>, < 15, 89, 0 >)
                     ]
                 )
-            )
+            ) 
         default: // Yeah I know it's so sad that there are no other maps
             Assert(false, "No Hide and Seek locations found for this map!")
     }
@@ -73,20 +64,23 @@ SpawnLoc function NewSpawnLoc(vector origin, vector angles)
     return spawnLoc
 }
 
-Spawn function NewSpawn(string name, array<SpawnLoc> spawnloc)
+LocationSettingsHAS function NewSpawn(string name, array<SpawnLoc> spawnloc)
 {
-    Spawn spawn
+    LocationSettingsHAS spawn
     spawn.name = name
     spawn.spawns = spawnloc
     
-    return spawnLoc
+    return spawn
 }
 
-LocationSpawn function NewLocationSpawn(Spawn seeker, Spawn hidden)
+void function NewLocationSpawn(LocationSettingsHAS seekerSpawn)
 {
-    LocationSpawn locationSpawn
-    locationSpawn.seeker = seeker
-    locationSpawn.hidden = hidden
-    
-    return locationSpawn
+    #if SERVER
+    _HasRegisterLocation(seekerSpawn)
+    #endif
+
+
+    #if CLIENT
+    Cl_RegisterLocationHAS(seekerSpawn)
+    #endif
 }
