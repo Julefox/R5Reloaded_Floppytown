@@ -270,7 +270,12 @@ void function SetFloppytownAngles()
 	entity script_mover = CreateScriptMover()
     
     foreach ( entities in FLOPPYTOWN_ENTITIES )
-    { entities.SetParent( script_mover ) }
+    {
+        entities.SetParent( script_mover )
+
+        //if ( entities.GetOrigin() == <2176, 2240, 895.900024>) // For an idea later
+        //entities.Destroy()
+    }
 
     script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
     script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
