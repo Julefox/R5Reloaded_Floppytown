@@ -47,6 +47,8 @@ global const asset SLANTED_WALL_128                   = $"mdl/desertlands/desert
 global const asset SLANTED_WALL_64                    = $"mdl/desertlands/desertlands_city_slanted_building_01_wall_64.rmdl"
 global const asset TRAIN_STATION_SIGN_01              = $"mdl/desertlands/desertlands_train_station_sign_01.rmdl"
 global const asset TRAIN_STATION_SIGN_02              = $"mdl/desertlands/desertlands_train_station_sign_02.rmdl"
+global const asset TRAIN_STATION_SIGN_03              = $"mdl/desertlands/desertlands_train_station_sign_03.rmdl"
+global const asset TRAIN_STATION_SIGN_04              = $"mdl/desertlands/desertlands_train_station_sign_04.rmdl"
 global const asset TRAIN_MAGNETIC_BEAM_01             = $"mdl/desertlands/desertlands_train_track_magnetic_beam_01.rmdl"
 global const asset TRAIN_SIGN_01                      = $"mdl/desertlands/desertlands_train_track_sign_01.rmdl"
 global const asset SQUARE_BLOCK_01                    = $"mdl/desertlands/highrise_square_block_01.rmdl"
@@ -201,6 +203,53 @@ global const asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exop
 global const asset INSIDE_LOOT_BIN                    = $"mdl/props/loot_bin_holder_inside.rmdl"
 global const asset NESSY                              = $"mdl/domestic/nessy_doll.rmdl"
 
+// Signs
+global const asset DESERTLANDS_SIGN_NEWDAMN_01        = $"mdl/signs/desertlands_city_newdawn_sign_01.rmdl"
+global const asset DESERTLANDS_SIGN_STREETSIGN_01     = $"mdl/signs/desertlands_city_streetsign_01.rmdl"
+global const asset BUILDING_SIGN_LIT_STANDING_02      = $"mdl/signs/building_sign_lit_standing_02.rmdl"
+global const asset COFFEE_MENU_01                     = $"mdl/signs/coffee_menu_01.rmdl"
+global const asset COFFEE_MENU_04                     = $"mdl/signs/coffee_menu_04.rmdl"
+global const asset ANGEL_CITY_SIGN_16                 = $"mdl/signs/market/angel_city_market_sign16.rmdl"
+global const asset ANGEL_CITY_SIGN_17                 = $"mdl/signs/market/angel_city_market_sign17.rmdl"
+global const asset ANGEL_CITY_SIGN_2                  = $"mdl/signs/market/angel_city_market_sign2.rmdl"
+global const asset ANGEL_CITY_SIGN_4                  = $"mdl/signs/market/angel_city_market_sign4.rmdl"
+global const asset ANGEL_CITY_SIGN_6                  = $"mdl/signs/market/angel_city_market_sign6.rmdl"
+global const asset ANGEL_CITY_SIGN_9                  = $"mdl/signs/market/angel_city_market_sign9.rmdl"
+global const asset ANGEL_CITY_SIGNS_1                 = $"mdl/signs/market/angel_city_market_signs1.rmdl"
+global const asset ANGEL_CITY_SIGNS_2                 = $"mdl/signs/market/angel_city_market_signs2.rmdl"
+global const asset ANGEL_CITY_SIGNS_4                 = $"mdl/signs/market/angel_city_market_signs4.rmdl"
+global const asset YELLOW_MILK                        = $"mdl/signs/market_sign_yellow_milk.rmdl"
+global const asset NUMBER_LIT_1                       = $"mdl/signs/numbers/sign_number_lit_1.rmdl"
+global const asset NUMBER_LIT_2                       = $"mdl/signs/numbers/sign_number_lit_2.rmdl"
+global const asset NUMBER_LIT_3                       = $"mdl/signs/numbers/sign_number_lit_3.rmdl"
+global const asset RESTAURANT_SIGN                    = $"mdl/signs/restaurant_sign.rmdl"
+global const asset RUNOFF_SIGNS_PUMP_DISTANCE         = $"mdl/signs/runoff_signs/pump_distance_sign.rmdl"
+global const asset RUNOFF_SIGNS_RECYCLE               = $"mdl/signs/runoff_signs/recycle_sign.rmdl"
+global const asset SCROLLING_SCAN                     = $"mdl/signs/scrolling_sign_scan.rmdl"
+global const asset CAUTION_CHEMICAL                   = $"mdl/signs/sign_caution_chemical.rmdl"
+global const asset CAUTION_PUMP_WARNING               = $"mdl/signs/sign_caution_pump_warning.rmdl"
+global const asset CAUTION_WALKWAY_01                 = $"mdl/signs/sign_caution_walkway_01.rmdl"
+global const asset MARKET_01_ON                       = $"mdl/signs/sign_market_01_on.rmdl"
+global const asset NO_TRESSPASING                     = $"mdl/signs/Sign_no_tresspasing.rmdl"
+global const asset RELIC_WARNING_01                   = $"mdl/signs/sign_relic_warning_01.rmdl"
+global const asset SERVICE_SHAFT_01                  = $"mdl/signs/sign_service_shaft_01.rmdl"
+global const asset SERVICE_SHAFT_02                  = $"mdl/signs/sign_service_shaft_02.rmdl"
+global const asset SIGN_PLATE_A                       = $"mdl/signs/signage_plates_metal/sign_plate_a.rmdl"
+global const asset SIGN_PLATE_C                       = $"mdl/signs/signage_plates_metal/sign_plate_c.rmdl"
+global const asset SIGN_POST_PLATE_C                  = $"mdl/signs/signage_plates_metal/sign_post_plate_c.rmdl"
+global const asset STREE_SIGN_ARROW                   = $"mdl/signs/street_sign_arrow.rmdl"
+global const asset STREE_SIGN_RAIL_DISTANCE_02        = $"mdl/signs/street_sign_rail_distance_02.rmdl"
+global const asset THUMPER_SIGN_03                    = $"mdl/signs/thumper_signs_03.rmdl"
+global const asset CLEANING_WET_FLOOR_01              = $"mdl/angel_city/sign_cleaning_wetfloor_01.rmdl"
+global const asset BIGGRIGREPAIRS_03                  = $"mdl/colony/colony_bigrigrepairs_sign_03.rmdl"
+global const asset CONSTRUCTION_FOLD_01               = $"mdl/desertlands/construction_fold_sign_01.rmdl"
+global const asset CONVENIENCE_STORE_SIGN_01          = $"mdl/desertlands/desertlands_convenience_store_sign_01_rui.rmdl"
+global const asset DESERTLANDS_LOBBY_01               = $"mdl/desertlands/desertlands_lobby_sign_01.rmdl"
+global const asset DESERTLANDS_SIGN_01                = $"mdl/desertlands/desertlands_sign_01.rmdl"
+global const asset GONDOLA_PLATFORM_SIGN              = $"mdl/desertlands/indust_struct_gondola_platform_sign_01.rmdl"
+global const asset CORPORATE_SIGN_DSGNOFIC            = $"mdl/levels_terrain/mp_corporate/corporate_sign_dsgnOfic.rmdl"
+
+
 // ---
 global const asset CORE_ENERGY                        = $"mdl/fx/core_energy.rmdl"
 global const asset YUKI_MEMORIAL_02                   = $"mdl/domestic/picture_dog_yuki_memorial_02.rmdl"
@@ -211,8 +260,6 @@ global const asset PLANTER_128_128_72                 = $"mdl/city_modern/citymo
 global const asset BRIDGE_PANEL                       = $"mdl/playback/playback_bridge_panel_128x064_01.rmdl"
 global const asset BENCH_SINGLE_MODERN_DIRTY          = $"mdl/benches/bench_single_modern_dirty.rmdl"
 global const asset APEX_SIGN                          = $"mdl/canyonlands/canyonlands_zone_sign_03b.rmdl"
-global const asset DESERTLANDS_SIGN_NEWDAMN_01        = $"mdl/signs/desertlands_city_newdawn_sign_01.rmdl"
-global const asset DESERTLANDS_SIGN_STREETSIGN_01     = $"mdl/signs/desertlands_city_streetsign_01.rmdl"
 global const asset FUSEBOX                            = $"mdl/electricalboxes/fusebox.rmdl"
 global const asset FUSEBOX_RUSTY                      = $"mdl/electricalboxes/fusebox_rusty.rmdl"
 global const asset TIMESHIFT_BENCH_01                 = $"mdl/timeshift/timeshift_bench_01.rmdl"
@@ -266,187 +313,230 @@ global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
 global array< asset > ASSET_VIEWER_ARRAY =
 [
-BUILDING_PLATFORM_LARGE        
-BUILDING_PLATFORM              
-WALL_PILLAR                    
-SLANTED_SLICE                  
-SQUARE_SHELL_BOX               
-PIPE_GRATE                     
-CONCRETE_PANEL                 
-BOX_BOTTOM_A                   
-BOX_BOTTOM_B                   
-CARGO_SMALL                    
-PHARMACETIC_SIGN               
-PLANTROOM                      
-THUNDERDOME_WALL_512x352_01    
-THUNDERDOME_WALL_256x352_01    
-THUNDERDOME_WALL_256x256_01    
-THUNDERDOME_FRAME              
-THUNDERDOME_CEILING            
-THUNDERDOME_MINI_CEILING       
-SPACE_ELEVATOR                 
-MID_PLATFORM                   
-
-SECURITY_FENCE                 
-ZIP_ARM                        
-
-WOOD_BOARD                         
-COLUMN_01                          
-COLUMN_01_STACK                    
-APARTMENTS_PLANTER_01              
-APARTMENTS_PLANTER_02              
-APARTMENTS_PLANTER_03              
-SLANTED_WALL_128                   
-SLANTED_WALL_64                    
-TRAIN_STATION_SIGN_01              
-TRAIN_STATION_SIGN_02              
-TRAIN_MAGNETIC_BEAM_01             
-TRAIN_SIGN_01                      
-SQUARE_BLOCK_01                    
-SQUARE_BLOCK_02                    
-SQUARE_BLOCK_03                    
-TRAINYARD_SIGN01                   
-CARGO_CONTAINER_320_01             
-CARGO_CONTAINER_320_01_OPEN        
-CARGO_CONTAINER_LARGE_01           
-CARGO_CONTAINER_SMALL_01           
-CARGO_CONTAINER_SMALL_02           
-CARGO_CONTAINER_SMALL_03           
-GONDOLA_CART_01                    
-METAL_FRAME_256x144_01             
-METAL_FRAME_256x144_02             
-METAL_FRAME_WALL_128x144_01        
-METAL_FRAME_WALL_128x144_04        
-METAL_FRAME_WALL_192x144_01        
-METAL_FRAME_WALL_192x144_03        
-METAL_FRAME_WALL_256x144_01        
-METAL_FRAME_WALL_256x144_02        
-METAL_FRAME_WALL_256x144_04        
-METAL_FRAME_WALL_256x144_06        
-STATION_INCUBATOR                  
-METAL_DIRTY_64_PANEL_01            
-METAL_DIRTY_64x24_PANEL_01         
-CITY_BARRED_192_01                 
-CITY_CORNER_192_01                 
-CITY_PANEL_192_01                  
-THUNDERDOME_256x256_05             
-THUNDERDOME_256x128_02             
-THUNDERDOME_256x64_02              
-THUNDERDOME_STANDS_AWNING_01       
-THUNDERDOME_BARRIER_01             
-THUNDERDOME_GANTRY_01              
-IMC_CARGO_CONTAINER_01_WHITE       
-IMC_CARGO_CONTAINER_01_WHITE_OPEN  
-IMC_CARGO_CONTAINER_01_RED         
-IMC_CARGO_CONTAINER_01_BLUE        
-IMC_SMALL_COMMAND_MONITOR          
-IMC_ANTENNA_LARGE                  
-IMC_GENERATOR_01                   
-IMC_THUMPER_GENERATOR_SET_B        
-COLONY_ANTENNA_01                  
-COLONY_ANTENNA_03                  
-COLONY_ANTENNA_05                  
-COLONY_ANTENNA_05_SMALL            
-AC_UNIT_64x16x80_01                
-CRATE_MD_01                        
-CRATE_MD_02                        
-CRATE_MD_03                        
-CRATE_PLASTIC_01_RED               
-CRATE_PLASTIC_01_YELLOW            
-FRIDGE_01                          
-SOLAR_PANEL_ANGLED_01              
-VENTIL_UNIT_01_A                   
-VENTIL_UNIT_01_B                   
-BEACON_FENCE_SIGN_01               
-BEACON_SERVER_HALF_STAND_01        
-BEACON_SERVER_STAND_01             
-BEACON_SERVER_WALL_MOUNT_01        
-BEACON_SERVER_WALL_MOUNT_01_OFF    
-SCAFF_128_32                       
-SCAFF_128_64_128_02                
-SCAFF_128_64_64                    
-SCAFF_POST_128_01                  
-SCAFF_SEGMENT_128_64               
-METAL_BEAM_256                     
-METAL_BEAM_128                     
-METAL_BEAM_96                      
-METAL_BEAM_64                      
-BOX_METAL                          
-BOX_SHRINKWRAPPED                  
-CONTAINER_MEDIUM_TANKS_BLUE        
-LAGOON_ROOF_TANKS                  
-PELICAN_CASE_LARGE                 
-PELICAN_CASE_LARGE_DRABGREEN       
-BIN_STORAGE_DOOR_CLOSED            
-CARGO_CONTAINER_128_02_BLUE        
-CARGO_CONTAINER_128_02_GREEN       
-CARGO_CONTAINER_128_02_RED         
-BEAM_SUPPORT                       
-EXIT_SIGN_03                       
-GLASS_WHITE_BOARD_WALL             
-UTG_SPIRE                          
-TOOL_CHEST                         
-TOOL_CHEST_DOUBLE                  
-TRAFFIC_CONE_01                    
-TRAFFIC_TUBE_01                    
-TRAFFIC_BARREL_01                  
-TRAFFIC_BARREL_02                  
-MAT_METAL_02                       
-MAT_METAL_02_LARGE                 
-MAT_METAL_03                       
-MAT_METAL_03_LARGE                 
-VENDING_MACHINE                    
-POWER_GEN                          
-RAILING_CORNER_IN                  
-RAILING_CORNER_OUT                 
-RAILING_128                        
-RAILING_64                         
-RAILING_32                         
-RAILING_16                         
-SEWER_GRATE_01                     
-SEWER_GRATE_01_16                  
-SEWER_GRATE_01_32                  
-SEWER_GRATE_CLAMP_01_128           
-SEWER_GRATE_02                     
-LIGHT_CITY_01                      
-LIGHT_INDUSTRIAL_CITY              
-LIGHT_POLE_BFORCE_02               
-LIGHT_LOOTBIN_01                   
-LIGHT_PARKING_POST                 
-LIGHT_SECURITY_01_ON               
-ICELANDIC_MOSS_MOD_01              
-ICELANDIC_MOSS_GRASS_02            
-FOLIAGE_GROUND_PLANTS              
-FOLIAGE_GROUND_PLANTS_DESERTLANDS  
-GRASS_ICELANDIC_01                 
-GRASS_ICELANDIC_02                 
-LEAVES_GROUND_SPREAD_01            
-PANEL_BUTTON_CONSOLE               
-PANEL_BUTTON_WALL                  
-TABLET_MINI                        
-LOOT_BIN_HOLDER_INSIDE             
-EXOPLANET_MED_POD_01               
-EXOPLANET_MED_POD_02               
-INSIDE_LOOT_BIN                    
-NESSY                              
-CORE_ENERGY                        
-YUKI_MEMORIAL_02                   
-YUKI_MEMORIAL_03                   
-YUKI_MEMORIAL_04                   
-VEHICLE_R5_MSC_SUV                 
-PLANTER_128_128_72                 
-BRIDGE_PANEL                       
-BENCH_SINGLE_MODERN_DIRTY          
-APEX_SIGN                          
-DESERTLANDS_SIGN_NEWDAMN_01        
-DESERTLANDS_SIGN_STREETSIGN_01     
-FUSEBOX                            
-FUSEBOX_RUSTY                      
-TIMESHIFT_BENCH_01                 
-BEACON_SMALL_SCREEN_02_OFF         
-ELECTRICAL_POLE_01                 
-ELECTRICAL_TRANSFORMER_01          
-RUBBER_FLOOR_01                    
+    BUILDING_PLATFORM_LARGE
+    BUILDING_PLATFORM
+    WALL_PILLAR
+    SLANTED_SLICE
+    SQUARE_SHELL_BOX
+    PIPE_GRATE
+    CONCRETE_PANEL
+    BOX_BOTTOM_A
+    BOX_BOTTOM_B
+    CARGO_SMALL
+    PHARMACETIC_SIGN
+    PLANTROOM
+    THUNDERDOME_WALL_512x352_01
+    THUNDERDOME_WALL_256x352_01
+    THUNDERDOME_WALL_256x256_01
+    THUNDERDOME_FRAME
+    THUNDERDOME_CEILING
+    THUNDERDOME_MINI_CEILING
+    SPACE_ELEVATOR
+    MID_PLATFORM
+    SECURITY_FENCE
+    ZIP_ARM
+    WOOD_BOARD
+    COLUMN_01
+    COLUMN_01_STACK
+    APARTMENTS_PLANTER_01
+    APARTMENTS_PLANTER_02
+    APARTMENTS_PLANTER_03
+    SLANTED_WALL_128
+    SLANTED_WALL_64
+    TRAIN_STATION_SIGN_01
+    TRAIN_STATION_SIGN_02
+    TRAIN_STATION_SIGN_03
+    TRAIN_STATION_SIGN_04
+    TRAIN_MAGNETIC_BEAM_01
+    TRAIN_SIGN_01
+    SQUARE_BLOCK_01
+    SQUARE_BLOCK_02
+    SQUARE_BLOCK_03
+    TRAINYARD_SIGN01
+    CARGO_CONTAINER_320_01
+    CARGO_CONTAINER_320_01_OPEN
+    CARGO_CONTAINER_LARGE_01
+    CARGO_CONTAINER_SMALL_01
+    CARGO_CONTAINER_SMALL_02
+    CARGO_CONTAINER_SMALL_03
+    GONDOLA_CART_01
+    METAL_FRAME_256x144_01
+    METAL_FRAME_256x144_02
+    METAL_FRAME_WALL_128x144_01
+    METAL_FRAME_WALL_128x144_04
+    METAL_FRAME_WALL_192x144_01
+    METAL_FRAME_WALL_192x144_03
+    METAL_FRAME_WALL_256x144_01
+    METAL_FRAME_WALL_256x144_02
+    METAL_FRAME_WALL_256x144_04
+    METAL_FRAME_WALL_256x144_06
+    STATION_INCUBATOR
+    METAL_DIRTY_64_PANEL_01
+    METAL_DIRTY_64x24_PANEL_01
+    CITY_BARRED_192_01
+    CITY_CORNER_192_01
+    CITY_PANEL_192_01
+    THUNDERDOME_256x256_05
+    THUNDERDOME_256x128_02
+    THUNDERDOME_256x64_02
+    THUNDERDOME_STANDS_AWNING_01
+    THUNDERDOME_BARRIER_01
+    THUNDERDOME_GANTRY_01
+    IMC_CARGO_CONTAINER_01_WHITE
+    IMC_CARGO_CONTAINER_01_WHITE_OPEN
+    IMC_CARGO_CONTAINER_01_RED
+    IMC_CARGO_CONTAINER_01_BLUE
+    IMC_SMALL_COMMAND_MONITOR
+    IMC_ANTENNA_LARGE
+    IMC_GENERATOR_01
+    IMC_THUMPER_GENERATOR_SET_B
+    IMC_TECH_TALLPANEL
+    COLONY_ANTENNA_01
+    COLONY_ANTENNA_03
+    COLONY_ANTENNA_05
+    COLONY_ANTENNA_05_SMALL
+    AC_UNIT_64x16x80_01
+    CRATE_MD_01
+    CRATE_MD_02
+    CRATE_MD_03
+    CRATE_PLASTIC_01_RED
+    CRATE_PLASTIC_01_YELLOW
+    FRIDGE_01
+    SOLAR_PANEL_ANGLED_01
+    VENTIL_UNIT_01_A
+    VENTIL_UNIT_01_B
+    BEACON_FENCE_SIGN_01
+    BEACON_SERVER_HALF_STAND_01
+    BEACON_SERVER_STAND_01
+    BEACON_SERVER_WALL_MOUNT_01
+    BEACON_SERVER_WALL_MOUNT_01_OFF
+    SCAFF_128_32
+    SCAFF_128_64_128_02
+    SCAFF_128_64_64
+    SCAFF_POST_128_01
+    SCAFF_SEGMENT_128_64
+    METAL_BEAM_256
+    METAL_BEAM_128
+    METAL_BEAM_96
+    METAL_BEAM_64
+    BOX_METAL
+    BOX_SHRINKWRAPPED
+    CONTAINER_MEDIUM_TANKS_BLUE
+    LAGOON_ROOF_TANKS
+    PELICAN_CASE_LARGE
+    PELICAN_CASE_LARGE_DRABGREEN
+    BIN_STORAGE_DOOR_CLOSED
+    CARGO_CONTAINER_128_02_BLUE
+    CARGO_CONTAINER_128_02_GREEN
+    CARGO_CONTAINER_128_02_RED
+    BEAM_SUPPORT
+    EXIT_SIGN_03
+    GLASS_WHITE_BOARD_WALL
+    UTG_SPIRE
+    TOOL_CHEST
+    TOOL_CHEST_DOUBLE
+    TRAFFIC_CONE_01
+    TRAFFIC_TUBE_01
+    TRAFFIC_BARREL_01
+    TRAFFIC_BARREL_02
+    MAT_METAL_02
+    MAT_METAL_02_LARGE
+    MAT_METAL_03
+    MAT_METAL_03_LARGE
+    VENDING_MACHINE
+    POWER_GEN
+    RAILING_CORNER_IN
+    RAILING_CORNER_OUT
+    RAILING_128
+    RAILING_64
+    RAILING_32
+    RAILING_16
+    SEWER_GRATE_01
+    SEWER_GRATE_01_16
+    SEWER_GRATE_01_32
+    SEWER_GRATE_CLAMP_01_128
+    SEWER_GRATE_02
+    LIGHT_CITY_01
+    LIGHT_INDUSTRIAL_CITY
+    LIGHT_POLE_BFORCE_02
+    LIGHT_LOOTBIN_01
+    LIGHT_PARKING_POST
+    LIGHT_SECURITY_01_ON
+    ICELANDIC_MOSS_MOD_01
+    ICELANDIC_MOSS_GRASS_02
+    FOLIAGE_GROUND_PLANTS
+    FOLIAGE_GROUND_PLANTS_DESERTLANDS
+    GRASS_ICELANDIC_01
+    GRASS_ICELANDIC_02
+    LEAVES_GROUND_SPREAD_01
+    PANEL_BUTTON_CONSOLE
+    PANEL_BUTTON_WALL
+    TABLET_MINI
+    LOOT_BIN_HOLDER_INSIDE
+    EXOPLANET_MED_POD_01
+    EXOPLANET_MED_POD_02
+    INSIDE_LOOT_BIN
+    NESSY
+    DESERTLANDS_SIGN_NEWDAMN_01
+    DESERTLANDS_SIGN_STREETSIGN_01
+    BUILDING_SIGN_LIT_STANDING_02
+    COFFEE_MENU_01
+    COFFEE_MENU_04
+    ANGEL_CITY_SIGN_16
+    ANGEL_CITY_SIGN_17
+    ANGEL_CITY_SIGN_2
+    ANGEL_CITY_SIGN_4
+    ANGEL_CITY_SIGN_6
+    ANGEL_CITY_SIGN_9
+    ANGEL_CITY_SIGNS_1
+    ANGEL_CITY_SIGNS_2
+    ANGEL_CITY_SIGNS_4
+    YELLOW_MILK
+    NUMBER_LIT_1
+    NUMBER_LIT_2
+    NUMBER_LIT_3
+    RESTAURANT_SIGN
+    RUNOFF_SIGNS_PUMP_DISTANCE
+    RUNOFF_SIGNS_RECYCLE
+    SCROLLING_SCAN
+    CAUTION_CHEMICAL
+    CAUTION_PUMP_WARNING
+    CAUTION_WALKWAY_01
+    MARKET_01_ON
+    NO_TRESSPASING
+    RELIC_WARNING_01
+    SERVICE_SHAFT_01
+    SERVICE_SHAFT_02
+    SIGN_PLATE_A
+    SIGN_PLATE_C
+    SIGN_POST_PLATE_C
+    STREE_SIGN_ARROW
+    STREE_SIGN_RAIL_DISTANCE_02
+    THUMPER_SIGN_03
+    CLEANING_WET_FLOOR_01
+    BIGGRIGREPAIRS_03
+    CONSTRUCTION_FOLD_01
+    CONVENIENCE_STORE_SIGN_01
+    DESERTLANDS_LOBBY_01
+    DESERTLANDS_SIGN_01
+    GONDOLA_PLATFORM_SIGN
+    CORPORATE_SIGN_DSGNOFIC
+    CORE_ENERGY
+    YUKI_MEMORIAL_02
+    YUKI_MEMORIAL_03
+    YUKI_MEMORIAL_04
+    VEHICLE_R5_MSC_SUV
+    PLANTER_128_128_72
+    BRIDGE_PANEL
+    BENCH_SINGLE_MODERN_DIRTY
+    APEX_SIGN
+    FUSEBOX
+    FUSEBOX_RUSTY
+    TIMESHIFT_BENCH_01
+    BEACON_SMALL_SCREEN_02_OFF
+    ELECTRICAL_POLE_01
+    ELECTRICAL_TRANSFORMER_01
+    RUBBER_FLOOR_01
 ]
 
 void function Floppytown_MapInit_Asset_Library()

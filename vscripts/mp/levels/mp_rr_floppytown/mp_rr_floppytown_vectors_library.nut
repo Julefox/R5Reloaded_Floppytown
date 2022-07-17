@@ -3,8 +3,6 @@ untyped
 globalize_all_functions
 
 // Map Origin | Angles
-global const vector FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET   = < 0, 0, 0 > // pre spawn map angle
-
 global const vector FLOPPYTOWN_POS_OFFSET   = < 0, 0, 0 > // map origin // Zips appear with "mp_rr_floppytown_scripts.ent", map position change is not available anymore !
 global const vector FLOPPYTOWN_ANG_OFFSET   = < 0, 0, 0 > // map angle
 
@@ -117,7 +115,7 @@ global const vector FT_NESSY_2_POS = FLOPPYTOWN_POS_OFFSET + < 10, 4700, 1653 >
 global const vector FT_NESSY_2_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
 
 global const vector FT_NESSY_3_POS = FLOPPYTOWN_POS_OFFSET + < 930, 895, 1930 >
-global const vector FT_NESSY_3_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
+global const vector FT_NESSY_3_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -45, 0 >
 
 global const vector FT_NESSY_4_POS = FLOPPYTOWN_POS_OFFSET + < 3716, 34, 2048 >
 global const vector FT_NESSY_4_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
