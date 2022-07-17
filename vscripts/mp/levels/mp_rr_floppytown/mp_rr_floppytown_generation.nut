@@ -122,6 +122,8 @@ void function Props_Generation()
     CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, -90, 0 > )
     CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, 90, 0 > )
     CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 256, 2300 >, < -180, 90, 0 > )
+    for ( int i = 0 ; i < 4 ; i++ )
+    { CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 1028, 4896, 200 > + < 256 * i, 0, 0 >, < 0, 0, 0 > ) }
 }
 
 void function Dynamic_Build_Generation()

@@ -45,7 +45,7 @@ void function SpawnMapTeleporters()
 		TeleportPlayer(user,<1152, 3008, 600>, <0,180,0>)
 	})
 	tp_test.SetParent( script_mover )
-	script_mover.NonPhysicsMoveTo( <3600, 4008, 60>, 60, 0.0, 0.0 )
+	thread MovingTP( script_mover )
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,27 @@ void function TeleportPlayer( entity player, vector pos, vector ang )
  	player.SetOrigin(pos)
 	player.SetAngles(ang)
 	EmitSoundOnEntityOnlyToPlayer( player, player,		"weapon_stickylauncher_windup_1p" /*"PhaseGate_Enter_1p"*/ )
-	EmitSoundOnEntityExceptToPlayer( player, player,	"weapon_stickylauncher_windup_1p" /*"PhaseGate_Enter_3p"*/  )
+	EmitSoundOnEntityExceptToPlayer( player, player,	"weapon_stickylauncher_windup_1p" /*"PhaseGate_Enter_3p"*/ )
 }
+///////////////////////////////////////////////////////////////////////////////////
+//// THREAD //// TEST
+///////////////////////////////////////////////////////////////////////////////////
+void function MovingTP( entity script_mover )
+{
+	//Music( script_mover )
+	script_mover.NonPhysicsMoveTo( <3136, 3008, 60>, 30, 0.0, 0.0 )
+		wait 30
+	script_mover.NonPhysicsMoveTo( <3200, 2368, 60>, 10, 0.0, 0.0 )
+		wait 10
+	script_mover.NonPhysicsMoveTo( <3200, 1536, 60>, 20, 0.0, 0.0 )
+}
+
+void function Music( entity script_mover )
+{
+
+	EmitSoundOnEntity( script_mover, "Titan_Legion_Smart_Core_ActiveLoop_1P" )
+
+}
+
+
 #endif

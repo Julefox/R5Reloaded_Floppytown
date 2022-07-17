@@ -735,6 +735,11 @@ global array< asset > ASSET_VIEWER_ARRAY =
     RUBBER_FLOOR_01
 ]
 
+global array< string > SOUNDS_ARRAY =
+[
+    "Titan_Legion_Smart_Core_ActiveLoop_1P",
+]
+
 void function Floppytown_MapInit_Asset_Library()
 {
     printt( "| Floppytown_MapInit_Asset_Library:             The file has been called. |" )
