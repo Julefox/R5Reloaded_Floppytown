@@ -1,4 +1,5 @@
 global function _CustomHideAndSeek_Init
+global function _HasRegisterLocation
 
 enum eHASState
 {
@@ -10,6 +11,9 @@ struct {
     int hasState = eHASState.IN_PROGRESS
 
     array<entity> playerSpawnedProps
+
+    array<LocationSettingsHAS> locationSettings
+
 
     int seeker_number
     int hidden_number
@@ -37,10 +41,10 @@ void function StartRound()
 {
     SetGameState(eGameState.Playing)
 
-    entity Seeker = GetPlayerArray.getrandom()
+    entity Seeker = GetPlayerArray().getrandom()
 
     file.seeker_number = 1
-    file.hidden_number = GetPlayerArray.len() - 1
+    file.hidden_number = GetPlayerArray().len() - 1
 
     foreach(player in GetPlayerArray())
     {
@@ -64,7 +68,9 @@ void function StartRound()
     while( Time() <= endTime )
     {
         if(file.hasState == eHASState.WINNER_DECIDED)
-            Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.END_HIDDEN)
+            foreach(player in GetPlayerArray()){
+                Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.END_HIDDEN)
+            }
             break
         WaitFrame()
     }
@@ -77,7 +83,7 @@ void function _OnPlayerConnected(entity player)
     return
 
     if( !IsAlive( player ) )
-        _HandleRespawn( player )
+        _HandleRespawn( player , 1)
     
     switch( GetGameState() )
     {
@@ -162,6 +168,12 @@ void function PlayerRestoreHP(entity player, float health, float shields)
 
 }
 
+void function _HasRegisterLocation(LocationSettingsHAS locationSettings)
+{
+    file.locationSettings.append(locationSettings)
+}
+
+
 void function _HandleRespawn(entity player, int team){
     if(!IsValid(player))
         return
@@ -182,7 +194,7 @@ void function TpPlayerToSpawnPoint(entity player, int team)
         case "mp_rr_floppytown":
             if(team == 0){ //Seeker
                 loc = NewSpawnLoc(<772, 85, 2846>, <12, 89, 0>)
-            } else {
+            } else { //Hidden
                 loc = NewSpawnLoc(<502, 437, 2380>, < 15, 89, 0 >)
             }
         default:
