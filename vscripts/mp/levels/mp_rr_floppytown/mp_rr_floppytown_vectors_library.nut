@@ -96,6 +96,12 @@ global const vector FT_BALCONY_LEFT_ANG     = < 0, 0, 0 >
 global const vector FT_BALCONY_RIGHT_POS    = FT_BUILDING_POS_01 + < 368, -584, 576 >
 global const vector FT_BALCONY_RIGHT_ANG    = < 0, 0, 0 >
 
+global const vector FT_LIL_BALCONY_01_POS    = FT_BUILDING_POS_18 + < -520, 0, 896 >
+global const vector FT_LIL_BALCONY_01_ANG    = < 0, 90, 0 >
+
+global const vector FT_LIL_BALCONY_02_POS    = FT_BUILDING_POS_18 + < -128, 270, 479 >
+global const vector FT_LIL_BALCONY_02_ANG    = < 0, 0, 0 >
+
 //Cargo on the ground
 global const vector FT_CARGO_GROUND_FIRST_POS = FLOPPYTOWN_POS_OFFSET + < 1880, 3830, 0 >
 global const vector FT_CARGO_GROUND_FIRST_ANG = < 0, 0, 0 >
@@ -126,76 +132,6 @@ global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
-
-entity function CreateFloppytownModel( asset a, vector pos, vector ang, string script_name = "FloppytownEntities" )
-{
-    entity prop = CreatePropDynamic( a, pos, ang, SOLID_VPHYSICS, 20000 )
-    prop.kv.fadedist = 20000
-    prop.AllowMantle()
-    int realm = -1
-    if ( realm> -1 )
-    { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
-    prop.e.gameModeId = realm
-
-    FLOPPYTOWN_ENTITIES.append( prop )
-    prop.SetScriptName( script_name )
-
-return prop }
-
-entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
-{
-    entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
-    map_trigger.SetOrigin( pos )
-    DispatchSpawn( map_trigger )
-    FLOPPYTOWN_ENTITIES.append( map_trigger )
-    thread FloppyWallTrigger( map_trigger )
-    return map_trigger
-}
-
-void function FloppyWallTrigger(entity proxy, float speed = 0.6)
-{   bool active = true
-    while (active)
-    {   if(IsValid(proxy))
-        {   foreach(player in GetPlayerArray())
-            {   if (player.GetPhysics() != MOVETYPE_NOCLIP)//won't affect noclip player
-                {   if(proxy.IsTouching(player))
-				{
-                    player.Zipline_Stop()
-					switch(GetMapName())
-					{
-					    default:
-					    	vector target_origin = player.GetOrigin()
-                            target_origin.z = 0.0
-					    	vector proxy_origin = proxy.GetOrigin()
-					    	vector target_angles = player.GetAngles()
-					    	vector proxy_angles = proxy.GetAngles()
-
-					    	vector velocity = target_origin - proxy_origin
-					    	velocity = velocity * speed
-
-					    	vector angles = target_angles - proxy_angles
-
-					    	velocity = velocity + angles
-					    	player.SetVelocity(velocity)
-			}   }   }   }
-        } else {active = false ; break}
-        wait 0.01
-}   }
-
-array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
-{
-    entity column   = CreateFloppytownModel( SECURITY_FENCE, pos, ang )
-    entity support  = CreateFloppytownModel( ZIP_ARM, pos + < 0, 0, 185 >, ang )
-
-return [ column, support ] }
-
-entity function CreateEditorRef( vector pos, vector ang, string name )
-{
-    entity editor_ref = CreateFloppytownModel( EDITOR_REF, pos, ang )
-    SetTargetName( editor_ref, name )
-    editor_ref.SetScriptName( "editor_ref" )
-return editor_ref }
 
 void function Floppytown_MapInit_Vectors_Library()
 {

@@ -1028,6 +1028,17 @@ void function MiniBalconyLeft( vector pos, vector ang )
     script_mover.SetAngles( ang )
 }
 
+void function LilBalcony( vector pos, vector ang )
+{
+    entity script_mover = CreateScriptMover( pos )
+    CreateFloppytownModel( BRIDGE_PANEL, pos + < 64, 0, 0 >, < 0, 90, 0 >, "lil_balcony" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -64, 64, 4 >, < 0, 180, 0 >, "lil_balcony" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 64, 64, 4 >, < 0, 90, 0 >, "lil_balcony" )
+    foreach ( ent in GetEntArrayByScriptName( "lil_balcony" ) )
+    { ent.SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
+
 // Cargo on the ground
 void function cargo_ground_first( vector pos, vector ang )
 {

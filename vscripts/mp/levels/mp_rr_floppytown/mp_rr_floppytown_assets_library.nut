@@ -398,6 +398,8 @@ global const asset PHASE_SHIFT_MAIN_XO                = $"P_phase_shift_main_xo"
 global const asset PHASE_SHIFT_SCREEN                 = $"P_phase_shift_screen"
 global const asset ADRENALINE_SCREEN_CP               = $"P_adrenaline_screen_CP"
 global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
+global const asset DOG_SMOKE_TRAIL                    = $"P_dog_w_smoke_trail"
+global const asset SPARKS_BEACON_DISH                 = $"P_sparks_beacon_dish"
 
 
 /////--- Dev Assets ---/////

@@ -11,6 +11,9 @@ void function Floppytown_MapInit_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
+    PrecacheParticleSystem( DOG_SMOKE_TRAIL )
+	RespawnFallingObject()
+
 
 	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
     { printt( "wall trigger disable !" ) }
@@ -20,8 +23,8 @@ void function Floppytown_MapInit_Generation()
     thread SkyboxAnimation()
 	
 	SetFloppytownAngles()
-
 }
+
 
 void function Map_Generation()
 {
@@ -55,7 +58,10 @@ void function Map_Generation()
 
     cargo_ground_first( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG )
     cargo_ground_second( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG )
+    LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG )
+    LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG )
 }
+
 
 void function Props_Generation()
 {
@@ -124,7 +130,12 @@ void function Props_Generation()
     CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 256, 2300 >, < -180, 90, 0 > )
     for ( int i = 0 ; i < 4 ; i++ )
     { CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 1028, 4896, 200 > + < 256 * i, 0, 0 >, < 0, 0, 0 > ) }
+    CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B, FLOPPYTOWN_POS_OFFSET + < 1344, 1600, 256 >, < 0, 0, 0 > )
+    for ( int i = 0 ; i < 2 ; i++ )
+    { CreateFloppytownModel( IMC_GENERATOR_01, FLOPPYTOWN_POS_OFFSET + < 5184, 2368, 2304 > + < 0, 128 * i, 0 >, < 0, 0, 0 > ) }
+    CreateFloppytownModel( IMC_GENERATOR_01, FLOPPYTOWN_POS_OFFSET + < 5184, 2752, 2304 >, < 0, 0, 0 > )
 }
+
 
 void function Dynamic_Build_Generation()
 {
@@ -226,6 +237,7 @@ void function Dynamic_Build_Generation()
         printt( "|============================================================|" ) }
 }
 
+
 void function Zips_Generation()
 {
     CreateFloppytownZiplineModel( FT_BUILDING_POS_01 + < 600, 0, 1792.1 >, < 0, -90, 0 > )
@@ -270,39 +282,64 @@ void function Zips_Generation()
     }
 }
 
-void function SetFloppytownAngles()
+
+void function RespawnFallingObject()
 {
-	entity script_mover = CreateScriptMover()
-    
-    foreach ( entities in FLOPPYTOWN_ENTITIES )
-    {
-        entities.SetParent( script_mover )
+	entity script_mover_1 = CreateFloppytownScriptMover( < 5184, 2624, 2304 >, < 0, 0, 0 >, "falling_object_1" )
+	entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, < 5184, 2624, 2304 >, < 0, 0, 0 >, "%&use%", "follower_1" )
+	falling_object.SetParent( script_mover_1 )
 
-        //if ( entities.GetOrigin() == <2176, 2240, 895.900024>) // For an idea later
-        //entities.Destroy()
-    }
-
-    script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-    script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
-
-    //thread Yes( script_mover )
+	AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
+	{
+		printt("Button pressed")
+		array<entity> falling_objects = GetEntArrayByScriptName( "follower_1" )
+		entity falling_object = falling_objects[0]
+		falling_object.UnsetUsable()
+		thread FallingObject()
+	})
 }
 
-void function Yes( entity script_mover )
+
+void function FallingObject()
 {
-    int i = 0
-    int j = 0
-    while( true )
-    {
-        script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET + < 0 + j, 0, 0 > )
-        script_mover.SetAngles( < 0 + i, 0 + i, 0 > )
-        j = j+20
-        if ( i == 360 )
-        {
-            i = i-359
-        }
-    WaitFrame() }
+	array<entity> script_mover_0 = GetEntArrayByScriptName( "falling_object_1" )
+	array<entity> follower_0 = GetEntArrayByScriptName( "follower_1" )
+	entity script_mover = script_mover_0[0]
+	entity follower = follower_0[0]
+
+	vector start = script_mover.GetOrigin()
+
+	script_mover.NonPhysicsMoveTo( start + < -70, 0, 0 >, 1.2, 0, 0 )
+		wait 1.2
+
+	script_mover.NonPhysicsRotateTo( < -120, 0, 0 >, 3.5, 0, 0 )
+		wait 1
+
+	//script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -20, 0, 0 >, 0.4, 0, 0 )
+	//	wait 0.4
+
+	script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -280, 0, -2280 >, 2.5, 0, 0 )
+		wait 2.5
+
+	entity fx = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+	EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
+
+		wait 2.9
+
+	entity fx2 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+	if ( IsValid( follower ) )
+	{ follower.Destroy() }
+		wait 6
+
+	if ( IsValid( script_mover ) )
+	{ script_mover.Destroy() }
+	if ( IsValid( fx ) )
+	{ fx.Destroy() }
+
+	RespawnFallingObject()
+	printt( "RespawnFallingObject()  -> end of thread" )
 }
+
 
 void function SkyboxAnimation()
 {
@@ -318,4 +355,21 @@ void function SkyboxAnimation()
         Fx.Destroy()
         WaitFrame()
     }
+}
+
+
+void function SetFloppytownAngles()
+{
+	entity script_mover = CreateScriptMover()
+    
+    foreach ( entities in FLOPPYTOWN_ENTITIES )
+    {
+        entities.SetParent( script_mover )
+
+        //if ( entities.GetOrigin() == <2176, 2240, 895.900024>) // For an idea later
+        //entities.Destroy()
+    }
+
+    script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
+    script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
 }
