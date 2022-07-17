@@ -1028,13 +1028,35 @@ void function MiniBalconyLeft( vector pos, vector ang )
     script_mover.SetAngles( ang )
 }
 
-void function LilBalcony( vector pos, vector ang )
+void function LilBalcony01( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( BRIDGE_PANEL, pos + < 64, 0, 0 >, < 0, 90, 0 >, "lil_balcony" )
-    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -64, 64, 4 >, < 0, 180, 0 >, "lil_balcony" )
-    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 64, 64, 4 >, < 0, 90, 0 >, "lil_balcony" )
-    foreach ( ent in GetEntArrayByScriptName( "lil_balcony" ) )
+    CreateFloppytownModel( BRIDGE_PANEL, pos + < 64, 0, 0 >, < 0, 90, 0 >, "lil_balcony_01" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -64, 64, 4 >, < 0, 180, 0 >, "lil_balcony_01" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 64, 64, 4 >, < 0, 90, 0 >, "lil_balcony_01" )
+    foreach ( ent in GetEntArrayByScriptName( "lil_balcony_01" ) )
+    { ent.SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
+
+void function LilBalcony02( vector pos, vector ang )
+{
+    entity script_mover = CreateScriptMover( pos )
+    CreateFloppytownModel( BRIDGE_PANEL, pos + < 64, 0, 0 >, < 0, 90, 0 >, "lil_balcony_02" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -64, 64, 4 >, < 0, 180, 0 >, "lil_balcony_02" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 64, 64, 4 >, < 0, 90, 0 >, "lil_balcony_02" )
+    foreach ( ent in GetEntArrayByScriptName( "lil_balcony_02" ) )
+    { ent.SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
+
+void function LilBalcony03( vector pos, vector ang )
+{
+    entity script_mover = CreateScriptMover( pos )
+    CreateFloppytownModel( BRIDGE_PANEL, pos + < 64, 0, 0 >, < 0, 90, 0 >, "lil_balcony_03" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -64, 64, 4 >, < 0, 180, 0 >, "lil_balcony_03" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 64, 64, 4 >, < 0, 90, 0 >, "lil_balcony_03" )
+    foreach ( ent in GetEntArrayByScriptName( "lil_balcony_03" ) )
     { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }

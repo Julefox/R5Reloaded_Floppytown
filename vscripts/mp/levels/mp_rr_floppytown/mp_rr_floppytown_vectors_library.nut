@@ -102,6 +102,9 @@ global const vector FT_LIL_BALCONY_01_ANG    = < 0, 90, 0 >
 global const vector FT_LIL_BALCONY_02_POS    = FT_BUILDING_POS_18 + < -128, 270, 479 >
 global const vector FT_LIL_BALCONY_02_ANG    = < 0, 0, 0 >
 
+global const vector FT_LIL_BALCONY_03_POS    = FT_BUILDING_POS_18 + < 256, -270, 735 >
+global const vector FT_LIL_BALCONY_03_ANG    = < 0, 180, 0 >
+
 //Cargo on the ground
 global const vector FT_CARGO_GROUND_FIRST_POS = FLOPPYTOWN_POS_OFFSET + < 1880, 3830, 0 >
 global const vector FT_CARGO_GROUND_FIRST_ANG = < 0, 0, 0 >
