@@ -2,7 +2,9 @@ global function Floppytown_MapInit_Generation
 
 void function Floppytown_MapInit_Generation()
 {
-    printt( "Floppytown_MapInit_Generation:                The file has been called." )
+    printt( "| Floppytown_MapInit_Generation:                The file has been called. |" )
+    printt( "|=========================================================================|" )
+    printt( "" )
 
     Map_Generation()
     Props_Generation()
@@ -16,7 +18,6 @@ void function Floppytown_MapInit_Generation()
     { CreateWallTriggerAroundTheMap() }
 
     thread SkyboxAnimation()
-    //thread Sprint()
 	
 	Ang()
 
@@ -126,7 +127,9 @@ void function Dynamic_Build_Generation()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
-        printt( "RNG Update: -> disable" )
+        printt( "|============================================================|" )
+        printt( "|>>>>>>>>>>>>>>>>>>>  RNG State: DISABLE  <<<<<<<<<<<<<<<<<<<|" )
+
 		rng_0 = "visible"
 		rng_1 = "both"
         rng_2 = "all"
@@ -219,12 +222,14 @@ void function Dynamic_Build_Generation()
             break
 
     }
-	printt( "" )
-	printt( "Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
-	printt( "Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
-    printt( "Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
-    printt( "Dynamic_Build_Generation RNG: Nessy Location      = Did you really think we were going to give you the rental?" )
-    printt( "" )
+
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
+        printt( "|============================================================|" )
+	    printt( "|Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
+	    printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
+        printt( "|Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
+        printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
+        printt( "|============================================================|" ) }
 }
 
 void function Zips_Generation()
@@ -273,23 +278,13 @@ void function Zips_Generation()
 
 void function Ang()
 {
-	array<entity> props = 		GetEntArrayByScriptName( "FloppytownEntities" )
-	array<entity> triggers = 	GetEntArrayByScriptName( "trigger_cylinder" )
-	array<entity> editors = 	GetEntArrayByScriptName( "editor_ref" )
-
-	entity script_mover = CreateFloppytownModel( EMPTY, FLOPPYTOWN_POS_OFFSET, FLOPPYTOWN_ANG_OFFSET )
-
-	foreach ( prop in props )
-	{ prop.SetParent( script_mover ) }
-	foreach ( trigger in triggers )
-	{ trigger.SetParent( script_mover ) }
-	foreach ( editor in editors )
-	{ editor.SetParent( script_mover ) }
-    foreach ( prop in props )
-	{ prop.SetParent( script_mover ) }
+	entity script_mover = CreateScriptMover()
+    
+    foreach ( entities in FLOPPYTOWN_ENTITIES )
+    { entities.SetParent( script_mover ) }
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > )
 
     //thread Yes( script_mover )
 }
@@ -325,21 +320,3 @@ void function SkyboxAnimation()
         WaitFrame()
     }
 }
-
-/* void function Sprint()
-{
-    array<entity> players = GetPlayerArray()
-
-    while ( true )
-    {
-        foreach ( player in players)
-        {
-            if ( player.IsSprinting() )
-            {
-                PlayFXOnEntity( SPRINT_FP, player )
-                printt("sprint")
-            }
-
-        }
-    WaitFrame() }
-} */

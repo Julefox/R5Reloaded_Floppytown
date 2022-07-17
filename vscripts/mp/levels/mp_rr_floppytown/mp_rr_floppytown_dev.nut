@@ -4,7 +4,7 @@ globalize_all_functions
 
 void function Floppytown_MapInit_Dev()
 {
-    printt( "Floppytown_MapInit_Dev:                       The file has been called." )
+    printt( "| Floppytown_MapInit_Dev:                       The file has been called. |" )
     FloppytownDevEnable()
 }
 

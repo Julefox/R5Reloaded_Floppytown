@@ -3,6 +3,7 @@ global function ClientCodeCallback_MapInit
 void function ClientCodeCallback_MapInit()
 {
 	printt( "" )
+	printt( "|=========================================================================|" )
 	Floppytown_MapInit_Common()
 	Floppytown_MapInit_Client()
 
@@ -38,5 +39,6 @@ void function FloppytownLightEnvironment()
 
 void function Floppytown_MapInit_Client()
 {
-	printt( "Floppytown_MapInit_Client:                    The file has been called." )
+	printt( "| Floppytown_MapInit_Client:                    The file has been called. |" )
+	printt( "|=========================================================================|" )
 }

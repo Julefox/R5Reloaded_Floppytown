@@ -135,7 +135,7 @@ global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
 
-entity function CreateFloppytownModel( asset a, vector pos, vector ang )
+entity function CreateFloppytownModel( asset a, vector pos, vector ang, string script_name = "FloppytownEntities" )
 {
     entity prop = CreatePropDynamic( a, pos, ang, SOLID_VPHYSICS, 20000 )
     prop.kv.fadedist = 20000
@@ -145,12 +145,9 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang )
     { prop.RemoveFromAllRealms(); prop.AddToRealm( realm ) }
     prop.e.gameModeId = realm
 
-        /* if ( a == THUNDERDOME_CEILING )
-        {
-            
-        } */
+    FLOPPYTOWN_ENTITIES.append( prop )
+    prop.SetScriptName( script_name )
 
-    prop.SetScriptName( "FloppytownEntities" )
 return prop }
 
 entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
@@ -159,6 +156,7 @@ entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
     map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
+    FLOPPYTOWN_ENTITIES.append( map_trigger )
     thread FloppyWallTrigger( map_trigger )
     return map_trigger
 }
@@ -209,5 +207,5 @@ return editor_ref }
 
 void function Floppytown_MapInit_Vectors_Library()
 {
-    printt( "Floppytown_MapInit_Vectors_Library:           The file has been called." )
+    printt( "| Floppytown_MapInit_Vectors_Library:           The file has been called. |" )
 }

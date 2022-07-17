@@ -718,13 +718,13 @@ PingTraceResults function DoPingTrace( entity player )
 			#if CLIENT || UI
 				if ( result.hitEnt.GetScriptName() == "editor_ref" )
 				{
-					AddPlayerHint( 2.0, 0.0, $"",
+					AddPlayerHint( 3.0, 0.0, $"",
 					"\nEditor Ref Name : "	+ result.hitEnt.GetTargetName() +
 					"\nEditor Ref Origin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
 				}
 				else
 				{
-					AddPlayerHint( 2.0, 0.0, $"",
+					AddPlayerHint( 3.0, 0.0, $"", // rui/menu/buttons/tip
 					"Name : " + result.hitEnt.GetModelName() +
 					"\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
 				}
