@@ -52,6 +52,9 @@ void function Map_Generation()
     Building_18( FT_BUILDING_POS_18, FT_BUILDING_ANG_18 )
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
+
+    cargo_ground_first( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG )
+    cargo_ground_second( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG )
 }
 
 void function Props_Generation()
@@ -124,7 +127,7 @@ void function Dynamic_Build_Generation()
 	string rng_0 = rng_0_choice.getrandom()
 	array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
 	string rng_1 = rng_1_choice.getrandom()
-    array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
+    array<string> rng_2_choice = [ "hide", "hide", "visible" ]
     string rng_2 = rng_2_choice.getrandom()
     array<string> rng_3_choice = []
     if(rng_0 == "hide") {
@@ -141,7 +144,7 @@ void function Dynamic_Build_Generation()
 
 		rng_0 = "visible"
 		rng_1 = "both"
-        rng_2 = "all"
+        rng_2 = "visible"
         rng_3 = "inDev"
     }
 
@@ -174,33 +177,11 @@ void function Dynamic_Build_Generation()
     // rng_2
     switch ( rng_2 )
     {
-        case "all":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+        case "hide":
             break
-        case "first":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            break
-        case "second":
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            break
-        case "third":
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-        case "first_second":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            break
-        case "second_third":
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-        case "first_third":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-
+        case "visible":
+            cargo_ground_third( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG )
+        break
     }
     // rng_3
     switch( rng_3 )
@@ -228,8 +209,7 @@ void function Dynamic_Build_Generation()
             break
         case "5":
             spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
-            break
-
+        break
     }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
