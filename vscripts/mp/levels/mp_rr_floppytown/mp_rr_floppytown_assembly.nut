@@ -12,7 +12,7 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis 
     {   for ( int j = 0 ; j <  Yaxis ; j++ )
         {   for ( int k = 0 ; k <  Zaxis ; k++ )
             {
-                CreateFloppytownModel( BUILDING_PLATFORM_LARGE, pos + < 1024 * i, 352 * j, 0 * k > , FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "floor" )
+                CreateFloppytownModel( BUILDING_PLATFORM_LARGE, pos + < 1024 * i, 352 * j, 0 * k > , < 0, 180, 0 >, "floor" )
             }
         }
     }
@@ -26,49 +26,49 @@ void function North_Wall( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 96, 1200 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 96, 1200 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 529, 96, 0 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 529, 96, 0 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 144, 58, 2000 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 144, 58, 2000 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 1160, 64, 0 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 1160, 64, 0 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 2202.8, 0, 1792 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 2202.8, 0, 1792 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 3245.6, 0, 0 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 3245.6, 0, 0 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int j = 0 ; j < 2 ; j++ )
-    {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 2062, 140, 1792 > + < 0, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "north_wall" ) }
+    {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 2062, 140, 1792 > + < 0, 0, 224 * j >, < 0, 90, 0 >, "north_wall" ) }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 12 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 3900, 0, 0 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 3900, 0, 0 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 4028, -50, 2400 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 4028, -50, 2400 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 6 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 4500, -64, 896 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 4500, -64, 896 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 5044, -64, 1000 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 5044, -64, 1000 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, "north_wall" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 5172, -114, 2400 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "north_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 5172, -114, 2400 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "north_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "north_wall" ) )
     { ent .SetParent( script_mover ) }
@@ -80,36 +80,36 @@ void function South_Wall( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -500, -80, 2000 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -500, -80, 2000 > + < 529 * i, 0, 200 * j >, < 0, 0, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -884, -42, 2600 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -884, -42, 2600 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -2097.3, 0, 1120 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -2097.3, 0, 1120 > + < 260.7 * i, 0, 224 * j >, < 0, 0, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -2358, 0, 2016 > + < 260.7 * i, 0, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -2358, 0, 2016 > + < 260.7 * i, 0, 224 * j >, < 0, 0, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 19 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( WALL_PILLAR, pos + < -5840, -32, 2002 > + < 128 * i, 0, 286 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( WALL_PILLAR, pos + < -5840, -32, 2002 > + < 128 * i, 0, 286 * j >, < 0, 270, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 6 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -3400, -64, 1600 > + < 529 * i, 0, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -3400, -64, 1600 > + < 529 * i, 0, 200 * j >, < 0, 0, 0 >, "south_wall" ) }
     }
-    //CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 90 >, "south_wall" )
+    //CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 >, < 0, 90, 90 >, "south_wall" )
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784, -26, 2800 > + < 256 * i, 128 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "south_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784, -26, 2800 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "south_wall" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 > + < 16 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 90 >, "south_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 > + < 16 * i, 0 * j, 0 >, < 0, 90, 90 >, "south_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "south_wall" ) )
     { ent .SetParent( script_mover ) }
@@ -122,46 +122,46 @@ void function West_Wall( vector pos, vector ang )
     for ( int i = 0 ; i < 13 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {
-            CreateFloppytownModel( WALL_PILLAR, pos + < -32, 0, 1716 > + < 0, 128 * i, 286 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "west_wall" )
+            CreateFloppytownModel( WALL_PILLAR, pos + < -32, 0, 1716 > + < 0, 128 * i, 286 * j >, < 0, 180, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 1664, 1120 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "west_wall" )
+            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 1664, 1120 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 1664, 448 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "west_wall" )
+            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 1664, 448 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 3228.2, 1120 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "west_wall" )
+            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 3228.2, 1120 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 3749.6, 672 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "west_wall" )
+            CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, 3749.6, 672 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {
-            CreateFloppytownModel( WALL_PILLAR, pos + < -32, 1536, 1144 > + < 0, 128 * i, 286 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "west_wall" )
+            CreateFloppytownModel( WALL_PILLAR, pos + < -32, 1536, 1144 > + < 0, 128 * i, 286 * j >, < 0, 180, 0 >, "west_wall" )
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -89, 4360, 1200 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "west_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < -89, 4360, 1200 > + < 0, 529 * i, 200 * j >, < 0, -90, 0 >, "west_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -58, 4494, 2200 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "west_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -58, 4494, 2200 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, "west_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "west_wall" ) )
     { ent .SetParent( script_mover ) }
@@ -173,41 +173,41 @@ void function East_Wall( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 0, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, 0, 1600 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -46, -384, 2400 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -46, -384, 2400 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -1058, 1600 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -1058, 1600 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -46, -1420, 2600 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -46, -1420, 2600 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, "east_wall" ) }
     }
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -38, -1420-128, 2488 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 90 >, "east_wall" )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -38, -1420-128, 2488 >, < 0, 0, 90 >, "east_wall" )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, -2600, 2240 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < 0, -2600, 2240 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 14 ; j++ )
-        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -2730, 0 > + < 0, 529 * i, 200 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SLANTED_SLICE, pos + < 0, -2730, 0 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -34, -3114, 2800 > + < 128 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -34, -3114, 2800 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, "east_wall" ) }
     }
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -34, -2202, 2687 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 90 >, "east_wall" )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -34, -2202, 2687 >, < 0, 0, 90 >, "east_wall" )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 13 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -64, -3500, 0 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -64, -3500, 0 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "east_wall" ) }
+        {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "east_wall" ) )
     { ent .SetParent( script_mover ) }
@@ -277,39 +277,39 @@ void function Building_01( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( BUILDING_PLATFORM, pos + < -592, -528, 1792.1 > + < 592 * i, 352 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "bldg_01" ) }
+        {   CreateFloppytownModel( BUILDING_PLATFORM, pos + < -592, -528, 1792.1 > + < 592 * i, 352 * j, 0 >, < 0, 180, 0 >, "bldg_01" ) }
     }
     for ( int i = 0 ; i < 9 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -592, -464, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "bldg_01" )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 592, -480, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 >, "bldg_01" )  
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -528, -528, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "bldg_01" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -592, -464, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_01" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 592, -480, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, "bldg_01" )  
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -528, -528, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_01" )
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -464, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "bldg_01" ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -464, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_01" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 584, -864, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_01" )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -456, -850, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "bldg_01" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 584, -864, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, "bldg_01" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -456, -850, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_01" )
         }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -400, -912, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "bldg_01" ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -400, -912, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_01" ) }
     }
-    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -860, SSB_UP_TO_0_PATCH >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "bldg_01" )
+    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 568, -860, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, "bldg_01" )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 >, "bldg_01" ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, < 0, 180, 0 >, "bldg_01" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -320, -784, 192 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_01" ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -320, -784, 192 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_01" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_01" ) )
     { ent .SetParent( script_mover ) }
@@ -321,56 +321,56 @@ void function Building_02( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     //for ( int i = 0 ; i < 3 ; i++ )  // Side of the building not visible //
     //{   for ( int j = 0 ; j < 5 ; j++ )
-    //    { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 512, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+    //    { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_02" ) }
     //}
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 640, -128, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 640, -128, 0 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, "bldg_02" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 640, 128, 768 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 640, 128, 768 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, "bldg_02" ) }
     }
     //for ( int i = 0 ; i < 4 ; i++ )  // Side of the building not visible //
     //{   for ( int j = 0 ; j < 6 ; j++ )
-    //    { reateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -128, -384, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_02" ) }
+    //    { reateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -128, -384, 0 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, "bldg_02" ) }
     //}
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, -512, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, -512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_02" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 512, -256, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 512, -256, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_02" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, -384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_02" ) }
+        { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, -384, 0 > + < 256 * i, 0, 256 * j >, < 0, -90, 0 >, "bldg_02" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -384, 768 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -384, 768 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_02" ) }
     }
-    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 256, -384, 768 > + < 256, 256, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" )
+    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 256, -384, 768 > + < 256, 256, 0 >, < 0, 0, 0 >, "bldg_02" )
     //for ( int i = 0 ; i < 2 ; i++ ) // Side of the building not visible //
     //{   for ( int j = 0 ; j < 2 ; j++ )
-    //    { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -128, 128, 768 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 >, "bldg_02" ) }
+    //    { CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -128, 128, 768 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, "bldg_02" ) }
     //}
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 0, 768 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 0, 768 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_02" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 128, 1280 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 128, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_02" ) }
     }
-    CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 0, -96 > , FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 >, "bldg_02" )
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 760, 12, 148 > , FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < -65, 0, 90 >, "bldg_02" )
+    CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 0, -96 > , < 0, 0, 0 >, "bldg_02" )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 760, 12, 148 > , < -65, 0, 90 >, "bldg_02" )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 896, 128, -96 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 >, "bldg_02" )
-            CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 767.6, 128, 200 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 25, 0, 0 >, "bldg_02" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 896, 128, -96 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_02" )
+            CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 767.6, 128, 200 > + < 256 * i, 256 * j, 0 >, < 25, 0, 0 >, "bldg_02" )
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_02" ) )
@@ -383,228 +383,255 @@ void function Building_03( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos+ < 0, -256, 0 > + < 0 * i, 256 * j, 1280 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos+ < 0, -256, 0 > + < 0 * i, 256 * j, 1280 >, < 0, 0, 0 >, "bldg_03" ) }
     }
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 64, -320, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 64, -320, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, "bldg_03" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 64, 448, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 64, 448, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, "bldg_03" ) }
     }
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 0, 384, 768 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 0, 384, 768 >, < 0, 0, 0 >, "bldg_03" )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, -384, 640 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, -384, 640 > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_03" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        { CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 0, 384, 896 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) } // 330 
-}   }
+        { CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 0, 384, 896 > + < 0, 128 * i, 256 * j >, < 0, 0, 0 >, "bldg_03" ) } // 330 
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_03" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_04( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 128, -256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 128, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 270, 0 >, "bldg_04" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -256, 512 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -256, 512 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_04" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 384, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 384, 0 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_04" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_04" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_05( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        { CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 128, -256, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > ) }
+        { CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 128, -256, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, "bldg_05" ) }
     }
-    CreateFloppytownModel( SPACE_ELEVATOR, pos + < 0, 0, 1220 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( THUNDERDOME_FRAME, pos + < 0, -304, 1248 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
+    CreateFloppytownModel( SPACE_ELEVATOR, pos + < 0, 0, 1220 >, < 0, 90, 0 >, "bldg_05" )
+    CreateFloppytownModel( THUNDERDOME_FRAME, pos + < 0, -304, 1248 >, < 0, 180, 0 >, "bldg_05" )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 324, 512 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 324, 512 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_05" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_05" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_06( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 256, -256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 256, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 270, 0 >, "bldg_06" ) }
     }
-    //CreateFloppytownModel( Space_Elevator, pos + < 0, 0, 1220 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    //CreateFloppytownModel( Space_Elevator, pos + < 0, 0, 1220 >, < 0, 90, 0 >, "bldg_06" )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -256, 1792 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, -256, 1792 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_06" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 192, -256, 1792 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 192, -256, 1792 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_06" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 192, 384, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 192, 384, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 0, 0 >, "bldg_06" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( CARGO_SMALL, pos + < -128, 384, 1279.9 > + < 128 * i, 0, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( CARGO_SMALL, pos + < -128, 384, 1279.9 > + < 128 * i, 0, 128 * j >, < 0, 0, 0 >, "bldg_06" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_06" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_07( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 2304 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 2304 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 512, 2304 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 512, 2304 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1152, 0, 2048 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1152, 0, 2048 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 640, 1792 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 640, 1792 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 256, 640, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 256, 640, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 512, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 512, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1024, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1024, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1280, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 1280, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 512, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 512, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 16 ; j++ )
         {
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, 320, 0 > + < 0, 128 * i, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, 320, 0 > + < 0, 128 * i, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, 320, 0 > + < 0, 128 * i, 128 * j >, < 0, 90, 0 >, "bldg_07" )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, 320, 0 > + < 0, 128 * i, 128 * j >, < 0, -90, 0 >, "bldg_07" )
         }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, -64, 1536 > + < 0, 128 * i, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, -64, 1536 > + < 0, 128 * i, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1920, -64, 1536 > + < 0, 128 * i, 128 * j >, < 0, 90, 0 >, "bldg_07" )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < 1904, -64, 1536 > + < 0, 128 * i, 128 * j >, < 0, -90, 0 >, "bldg_07" )
         }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < 1344, 128, 2048 > + < 384 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < 1344, 128, 2048 > + < 384 * i, 384 * j, 0 >, < 0, -90, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 896, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 640, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 704, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 896, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_07" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 640, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, "bldg_07" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 704, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" )
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
         {
-            CreateFloppytownModel( BOX_BOTTOM_A, pos + < 512, 384, 768 > + < 0, 0 * i, 512 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
-            CreateFloppytownModel( BOX_BOTTOM_B , pos + < 1024, 384, 768 > + < 0, 0 * i, 512 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
+            CreateFloppytownModel( BOX_BOTTOM_A, pos + < 512, 384, 768 > + < 0, 0 * i, 512 * j >, < 0, 180, 0 >, "bldg_07" )
+            CreateFloppytownModel( BOX_BOTTOM_B , pos + < 1024, 384, 768 > + < 0, 0 * i, 512 * j >, < 0, 180, 0 >, "bldg_07" )
         }
     }
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 768, 448, 2560 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 768, 448, 2560 >, < 0, 90, 0 >, "bldg_07" )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
         {
             if ( j == 1 )
-            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256.1 > + < 0 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256.1 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
             else
-            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+            { CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_07" ) }
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
         {
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 384, 512 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 384, 1536 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 384, 512 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_07" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 768, 384, 1536 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_07" )
         }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_FRAME, pos + < 768, 384, 768 > + < 0, 256 * i, 1024 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_FRAME, pos + < 768, 384, 768 > + < 0, 256 * i, 1024 * j >, < 0, 0, 0 >, "bldg_07" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 1280, 0, 2016 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 1280, 0, 2016 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_07" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_07" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_08( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -256, 64, 1664 > + < 512 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -256, 64, 1664 > + < 512 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_08" ) }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 13 ; j++ )
         {
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256, 0 > + < 128 * i, 0, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256-16, 0 > + < 128 * i, 0, 128 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256, 0 > + < 128 * i, 0, 128 * j >, < 0, 0, 0 >, "bldg_08" )
+            CreateFloppytownModel( CONCRETE_PANEL, pos + < -448, 256-16, 0 > + < 128 * i, 0, 128 * j >, < 0, 180, 0 >, "bldg_08" )
         }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1600 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1600 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_08" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_08" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_09( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, 128, 2048 > + < 384 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, 128, 2048 > + < 384 * i, 384 * j, 0 >, < 0, 90, 0 >, "bldg_09" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_09" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 1984 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 1984 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_09" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 0, 1536 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 0, 1536 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_09" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 0, 1280 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 0, 1280 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_09" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 6 ; j++ )
         { 
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, 256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_09" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_09" )
         }
     }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_09" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function Building_10( vector pos, vector ang )
@@ -612,130 +639,150 @@ void function Building_10( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, 0, 1280 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, 0, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_10" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 128, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_10" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_10" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_11( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -128, 0, 2048 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -128, 0, 2048 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_11" ) }
     }
     CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, 0, 2048 >, < 0, 0, 0 > )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -512, -64, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -512, -64, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_11" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_11" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, 640, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, 640, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_11" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -256, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
-}   }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -256, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_11" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_11" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_12( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -640, 0, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -640, 0, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 0, 1280 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 0, 1280 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 512, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 512, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, -128, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, -128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, -128, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, -128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, 1024, SSB_UP_TO_0_PATCH + 1536 > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, 1024, SSB_UP_TO_0_PATCH + 1536 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, 960, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, 960, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_12" ) }
     }
 
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -512, 0, 1280 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -512, 0, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -128, 64, 2304 > + < 0 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -128, 64, 2304 > + < 0 * i, 384 * j, 0 >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 2272-32 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 2272-32 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_12" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -256, 960, 2272 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -256, 960, 2272 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_12" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_12" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_13( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -128, 64, 1792 > + < 0 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -128, 64, 1792 > + < 0 * i, 384 * j, 0 >, < 0, 0, 0 >, "bldg_13" ) }
     }
     for ( int i = 0 ; i < 7 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, -64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, -64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_13" ) }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, 832, SSB_UP_TO_0_PATCH + 1024 > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, 832, SSB_UP_TO_0_PATCH + 1024 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_13" ) }
     }
     for ( int i = 0; i < 2 ; i++ )
     {   for ( int j = 0; j < 8 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 1728 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 1728 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_13" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_13" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_14( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, -384, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -512, -384, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_14" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, -512, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, -512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_14" ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -256, -320, 1024 > + < 512 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -256, -320, 1024 > + < 512 * i, 384 * j, 0 >, < 0, 0, 0 >, "bldg_14" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -384, 960 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -384, 960 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_14" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_14" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_15( vector pos, vector ang )
 {
@@ -743,23 +790,26 @@ void function Building_15( vector pos, vector ang )
     for ( int i = 0 ; i < 7 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( PIPE_GRATE, pos + < -384, 32, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( PIPE_GRATE, pos + < -384, -32, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -384, 32, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_15" )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -384, -32, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_15" )
 
-            CreateFloppytownModel( PIPE_GRATE, pos + < -384.1, 31.9, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 180 > )
-            CreateFloppytownModel( PIPE_GRATE, pos + < -384.1, -31.9, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 180 > )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -384.1, 31.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, "bldg_15" )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -384.1, -31.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, "bldg_15" )
         }
     }
     for ( int i = 0 ; i < 11 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( PIPE_GRATE, pos + < -640, 96, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( PIPE_GRATE, pos + < -640, -96, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -640, 96, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_15" )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -640, -96, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_15" )
 
-            CreateFloppytownModel( PIPE_GRATE, pos + < -640.1, 95.9, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 180 > )
-            CreateFloppytownModel( PIPE_GRATE, pos + < -640.1, -95.9, 1024 > + < 128 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 180 > )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -640.1, 95.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, "bldg_15" )
+            CreateFloppytownModel( PIPE_GRATE, pos + < -640.1, -95.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, "bldg_15" )
         }
     }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_15" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function Building_16( vector pos, vector ang )
@@ -768,32 +818,40 @@ void function Building_16( vector pos, vector ang )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, -384, 0 > + < 256 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, -256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, -256, 0 > + < 0, 256 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_16" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -256, -384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_16" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 384, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_16" )
+            CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, "bldg_16" )
         }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, -256, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 > ) }
-}   }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_16" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_17( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < -128, -384, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < 256, -384, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < 128, 384, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < -256, 384, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < -384, 128, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < -384, -256, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < 384, -128, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < 384, 256, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < -128, -384, 0 >, < 0, 0, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < 256, -384, 0 >, < 0, 0, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < 128, 384, 0 >, < 0, 0, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < -256, 384, 0 >, < 0, 0, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < -384, 128, 0 >, < 0, 90, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < -384, -256, 0 >, < 0, 90, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_512x352_01, pos + < 384, -128, 0 >, < 0, 90, 0 >, "bldg_17" )
+    CreateFloppytownModel( THUNDERDOME_WALL_256x352_01, pos + < 384, 256, 0 >, < 0, 90, 0 >, "bldg_17" )
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, -256, 352 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, -256, 352 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_17" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_17" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_18( vector pos, vector ang )
 {
@@ -801,86 +859,93 @@ void function Building_18( vector pos, vector ang )
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_18" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, "bldg_18" )
         }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, 256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, -256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, 256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_18" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -448, -256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_18" )
         }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -320, 0, 1280 > + < 640 * i, 384 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -320, 0, 1280 > + < 640 * i, 384 * j, 0 >, < 0, 90, 0 >, "bldg_18" ) }
     }
-    CreateFloppytownModel( MID_PLATFORM, pos + < 0, 0, 1280.1 >, < 0, 90, 0 > )
+    CreateFloppytownModel( MID_PLATFORM, pos + < 0, 0, 1280.1 >, < 0, 90, 0 >, "bldg_18" )
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1216 > + < 256 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
-}   }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1216 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_18" ) }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_18" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function Building_19( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < 0, -256, 1280 > + < 0 * i, 512 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < 0, -256, 1280 > + < 0 * i, 512 * j, 0 >, < 0, 90, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > ) } // droit
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_19" ) } // droit
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -128, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 12 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1664, 0, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1664, 0, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 12 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1664, -384, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > ) }
+        {    CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1664, -384, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, 64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, 64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1728, -320, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -1728, -320, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 3 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -1472, -192, 1280 > + < 512 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -1472, -192, 1280 > + < 512 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 128, -384, 1216 > + < 0 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 128, -384, 1216 > + < 0 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -64, -384, 1216 > + < 0 * i, 256 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -64, -384, 1216 > + < 0 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -1600, -256, 1216 > + < 256 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -1600, -256, 1216 > + < 256 * i, 0 * j, 0 >, < 0, 0, 0 >, "bldg_19" ) }
     }
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -1600, -64, 1216 > + < 256 * i, 0 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -1600, -64, 1216 > + < 256 * i, 0 * j, 0 >, < 0, 90, 0 >, "bldg_19" ) }
     }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_19" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function Building_20( vector pos, vector ang )
@@ -888,86 +953,111 @@ void function Building_20( vector pos, vector ang )
     entity script_mover = CreateScriptMover( pos )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -256, 256 > + < 384 * i, 512 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( MID_PLATFORM, pos + < -192, -256, 256 > + < 384 * i, 512 * j, 0 >, < 0, 90, 0 >, "bldg_20" ) }
     }
     for ( int i = 0 ; i < 8 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, "bldg_20" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_20" )
         }
     }
     for ( int i = 0 ; i < 6 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
         {
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_20" )
+            CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -320, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, "bldg_20" )
         }
-}   }
+    }
+    foreach ( ent in GetEntArrayByScriptName( "bldg_20" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
+}
 
 void function LittleBridge( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( IMC_CARGO_CONTAINER_01_WHITE, pos + < -128, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    CreateFloppytownModel( IMC_CARGO_CONTAINER_01_WHITE, pos + < -128, 0, 0 >, < 0, 90, 0 >, "little_bridge" )
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownModel( BEAM_SUPPORT, pos + < -96, -48, -2 > + < 256 * i, 72 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > ) }
+        {   CreateFloppytownModel( BEAM_SUPPORT, pos + < -96, -48, -2 > + < 256 * i, 72 * j, 0 >, < 0, 90, 0 >, "little_bridge" ) }
     }
+    foreach ( ent in GetEntArrayByScriptName( "little_bridge" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function BalconyLeft( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < -128, -32, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
-    CreateFloppytownModel( RAILING_32, pos + < -128, 16, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
-    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < 96, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, < 0, 0, 0 >, "balcony_left" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -128, 7 >, < 0, -90, 0 >, "balcony_left" )
+    CreateFloppytownModel( RAILING_64, pos + < -128, -32, 7 >, < 0, 180, 0 >, "balcony_left" )
+    CreateFloppytownModel( RAILING_32, pos + < -128, 16, 7 >, < 0, 180, 0 >, "balcony_left" )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, < 0, -90, 0 >, "balcony_left" )
+    CreateFloppytownModel( RAILING_64, pos + < 96, -128, 7 >, < 0, -90, 0 >, "balcony_left" )
+    foreach ( ent in GetEntArrayByScriptName( "balcony_left" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function BalconyRight( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 128, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < 128, -32, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( RAILING_32, pos + < 128, 16, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 0, 0 > )
-    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < -96, -128, 7 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+    CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 0, 0, 0 >, < 0, 0, 0 >, "balcony_right" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < 128, -128, 7 >, < 0, 0, 0 >, "balcony_right" )
+    CreateFloppytownModel( RAILING_64, pos + < 128, -32, 7 >, < 0, 0, 0 >, "balcony_right" )
+    CreateFloppytownModel( RAILING_32, pos + < 128, 16, 7 >, < 0, 0, 0 >, "balcony_right" )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, < 0, -90, 0 >, "balcony_right" )
+    CreateFloppytownModel( RAILING_64, pos + < -96, -128, 7 >, < 0, -90, 0 >, "balcony_right" )
+    foreach ( ent in GetEntArrayByScriptName( "balcony_right" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function MiniBalconyLeft( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -64, 9 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < -128, 32, 9 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > )
-    CreateFloppytownModel( RAILING_128, pos + < 0, -64, 9 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
-    CreateFloppytownModel( RAILING_64, pos + < 96, -64, 9 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, -90, 0 > )
+    CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 0, 0, 0 >, < 0, 90, 0 >, "mini_balcony_left" )
+    CreateFloppytownModel( RAILING_CORNER_IN, pos + < -128, -64, 9 >, < 0, -90, 0 >, "mini_balcony_left" )
+    CreateFloppytownModel( RAILING_64, pos + < -128, 32, 9 >, < 0, 180, 0 >, "mini_balcony_left" )
+    CreateFloppytownModel( RAILING_128, pos + < 0, -64, 9 >, < 0, -90, 0 >, "mini_balcony_left" )
+    CreateFloppytownModel( RAILING_64, pos + < 96, -64, 9 >, < 0, -90, 0 >, "mini_balcony_left" )
+    foreach ( ent in GetEntArrayByScriptName( "mini_balcony_left" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 // Cargo on the ground
 void function cargo_ground_first( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, "cargo_ground_first" )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, "cargo_ground_first" )
+    foreach ( ent in GetEntArrayByScriptName( "cargo_ground_first" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function cargo_ground_second( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, "cargo_ground_second" )
+    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, "cargo_ground_second" )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, < 0, 90, 0 >, "cargo_ground_second" )
+    foreach ( ent in GetEntArrayByScriptName( "cargo_ground_second" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 
 void function cargo_ground_third( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 90, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 270, 45 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, "cargo_ground_third" )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, "cargo_ground_third" )
+    foreach ( ent in GetEntArrayByScriptName( "cargo_ground_third" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }
 // Cargo on the ground end
 
@@ -978,10 +1068,14 @@ void function spawn_nessy( vector pos, vector ang )
 
 void function AreaBuildAreVisible()
 {
+    entity script_mover = CreateScriptMover( FT_BUILD_AREA_POS )
     for ( int i = 0 ; i <  3 ; i++ )
     {   for ( int j = 0 ; j <  7 ; j++ )
-        {   CreateFloppytownModel( BUILDING_PLATFORM_LARGE, FT_BUILD_AREA_POS + < 1024 * i, 352 * j, 0 >, FLOPPYTOWN_PRE_SPAWN_ANG_OFFSET + < 0, 180, 0 > ) }
+        {   CreateFloppytownModel( BUILDING_PLATFORM_LARGE, FT_BUILD_AREA_POS + < 1024 * i, 352 * j, 0 >, < 0, 180, 0 >, "area_build" ) }
     }
+    foreach ( ent in GetEntArrayByScriptName( "area_build" ) )
+    { ent .SetParent( script_mover ) }
+    script_mover.SetAngles( FT_BUILD_AREA_ANG )
 }
 
 void function EditorRefAreVisible()
