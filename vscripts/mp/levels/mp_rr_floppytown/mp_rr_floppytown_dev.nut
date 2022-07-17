@@ -81,6 +81,7 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
+    thread ListenSound( player )
 return true }
 
 bool function ClientCommand_AssetViewerActive( entity player, array<string> args )
@@ -138,4 +139,28 @@ bool function ClientCommand_AssetViewerActive( entity player, array<string> args
     }
 
 return true }
+
+void function ListenSound( entity player )
+{
+    int i = 0
+    while( i != SOUNDS_ARRAY.len() )
+    {
+        printt( "" )
+        printt( "Sound played: " + SOUNDS_ARRAY[i] )
+        printt( "" )
+
+        EmitSoundOnEntity( player, SOUNDS_ARRAY[i] )
+        wait 5
+        StopSoundOnEntity( player, SOUNDS_ARRAY[i] )
+
+        printt( "" )
+        printt( "End of sound" )
+        printt( "" )
+
+        i++
+
+        WaitFrame()
+    }
+    printt( "You have listened to everything !" )
+}
         
