@@ -37,12 +37,15 @@ void function OnEntitiesTeleporters()
 ///////////////////////////////////////////////////////////////////////////////////
 void function SpawnMapTeleporters()
 {
-	entity home0 = CreateFloppytownUsableModel( CORE_ENERGY, <1600, 3008, 60>, <0,90,0>, "%&use% ???")
-	AddCallback_OnUseEntity( home0, void function(entity panel, entity user, int input) 
+	entity script_mover = CreateScriptMover( <1600, 3008, 60> )
+	entity tp_test = CreateFloppytownUsableModel( CORE_ENERGY, <1600, 3008, 60>, <0,90,0>, "%&use% ???")
+	AddCallback_OnUseEntity( tp_test, void function(entity panel, entity user, int input) 
 	{
 		EmitSoundOnEntityOnlyToPlayer( user, user, BUTTON_SOUND )
 		TeleportPlayer(user,<1152, 3008, 600>, <0,180,0>)
 	})
+	tp_test.SetParent( script_mover )
+	script_mover.NonPhysicsMoveTo( <3600, 4008, 60>, 60, 0.0, 0.0 )
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
