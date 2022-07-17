@@ -329,6 +329,24 @@ global const asset AIRDUCT_S_TJUNC                    = $"mdl/pipes/airduct_s_tj
 global const asset AIRDUCT_S_TURN_SIDE                = $"mdl/pipes/airduct_s_turn_side.rmdl"
 global const asset AIRDUCT_S_TURN_VERT                = $"mdl/pipes/airduct_s_turn_vert.rmdl"
 global const asset AIRDUCT_TRANS_M_TO_S               = $"mdl/pipes/airduct_trans_m_to_s.rmdl"
+global const asset FIRSTGEN_256_CLOTH_01              = $"mdl/firstgen/firstgen_pipe_256_cloth_01.rmdl"
+global const asset FIRSTGEN_256_DARKCLOTH_01          = $"mdl/firstgen/firstgen_pipe_256_darkcloth_01.rmdl"
+global const asset FIRSTGEN_256_GOLDFOIL_01           = $"mdl/firstgen/firstgen_pipe_256_goldfoil_01.rmdl"
+global const asset FIRSTGEN_128_CLOTH_01              = $"mdl/firstgen/firstgen_pipe_128_cloth_01.rmdl"
+global const asset FIRSTGEN_128_DARKCLOTH_01          = $"mdl/firstgen/firstgen_pipe_128_darkcloth_01.rmdl"
+global const asset FIRSTGEN_128_GOLDFOIL_01           = $"mdl/firstgen/firstgen_pipe_128_goldfoil_01.rmdl"
+global const asset FIRSTGEN_64_CLOTH_01               = $"mdl/firstgen/firstgen_pipe_64_cloth_01.rmdl"
+global const asset FIRSTGEN_64_DARKCLOTH_01           = $"mdl/firstgen/firstgen_pipe_64_darkcloth_01.rmdl"
+global const asset FIRSTGEN_64_GOLDFOIL_01            = $"mdl/firstgen/firstgen_pipe_64_goldfoil_01.rmdl"
+global const asset FIRSTGEN_32_CLOTH_01               = $"mdl/firstgen/firstgen_pipe_32_cloth_01.rmdl"
+global const asset FIRSTGEN_32_DARKCLOTH_01           = $"mdl/firstgen/firstgen_pipe_32_darkcloth_01.rmdl"
+global const asset FIRSTGEN_32_GOLDFOIL_01            = $"mdl/firstgen/firstgen_pipe_32_goldfoil_01.rmdl"
+global const asset FIRSTGEN_CURVE_CLOTH_01            = $"mdl/firstgen/firstgen_pipe_curve_cloth_01.rmdl"
+global const asset FIRSTGEN_CURVE_DARKCLOTH_01        = $"mdl/firstgen/firstgen_pipe_curve_darkcloth_01.rmdl"
+global const asset FIRSTGEN_CURVE_GOLDFOIL_01         = $"mdl/firstgen/firstgen_pipe_curve_goldfoil_01.rmdl"
+global const asset FIRSTGEN_T_CLOTH_01                = $"mdl/firstgen/firstgen_pipe_t_cloth_01.rmdl"
+global const asset FIRSTGEN_T_DARKCLOTH_01            = $"mdl/firstgen/firstgen_pipe_t_darkcloth_01.rmdl"
+global const asset FIRSTGEN_BARREL_01                 = $"mdl/firstgen/firstgen_barrel_01.rmdl"
 
 
 // ---
@@ -386,6 +404,9 @@ global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
 global const asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
 global const asset CUBEMAP                        = $"mdl/menu/menu_cubemap.rmdl"
 global const asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
+global const asset EMPTY_LIGHT                    = $"mdl/empty/lights/empty_lights.rmdl"
+global const asset ERROR                          = $"mdl/error.rmdl"
+
 
 global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
@@ -678,6 +699,24 @@ global array< asset > ASSET_VIEWER_ARRAY =
     AIRDUCT_S_TURN_SIDE
     AIRDUCT_S_TURN_VERT
     AIRDUCT_TRANS_M_TO_S
+    FIRSTGEN_256_CLOTH_01
+    FIRSTGEN_256_DARKCLOTH_01
+    FIRSTGEN_256_GOLDFOIL_01
+    FIRSTGEN_128_CLOTH_01
+    FIRSTGEN_128_DARKCLOTH_01
+    FIRSTGEN_128_GOLDFOIL_01
+    FIRSTGEN_64_CLOTH_01
+    FIRSTGEN_64_DARKCLOTH_01
+    FIRSTGEN_64_GOLDFOIL_01
+    FIRSTGEN_32_CLOTH_01
+    FIRSTGEN_32_DARKCLOTH_01
+    FIRSTGEN_32_GOLDFOIL_01
+    FIRSTGEN_CURVE_CLOTH_01
+    FIRSTGEN_CURVE_DARKCLOTH_01
+    FIRSTGEN_CURVE_GOLDFOIL_01
+    FIRSTGEN_T_CLOTH_01
+    FIRSTGEN_T_DARKCLOTH_01
+    FIRSTGEN_BARREL_01
     CORE_ENERGY
     YUKI_MEMORIAL_02
     YUKI_MEMORIAL_03
