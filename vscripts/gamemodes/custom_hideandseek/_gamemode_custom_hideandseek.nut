@@ -47,21 +47,24 @@ void function StartRound()
         if (IsValid( player ))
         {
             if(player != Seeker){
-                Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.ROUND_START_HIDDEN)       
+                Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.ROUND_START_HIDDEN)
+                player.UnfreezeControlsOnServer()   
+                TpPlayerToSpawnPoint(player, 1)
             } else if (player == Seeker){
                 Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.ROUND_START_SEEKER)
                 player.FreezeControlsOnServer()
+                TpPlayerToSpawnPoint(player, 0)
             }
             ClearInvincible(player)
-            TpPlayerToSpawnPoint(player)
         }
     }
-
     wait 15
+    Seeker.UnfreezeControlsOnServer()   
     float endTime = Time() + GetCurrentPlaylistVarFloat("round_time", 120)
     while( Time() <= endTime )
     {
         if(file.hasState == eHASState.WINNER_DECIDED)
+            Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.END_HIDDEN)
             break
         WaitFrame()
     }
@@ -84,8 +87,8 @@ void function _OnPlayerConnected(entity player)
             break
         case eGameState.Playing:
             player.UnfreezeControlsOnServer();
-            file.hidden_number = file.hidden_number + 1
-            Remote_CallFunction_NonReplay( player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eTDMAnnounce.ROUND_START_HIDDEN )
+            file.seeker_number = file.seeker_number + 1
+            Remote_CallFunction_NonReplay( player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eTDMAnnounce.ROUND_START_SEEKER )
 
         break
     default: 
@@ -108,24 +111,27 @@ void function _OnPlayerDied( entity victim, entity attacker, var damageInfo )
                 {
                     file.hidden_number = file.hidden_number - 1
                     file.seeker_number = file.seeker_number + 1
-                    _HandleRespawn( victim )
+                    _HandleRespawn( victim, 0)
                 }
             }
             void functionref() attackerHandleFunc = void function() : (victim, attacker, damageInfo)  {
                 if( IsValid(attacker) && attacker.IsPlayer() && IsAlive( attacker ) && attacker != victim )
                 {
-                    int score = GameRules_GetTeamScore(attacker.GetTeam());
-
-                    score++;
-
-                    GameRules_SetTeamScore(attacker.GetTeam(), score);
-
                     int invscore = attacker.GetPlayerNetInt( "kills" )
                     invscore++;
 
                     attacker.SetPlayerNetInt( "kills", invscore )
                 }
             }
+
+            if(file.hidden_number <= 0){
+                foreach( entity player in GetPlayerArray() )
+                {
+                    Remote_CallFunction_NonReplay(player, "ServerCallback_HideAndSeek_DoAnnouncement", 5, eHASAnnounce.END_SEEKER)
+                }
+                file.hasState = eHASState.WINNER_DECIDED
+            }
+
             thread victimHandleFunc()
             thread attackerHandleFunc()
             foreach( player in GetPlayerArray() )
@@ -136,4 +142,53 @@ void function _OnPlayerDied( entity victim, entity attacker, var damageInfo )
         default:
         
     }
+}
+
+void function PlayerRestoreHP(entity player, float health, float shields)
+{
+    if(!IsValid(player)) return;
+    if(!IsAlive(player)) return;
+    player.SetHealth( health )
+    Inventory_SetPlayerEquipment(player, "helmet_pickup_lv4_abilities", "helmet")
+
+    if(shields == 0) return;
+    else if(shields <= 50)
+        Inventory_SetPlayerEquipment(player, "armor_pickup_lv1", "armor")
+    else if(shields <= 75)
+        Inventory_SetPlayerEquipment(player, "armor_pickup_lv2", "armor")
+    else if(shields <= 100)
+        Inventory_SetPlayerEquipment(player, "armor_pickup_lv3", "armor")
+    player.SetShieldHealth( shields )
+
+}
+
+void function _HandleRespawn(entity player, int team){
+    if(!IsValid(player))
+        return
+
+    if(!IsAlive(player))
+    {
+        DecideRespawnPlayer(player, true)
+    }
+    SetPlayerSettings(player, HIDEANDSEEK_PLAYER_SETTINGS)
+    PlayerRestoreHP(player, 100, 0)
+    TpPlayerToSpawnPoint(player, team)
+}
+
+void function TpPlayerToSpawnPoint(entity player, int team)
+{
+    SpawnLoc loc
+    switch(GetMapName()){
+        case "mp_rr_floppytown":
+            if(team == 0){ //Seeker
+                loc = NewSpawnLoc(<772, 85, 2846>, <12, 89, 0>)
+            } else {
+                loc = NewSpawnLoc(<502, 437, 2380>, < 15, 89, 0 >)
+            }
+        default:
+             Assert(false, "No location for Hide and Seek in this map")
+    }
+
+    player.SetOrigin(loc.origin)
+    player.SetAngles(loc.angles)
 }
