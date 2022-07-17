@@ -268,7 +268,7 @@ void function CreateWallTriggerAroundTheMap()
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppyWallTrigger( < 6568, 53, 0 > + < 0 * i, 250 * j, 0 > ) }
+        {   CreateFloppyWallTrigger( < 6580, 53, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
 }
 

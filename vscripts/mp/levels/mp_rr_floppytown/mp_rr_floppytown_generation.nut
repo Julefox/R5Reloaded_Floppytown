@@ -119,6 +119,9 @@ void function Props_Generation()
     CreateFloppytownModel( DESERTLANDS_SIGN_01, FLOPPYTOWN_POS_OFFSET + < 5100, 3392, 1288 >, < 0, 90, 0 > ).SetModelScale( 6 )
     CreateFloppytownModel( RELIC_WARNING_01, FLOPPYTOWN_POS_OFFSET + < 5110, 2560, 2048 >, < 0, 90, 0 > ).SetModelScale( 8 )
     CreateFloppytownModel( SERVICE_SHAFT_01, FLOPPYTOWN_POS_OFFSET + < 4312, 0, 2340 >, < 0, 90, 0 > ).SetModelScale( 8 )
+    CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, -90, 0 > )
+    CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, 90, 0 > )
+    CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 256, 2300 >, < -180, 90, 0 > )
 }
 
 void function Dynamic_Build_Generation()
