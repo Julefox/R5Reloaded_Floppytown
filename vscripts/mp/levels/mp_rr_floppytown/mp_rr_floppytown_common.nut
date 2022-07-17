@@ -12,7 +12,7 @@ const string BUTTON_SOUND = "UI_Menu_back"
 
 void function Floppytown_MapInit_Common()
 {
-	printt( "Floppytown_MapInit_Common:                    The file has been called." )
+	printt( "| Floppytown_MapInit_Common:                    The file has been called. |" )
 	Teleporters_Init()
 }
 

@@ -209,5 +209,5 @@ return editor_ref }
 
 void function Floppytown_MapInit_Vectors_Library()
 {
-    printt( "Floppytown_MapInit_Vectors_Library:           The file has been called." )
+    printt( "| Floppytown_MapInit_Vectors_Library:           The file has been called. |" )
 }

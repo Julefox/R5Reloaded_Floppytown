@@ -3,7 +3,8 @@ global function CodeCallback_MapInit
 void function CodeCallback_MapInit()
 {
     printt( "" )
-    printt( "Floppytown_MapInit:                           The file has been called." )
+    printt( "|=========================================================================|" )
+    printt( "| Floppytown_MapInit:                           The file has been called. |" )
     Floppytown_MapInit_Common()
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
@@ -17,12 +18,14 @@ void function CodeCallback_MapInit()
     Floppytown_MapInit_Generation()
 
     printt( "" )
-    printt( "Hello " + GetMapName() + " !" )
+    printt( " Map generated, hello " + GetMapName() + " !" )
     printt( "" )
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {
-        printt( "WARNING: DEVELOPER MODE IS ENABLE" )
+        printt( "|=============================================================|" )
+        printt( "|>>>>>>>>>>>>> WARNING: DEVELOPER MODE IS ENABLE <<<<<<<<<<<<<|" )
+        printt( "|=============================================================|" )
     }
     printt( "" )
 }

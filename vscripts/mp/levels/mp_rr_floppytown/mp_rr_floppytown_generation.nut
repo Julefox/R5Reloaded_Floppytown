@@ -2,7 +2,9 @@ global function Floppytown_MapInit_Generation
 
 void function Floppytown_MapInit_Generation()
 {
-    printt( "Floppytown_MapInit_Generation:                The file has been called." )
+    printt( "| Floppytown_MapInit_Generation:                The file has been called. |" )
+    printt( "|=========================================================================|" )
+    printt( "" )
 
     Map_Generation()
     Props_Generation()
@@ -126,7 +128,9 @@ void function Dynamic_Build_Generation()
 
 	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
-        printt( "RNG Update: -> disable" )
+        printt( "|============================================================|" )
+        printt( "|>>>>>>>>>>>>>>>>>>>  RNG State: DISABLE  <<<<<<<<<<<<<<<<<<<|" )
+
 		rng_0 = "visible"
 		rng_1 = "both"
         rng_2 = "all"
@@ -219,12 +223,14 @@ void function Dynamic_Build_Generation()
             break
 
     }
-	printt( "" )
-	printt( "Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
-	printt( "Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
-    printt( "Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
-    printt( "Dynamic_Build_Generation RNG: Nessy Location      = Did you really think we were going to give you the rental?" )
-    printt( "" )
+
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
+        printt( "|============================================================|" )
+	    printt( "|Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
+	    printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
+        printt( "|Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
+        printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
+        printt( "|============================================================|" ) }
 }
 
 void function Zips_Generation()
