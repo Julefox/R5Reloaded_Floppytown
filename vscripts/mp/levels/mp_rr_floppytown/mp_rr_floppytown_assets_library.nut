@@ -262,6 +262,7 @@ global const asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
 global const asset CUBEMAP                        = $"mdl/menu/menu_cubemap.rmdl"
 global const asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
 
+global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
 global array< asset > assetViewerArray =
 [

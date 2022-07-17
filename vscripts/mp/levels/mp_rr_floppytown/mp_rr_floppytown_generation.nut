@@ -18,7 +18,6 @@ void function Floppytown_MapInit_Generation()
     { CreateWallTriggerAroundTheMap() }
 
     thread SkyboxAnimation()
-    //thread Sprint()
 	
 	Ang()
 
@@ -279,23 +278,13 @@ void function Zips_Generation()
 
 void function Ang()
 {
-	array<entity> props = 		GetEntArrayByScriptName( "FloppytownEntities" )
-	array<entity> triggers = 	GetEntArrayByScriptName( "trigger_cylinder" )
-	array<entity> editors = 	GetEntArrayByScriptName( "editor_ref" )
-
-	entity script_mover = CreateFloppytownModel( EMPTY, FLOPPYTOWN_POS_OFFSET, FLOPPYTOWN_ANG_OFFSET )
-
-	foreach ( prop in props )
-	{ prop.SetParent( script_mover ) }
-	foreach ( trigger in triggers )
-	{ trigger.SetParent( script_mover ) }
-	foreach ( editor in editors )
-	{ editor.SetParent( script_mover ) }
-    foreach ( prop in props )
-	{ prop.SetParent( script_mover ) }
+	entity script_mover = CreateScriptMover()
+    
+    foreach ( entities in FLOPPYTOWN_ENTITIES )
+    { entities.SetParent( script_mover ) }
 
 	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 > )
+	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET + < 0, 90, 0 > )
 
     //thread Yes( script_mover )
 }
@@ -331,21 +320,3 @@ void function SkyboxAnimation()
         WaitFrame()
     }
 }
-
-/* void function Sprint()
-{
-    array<entity> players = GetPlayerArray()
-
-    while ( true )
-    {
-        foreach ( player in players)
-        {
-            if ( player.IsSprinting() )
-            {
-                PlayFXOnEntity( SPRINT_FP, player )
-                printt("sprint")
-            }
-
-        }
-    WaitFrame() }
-} */

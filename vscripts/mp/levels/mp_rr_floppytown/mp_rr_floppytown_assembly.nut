@@ -909,21 +909,21 @@ void function MiniBalconyLeft( vector pos, vector ang )
 // Cargo on the ground
 void function cargo_ground_first( vector pos, vector ang )
 {
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 0, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, ang + < 0, 0, 0 > )
 }
 
 void function cargo_ground_second( vector pos, vector ang )
 {
-    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, < 0, 0, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 0, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, ang + < 0, 0, 0 > )
 }
 
 void function cargo_ground_third( vector pos, vector ang )
 {
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 0, 0 > )
-    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 180, 45 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, ang + < 0, 0, 0 > )
+    CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, ang + < 0, 180, 45 > )
 }
 // Cargo on the ground end
 
