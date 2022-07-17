@@ -115,7 +115,7 @@ global const vector FT_NESSY_2_POS = FLOPPYTOWN_POS_OFFSET + < 10, 4700, 1653 >
 global const vector FT_NESSY_2_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
 
 global const vector FT_NESSY_3_POS = FLOPPYTOWN_POS_OFFSET + < 930, 895, 1930 >
-global const vector FT_NESSY_3_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
+global const vector FT_NESSY_3_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -45, 0 >
 
 global const vector FT_NESSY_4_POS = FLOPPYTOWN_POS_OFFSET + < 3716, 34, 2048 >
 global const vector FT_NESSY_4_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >

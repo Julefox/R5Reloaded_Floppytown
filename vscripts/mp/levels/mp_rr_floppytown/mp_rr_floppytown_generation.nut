@@ -106,6 +106,16 @@ void function Props_Generation()
     {   for ( int j = 0 ; j < 2 ; j++ )
         { CreateFloppytownModel( COLUMN_01, FLOPPYTOWN_POS_OFFSET + < 5056, 752, 0 > + < 56 * i, 0, 150 * j >, < 0, 0, 0 > ) }
     }
+    CreateFloppytownModel( TRAIN_STATION_SIGN_02, FLOPPYTOWN_POS_OFFSET +  <0, 2967.5, 1792 >, < 0, 0, 0 > ).SetModelScale( 6 )
+    CreateFloppytownModel( TRAIN_STATION_SIGN_01, FLOPPYTOWN_POS_OFFSET + < 1536, 520, 1536 >, < 0, 90, 0 > ).SetModelScale( 6 )
+    CreateFloppytownModel( BEACON_FENCE_SIGN_01, FLOPPYTOWN_POS_OFFSET + < 2648, 3824-12, 1408 >, < 0, 0, 0 > ).SetModelScale( 3 )
+    CreateFloppytownModel( NUMBER_LIT_1, FLOPPYTOWN_POS_OFFSET + < 3822, 3200, 1024 >, < 0, 180, 0 > ).SetModelScale( 40 )
+    CreateFloppytownModel( NUMBER_LIT_2, FLOPPYTOWN_POS_OFFSET + < 2368, 2450, 1024 >, < 0, 90, 0 > ).SetModelScale( 40 )
+    CreateFloppytownModel( NUMBER_LIT_3, FLOPPYTOWN_POS_OFFSET + < 2560, 1362, 1024 >, < 0, 90, 0 > ).SetModelScale( 40 )
+    CreateFloppytownModel( GONDOLA_PLATFORM_SIGN, FLOPPYTOWN_POS_OFFSET + < 432, 4864, 2096 >, < 0, 180, 0 > ).SetModelScale( 3 )
+    CreateFloppytownModel( DESERTLANDS_SIGN_01, FLOPPYTOWN_POS_OFFSET + < 5100, 3392, 1288 >, < 0, 90, 0 > ).SetModelScale( 6 )
+    CreateFloppytownModel( RELIC_WARNING_01, FLOPPYTOWN_POS_OFFSET + < 5110, 2560, 2048 >, < 0, 90, 0 > ).SetModelScale( 8 )
+    CreateFloppytownModel( SERVICE_SHAFT_01, FLOPPYTOWN_POS_OFFSET + < 4312, 0, 2340 >, < 0, 90, 0 > ).SetModelScale( 8 )
 }
 
 void function Dynamic_Build_Generation()

@@ -21,6 +21,9 @@ void function FloppytownDevEnable()
     {
         PrecacheModel( ASSET_VIEWER_ARRAY[i] )
     }
+    PrecacheModel( YUKI_MEMORIAL_02 )
+    PrecacheModel( YUKI_MEMORIAL_03 )
+    PrecacheModel( YUKI_MEMORIAL_04 )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
