@@ -17,7 +17,7 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis 
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -71,7 +71,7 @@ void function North_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < 5172, -114, 2400 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, "north_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "north_wall" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -112,7 +112,7 @@ void function South_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -3784+1408, -26, 2800-128 > + < 16 * i, 0 * j, 0 >, < 0, 90, 90 >, "south_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "south_wall" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -164,7 +164,7 @@ void function West_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -58, 4494, 2200 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, "west_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "west_wall" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -210,7 +210,7 @@ void function East_Wall( vector pos, vector ang )
         {   CreateFloppytownModel( SQUARE_BLOCK_03, pos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, "east_wall" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "east_wall" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -312,7 +312,7 @@ void function Building_01( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -320, -784, 192 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_01" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_01" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -374,7 +374,7 @@ void function Building_02( vector pos, vector ang )
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_02" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -403,7 +403,7 @@ void function Building_03( vector pos, vector ang )
         { CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < 0, 384, 896 > + < 0, 128 * i, 256 * j >, < 0, 0, 0 >, "bldg_03" ) } // 330 
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_03" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -423,7 +423,7 @@ void function Building_04( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 384, 0 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_04" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_04" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -441,7 +441,7 @@ void function Building_05( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < 0, 324, 512 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, "bldg_05" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_05" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -470,7 +470,7 @@ void function Building_06( vector pos, vector ang )
         {   CreateFloppytownModel( CARGO_SMALL, pos + < -128, 384, 1279.9 > + < 128 * i, 0, 128 * j >, < 0, 0, 0 >, "bldg_06" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_06" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -572,7 +572,7 @@ void function Building_07( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < 1280, 0, 2016 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_07" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_07" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -595,7 +595,7 @@ void function Building_08( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1600 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_08" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_08" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -630,7 +630,7 @@ void function Building_09( vector pos, vector ang )
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_09" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -646,7 +646,7 @@ void function Building_10( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, pos + < -384, 128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, "bldg_10" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_10" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -675,7 +675,7 @@ void function Building_11( vector pos, vector ang )
         {   CreateFloppytownModel( SQUARE_SHELL_BOX, pos + < -256, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, "bldg_11" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_11" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -732,7 +732,7 @@ void function Building_12( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -256, 960, 2272 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_12" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_12" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -756,7 +756,7 @@ void function Building_13( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, 0, 1728 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_13" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_13" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -780,7 +780,7 @@ void function Building_14( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -384, 960 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_14" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_14" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -808,7 +808,7 @@ void function Building_15( vector pos, vector ang )
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_15" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -829,7 +829,7 @@ void function Building_16( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, -256, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 > ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_16" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -849,7 +849,7 @@ void function Building_17( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -256, -256, 352 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, "bldg_17" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_17" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -880,7 +880,7 @@ void function Building_18( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_CEILING, pos + < -384, -128, 1216 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, "bldg_18" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_18" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -944,7 +944,7 @@ void function Building_19( vector pos, vector ang )
         {   CreateFloppytownModel( THUNDERDOME_MINI_CEILING, pos + < -1600, -64, 1216 > + < 256 * i, 0 * j, 0 >, < 0, 90, 0 >, "bldg_19" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_19" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -970,7 +970,7 @@ void function Building_20( vector pos, vector ang )
         }
     }
     foreach ( ent in GetEntArrayByScriptName( "bldg_20" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -983,7 +983,7 @@ void function LittleBridge( vector pos, vector ang )
         {   CreateFloppytownModel( BEAM_SUPPORT, pos + < -96, -48, -2 > + < 256 * i, 72 * j, 0 >, < 0, 90, 0 >, "little_bridge" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "little_bridge" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -997,7 +997,7 @@ void function BalconyLeft( vector pos, vector ang )
     CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, < 0, -90, 0 >, "balcony_left" )
     CreateFloppytownModel( RAILING_64, pos + < 96, -128, 7 >, < 0, -90, 0 >, "balcony_left" )
     foreach ( ent in GetEntArrayByScriptName( "balcony_left" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -1011,7 +1011,7 @@ void function BalconyRight( vector pos, vector ang )
     CreateFloppytownModel( RAILING_128, pos + < 0, -128, 7 >, < 0, -90, 0 >, "balcony_right" )
     CreateFloppytownModel( RAILING_64, pos + < -96, -128, 7 >, < 0, -90, 0 >, "balcony_right" )
     foreach ( ent in GetEntArrayByScriptName( "balcony_right" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -1024,7 +1024,7 @@ void function MiniBalconyLeft( vector pos, vector ang )
     CreateFloppytownModel( RAILING_128, pos + < 0, -64, 9 >, < 0, -90, 0 >, "mini_balcony_left" )
     CreateFloppytownModel( RAILING_64, pos + < 96, -64, 9 >, < 0, -90, 0 >, "mini_balcony_left" )
     foreach ( ent in GetEntArrayByScriptName( "mini_balcony_left" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -1035,7 +1035,7 @@ void function cargo_ground_first( vector pos, vector ang )
     CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, "cargo_ground_first" )
     CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, "cargo_ground_first" )
     foreach ( ent in GetEntArrayByScriptName( "cargo_ground_first" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -1046,7 +1046,7 @@ void function cargo_ground_second( vector pos, vector ang )
     CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, "cargo_ground_second" )
     CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, < 0, 90, 0 >, "cargo_ground_second" )
     foreach ( ent in GetEntArrayByScriptName( "cargo_ground_second" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 
@@ -1056,7 +1056,7 @@ void function cargo_ground_third( vector pos, vector ang )
     CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, "cargo_ground_third" )
     CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, "cargo_ground_third" )
     foreach ( ent in GetEntArrayByScriptName( "cargo_ground_third" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
 // Cargo on the ground end
@@ -1074,7 +1074,7 @@ void function AreaBuildAreVisible()
         {   CreateFloppytownModel( BUILDING_PLATFORM_LARGE, FT_BUILD_AREA_POS + < 1024 * i, 352 * j, 0 >, < 0, 180, 0 >, "area_build" ) }
     }
     foreach ( ent in GetEntArrayByScriptName( "area_build" ) )
-    { ent .SetParent( script_mover ) }
+    { ent.SetParent( script_mover ) }
     script_mover.SetAngles( FT_BUILD_AREA_ANG )
 }
 

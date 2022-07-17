@@ -19,7 +19,7 @@ void function Floppytown_MapInit_Generation()
 
     thread SkyboxAnimation()
 	
-	Ang()
+	SetFloppytownAngles()
 
 }
 
@@ -275,15 +275,15 @@ void function Zips_Generation()
     }
 }
 
-void function Ang()
+void function SetFloppytownAngles()
 {
 	entity script_mover = CreateScriptMover()
     
     foreach ( entities in FLOPPYTOWN_ENTITIES )
     { entities.SetParent( script_mover ) }
 
-	script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
-	script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
+    script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
+    script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
 
     //thread Yes( script_mover )
 }
