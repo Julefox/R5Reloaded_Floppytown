@@ -1,3 +1,9 @@
+// Credits Time !
+// 𝕮𝖗𝖎𝖔𝖘𝕮𝖍𝖆𝖓 クリオスちゃん#0221 -- Mode Main + Map Builder
+// Julefox#0050 -- Floppytown Map Builder
+// sal#3261 -- CUSTOM TDM Main
+// @Shrugtal -- CUSTOM TDM score ui
+
 global function Cl_CustomHideAndSeek_Init
 
 global function ServerCallback_HideAndSeek_DoAnnouncement
@@ -53,16 +59,19 @@ void function ServerCallback_HideAndSeek_DoAnnouncement(float duration, int type
             thread MakeScoreRUI();
             message = "Round start"
             subtext = "You are a Seeker"
+            break
         }
         case eHASAnnounce.ROUND_START_HIDDEN:
         {
             thread MakeScoreRUI();
             message = "Round start"
             subtext = "You are part of the hidden team"
+            break
         }
         case eHASAnnounce.HIDETOSEEK:
         {
             message = "You are now a Seeker"
+            break
         }
         case eHASAnnounce.END_SEEKER:
         {
@@ -70,7 +79,7 @@ void function ServerCallback_HideAndSeek_DoAnnouncement(float duration, int type
                 message = "The seekers won!"
             break
         }
-        case eHASAnnounce.END_SEEKER:
+        case eHASAnnounce.END_HIDDEN:
         {
             clGlobal.levelEnt.Signal( "ClosePlayerListRUI" )
                 message = "The hidden team won!"
