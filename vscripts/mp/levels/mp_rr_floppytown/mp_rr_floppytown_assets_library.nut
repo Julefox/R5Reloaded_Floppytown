@@ -264,7 +264,7 @@ global const asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
 
 global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
-global array< asset > assetViewerArray =
+global array< asset > ASSET_VIEWER_ARRAY =
 [
 BUILDING_PLATFORM_LARGE        
 BUILDING_PLATFORM              

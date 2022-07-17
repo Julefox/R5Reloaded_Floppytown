@@ -17,9 +17,9 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
 
-	for ( int i = 0 ; i < assetViewerArray.len() ; i++)
+	for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
     {
-        PrecacheModel( assetViewerArray[i] )
+        PrecacheModel( ASSET_VIEWER_ARRAY[i] )
     }
 }
 
@@ -86,7 +86,7 @@ bool function ClientCommand_AssetViewerActive( entity player, array<string> args
     int k = 1
     int l = 0
     int props_count = 0
-    int max_props_count = assetViewerArray.len() + 4
+    int max_props_count = ASSET_VIEWER_ARRAY.len() + 4
 
 
     entity wallpaper_0 = CreateFloppytownModel( YUKI_MEMORIAL_02, FT_BUILD_AREA_POS + < -2000, 3000, 5480 >, < 0, 0, 0 > )
@@ -102,10 +102,10 @@ bool function ClientCommand_AssetViewerActive( entity player, array<string> args
     wallpaper_2.SetScriptName( "assetViewer" )
     wallpaper_2.SetModelScale( 500 )
 
-    for ( int i = 0 ; i < assetViewerArray.len() ; i++ )
+    for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++ )
     {
 
-        entity assets = CreateFloppytownModel( assetViewerArray[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 800 * l, 800 * j, 800 * k >, < 0, 0, 0 > )
+        entity assets = CreateFloppytownModel( ASSET_VIEWER_ARRAY[i], FT_BUILD_AREA_POS + < 0, 0, 1000 > + < 800 * l, 800 * j, 800 * k >, < 0, 0, 0 > )
 
         assets.SetScriptName( "assetViewer" )
 
