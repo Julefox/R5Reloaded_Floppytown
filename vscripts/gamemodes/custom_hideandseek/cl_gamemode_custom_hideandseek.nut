@@ -11,6 +11,9 @@ global function ServerCallback_HideAndSeek_PlayerKilled
 
 struct {
     var PlayerList
+    
+    int seeker_number
+    int hidden_number
 } file;
 
 void function Cl_CustomHideAndSeek_Init()
@@ -22,7 +25,7 @@ void function MakePlayerListRUI()
 {
     if (file.PlayerList != null)
     {
-        RuiSetString( file.PlayerList, "messageText", "Hidden team: " + GameRules_GetTeamPlayers(TEAM_HIDE) " || Seeker team: " + GameRules_GetTeamPlayers(TEAM_SEEK))
+        RuiSetString( file.PlayerList, "messageText", "Hidden team: " + file.hidden_number " || Seeker team: " + file.seeker_number)
         return
     }
     clGlobal.levelEnt.EndSignal( "ClosePlayerListRUI" )
@@ -30,7 +33,7 @@ void function MakePlayerListRUI()
     var rui = RuiCreate( $"ui/announcement_quick_right.rpak", screenAlignmentTopo, RUI_DRAW_HUD, RUI_SORT_SCREENFADE + 1 )
 
     RuiSetGameTime( rui, "startTime", Time() )
-    RuiSetString( rui, "messageText", "Hidden team: " + GameRules_GetTeamPlayers(TEAM_HIDE) " || Seeker team: " + GameRules_GetTeamPlayers(TEAM_SEEK) )
+    RuiSetString( rui, "messageText", "Hidden team: " + file.hidden_number " || Seeker team: " + file.seeker_number )
     RuiSetString( rui, "messageSubText", "Playlist created by CriosChan" )
     RuiSetFloat( rui, "duration", 9999999 )
     RuiSetFloat3( rui, "eventColor", SrgbToLinear( <128, 188, 255> ) )
@@ -57,15 +60,15 @@ void function ServerCallback_HideAndSeek_DoAnnouncement(float duration, int type
         case eHASAnnounce.ROUND_START_SEEKER:
         {
             thread MakeScoreRUI();
-            message = "Round start"
-            subtext = "You are a Seeker"
+            message = "You are a Seeker"
+            subtext = "Wait 15 seconds before moving"
             break
         }
         case eHASAnnounce.ROUND_START_HIDDEN:
         {
             thread MakeScoreRUI();
-            message = "Round start"
-            subtext = "You are part of the hidden team"
+            message = "You are part of the hidden team"
+            subtext = "You have 15 seconds to hide"
             break
         }
         case eHASAnnounce.HIDETOSEEK:
