@@ -249,6 +249,105 @@ global const asset DESERTLANDS_SIGN_01                = $"mdl/desertlands/desert
 global const asset GONDOLA_PLATFORM_SIGN              = $"mdl/desertlands/indust_struct_gondola_platform_sign_01.rmdl"
 global const asset CORPORATE_SIGN_DSGNOFIC            = $"mdl/levels_terrain/mp_corporate/corporate_sign_dsgnOfic.rmdl"
 
+// Pipes
+global const asset MODULAR_P_RED_256                  = $"mdl/pipes/pipe_modular_painted_red_256.rmdl"
+global const asset MODULAR_P_RED_128                  = $"mdl/pipes/pipe_modular_painted_red_128.rmdl"
+global const asset MODULAR_P_RED_64                   = $"mdl/pipes/pipe_modular_painted_red_64.rmdl"
+global const asset MODULAR_P_RED_32                   = $"mdl/pipes/pipe_modular_painted_red_32.rmdl"
+global const asset MODULAR_P_RED_32_04                = $"mdl/pipes/pipe_modular_painted_red_32_04.rmdl"
+global const asset MODULAR_P_RED_32_TJUNK             = $"mdl/pipes/pipe_modular_painted_red_32_tjunk.rmdl"
+global const asset MODULAR_P_RED_32_VALVE             = $"mdl/pipes/pipe_modular_painted_red_32_valve.rmdl"
+global const asset MODULAR_P_RED_16                   = $"mdl/pipes/pipe_modular_painted_red_16.rmdl"
+global const asset MODULAR_P_RED_8                    = $"mdl/pipes/pipe_modular_painted_red_8.rmdl"
+global const asset MODULAR_P_RED_CORNER               = $"mdl/pipes/pipe_modular_painted_red_corner.rmdl"
+global const asset MODULAR_P_GREY_256                 = $"mdl/pipes/pipe_modular_painted_grey_256.rmdl"
+global const asset MODULAR_P_GREY_128                 = $"mdl/pipes/pipe_modular_painted_grey_128.rmdl"
+global const asset MODULAR_P_GREY_64                  = $"mdl/pipes/pipe_modular_painted_grey_64.rmdl"
+global const asset MODULAR_P_GREY_32                  = $"mdl/pipes/pipe_modular_painted_grey_32.rmdl"
+global const asset MODULAR_P_GREY_32_03               = $"mdl/pipes/pipe_modular_painted_grey_32_03.rmdl"
+global const asset MODULAR_P_GREY_32_04               = $"mdl/pipes/pipe_modular_painted_grey_32_04.rmdl"
+global const asset MODULAR_P_GREY_32_TJUNK            = $"mdl/pipes/pipe_modular_painted_grey_32_tjunk.rmdl"
+global const asset MODULAR_P_GREY_32_VALVE            = $"mdl/pipes/pipe_modular_painted_grey_32_valve.rmdl"
+global const asset MODULAR_P_GREY_16                  = $"mdl/pipes/pipe_modular_painted_grey_16.rmdl"
+global const asset MODULAR_P_GREY_8                   = $"mdl/pipes/pipe_modular_painted_grey_8.rmdl"
+global const asset MODULAR_P_GREY_CORNER              = $"mdl/pipes/pipe_modular_painted_grey_corner.rmdl"
+global const asset MODULAR_P_GREY_45_ANGLE            = $"mdl/pipes/pipe_modular_painted_grey_45_angle.rmdl"
+global const asset MODULAR_P_YELLOW_256               = $"mdl/pipes/pipe_modular_painted_yellow_256.rmdl"
+global const asset MODULAR_P_YELLOW_128               = $"mdl/pipes/pipe_modular_painted_yellow_128.rmdl"
+global const asset MODULAR_P_YELLOW_64                = $"mdl/pipes/pipe_modular_painted_yellow_64.rmdl"
+global const asset MODULAR_P_YELLOW_32                = $"mdl/pipes/pipe_modular_painted_yellow_32.rmdl"
+global const asset MODULAR_P_YELLOW_32_04             = $"mdl/pipes/pipe_modular_painted_yellow_32_04.rmdl"
+global const asset MODULAR_P_YELLOW_32_TJUNK          = $"mdl/pipes/pipe_modular_painted_yellow_32_tjunk.rmdl"
+global const asset MODULAR_P_YELLOW_32_VALVE          = $"mdl/pipes/pipe_modular_painted_yellow_32_valve.rmdl"
+global const asset MODULAR_P_YELLOW_16                = $"mdl/pipes/pipe_modular_painted_yellow_16.rmdl"
+global const asset MODULAR_P_YELLOW_8                 = $"mdl/pipes/pipe_modular_painted_yellow_8.rmdl"
+global const asset MODULAR_P_YELLOW_CORNER            = $"mdl/pipes/pipe_modular_painted_yellow_corner.rmdl"
+global const asset LARGE_BLUE_512_01                  = $"mdl/pipes/slum_pipe_large_blue_512_01.rmdl"
+global const asset LARGE_BLUE_256_01                  = $"mdl/pipes/slum_pipe_large_blue_256_01.rmdl"
+global const asset LARGE_BLUE_256_02                  = $"mdl/pipes/slum_pipe_large_blue_256_02.rmdl"
+global const asset LARGE_BLUE_128_01                  = $"mdl/pipes/slum_pipe_large_blue_128_01.rmdl"
+global const asset LARGE_BLUE_64_01                   = $"mdl/pipes/slum_pipe_large_blue_64_01.rmdl"
+global const asset LARGE_BLUE_32_01                   = $"mdl/pipes/slum_pipe_large_blue_32_01.rmdl"
+global const asset LARGE_BLUE_ANGLE_01                = $"mdl/pipes/slum_pipe_large_blue_angle_01.rmdl"
+global const asset LARGE_BLUE_TJUNC_01                = $"mdl/pipes/slum_pipe_large_blue_tjunc_01.rmdl"
+global const asset LARGE_YELLOW_512_01                = $"mdl/pipes/slum_pipe_large_yellow_512_01.rmdl"
+global const asset LARGE_YELLOW_256_01                = $"mdl/pipes/slum_pipe_large_yellow_256_01.rmdl"
+global const asset LARGE_YELLOW_256_02                = $"mdl/pipes/slum_pipe_large_yellow_256_02.rmdl"
+global const asset LARGE_YELLOW_128_01                = $"mdl/pipes/slum_pipe_large_yellow_128_01.rmdl"
+global const asset LARGE_YELLOW_64_01                 = $"mdl/pipes/slum_pipe_large_yellow_64_01.rmdl"
+global const asset LARGE_YELLOW_32_01                 = $"mdl/pipes/slum_pipe_large_yellow_32_01.rmdl"
+global const asset LARGE_YELLOW_ANGLE_01              = $"mdl/pipes/slum_pipe_large_yellow_angle_01.rmdl"
+global const asset LARGE_YELLOW_TJUNC_01              = $"mdl/pipes/slum_pipe_large_yellow_tjunc_01.rmdl"
+global const asset LARGE_YELLOW_45_ANGLE_01           = $"mdl/pipes/slum_pipe_large_yellow_angle45_01.rmdl"
+global const asset MEDIUM_256_01                      = $"mdl/pipes/pipe_medium_256_01.rmdl"
+global const asset MEDIUM_128_01                      = $"mdl/pipes/pipe_medium_128_01.rmdl"
+global const asset MEDIUM_64_01                       = $"mdl/pipes/pipe_medium_64_01.rmdl"
+global const asset MEDIUM_30_01                       = $"mdl/pipes/pipe_medium_32_01.rmdl"
+global const asset MEDIUM_16_01                       = $"mdl/pipes/pipe_medium_16_01.rmdl"
+global const asset MEDIUM_TJUNC_01                    = $"mdl/pipes/pipe_medium_tjunc_01.rmdl"
+global const asset MEDIUM_ANGLE_01                    = $"mdl/pipes/pipe_medium_angle_01.rmdl"
+global const asset MEDIUM_45_ANGLES_01                = $"mdl/pipes/pipe_medium_45angle_01.rmdl"
+global const asset SMALL_128_01                       = $"mdl/pipes/pipe_small_128_01.rmdl"
+global const asset SMALL_64_01                        = $"mdl/pipes/pipe_small_64_01.rmdl"
+global const asset SMALL_32_01                        = $"mdl/pipes/pipe_small_32_01.rmdl"
+global const asset SMALL_16_01                        = $"mdl/pipes/pipe_small_16_01.rmdl"
+global const asset SMALL_TJUNC_01                     = $"mdl/pipes/pipe_small_tjunc_01.rmdl"
+global const asset SMALL_ANGLES_01                    = $"mdl/pipes/pipe_small_angle_01.rmdl"
+global const asset AIRDUCT_L_128                      = $"mdl/pipes/airduct_l_128.rmdl"
+global const asset AIRDUCT_L_80                       = $"mdl/pipes/airduct_l_80.rmdl"
+global const asset AIRDUCT_L_48                       = $"mdl/pipes/airduct_l_48.rmdl"
+global const asset AIRDUCT_L_TURN_LONG_SIDE           = $"mdl/pipes/airduct_l_turn_long_side.rmdl"
+global const asset AIRDUCT_L_4JUNC                    = $"mdl/pipes/airduct_l_4junc.rmdl"
+global const asset AIRDUCT_L_SLANT                    = $"mdl/pipes/airduct_l_slant.rmdl"
+global const asset AIRDUCT_L_VENT                     = $"mdl/pipes/airduct_l_vent.rmdl"
+global const asset AIRDUCT_L_TURN_SIDE                = $"mdl/pipes/airduct_l_turn_side.rmdl"
+global const asset AIRDUCT_L_TURN_VERT                = $"mdl/pipes/airduct_l_turn_vert.rmdl"
+global const asset AIRDUCT_S_128                      = $"mdl/pipes/airduct_s_128.rmdl"
+global const asset AIRDUCT_S_80                       = $"mdl/pipes/airduct_s_80.rmdl"
+global const asset AIRDUCT_S_48                       = $"mdl/pipes/airduct_s_48.rmdl"
+global const asset AIRDUCT_S_TJUNC                    = $"mdl/pipes/airduct_s_tjunc.rmdl"
+global const asset AIRDUCT_S_TURN_SIDE                = $"mdl/pipes/airduct_s_turn_side.rmdl"
+global const asset AIRDUCT_S_TURN_VERT                = $"mdl/pipes/airduct_s_turn_vert.rmdl"
+global const asset AIRDUCT_TRANS_M_TO_S               = $"mdl/pipes/airduct_trans_m_to_s.rmdl"
+global const asset FIRSTGEN_256_CLOTH_01              = $"mdl/firstgen/firstgen_pipe_256_cloth_01.rmdl"
+global const asset FIRSTGEN_256_DARKCLOTH_01          = $"mdl/firstgen/firstgen_pipe_256_darkcloth_01.rmdl"
+global const asset FIRSTGEN_256_GOLDFOIL_01           = $"mdl/firstgen/firstgen_pipe_256_goldfoil_01.rmdl"
+global const asset FIRSTGEN_128_CLOTH_01              = $"mdl/firstgen/firstgen_pipe_128_cloth_01.rmdl"
+global const asset FIRSTGEN_128_DARKCLOTH_01          = $"mdl/firstgen/firstgen_pipe_128_darkcloth_01.rmdl"
+global const asset FIRSTGEN_128_GOLDFOIL_01           = $"mdl/firstgen/firstgen_pipe_128_goldfoil_01.rmdl"
+global const asset FIRSTGEN_64_CLOTH_01               = $"mdl/firstgen/firstgen_pipe_64_cloth_01.rmdl"
+global const asset FIRSTGEN_64_DARKCLOTH_01           = $"mdl/firstgen/firstgen_pipe_64_darkcloth_01.rmdl"
+global const asset FIRSTGEN_64_GOLDFOIL_01            = $"mdl/firstgen/firstgen_pipe_64_goldfoil_01.rmdl"
+global const asset FIRSTGEN_32_CLOTH_01               = $"mdl/firstgen/firstgen_pipe_32_cloth_01.rmdl"
+global const asset FIRSTGEN_32_DARKCLOTH_01           = $"mdl/firstgen/firstgen_pipe_32_darkcloth_01.rmdl"
+global const asset FIRSTGEN_32_GOLDFOIL_01            = $"mdl/firstgen/firstgen_pipe_32_goldfoil_01.rmdl"
+global const asset FIRSTGEN_CURVE_CLOTH_01            = $"mdl/firstgen/firstgen_pipe_curve_cloth_01.rmdl"
+global const asset FIRSTGEN_CURVE_DARKCLOTH_01        = $"mdl/firstgen/firstgen_pipe_curve_darkcloth_01.rmdl"
+global const asset FIRSTGEN_CURVE_GOLDFOIL_01         = $"mdl/firstgen/firstgen_pipe_curve_goldfoil_01.rmdl"
+global const asset FIRSTGEN_T_CLOTH_01                = $"mdl/firstgen/firstgen_pipe_t_cloth_01.rmdl"
+global const asset FIRSTGEN_T_DARKCLOTH_01            = $"mdl/firstgen/firstgen_pipe_t_darkcloth_01.rmdl"
+global const asset FIRSTGEN_BARREL_01                 = $"mdl/firstgen/firstgen_barrel_01.rmdl"
+
 
 // ---
 global const asset CORE_ENERGY                        = $"mdl/fx/core_energy.rmdl"
@@ -267,9 +366,6 @@ global const asset BEACON_SMALL_SCREEN_02_OFF         = $"mdl/eden/beacon_small_
 global const asset ELECTRICAL_POLE_01                 = $"mdl/eden/eden_electrical_pole_01.rmdl"
 global const asset ELECTRICAL_TRANSFORMER_01          = $"mdl/eden/eden_electrical_transformer_01.rmdl"
 global const asset RUBBER_FLOOR_01                    = $"mdl/mendoko/mendoko_rubber_floor_01.rmdl"
-
-// Pipes
-// Wait please i need more time
 
 
 /////--- Fx ---/////
@@ -308,6 +404,9 @@ global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
 global const asset EDITOR_REF                     = $"mdl/dev/editor_ref.rmdl"
 global const asset CUBEMAP                        = $"mdl/menu/menu_cubemap.rmdl"
 global const asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
+global const asset EMPTY_LIGHT                    = $"mdl/empty/lights/empty_lights.rmdl"
+global const asset ERROR                          = $"mdl/error.rmdl"
+
 
 global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
@@ -521,6 +620,103 @@ global array< asset > ASSET_VIEWER_ARRAY =
     DESERTLANDS_SIGN_01
     GONDOLA_PLATFORM_SIGN
     CORPORATE_SIGN_DSGNOFIC
+    MODULAR_P_RED_256
+    MODULAR_P_RED_128
+    MODULAR_P_RED_64
+    MODULAR_P_RED_32
+    MODULAR_P_RED_32_04
+    MODULAR_P_RED_32_TJUNK
+    MODULAR_P_RED_32_VALVE
+    MODULAR_P_RED_16
+    MODULAR_P_RED_8
+    MODULAR_P_RED_CORNER
+    MODULAR_P_GREY_256
+    MODULAR_P_GREY_128
+    MODULAR_P_GREY_64
+    MODULAR_P_GREY_32
+    MODULAR_P_GREY_32_03
+    MODULAR_P_GREY_32_04
+    MODULAR_P_GREY_32_TJUNK
+    MODULAR_P_GREY_32_VALVE
+    MODULAR_P_GREY_16
+    MODULAR_P_GREY_8
+    MODULAR_P_GREY_CORNER
+    MODULAR_P_GREY_45_ANGLE
+    MODULAR_P_YELLOW_256
+    MODULAR_P_YELLOW_128
+    MODULAR_P_YELLOW_64
+    MODULAR_P_YELLOW_32
+    MODULAR_P_YELLOW_32_04
+    MODULAR_P_YELLOW_32_TJUNK
+    MODULAR_P_YELLOW_32_VALVE
+    MODULAR_P_YELLOW_16
+    MODULAR_P_YELLOW_8
+    MODULAR_P_YELLOW_CORNER
+    LARGE_BLUE_512_01
+    LARGE_BLUE_256_01
+    LARGE_BLUE_256_02
+    LARGE_BLUE_128_01
+    LARGE_BLUE_64_01
+    LARGE_BLUE_32_01
+    LARGE_BLUE_ANGLE_01
+    LARGE_BLUE_TJUNC_01
+    LARGE_YELLOW_512_01
+    LARGE_YELLOW_256_01
+    LARGE_YELLOW_256_02
+    LARGE_YELLOW_128_01
+    LARGE_YELLOW_64_01
+    LARGE_YELLOW_32_01
+    LARGE_YELLOW_ANGLE_01
+    LARGE_YELLOW_TJUNC_01
+    LARGE_YELLOW_45_ANGLE_01
+    MEDIUM_256_01
+    MEDIUM_128_01
+    MEDIUM_64_01
+    MEDIUM_30_01
+    MEDIUM_16_01
+    MEDIUM_TJUNC_01
+    MEDIUM_ANGLE_01
+    MEDIUM_45_ANGLES_01
+    SMALL_128_01
+    SMALL_64_01
+    SMALL_32_01
+    SMALL_16_01
+    SMALL_TJUNC_01
+    SMALL_ANGLES_01
+    AIRDUCT_L_128
+    AIRDUCT_L_80
+    AIRDUCT_L_48
+    AIRDUCT_L_TURN_LONG_SIDE
+    AIRDUCT_L_4JUNC
+    AIRDUCT_L_SLANT
+    AIRDUCT_L_VENT
+    AIRDUCT_L_TURN_SIDE
+    AIRDUCT_L_TURN_VERT
+    AIRDUCT_S_128
+    AIRDUCT_S_80
+    AIRDUCT_S_48
+    AIRDUCT_S_TJUNC
+    AIRDUCT_S_TURN_SIDE
+    AIRDUCT_S_TURN_VERT
+    AIRDUCT_TRANS_M_TO_S
+    FIRSTGEN_256_CLOTH_01
+    FIRSTGEN_256_DARKCLOTH_01
+    FIRSTGEN_256_GOLDFOIL_01
+    FIRSTGEN_128_CLOTH_01
+    FIRSTGEN_128_DARKCLOTH_01
+    FIRSTGEN_128_GOLDFOIL_01
+    FIRSTGEN_64_CLOTH_01
+    FIRSTGEN_64_DARKCLOTH_01
+    FIRSTGEN_64_GOLDFOIL_01
+    FIRSTGEN_32_CLOTH_01
+    FIRSTGEN_32_DARKCLOTH_01
+    FIRSTGEN_32_GOLDFOIL_01
+    FIRSTGEN_CURVE_CLOTH_01
+    FIRSTGEN_CURVE_DARKCLOTH_01
+    FIRSTGEN_CURVE_GOLDFOIL_01
+    FIRSTGEN_T_CLOTH_01
+    FIRSTGEN_T_DARKCLOTH_01
+    FIRSTGEN_BARREL_01
     CORE_ENERGY
     YUKI_MEMORIAL_02
     YUKI_MEMORIAL_03

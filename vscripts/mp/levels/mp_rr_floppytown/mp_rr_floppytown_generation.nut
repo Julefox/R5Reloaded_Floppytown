@@ -52,6 +52,9 @@ void function Map_Generation()
     Building_18( FT_BUILDING_POS_18, FT_BUILDING_ANG_18 )
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
+
+    cargo_ground_first( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG )
+    cargo_ground_second( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG )
 }
 
 void function Props_Generation()
@@ -112,10 +115,13 @@ void function Props_Generation()
     CreateFloppytownModel( NUMBER_LIT_1, FLOPPYTOWN_POS_OFFSET + < 3822, 3200, 1024 >, < 0, 180, 0 > ).SetModelScale( 40 )
     CreateFloppytownModel( NUMBER_LIT_2, FLOPPYTOWN_POS_OFFSET + < 2368, 2450, 1024 >, < 0, 90, 0 > ).SetModelScale( 40 )
     CreateFloppytownModel( NUMBER_LIT_3, FLOPPYTOWN_POS_OFFSET + < 2560, 1362, 1024 >, < 0, 90, 0 > ).SetModelScale( 40 )
-    CreateFloppytownModel( GONDOLA_PLATFORM_SIGN, FLOPPYTOWN_POS_OFFSET + < 432, 4864, 2096 >, < 0, 180, 0 > ).SetModelScale( 3 )
+    CreateFloppytownModel( GONDOLA_PLATFORM_SIGN, FLOPPYTOWN_POS_OFFSET + < 2432, 4864, 2096 >, < 0, 180, 0 > ).SetModelScale( 3 )
     CreateFloppytownModel( DESERTLANDS_SIGN_01, FLOPPYTOWN_POS_OFFSET + < 5100, 3392, 1288 >, < 0, 90, 0 > ).SetModelScale( 6 )
     CreateFloppytownModel( RELIC_WARNING_01, FLOPPYTOWN_POS_OFFSET + < 5110, 2560, 2048 >, < 0, 90, 0 > ).SetModelScale( 8 )
     CreateFloppytownModel( SERVICE_SHAFT_01, FLOPPYTOWN_POS_OFFSET + < 4312, 0, 2340 >, < 0, 90, 0 > ).SetModelScale( 8 )
+    CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, -90, 0 > )
+    CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 512, 2300 >, < 0, 90, 0 > )
+    CreateFloppytownModel( FIRSTGEN_CURVE_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 5544, 256, 2300 >, < -180, 90, 0 > )
 }
 
 void function Dynamic_Build_Generation()
@@ -124,7 +130,7 @@ void function Dynamic_Build_Generation()
 	string rng_0 = rng_0_choice.getrandom()
 	array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
 	string rng_1 = rng_1_choice.getrandom()
-    array<string> rng_2_choice = [ "first", "second", "third", "first_second", "second_third", "first_third", "all" ]
+    array<string> rng_2_choice = [ "hide", "hide", "visible" ]
     string rng_2 = rng_2_choice.getrandom()
     array<string> rng_3_choice = []
     if(rng_0 == "hide") {
@@ -141,7 +147,7 @@ void function Dynamic_Build_Generation()
 
 		rng_0 = "visible"
 		rng_1 = "both"
-        rng_2 = "all"
+        rng_2 = "visible"
         rng_3 = "inDev"
     }
 
@@ -174,33 +180,11 @@ void function Dynamic_Build_Generation()
     // rng_2
     switch ( rng_2 )
     {
-        case "all":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
+        case "hide":
             break
-        case "first":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            break
-        case "second":
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            break
-        case "third":
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-        case "first_second":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            break
-        case "second_third":
-            cargo_ground_second(FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-        case "first_third":
-            cargo_ground_first(FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG)
-            cargo_ground_third(FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG)
-            break
-
+        case "visible":
+            cargo_ground_third( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG )
+        break
     }
     // rng_3
     switch( rng_3 )
@@ -228,8 +212,7 @@ void function Dynamic_Build_Generation()
             break
         case "5":
             spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
-            break
-
+        break
     }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
@@ -290,7 +273,12 @@ void function SetFloppytownAngles()
 	entity script_mover = CreateScriptMover()
     
     foreach ( entities in FLOPPYTOWN_ENTITIES )
-    { entities.SetParent( script_mover ) }
+    {
+        entities.SetParent( script_mover )
+
+        //if ( entities.GetOrigin() == <2176, 2240, 895.900024>) // For an idea later
+        //entities.Destroy()
+    }
 
     script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
     script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
