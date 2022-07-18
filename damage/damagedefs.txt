@@ -445,6 +445,7 @@ DamageDefs
        	"inner_radius"				"600"
        	"radius"					"600"
        	"impulse_force"				"25000"
+		"death_protection"			"0"
        	"explosion_flags"			"SF_ENVEXPLOSION_UPWARD_FORCE"
 
        	"obituary"					"#DEATH_CREEPING_BARRAGE"
