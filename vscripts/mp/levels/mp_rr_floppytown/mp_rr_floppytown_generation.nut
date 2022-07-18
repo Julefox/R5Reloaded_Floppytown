@@ -320,7 +320,6 @@ void function FallingObjectThread()
 {
     entity script_mover = GetEnt( "falling_object_01" )
     entity follower = GetEnt( "follower__object_01" )
-    entity player_trigger = GetEnt( "player_trigger_01" )
 
     int random_number = RandomIntRange( 30, 120 )
 
