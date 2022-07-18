@@ -135,6 +135,7 @@ global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
+global const vector ZERO_V                  = < 0, 0, 0 >
 
 void function Floppytown_MapInit_Vectors_Library()
 {
