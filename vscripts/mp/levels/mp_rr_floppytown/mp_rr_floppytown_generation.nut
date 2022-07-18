@@ -30,37 +30,37 @@ void function Map_Generation()
 {
     Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG, 6, 14, 1 )
 
-    North_Wall( FT_NORTH_WALL_POS, FT_NORTH_WALL_ANG )
-    South_Wall( FT_SOUTH_WALL_POS, FT_SOUTH_WALL_ANG )
-    West_Wall( FT_WEST_WALL_POS, FT_WEST_WALL_ANG )
-    East_Wall( FT_EAST_WALL_POS, FT_EAST_WALL_ANG )
+    North_Wall( FT_NORTH_WALL_POS, FT_NORTH_WALL_ANG, "01" )
+    South_Wall( FT_SOUTH_WALL_POS, FT_SOUTH_WALL_ANG, "01" )
+    West_Wall( FT_WEST_WALL_POS, FT_WEST_WALL_ANG, "01" )
+    East_Wall( FT_EAST_WALL_POS, FT_EAST_WALL_ANG, "01" )
 
-    Building_01( FT_BUILDING_POS_01, FT_BUILDING_ANG_01 )
-    Building_02( FT_BUILDING_POS_02, FT_BUILDING_ANG_02 )
-    Building_03( FT_BUILDING_POS_03, FT_BUILDING_ANG_03 )
-    Building_04( FT_BUILDING_POS_04, FT_BUILDING_ANG_04 )
-    Building_05( FT_BUILDING_POS_05, FT_BUILDING_ANG_05 )
-    Building_06( FT_BUILDING_POS_06, FT_BUILDING_ANG_06 )
-    Building_07( FT_BUILDING_POS_07, FT_BUILDING_ANG_07 )
-    Building_08( FT_BUILDING_POS_08, FT_BUILDING_ANG_08 )
-    Building_09( FT_BUILDING_POS_09, FT_BUILDING_ANG_09 )
-    Building_10( FT_BUILDING_POS_10, FT_BUILDING_ANG_10 )
-    Building_11( FT_BUILDING_POS_11, FT_BUILDING_ANG_11 )
-    Building_12( FT_BUILDING_POS_12, FT_BUILDING_ANG_12 )
-    Building_13( FT_BUILDING_POS_13, FT_BUILDING_ANG_13 )
-    Building_14( FT_BUILDING_POS_14, FT_BUILDING_ANG_14 )
-    Building_15( FT_BUILDING_POS_15, FT_BUILDING_ANG_15 )
-    Building_16( FT_BUILDING_POS_16, FT_BUILDING_ANG_16 )
-    Building_17( FT_BUILDING_POS_17, FT_BUILDING_ANG_17 )
-    Building_18( FT_BUILDING_POS_18, FT_BUILDING_ANG_18 )
-    Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19 )
-    Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20 )
+    Building_01( FT_BUILDING_POS_01, FT_BUILDING_ANG_01, "01" )
+    Building_02( FT_BUILDING_POS_02, FT_BUILDING_ANG_02, "01" )
+    Building_03( FT_BUILDING_POS_03, FT_BUILDING_ANG_03, "01" )
+    Building_04( FT_BUILDING_POS_04, FT_BUILDING_ANG_04, "01" )
+    Building_05( FT_BUILDING_POS_05, FT_BUILDING_ANG_05, "01" )
+    Building_06( FT_BUILDING_POS_06, FT_BUILDING_ANG_06, "01" )
+    Building_07( FT_BUILDING_POS_07, FT_BUILDING_ANG_07, "01" )
+    Building_08( FT_BUILDING_POS_08, FT_BUILDING_ANG_08, "01" )
+    Building_09( FT_BUILDING_POS_09, FT_BUILDING_ANG_09, "01" )
+    Building_10( FT_BUILDING_POS_10, FT_BUILDING_ANG_10, "01" )
+    Building_11( FT_BUILDING_POS_11, FT_BUILDING_ANG_11, "01" )
+    Building_12( FT_BUILDING_POS_12, FT_BUILDING_ANG_12, "01" )
+    Building_13( FT_BUILDING_POS_13, FT_BUILDING_ANG_13, "01" )
+    Building_14( FT_BUILDING_POS_14, FT_BUILDING_ANG_14, "01" )
+    Building_15( FT_BUILDING_POS_15, FT_BUILDING_ANG_15, "01" )
+    Building_16( FT_BUILDING_POS_16, FT_BUILDING_ANG_16, "01" )
+    Building_17( FT_BUILDING_POS_17, FT_BUILDING_ANG_17, "01" )
+    Building_18( FT_BUILDING_POS_18, FT_BUILDING_ANG_18, "01" )
+    Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19, "01" )
+    Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20, "01" )
 
-    cargo_ground_first( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG )
-    cargo_ground_second( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG )
-    LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "lil_balcony_01" )
-    LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "lil_balcony_02" )
-    LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "lil_balcony_03" )
+    cargo_ground( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG, "first" )
+    cargo_ground( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG, "second" )
+    LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "01" )
+    LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
+    LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
 }
 
 
@@ -91,7 +91,7 @@ void function Props_Generation()
             CreateFloppytownModel( BEACON_SERVER_HALF_STAND_01, FLOPPYTOWN_POS_OFFSET + < 5548, 4576, 1792 > + < 0, -128 * i, 128 * j >, < 0, -90, 0 > )
         }
     }
-    MiniBalconyLeft( FLOPPYTOWN_POS_OFFSET + < 5406, 4640, 2176 >, < 0, 0, 0 > )
+    MiniBalconyLeft( FLOPPYTOWN_POS_OFFSET + < 5406, 4640, 2176 >, < 0, 0, 0 >, "01" )
     CreateFloppytownModel( METAL_BEAM_256, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 1792 >, < 0, 0, 0 > )
     CreateFloppytownModel( METAL_BEAM_128, FLOPPYTOWN_POS_OFFSET + < 5302, 4600, 2048 >, < 0, 0, 0 > )
     CreateFloppytownModel( RAILING_CORNER_OUT, FLOPPYTOWN_POS_OFFSET + < 5522, 4686, 2409 >, < 0, 180, 0 > )
@@ -171,7 +171,7 @@ void function Dynamic_Build_Generation()
 		case "hide":
 			break
 		case "visible":
-			LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG )
+			LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG, "01" )
 		break
 	}
 
@@ -181,14 +181,14 @@ void function Dynamic_Build_Generation()
 		case "none":
 			break
 		case "left":
-			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
+			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
 			break
 		case "right":
-			BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
+			BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
 			break
 		case "both":
-			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG )
-    	    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG )
+			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
+    	    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
 		break
 	}
     // rng_2
@@ -197,7 +197,7 @@ void function Dynamic_Build_Generation()
         case "hide":
             break
         case "visible":
-            cargo_ground_third( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG )
+            cargo_ground( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG, "third" )
         break
     }
     // rng_3
