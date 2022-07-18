@@ -56,8 +56,8 @@ void function Map_Generation()
     Building_19( FT_BUILDING_POS_19, FT_BUILDING_ANG_19, "01" )
     Building_20( FT_BUILDING_POS_20, FT_BUILDING_ANG_20, "01" )
 
-    cargo_ground( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG, "first" )
-    cargo_ground( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG, "second" )
+    cargo_ground( FT_CARGO_GROUND_FIRST_POS, FT_CARGO_GROUND_FIRST_ANG, "first", "01" )
+    cargo_ground( FT_CARGO_GROUND_SECOND_POS, FT_CARGO_GROUND_SECOND_ANG, "second", "01" )
     LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "01" )
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
@@ -197,7 +197,7 @@ void function Dynamic_Build_Generation()
         case "hide":
             break
         case "visible":
-            cargo_ground( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG, "third" )
+            cargo_ground( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG, "third", "01" )
         break
     }
     // rng_3

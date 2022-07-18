@@ -1185,25 +1185,25 @@ void function LilBalcony( vector pos, vector ang, string name )
 }
 
 // Cargo on the ground
-void function cargo_ground( vector pos, vector ang, string name )
+void function cargo_ground( vector pos, vector ang, string type, string number )
 {
     entity script_mover = CreateFloppytownScriptMover( pos )
 
     string script = "cargo_ground_"
-    string script_name = script + name
+    string script_name = script + type + "_" + number
 
-    switch( script_name )
+    switch( type )
     {
-        case "cargo_ground_first":
+        case "first":
             CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
             CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
             break
-        case "cargo_ground_second":
+        case "second":
             CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
             CreateFloppytownModel( CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
             CreateFloppytownModel( CARGO_CONTAINER_320_01_OPEN, pos + < 55, 137, 137 >, < 0, 90, 0 >, script_name )
             break
-        case "cargo_ground_third":
+        case "third":
             CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
             CreateFloppytownModel( CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, script_name )
             break
