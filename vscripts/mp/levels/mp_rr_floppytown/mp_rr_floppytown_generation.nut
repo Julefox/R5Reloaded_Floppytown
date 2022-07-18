@@ -289,16 +289,15 @@ void function RespawnFallingObject( vector pos )
 {
     entity script_mover = CreateFloppytownScriptMover( pos, < 0, 0, 0 >, "falling_object_01" )
     entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower__object_01" )
+    entity player_trigger = CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
 
-    if ( IsValid( script_mover ) && IsValid( falling_object ) )
+    if ( IsValid( script_mover ) && IsValid( falling_object ) && IsValid( player_trigger ) )
     {
         printt( "" )
         printt( " RespawnFallingObject(): Initialized" )
         printt( "" )
 
         falling_object.SetParent( script_mover )
-
-        CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
 
         AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
         {
