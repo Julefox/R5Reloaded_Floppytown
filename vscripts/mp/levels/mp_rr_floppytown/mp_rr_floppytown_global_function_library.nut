@@ -156,9 +156,9 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
                 {
                     if( player_trigger.IsTouching( player ) )
                     {
-                        printt( "////////////////////////////////////////////////////////////" )
-                        printt( "/////  thread FallingObject(): activate by player trigger" )
-                        thread FallingObject()
+                        printt( "//////////////////////////////////////////////////////////////////////" )
+                        printt( "/////  thread FallingObjectThread(): activate by player trigger" )
+                        thread FallingObjectThread()
                         active = false
                         wait 2
             }   }   }

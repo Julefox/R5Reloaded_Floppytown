@@ -1,6 +1,6 @@
 global function Floppytown_MapInit_Generation
 
-global function FallingObject
+global function FallingObjectThread
 
 void function Floppytown_MapInit_Generation()
 {
@@ -289,20 +289,28 @@ void function RespawnFallingObject( vector pos )
 {
     entity script_mover = CreateFloppytownScriptMover( pos, < 0, 0, 0 >, "falling_object_01" )
     entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower__object_01" )
-    falling_object.SetParent( script_mover )
 
-    CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
-
-    AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
+    if ( IsValid( script_mover ) && IsValid( falling_object ) )
     {
-        printt( "////////////////////////////////////////////////////////////" )
-        printt( "/////  thread FallingObject(): activate by button" )
-        thread FallingObject()
-    })
+        printt( "" )
+        printt( " RespawnFallingObject(): Initialized" )
+        printt( "" )
+
+        falling_object.SetParent( script_mover )
+
+        CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
+
+        AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
+        {
+            printt( "//////////////////////////////////////////////////////////////////////" )
+            printt( "/////  thread FallingObjectThread(): activate by button" )
+            thread FallingObjectThread()
+        })
+    }
 }
 
 
-void function FallingObject()
+void function FallingObjectThread()
 {
     entity script_mover = GetEnt( "falling_object_01" )
     entity follower = GetEnt( "follower__object_01" )
@@ -310,10 +318,9 @@ void function FallingObject()
 
     int random_number = RandomIntRange( 30, 120 )
 
-    printt( "Test: " + random_number )
-
-    printt( "/////  RespawnFallingObject(): start of thread" )
-    printt( "////////////////////////////////////////////////////////////" )
+    printt( "/////  thread FallingObjectThread(): start of thread" )
+    printt( "/////  wait random_number: " + random_number )
+    printt( "//////////////////////////////////////////////////////////////////////" )
 
     vector start = script_mover.GetOrigin()
 
@@ -358,10 +365,11 @@ void function FallingObject()
     else
     { wait random_number }
 
+    printt( "//////////////////////////////////////////////////////////////////////" )
+    printt( "/////  thread FallingObjectThread()  -> end of thread" )
+    printt( "//////////////////////////////////////////////////////////////////////" )
+
     RespawnFallingObject( FT_FALLING_OBJECT_POS )
-    printt( "////////////////////////////////////////////////////////////" )
-    printt( "/////  RespawnFallingObject()  -> end of thread" )
-    printt( "////////////////////////////////////////////////////////////" )
 }
 
 
