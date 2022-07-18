@@ -324,10 +324,12 @@ void function FallingObject()
 
 	entity fx = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
 	EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
+    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
 		wait 2.9
 
 	entity fx2 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 	if ( IsValid( follower ) )
 	{ follower.Destroy() }
 		wait 6
