@@ -56,25 +56,17 @@ void function FloppytownDevEnable()
 
 bool function ClientCommand_Invulnerable( entity player, array<string> args )
 {
-    if ( player.GetPlayerName() == "Julefox" )
+    if ( player.IsInvulnerable() )
     {
-        if ( player.IsInvulnerable() )
-        {
-            player.ClearInvulnerable()
-            printt( player.GetPlayerName() + " is now vulnerable." )
-        }
-        else
-        {
-            player.SetInvulnerable()
-            player.SetHealth( 100 )
-
-            printt( player.GetPlayerName() + " is invulnerable !")
-        }
+        player.ClearInvulnerable()
+        printt( player.GetPlayerName() + " is now vulnerable." )
     }
     else
     {
-        printt( "cheh." )
-        return false
+        player.SetInvulnerable()
+        player.SetHealth( 100 )
+
+        printt( player.GetPlayerName() + " is invulnerable !")
     }
 
 return true }
