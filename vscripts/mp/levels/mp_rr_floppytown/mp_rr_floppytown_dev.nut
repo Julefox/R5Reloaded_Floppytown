@@ -17,7 +17,7 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
 
-	for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
+    for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
     {
         PrecacheModel( ASSET_VIEWER_ARRAY[i] )
     }
@@ -35,9 +35,9 @@ void function FloppytownDevEnable()
     int function PropsCount()
     {
         int count = 0
-    	foreach( EntitiesCount in GetPropsCount() )
-    	{ count++ }
-    	return count
+        foreach( EntitiesCount in GetPropsCount() )
+        { count++ }
+        return count
     }
 
     array< entity > function GetPropsCount()
@@ -56,9 +56,9 @@ void function FloppytownDevEnable()
 
 bool function ClientCommand_Invulnerable( entity player, array<string> args )
 {
-	if ( player.GetPlayerName() == "Julefox" )
-	{
-		if ( player.IsInvulnerable() )
+    if ( player.GetPlayerName() == "Julefox" )
+    {
+        if ( player.IsInvulnerable() )
         {
             player.ClearInvulnerable()
             printt( player.GetPlayerName() + " is now vulnerable." )
@@ -70,7 +70,7 @@ bool function ClientCommand_Invulnerable( entity player, array<string> args )
 
             printt( player.GetPlayerName() + " is invulnerable !")
         }
-	}
+    }
     else
     {
         printt( "cheh." )

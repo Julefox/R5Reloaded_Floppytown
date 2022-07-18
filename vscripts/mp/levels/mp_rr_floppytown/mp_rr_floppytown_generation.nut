@@ -1,5 +1,7 @@
 global function Floppytown_MapInit_Generation
 
+global function FallingObject
+
 void function Floppytown_MapInit_Generation()
 {
     printt( "| Floppytown_MapInit_Generation:                The file has been called. |" )
@@ -12,17 +14,16 @@ void function Floppytown_MapInit_Generation()
     Zips_Generation()
 
     PrecacheParticleSystem( DOG_SMOKE_TRAIL )
-	RespawnFallingObject()
+    RespawnFallingObject( FT_FALLING_OBJECT_POS )
 
-
-	if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
+    if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
     { printt( "wall trigger disable !" ) }
         else
     { CreateWallTriggerAroundTheMap() }
 
     thread SkyboxAnimation()
-	
-	SetFloppytownAngles()
+    
+    SetFloppytownAngles()
 }
 
 
@@ -140,10 +141,10 @@ void function Props_Generation()
 
 void function Dynamic_Build_Generation()
 {
-	array<string> rng_0_choice = [ "hide", "visible" ]
-	string rng_0 = rng_0_choice.getrandom()
-	array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
-	string rng_1 = rng_1_choice.getrandom()
+    array<string> rng_0_choice = [ "hide", "visible" ]
+    string rng_0 = rng_0_choice.getrandom()
+    array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
+    string rng_1 = rng_1_choice.getrandom()
     array<string> rng_2_choice = [ "hide", "hide", "visible" ]
     string rng_2 = rng_2_choice.getrandom()
     array<string> rng_3_choice = []
@@ -154,43 +155,43 @@ void function Dynamic_Build_Generation()
     }
     string rng_3 = rng_3_choice.getrandom()
 
-	if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
+    if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
         printt( "|============================================================|" )
         printt( "|>>>>>>>>>>>>>>>>>>>  RNG State: DISABLE  <<<<<<<<<<<<<<<<<<<|" )
 
-		rng_0 = "visible"
-		rng_1 = "both"
+        rng_0 = "visible"
+        rng_1 = "both"
         rng_2 = "visible"
         rng_3 = "inDev"
     }
 
-	// rng_0
-	switch ( rng_0 )
-	{
-		case "hide":
-			break
-		case "visible":
-			LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG, "01" )
-		break
-	}
+    // rng_0
+    switch ( rng_0 )
+    {
+        case "hide":
+            break
+        case "visible":
+            LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG, "01" )
+        break
+    }
 
-	// rng_1
-	switch ( rng_1 )
-	{
-		case "none":
-			break
-		case "left":
-			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
-			break
-		case "right":
-			BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
-			break
-		case "both":
-			BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
-    	    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
-		break
-	}
+    // rng_1
+    switch ( rng_1 )
+    {
+        case "none":
+            break
+        case "left":
+            BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
+            break
+        case "right":
+            BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
+            break
+        case "both":
+            BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
+            BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
+        break
+    }
     // rng_2
     switch ( rng_2 )
     {
@@ -231,8 +232,8 @@ void function Dynamic_Build_Generation()
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
         printt( "|============================================================|" )
-	    printt( "|Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
-	    printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
+        printt( "|Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
+        printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
         printt( "|Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
         printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
         printt( "|============================================================|" ) }
@@ -271,9 +272,9 @@ void function Zips_Generation()
     CreateFloppytownZiplineModel( FT_BUILDING_POS_19 + < -960, 0, 1280 >, < 0, 0, 0 > )
     CreateFloppytownZiplineModel( FT_BUILDING_POS_19 + < -1472, -384, 1280 >, < 0, 180, 0 > )
 
-	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 64, -550, 832 >,   < 0, 180, 0 > )
-	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < -448, -934, 176 >,   < 0, 140, 0 > )
-	CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 576, -934, 176 >,   < 0, -140, 0 > )
+    CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 64, -550, 832 >,   < 0, 180, 0 > )
+    CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < -448, -934, 176 >,   < 0, 140, 0 > )
+    CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_01 + < 576, -934, 176 >,   < 0, -140, 0 > )
     CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_02 + < 896, 0, 148 >,   < 0, -90, 0 > )
     CreateFloppytownModel( ZIP_ARM, FT_BUILDING_POS_07 + < 1152, 384, 2176 >,   < 0, -90, 0 > )
     for ( int i = 0 ; i < 2 ; i++)
@@ -284,63 +285,83 @@ void function Zips_Generation()
 }
 
 
-void function RespawnFallingObject()
+void function RespawnFallingObject( vector pos )
 {
-	entity script_mover_1 = CreateFloppytownScriptMover( < 5184, 2624, 2304 >, < 0, 0, 0 >, "falling_object_1" )
-	entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, < 5184, 2624, 2304 >, < 0, 0, 0 >, "%&use%", "follower_1" )
-	falling_object.SetParent( script_mover_1 )
+    entity script_mover = CreateFloppytownScriptMover( pos, < 0, 0, 0 >, "falling_object_01" )
+    entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower__object_01" )
+    falling_object.SetParent( script_mover )
 
-	AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
-	{
-		printt("Button pressed")
-		array<entity> falling_objects = GetEntArrayByScriptName( "follower_1" )
-		entity falling_object = falling_objects[0]
-		falling_object.UnsetUsable()
-		thread FallingObject()
-	})
+    CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
+
+    AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
+    {
+        printt( "////////////////////////////////////////////////////////////" )
+        printt( "/////  thread FallingObject(): activate by button" )
+        thread FallingObject()
+    })
 }
 
 
 void function FallingObject()
 {
-	array<entity> script_mover_0 = GetEntArrayByScriptName( "falling_object_1" )
-	array<entity> follower_0 = GetEntArrayByScriptName( "follower_1" )
-	entity script_mover = script_mover_0[0]
-	entity follower = follower_0[0]
+    entity script_mover = GetEnt( "falling_object_01" )
+    entity follower = GetEnt( "follower__object_01" )
+    entity player_trigger = GetEnt( "player_trigger_01" )
 
-	vector start = script_mover.GetOrigin()
+    int random_number = RandomIntRange( 30, 120 )
 
-	script_mover.NonPhysicsMoveTo( start + < -70, 0, 0 >, 1.2, 0, 0 )
-		wait 1.2
+    printt( "Test: " + random_number )
 
-	script_mover.NonPhysicsRotateTo( < -120, 0, 0 >, 3.5, 0, 0 )
-		wait 1
+    printt( "/////  RespawnFallingObject(): start of thread" )
+    printt( "////////////////////////////////////////////////////////////" )
 
-	//script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -20, 0, 0 >, 0.4, 0, 0 )
-	//	wait 0.4
+    vector start = script_mover.GetOrigin()
 
-	script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -280, 0, -2280 >, 2.5, 0, 0 )
-		wait 2.5
+    player_trigger.Destroy()
 
-	entity fx = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
-	EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
+    follower.UnsetUsable()
+
+    script_mover.NonPhysicsMoveTo( start + < -70, 0, 0 >, 1.2, 0, 0 )
+
+        wait 1.2
+
+    script_mover.NonPhysicsRotateTo( < -120, 0, 0 >, 3.5, 0, 0 )
+
+        wait 1
+
+    script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -280, 0, -2280 >, 2.5, 0, 0 )
+
+        wait 2.5
+
+    entity fx = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+    EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
     Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
-		wait 2.9
+        wait 2.9
 
-	entity fx2 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+    entity fx2 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
     Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
-	if ( IsValid( follower ) )
-	{ follower.Destroy() }
-		wait 6
 
-	if ( IsValid( script_mover ) )
-	{ script_mover.Destroy() }
-	if ( IsValid( fx ) )
-	{ fx.Destroy() }
+    if ( IsValid( follower ) )
+    { follower.Destroy() }
 
-	RespawnFallingObject()
-	printt( "RespawnFallingObject()  -> end of thread" )
+        wait 6
+
+    if ( IsValid( script_mover ) )
+    { script_mover.Destroy() }
+
+    if ( IsValid( fx ) )
+    { fx.Destroy() }
+
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
+    {}
+    else
+    { wait random_number }
+
+    RespawnFallingObject( FT_FALLING_OBJECT_POS )
+    printt( "////////////////////////////////////////////////////////////" )
+    printt( "/////  RespawnFallingObject()  -> end of thread" )
+    printt( "////////////////////////////////////////////////////////////" )
 }
 
 
@@ -363,7 +384,7 @@ void function SkyboxAnimation()
 
 void function SetFloppytownAngles()
 {
-	entity script_mover = CreateScriptMover()
+    entity script_mover = CreateScriptMover()
     
     foreach ( entities in FLOPPYTOWN_ENTITIES )
     {

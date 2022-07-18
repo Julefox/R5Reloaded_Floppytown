@@ -239,56 +239,56 @@ void function CreateWallTriggerAroundTheMap()
     // North_Wall()
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 100, 5858, 0 > + < 190 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 100, 5858, 0 > + < 190 * i, 0 * j, 0 > ) }
     }
     for ( int i = 0 ; i < 4 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 1160, 5928, 0 > + < 200 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 1160, 5928, 0 > + < 200 * i, 0 * j, 0 > ) }
     }
     for ( int i = 0 ; i < 7 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 2404, 5864, 0 > + < 200 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 2404, 5864, 0 > + < 200 * i, 0 * j, 0 > ) }
     }
-    CreateFloppyWallTrigger( < 4156, 5364, 0 >, 500 )
+    CreateFloppytownWallTrigger( < 4156, 5364, 0 >, 500 )
     for ( int i = 0 ; i < 5 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 4500, 5800, 0 > + < 250 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 4500, 5800, 0 > + < 250 * i, 0 * j, 0 > ) }
     }
     for ( int i = 0 ; i < 2 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 5230, 5800, 0 > + < 500 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 5230, 5800, 0 > + < 500 * i, 0 * j, 0 > ) }
     }
 
     // South_Wall()
     for ( int i = 0 ; i < 12 ; i++ )
     {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppyWallTrigger( < 0, -1000, 0 > + < 500 * i, 0 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 0, -1000, 0 > + < 500 * i, 0 * j, 0 > ) }
     }
 
     // West_Wall()
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 11 ; j++ )
-        {   CreateFloppyWallTrigger( < -1000, 0, 0 > + < 0 * i, 500 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < -1000, 0, 0 > + < 0 * i, 500 * j, 0 > ) }
     }
 
     // East_Wall()
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppyWallTrigger( < 6529.8, 3215, 0 > + < 0 * i, 250 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 6529.8, 3215, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
-    CreateFloppyWallTrigger( < 5746, 2915, 0 >, 200 )
-    CreateFloppyWallTrigger( < 5746, 2795, 0 >, 100 )
+    CreateFloppytownWallTrigger( < 5746, 2915, 0 >, 200 )
+    CreateFloppytownWallTrigger( < 5746, 2795, 0 >, 100 )
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppyWallTrigger( < 6632, 2257, 0 > + < 0 * i, 250 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 6632, 2257, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppyWallTrigger( < 6568, 1400, 0 > + < 0 * i, 250 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 6568, 1400, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppyWallTrigger( < 6580, 53, 0 > + < 0 * i, 250 * j, 0 > ) }
+        {   CreateFloppytownWallTrigger( < 6580, 53, 0 > + < 0 * i, 250 * j, 0 > ) }
     }
 }
 

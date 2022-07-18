@@ -71,10 +71,11 @@ global const vector FT_BUILDING_ANG_19      = < 0, 0, 0 >
 global const vector FT_BUILDING_POS_20      = FLOPPYTOWN_POS_OFFSET + < 1344, 1600, 0 >
 global const vector FT_BUILDING_ANG_20      = < 0, 0, 0 >
 
-
+// Floor
 global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
 global const vector FT_FLOOR_ANG            = < 0, 0, 0 >
 
+// Walls
 global const vector FT_NORTH_WALL_POS       = FLOPPYTOWN_POS_OFFSET + <0, 4864, 0>
 global const vector FT_NORTH_WALL_ANG       = < 0, 0, 0 >
 
@@ -87,9 +88,11 @@ global const vector FT_WEST_WALL_ANG        = < 0, 0, 0 >
 global const vector FT_EAST_WALL_POS        = FLOPPYTOWN_POS_OFFSET + < 5632, 4335, -0.1 >
 global const vector FT_EAST_WALL_ANG        = < 0, 0, 0 >
 
+// Little Bridge
 global const vector FT_LITTLE_BRIDGE_POS    = FLOPPYTOWN_POS_OFFSET + < 3840, 128, 2048 >
 global const vector FT_LITTLE_BRIDGE_ANG    = < 0, 0, 0 >
 
+// Balcony
 global const vector FT_BALCONY_LEFT_POS     = FT_BUILDING_POS_01 + < -272, -584, 576 >
 global const vector FT_BALCONY_LEFT_ANG     = < 0, 0, 0 >
 
@@ -105,7 +108,7 @@ global const vector FT_LIL_BALCONY_02_ANG    = < 0, 0, 0 >
 global const vector FT_LIL_BALCONY_03_POS    = FT_BUILDING_POS_18 + < 256, -270, 735 >
 global const vector FT_LIL_BALCONY_03_ANG    = < 0, 180, 0 >
 
-//Cargo on the ground
+// Cargo on the ground
 global const vector FT_CARGO_GROUND_FIRST_POS = FLOPPYTOWN_POS_OFFSET + < 1880, 3830, 0 >
 global const vector FT_CARGO_GROUND_FIRST_ANG = < 0, 0, 0 >
 
@@ -114,9 +117,14 @@ global const vector FT_CARGO_GROUND_SECOND_ANG = < 0, 0, 0 >
 
 global const vector FT_CARGO_GROUND_THIRD_POS = FLOPPYTOWN_POS_OFFSET + < 2220, 985, 0 >
 global const vector FT_CARGO_GROUND_THIRD_ANG = < 0, 0, 0 >
-//Cargo on the ground end
 
-// Nessy location ?
+// Falling Object
+global const vector FT_FALLING_OBJECT_POS = FLOPPYTOWN_POS_OFFSET + < 5184, 2624, 2304 >
+
+// Player Trigger
+global const vector FT_PLAYER_TRIGGER_POS = FLOPPYTOWN_POS_OFFSET + < 4834, 2624, 0 >
+
+// Nessy location
 global const vector FT_NESSY_1_POS = FLOPPYTOWN_POS_OFFSET + < 2100, 4880, 2240 >
 global const vector FT_NESSY_1_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 180, 0 >
 

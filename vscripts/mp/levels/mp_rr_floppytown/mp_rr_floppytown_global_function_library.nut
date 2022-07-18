@@ -43,74 +43,128 @@ return editor_ref }
 
 entity function CreateFloppytownUsableModel( asset model, vector pos, vector ang, string prompt, string name = "" )
 {
- 	entity TeleporterButton = CreateEntity("prop_dynamic")
-	TeleporterButton.kv.solid = 6
-	TeleporterButton.SetValueForModelKey( model )
-	TeleporterButton.AllowMantle()
-	TeleporterButton.SetScriptName( name )
-	TeleporterButton.SetOrigin(pos)
-	TeleporterButton.SetAngles(ang)
-	DispatchSpawn(TeleporterButton)
+     entity UsableButton = CreateEntity("prop_dynamic")
+    UsableButton.kv.solid = 6
+    UsableButton.SetValueForModelKey( model )
+    UsableButton.AllowMantle()
+    UsableButton.SetOrigin(pos)
+    UsableButton.SetAngles(ang)
+    SetTargetName( UsableButton, name )
+    DispatchSpawn(UsableButton)
 
-	TeleporterButton.SetUsable()
-	TeleporterButton.SetUsableByGroup("pilot")
-	TeleporterButton.SetUsePrompts(prompt, prompt)
-	return TeleporterButton 
-}
+    UsableButton.SetUsable()
+    UsableButton.SetUsableByGroup("pilot")
+    UsableButton.SetUsePrompts(prompt, prompt)
+return UsableButton }
 
 
-entity function CreateFloppytownScriptMover( vector origin = <0.0, 0.0, 0.0>, vector angles = <0.0, 0.0, 0.0>, string name = "" )
+entity function CreateFloppytownScriptMover( vector origin = < 0.0, 0.0, 0.0 >, vector angles = < 0.0, 0.0, 0.0 >, string name = "" )
 {
-	entity script_mover = CreateEntity( "script_mover_lightweight" )
-	script_mover.kv.solid = 0
-	script_mover.SetValueForModelKey( $"mdl/dev/empty_model.rmdl" )
-	script_mover.kv.SpawnAsPhysicsMover = 0
-	script_mover.SetScriptName( name )
-	script_mover.SetOrigin( origin )
-	script_mover.SetAngles( angles )
-	DispatchSpawn( script_mover )
-	return script_mover
-}
+    entity script_mover = CreateEntity( "script_mover_lightweight" )
+    script_mover.kv.solid = 0
+    script_mover.SetValueForModelKey( $"mdl/dev/empty_model.rmdl" )
+    script_mover.kv.SpawnAsPhysicsMover = 0
+    script_mover.SetOrigin( origin )
+    script_mover.SetAngles( angles )
+    SetTargetName( script_mover, name )
+    DispatchSpawn( script_mover )
+
+return script_mover }
 
 
-entity function CreateFloppyWallTrigger(vector pos, float box_radius = 1000 )
+entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 {
     entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
+    map_trigger.SetRadius( radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
+
     FLOPPYTOWN_ENTITIES.append( map_trigger )
-    thread FloppyWallTrigger( map_trigger )
-    return map_trigger
+
+    thread FloppytownWallTriggerThread( map_trigger )
+
+return map_trigger }
+
+
+void function FloppytownWallTriggerThread( entity map_trigger, float speed = 0.6 )
+{
+    bool active = true
+
+    while ( active )
+    {
+        if( IsValid( map_trigger ) )
+        {
+            foreach( player in GetPlayerArray() )
+            {
+                if ( player.GetPhysics() != MOVETYPE_NOCLIP ) // won't affect noclip player
+                {
+                    if( map_trigger.IsTouching( player ) )
+                    {
+                        player.Zipline_Stop()
+
+                        vector target_origin = player.GetOrigin()
+                        target_origin.z = 0.0
+                        vector map_trigger_origin = map_trigger.GetOrigin()
+                        vector target_angles = player.GetAngles()
+                        vector map_trigger_angles = map_trigger.GetAngles()
+
+                        vector velocity = target_origin - map_trigger_origin
+                        velocity = velocity * speed
+
+                        vector angles = target_angles - map_trigger_angles
+
+                        velocity = velocity + angles
+                        player.SetVelocity(velocity)
+            }   }   }
+        }
+        else
+        { active = false ; break }
+
+    wait 0.01 }
 }
 
 
-void function FloppyWallTrigger(entity proxy, float speed = 0.6)
-{   bool active = true
-    while (active)
-    {   if(IsValid(proxy))
-        {   foreach(player in GetPlayerArray())
-            {   if (player.GetPhysics() != MOVETYPE_NOCLIP)//won't affect noclip player
-                {   if(proxy.IsTouching(player))
-				{
-                    player.Zipline_Stop()
-					switch(GetMapName())
-					{
-					    default:
-					    	vector target_origin = player.GetOrigin()
-                            target_origin.z = 0.0
-					    	vector proxy_origin = proxy.GetOrigin()
-					    	vector target_angles = player.GetAngles()
-					    	vector proxy_angles = proxy.GetAngles()
+entity function CreateFloppytownPlayerTrigger(vector pos, string name = "", float box_radius = 1000 )
+{
+    entity player_trigger = CreateEntity( "trigger_cylinder" )
+    player_trigger.SetRadius( box_radius );player_trigger.SetAboveHeight( 256 );player_trigger.SetBelowHeight( 10 );
+    player_trigger.SetOrigin( pos )
+    SetTargetName( player_trigger, name )
+    DispatchSpawn( player_trigger )
 
-					    	vector velocity = target_origin - proxy_origin
-					    	velocity = velocity * speed
+    FLOPPYTOWN_ENTITIES.append( player_trigger )
 
-					    	vector angles = target_angles - proxy_angles
+    thread FloppytownPlayerTriggerThread( player_trigger )
 
-					    	velocity = velocity + angles
-					    	player.SetVelocity(velocity)
-			}   }   }   }
-        } else {active = false ; break}
-        wait 0.01
-}   }
+return player_trigger }
+
+
+void function FloppytownPlayerTriggerThread( entity player_trigger )
+{
+    bool active = true
+
+    entity script_mover = GetEnt( "falling_object_01" )
+    vector script_mover_pos = script_mover.GetOrigin()
+
+    while ( active )
+    {
+        if( IsValid( player_trigger ) )
+        {
+            foreach( player in GetPlayerArray() )
+            {
+                if ( player.GetPhysics() != MOVETYPE_NOCLIP ) // won't affect noclip player
+                {
+                    if( player_trigger.IsTouching( player ) )
+                    {
+                        printt( "////////////////////////////////////////////////////////////" )
+                        printt( "/////  thread FallingObject(): activate by player trigger" )
+                        thread FallingObject()
+                        active = false
+                        wait 2
+            }   }   }
+        }
+        else
+        { active = false ; break }
+        
+    wait 0.01 }
+}
