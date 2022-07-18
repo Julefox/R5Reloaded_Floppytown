@@ -303,7 +303,14 @@ void function RespawnFallingObject( vector pos )
         {
             printt( "//////////////////////////////////////////////////////////////////////" )
             printt( "/////  thread FallingObjectThread(): activate by button" )
-            thread FallingObjectThread()
+            entity player_trigger = GetEnt( "player_trigger_01" )
+
+            if( IsValid( player_trigger ) )
+            {
+                player_trigger.Destroy()
+
+                thread FallingObjectThread()
+            }
         })
     }
 }
@@ -322,8 +329,6 @@ void function FallingObjectThread()
     printt( "//////////////////////////////////////////////////////////////////////" )
 
     vector start = script_mover.GetOrigin()
-
-    player_trigger.Destroy()
 
     follower.UnsetUsable()
 

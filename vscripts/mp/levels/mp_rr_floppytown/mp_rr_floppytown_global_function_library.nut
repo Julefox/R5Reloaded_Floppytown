@@ -155,8 +155,13 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
                     {
                         printt( "//////////////////////////////////////////////////////////////////////" )
                         printt( "/////  thread FallingObjectThread(): activate by player trigger" )
-                        active = false
+
+                        if( IsValid( player_trigger ) )
+                        { player_trigger.Destroy() }
+                        
                         thread FallingObjectThread()
+                        
+                        active = false
                     }
                 }
             }
