@@ -997,7 +997,7 @@ void function CreateMenuBackground()
 
 	if ( !hasMenuEnts )
 	{
-		file.deathScreenMenuBackgroundModel = CreateClientSidePropDynamic( cameraOrigin - <0, 0, 80>, cameraAngles, SURVIVAL_SQUAD_SUMMARY_MODEL )
+		//file.deathScreenMenuBackgroundModel = CreateClientSidePropDynamic( cameraOrigin - <0, 0, 80>, cameraAngles, SURVIVAL_SQUAD_SUMMARY_MODEL )
 	}
 
 	file.deathScreenMenuCamera.SetTargetFOV( camera_fov, true, EASING_CUBIC_INOUT, 0.0 )
