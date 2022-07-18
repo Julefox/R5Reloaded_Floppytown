@@ -149,18 +149,14 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
         {
             foreach( player in GetPlayerArray() )
             {
-                if ( IsValid( player ) )
+                if ( player.GetPhysics() != MOVETYPE_NOCLIP ) // won't affect noclip player
                 {
-                    if ( player.GetPhysics() != MOVETYPE_NOCLIP ) // won't affect noclip player
+                    if( player_trigger.IsTouching( player ) )
                     {
-                        if( player_trigger.IsTouching( player ) )
-                        {
-                            printt( "//////////////////////////////////////////////////////////////////////" )
-                            printt( "/////  thread FallingObjectThread(): activate by player trigger" )
-                            thread FallingObjectThread()
-                            active = false
-                            wait 2
-                        }
+                        printt( "//////////////////////////////////////////////////////////////////////" )
+                        printt( "/////  thread FallingObjectThread(): activate by player trigger" )
+                        active = false
+                        thread FallingObjectThread()
                     }
                 }
             }
