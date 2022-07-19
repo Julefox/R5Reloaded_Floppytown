@@ -16,14 +16,6 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
-
-    for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
-    {
-        PrecacheModel( ASSET_VIEWER_ARRAY[i] )
-    }
-    PrecacheModel( YUKI_MEMORIAL_02 )
-    PrecacheModel( YUKI_MEMORIAL_03 )
-    PrecacheModel( YUKI_MEMORIAL_04 )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -142,7 +142,7 @@ return player_trigger }
 void function FloppytownPlayerTriggerThread( entity player_trigger )
 {
     bool active = true
-    entity follower = GetEnt( "follower__object_01" )
+    entity follower = GetEnt( "follower_object_01" )
 
     while ( active )
     {
@@ -155,12 +155,14 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
                     if( player_trigger.IsTouching( player ) )
                     {
                         printt( "|====================================================================|" )
-                        printt( "| thread FallingObjectThread(): activate by player trigger" )
+                        printt( "| FallingObjectThread(): Thread activate by player trigger" )
+                        printt( "| Player: " + player )
 
                         if( IsValid( player_trigger ) )
                         { player_trigger.Destroy() }
 
-                        follower.UnsetUsable()
+                        if( IsValid( follower ) )
+                        { follower.UnsetUsable() }
                         
                         thread FallingObjectThread()
                         

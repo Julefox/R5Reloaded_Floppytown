@@ -288,7 +288,7 @@ void function Zips_Generation()
 void function RespawnFallingObject( vector pos )
 {
     entity script_mover = CreateFloppytownScriptMover( pos, < 0, 0, 0 >, "falling_object_01" )
-    entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower__object_01" )
+    entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower_object_01" )
     entity player_trigger = CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
 
     if ( IsValid( script_mover ) && IsValid( falling_object ) && IsValid( player_trigger ) )
@@ -305,15 +305,18 @@ void function RespawnFallingObject( vector pos )
         {
             printt( "|==========================================================|" )
             printt( "| FallingObjectThread(): Thread activate by button" )
+            printt( "| Player: " + user )
 
             entity player_trigger = GetEnt( "player_trigger_01" )
-            entity follower = GetEnt( "follower__object_01" )
+            entity follower = GetEnt( "follower_object_01" )
 
-            player_trigger.Destroy()
-            follower.UnsetUsable()
+            if ( IsValid( follower ) && IsValid( player_trigger ) )
+            {
+                player_trigger.Destroy()
+                follower.UnsetUsable()
 
-            thread FallingObjectThread()
-
+                thread FallingObjectThread()
+            }
         })
     }
 }
@@ -322,7 +325,7 @@ void function RespawnFallingObject( vector pos )
 void function FallingObjectThread()
 {
     entity script_mover = GetEnt( "falling_object_01" )
-    entity follower = GetEnt( "follower__object_01" )
+    entity follower = GetEnt( "follower_object_01" )
 
     int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
 
@@ -331,26 +334,32 @@ void function FallingObjectThread()
     printt( "|==========================================================|" )
 
     vector start = script_mover.GetOrigin()
+    vector end = start + < -280, 0, -2280 >
 
-    script_mover.NonPhysicsMoveTo( start + < -70, 0, 0 >, 1.2, 0, 0 )
+    //16,7 = 1.2 
+    //0.3048 = 1 meter
+
+    script_mover.NonPhysicsMoveTo( start + < -73, 0, 0 >, 1.2, 0, 0 )
 
         wait 1.2
 
-    script_mover.NonPhysicsRotateTo( < -120, 0, 0 >, 3.5, 0, 0 )
+    
+    script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < -20, 0, 0 >, 0.4, 0, 0 )
 
-        wait 1
+        wait 0.2
 
-    script_mover.NonPhysicsMoveTo( script_mover.GetOrigin() + < -280, 0, -2280 >, 2.5, 0, 0 )
+    script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < -110, 0, 0 >, 1.5, 0, 0 )
+    script_mover.NonPhysicsMoveTo( end, 1.5, 0, 0 )
 
-        wait 2.5
+        wait 1.5
 
-    entity fx = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+    entity fx_0 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
     EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
     Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
         wait 2.9
 
-    entity fx2 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
+    entity fx_1 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
     Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
     if ( IsValid( follower ) )
@@ -361,8 +370,11 @@ void function FallingObjectThread()
     if ( IsValid( script_mover ) )
     { script_mover.Destroy() }
 
-    if ( IsValid( fx ) )
-    { fx.Destroy() }
+    if ( IsValid( fx_0 ) )
+    { fx_0.Destroy() }
+
+    if ( IsValid( fx_1 ) )
+    { fx_1.Destroy() }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}

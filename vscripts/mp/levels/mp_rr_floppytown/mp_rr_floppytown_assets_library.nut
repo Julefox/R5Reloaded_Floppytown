@@ -400,6 +400,42 @@ global const asset ADRENALINE_SCREEN_CP               = $"P_adrenaline_screen_CP
 global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
 global const asset DOG_SMOKE_TRAIL                    = $"P_dog_w_smoke_trail"
 global const asset SPARKS_BEACON_DISH                 = $"P_sparks_beacon_dish"
+global const asset SMOKE_LOOP_XL                      = $"P_smoke_loop_light_XL"
+global const asset ORDINANCE_ICON                     = $"P_ordinance_icon"
+global const asset TITAN_DROPPOINT                    = $"P_ar_titan_droppoin"
+global const asset TITAN_DROPPOINT_TALL               = $"P_ar_titan_droppoint_tall"
+global const asset HUMAN_JETWASH_CONCRETE             = $"P_human_jetwash_concrete"
+global const asset EXP_IMPACT_ARTILLERY               = $"P_impact_exp_artillery"
+global const asset EXP_IMPACT_ARCBALL_DEFAULT         = $"P_impact_exp_arcball_default"
+global const asset EXP_IMPACT_EMP_DEFAULT             = $"P_impact_exp_emp_med_default"
+global const asset EXP_IMPACT_TRIPLE_THREAT_FULL      = $"P_impact_exp_triplethreat_full"
+global const asset EXP_IMPACT_XLG_CONCRETE            = $"P_impact_exp_XLG_concrete"
+global const asset EXP_REDEYE_SPACE                   = $"P_exp_redeye_space"
+global const asset EXP_ANNAPOLIS_SPACE                = $"P_exp_annapolis_space"
+global const asset EXP_SHIP_NUKE_SPACE                = $"P_exp_ship_nuke_space"
+global const asset EXP_WALL_CONCRETE                  = $"P_exp_wall_concrete"
+global const asset EXP_PLANET_FLASH                   = $"P_planet_exp_flash"
+global const asset EXP_SW_BT                          = $"P_sw_bt_exp"
+global const asset EXP_NUKE_1P                        = $"P_xo_exp_nuke_1P"
+global const asset EXP_NUKE_3P                        = $"P_xo_exp_nuke_3P"
+global const asset SPEC_GRNDPND                       = $"P_sup_spec_grndpnd"
+global const asset LEVIATHAN_FOOT_SAND                = $"P_leviathan_foot_sand"
+global const asset SPECTRE_DEATH_XL                   = $"P_sup_spectre_death_XL"
+global const asset FIRE_VENT_DOOM                     = $"P_xo_health_fire_vent_doom"
+global const asset TRACERS_LOOP_SBOX                  = $"P_tracers_loop_SBox"
+global const asset ESCAPE_POD_L_SBOX                  = $"P_SB_Escape_Pod_L"
+global const asset EXP_REFUELSHIP_SBOX                = $"P_exp_refuelship_SBox"
+global const asset EXP_CAPITAL_SHIP_SBOX              = $"P_exp_capital_ship_SB"
+
+
+/////--- SFx ---/////
+global const string DROPSHIP_EXPLODE_OLD          = "goblin_dropship_explode_OLD"
+global const string INCENDIARY_BURN               = "incendiary_trap_burn"
+global const string INCENDIARY_BURN_STOP          = "incendiary_trap_burn_stop"
+global const string FIRE_MEDIUM                   = "Grave_Emit_FireMedium"
+global const string CLOSE_ALARM_01                = "survival_circle_close_alarm_01"
+global const string CLOSE_ALARM_02                = "survival_circle_close_alarm_02"
+global const string CRASH_ALARM                   = "HoverTank_CrashAlarm"
 
 
 /////--- Dev Assets ---/////
@@ -408,9 +444,73 @@ global const asset CUBEMAP                        = $"mdl/menu/menu_cubemap.rmdl
 global const asset EMPTY                          = $"mdl/dev/empty_model.rmdl"
 global const asset EMPTY_LIGHT                    = $"mdl/empty/lights/empty_lights.rmdl"
 global const asset ERROR                          = $"mdl/error.rmdl"
+global const asset SFX_TEST                       = $"P_MDL_TEST"
 
 
 global array< entity > FLOPPYTOWN_ENTITIES = [ ]
+
+
+global array< asset > FX_ARRAY =
+[
+    ROCK_IMPACT_XL
+    SPACE_DEBRIS_COMET
+    CORE_EXP
+    SPRINT_FP
+    HARVESTER_BEAM_AIR
+    HARVESTER_BEAM_END
+    HARVESTER_BEAM_HLD
+    HARVESTER_DAMAGED
+    WIND_CRUISING
+    COREROOM_SPARKS
+    TOXIC_AIR_BLOWN
+    TOXIC_AIR_256_FLOOR
+    TOXIC_AIR_256_THIN
+    TOXIC_AIR_256_TOP
+    TOXIC_AIR_256
+    WRAITH_TT_PORTAL_SKY
+    WRAITH_TT_PORTAL_BASE
+    WRAITH_TT_PORTAL_LAB
+    WRAITH_TT_PORTAL_FLASH
+    WRAITH_TT_PHASE
+    TITAN_SMOKE_MARKER
+    NPE_GOAL
+    NPE_PIT_ORANGE
+    NPE_STREAKS_BLUE
+    HEALTH_HEX
+    PHASE_SHIFT_MAIN_XO
+    PHASE_SHIFT_SCREEN
+    ADRENALINE_SCREEN_CP
+    TPOD_SCREEN_DISTORT
+    DOG_SMOKE_TRAIL
+    SPARKS_BEACON_DISH
+    SMOKE_LOOP_XL
+    ORDINANCE_ICON
+    TITAN_DROPPOINT
+    TITAN_DROPPOINT_TALL
+    HUMAN_JETWASH_CONCRETE
+    EXP_IMPACT_ARTILLERY
+    EXP_IMPACT_ARCBALL_DEFAULT
+    EXP_IMPACT_EMP_DEFAULT
+    EXP_IMPACT_TRIPLE_THREAT_FULL
+    EXP_IMPACT_XLG_CONCRETE
+    EXP_REDEYE_SPACE
+    EXP_ANNAPOLIS_SPACE
+    EXP_SHIP_NUKE_SPACE
+    EXP_WALL_CONCRETE
+    EXP_PLANET_FLASH
+    EXP_SW_BT
+    EXP_NUKE_1P
+    EXP_NUKE_3P
+    SPEC_GRNDPND
+    LEVIATHAN_FOOT_SAND
+    SPECTRE_DEATH_XL
+    FIRE_VENT_DOOM
+    TRACERS_LOOP_SBOX
+    ESCAPE_POD_L_SBOX
+    EXP_REFUELSHIP_SBOX
+    EXP_CAPITAL_SHIP_SBOX
+]
+
 
 global array< asset > ASSET_VIEWER_ARRAY =
 [
@@ -737,12 +837,24 @@ global array< asset > ASSET_VIEWER_ARRAY =
     RUBBER_FLOOR_01
 ]
 
+
 global array< string > SOUNDS_ARRAY =
 [
     "Titan_Legion_Smart_Core_ActiveLoop_1P",
 ]
 
+
 void function Floppytown_MapInit_Asset_Library()
 {
     printt( "| Floppytown_MapInit_Asset_Library:             The file has been called. |" )
+
+    for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
+    {
+        PrecacheModel( ASSET_VIEWER_ARRAY[i] )
+    }
+
+    for ( int i = 0 ; i < FX_ARRAY.len() ; i++)
+    {
+        PrecacheParticleSystem( FX_ARRAY[i] )
+    }
 }
