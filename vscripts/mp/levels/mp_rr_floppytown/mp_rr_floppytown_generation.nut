@@ -294,23 +294,26 @@ void function RespawnFallingObject( vector pos )
     if ( IsValid( script_mover ) && IsValid( falling_object ) && IsValid( player_trigger ) )
     {
         printt( "" )
-        printt( " RespawnFallingObject(): Initialized" )
+        printt( "|====================================================================|" )
+        printt( "|>>>>>>>>>>>>>>  RespawnFallingObject():  Initialized  <<<<<<<<<<<<<<|" )
+        printt( "|====================================================================|" )
         printt( "" )
 
         falling_object.SetParent( script_mover )
 
         AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
         {
-            printt( "//////////////////////////////////////////////////////////////////////" )
-            printt( "/////  thread FallingObjectThread(): activate by button" )
+            printt( "|==========================================================|" )
+            printt( "| FallingObjectThread(): Thread activate by button" )
+
             entity player_trigger = GetEnt( "player_trigger_01" )
+            entity follower = GetEnt( "follower__object_01" )
 
-            if( IsValid( player_trigger ) )
-            {
-                player_trigger.Destroy()
+            player_trigger.Destroy()
+            follower.UnsetUsable()
 
-                thread FallingObjectThread()
-            }
+            thread FallingObjectThread()
+
         })
     }
 }
@@ -321,15 +324,13 @@ void function FallingObjectThread()
     entity script_mover = GetEnt( "falling_object_01" )
     entity follower = GetEnt( "follower__object_01" )
 
-    int random_number = RandomIntRange( 30, 120 )
+    int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
 
-    printt( "/////  thread FallingObjectThread(): start of thread" )
-    printt( "/////  wait random_number: " + random_number )
-    printt( "//////////////////////////////////////////////////////////////////////" )
+    printt( "| FallingObjectThread(): Thread startup" )
+    printt( "| wait() random_number: " + delay )
+    printt( "|==========================================================|" )
 
     vector start = script_mover.GetOrigin()
-
-    follower.UnsetUsable()
 
     script_mover.NonPhysicsMoveTo( start + < -70, 0, 0 >, 1.2, 0, 0 )
 
@@ -366,11 +367,11 @@ void function FallingObjectThread()
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}
     else
-    { wait random_number }
+    { wait( delay ) }
 
-    printt( "//////////////////////////////////////////////////////////////////////" )
-    printt( "/////  thread FallingObjectThread()  -> end of thread" )
-    printt( "//////////////////////////////////////////////////////////////////////" )
+    printt( "|==========================================================|" )
+    printt( "| FallingObjectThread(): End of the thread" )
+    printt( "|==========================================================|" )
 
     RespawnFallingObject( FT_FALLING_OBJECT_POS )
 }

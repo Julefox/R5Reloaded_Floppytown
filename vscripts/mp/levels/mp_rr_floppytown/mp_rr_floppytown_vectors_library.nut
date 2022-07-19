@@ -145,6 +145,10 @@ global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX a
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
 global const vector ZERO_V                  = < 0, 0, 0 >
 
+//
+global const int    FALLING_OBJ_DELAY_MIN   = 30
+global const int    FALLING_OBJ_DELAY_MAX   = 120
+
 void function Floppytown_MapInit_Vectors_Library()
 {
     printt( "| Floppytown_MapInit_Vectors_Library:           The file has been called. |" )
