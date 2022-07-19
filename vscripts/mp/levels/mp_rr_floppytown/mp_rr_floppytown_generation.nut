@@ -13,7 +13,6 @@ void function Floppytown_MapInit_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
-    PrecacheParticleSystem( DOG_SMOKE_TRAIL )
     RespawnFallingObject( FT_FALLING_OBJECT_POS )
 
     if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
@@ -353,19 +352,32 @@ void function FallingObjectThread()
 
         wait 1.5
 
-    entity fx_0 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
-    EmitSoundOnEntity( script_mover, "goblin_dropship_explode_OLD" )
+    entity fx_0 = PlayFXOnEntity( EXP_IMPACT_ARCBALL_DEFAULT, script_mover )
+    EmitSoundOnEntity( script_mover, DROPSHIP_EXPLODE_OLD )
     Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
-        wait 2.9
-
-    entity fx_1 = PlayFXOnEntity( DOG_SMOKE_TRAIL, script_mover )
-    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+        wait 2.8
 
     if ( IsValid( follower ) )
     { follower.Destroy() }
 
+    script_mover.SetAngles( ZERO_V )
+
+    entity fx_1 = PlayFXOnEntity( EXP_IMPACT_TRIPLE_THREAT_FULL, script_mover )
+
+        wait 0.1
+
+    entity fx_2 = PlayFXOnEntity( EXP_NUKE_3P, script_mover )
+    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+
+        wait 0.2
+
+    entity fx_3 = PlayFXOnEntity( FIRE_VENT_DOOM, script_mover )
+    EmitSoundOnEntity( script_mover, FIRE_MEDIUM )
+
         wait 6
+
+    StopSoundOnEntity( script_mover, FIRE_MEDIUM )
 
     if ( IsValid( script_mover ) )
     { script_mover.Destroy() }
@@ -375,6 +387,12 @@ void function FallingObjectThread()
 
     if ( IsValid( fx_1 ) )
     { fx_1.Destroy() }
+
+    if ( IsValid( fx_2 ) )
+    { fx_2.Destroy() }
+
+    if ( IsValid( fx_3 ) )
+    { fx_3.Destroy() }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}
