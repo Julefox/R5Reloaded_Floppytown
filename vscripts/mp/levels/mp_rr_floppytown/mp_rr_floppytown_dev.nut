@@ -16,6 +16,7 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
+    AddClientCommandCallback( "fall",  ClientCommand_FallingObjectActiveThread )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,6 +122,16 @@ bool function ClientCommand_AssetViewerActive( entity player, array<string> args
         printt("Asset Viewer Opened")
         printt( "" )
     }
+
+return true }
+
+bool function ClientCommand_FallingObjectActiveThread( entity player, array<string> args )
+{
+    printt( "|==========================================================|" )
+    printt( "| FallingObjectThread(): Thread activate by client command" )
+    printt( "| Player: " + player )
+
+    thread FallingObjectThread()
 
 return true }
 

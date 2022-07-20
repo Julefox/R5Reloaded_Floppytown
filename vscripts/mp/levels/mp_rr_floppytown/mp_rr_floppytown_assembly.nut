@@ -1184,7 +1184,6 @@ void function LilBalcony( vector pos, vector ang, string name )
     script_mover.SetAngles( ang )
 }
 
-// Cargo on the ground
 void function cargo_ground( vector pos, vector ang, string type, string number )
 {
     entity script_mover = CreateFloppytownScriptMover( pos )
@@ -1215,7 +1214,6 @@ void function cargo_ground( vector pos, vector ang, string type, string number )
     { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
 }
-// Cargo on the ground end
 
 void function spawn_nessy( vector pos, vector ang )
 {

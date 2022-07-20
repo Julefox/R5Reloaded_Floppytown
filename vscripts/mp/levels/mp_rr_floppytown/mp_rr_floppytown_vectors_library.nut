@@ -140,6 +140,9 @@ global const vector FT_NESSY_4_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 0 >
 global const vector FT_NESSY_5_POS = FLOPPYTOWN_POS_OFFSET + < 1513, 2647, 0 >
 global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 
+// Crane
+
+
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1

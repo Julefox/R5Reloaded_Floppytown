@@ -203,6 +203,13 @@ global const asset EXOPLANET_MED_POD_02               = $"mdl/props/med_pod/exop
 global const asset INSIDE_LOOT_BIN                    = $"mdl/props/loot_bin_holder_inside.rmdl"
 global const asset NESSY                              = $"mdl/domestic/nessy_doll.rmdl"
 
+// Crane
+global const asset CRANE_01_A                         = $"mdl/desertlands/industrial_crane_yellow_01_a.rmdl"
+global const asset CRANE_01_B                         = $"mdl/desertlands/industrial_crane_yellow_01_b.rmdl"
+global const asset CRANE_01_C                         = $"mdl/desertlands/industrial_crane_yellow_01_c.rmdl"
+global const asset CRANE_02_A                         = $"mdl/desertlands/industrial_crane_yellow_02_a.rmdl"
+global const asset CRANE_DONUT_01                     = $"mdl/desertlands/industrial_crane_yellow_donut_01.rmdl"
+
 // Signs
 global const asset DESERTLANDS_SIGN_NEWDAMN_01        = $"mdl/signs/desertlands_city_newdawn_sign_01.rmdl"
 global const asset DESERTLANDS_SIGN_STREETSIGN_01     = $"mdl/signs/desertlands_city_streetsign_01.rmdl"
@@ -678,6 +685,11 @@ global array< asset > ASSET_VIEWER_ARRAY =
     EXOPLANET_MED_POD_02
     INSIDE_LOOT_BIN
     NESSY
+    CRANE_01_A
+    CRANE_01_B
+    CRANE_01_C
+    CRANE_02_A
+    CRANE_DONUT_01
     DESERTLANDS_SIGN_NEWDAMN_01
     DESERTLANDS_SIGN_STREETSIGN_01
     BUILDING_SIGN_LIT_STANDING_02
