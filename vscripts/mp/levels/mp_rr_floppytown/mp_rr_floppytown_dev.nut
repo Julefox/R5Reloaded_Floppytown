@@ -127,21 +127,31 @@ return true }
 
 bool function ClientCommand_FallingObjectActiveThread( entity player, array<string> args )
 {
-    printt( "|==========================================================|" )
-    printt( "| FallingObjectThread(): Thread activate by client command" )
-    printt( "| Player: " + player )
-
-    entity player_trigger = GetEnt( "player_trigger_01" )
-
-    if ( IsValid( player_trigger ) )
+    if ( !Flag( "FallingObjectThread()_IsActive" ) ) // prevents it from being activated 2 times
     {
-        player_trigger.Destroy()
+        printt( "|==========================================================|" )
+        printt( "| FallingObjectThread(): Thread activate by client command" )
+        printt( "| Player: " + player )
+
+        entity player_trigger = GetEnt( "player_trigger_01" )
+
+        if ( IsValid( player_trigger ) )
+        {
+            player_trigger.Destroy()
+        }
+
+        FlagSet( "FallingObjectThread()_IsActive" )
+
+        thread ChangePanelState()
+        thread FallingObjectThread()
     }
-
-    FlagSet( "FallingObjectThread()_IsActive" )
-
-    thread ChangePanelState()
-    thread FallingObjectThread()
+    else
+    {
+        printt( "|==========================================================|" )
+        printt( "| FallingObjectThread(): Thread is already activate" )
+        printt( "|==========================================================|" )
+    }
+    
 
 return true }
 

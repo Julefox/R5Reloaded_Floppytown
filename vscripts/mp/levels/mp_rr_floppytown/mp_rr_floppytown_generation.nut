@@ -392,24 +392,9 @@ void function FallingObjectThread()
 
     script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
 
-        wait 4
+        wait 3
 
-    /*
     //0.3048 = 1 meter
-
-    script_mover.NonPhysicsMoveTo( start + < -73, 0, 0 >, 1.2, 0, 0 )
-
-        wait 1.2
-
-    
-    script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < -20, 0, 0 >, 0.4, 0, 0 )
-
-        wait 0.2
-
-    script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < -110, 0, 0 >, 1.5, 0, 0 )
-    script_mover.NonPhysicsMoveTo( end, 1.5, 0, 0 )
-
-        wait 1.5
 
     entity fx_0 = PlayFXOnEntity( EXP_IMPACT_ARCBALL_DEFAULT, script_mover )
     EmitSoundOnEntity( script_mover, DROPSHIP_EXPLODE_OLD )
@@ -417,10 +402,10 @@ void function FallingObjectThread()
 
         wait 2.8
 
-    if ( IsValid( follower ) )
-    { follower.Destroy() }
+    if ( IsValid( falling_object_model ) )
+    { falling_object_model.Destroy() }
 
-    script_mover.SetAngles( ZERO_V )
+    //script_mover.SetAngles( ZERO_V )
 
     entity fx_1 = PlayFXOnEntity( EXP_IMPACT_TRIPLE_THREAT_FULL, script_mover )
 
@@ -452,12 +437,6 @@ void function FallingObjectThread()
 
     if ( IsValid( fx_3 ) )
     { fx_3.Destroy() }
-    */
-    if ( IsValid( script_mover ) )
-    { script_mover.Destroy() }
-
-    if ( IsValid( falling_object_model ) )
-    { falling_object_model.Destroy() }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}
