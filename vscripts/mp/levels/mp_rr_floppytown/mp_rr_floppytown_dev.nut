@@ -131,7 +131,17 @@ bool function ClientCommand_FallingObjectActiveThread( entity player, array<stri
     printt( "| FallingObjectThread(): Thread activate by client command" )
     printt( "| Player: " + player )
 
-    //thread FallingObjectThread()
+    entity player_trigger = GetEnt( "player_trigger_01" )
+
+    if ( IsValid( player_trigger ) )
+    {
+        player_trigger.Destroy()
+    }
+
+    FlagSet( "FallingObjectThread()_IsActive" )
+
+    thread ChangePanelState()
+    thread FallingObjectThread()
 
 return true }
 
