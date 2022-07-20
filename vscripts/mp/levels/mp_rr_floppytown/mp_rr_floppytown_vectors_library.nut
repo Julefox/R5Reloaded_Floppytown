@@ -119,10 +119,8 @@ global const vector FT_CARGO_GROUND_THIRD_POS = FLOPPYTOWN_POS_OFFSET + < 2220, 
 global const vector FT_CARGO_GROUND_THIRD_ANG = < 0, 0, 0 >
 
 // Falling Object
-global const vector FT_FALLING_OBJECT_POS = FLOPPYTOWN_POS_OFFSET + < 5184, 2624, 2304 >
-
-// Player Trigger
-global const vector FT_PLAYER_TRIGGER_POS = FLOPPYTOWN_POS_OFFSET + < 4834, 2624, 0 >
+global const vector FT_FALLING_OBJECT_PANEL_POS = FLOPPYTOWN_POS_OFFSET + < 5670, 2518, 2348 >
+global const vector FT_FALLING_OBJECT_PANEL_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, -90, 60 >
 
 // Nessy location
 global const vector FT_NESSY_1_POS = FLOPPYTOWN_POS_OFFSET + < 2100, 4880, 2240 >
@@ -141,7 +139,8 @@ global const vector FT_NESSY_5_POS = FLOPPYTOWN_POS_OFFSET + < 1513, 2647, 0 >
 global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 
 // Crane
-
+global const vector FT_CRANE_01_POS = FLOPPYTOWN_POS_OFFSET + < 5720, 2915, 2600 >
+global const vector FT_CRANE_01_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z

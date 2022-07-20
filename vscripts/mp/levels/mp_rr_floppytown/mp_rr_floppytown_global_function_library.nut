@@ -66,7 +66,10 @@ entity function CreateFloppytownScriptMover( vector origin = < 0.0, 0.0, 0.0 >, 
     script_mover.kv.SpawnAsPhysicsMover = 0
     script_mover.SetOrigin( origin )
     script_mover.SetAngles( angles )
-    SetTargetName( script_mover, name )
+
+    string target_name = "floppytown_script_mover_" + name
+    SetTargetName( script_mover, target_name )
+
     DispatchSpawn( script_mover )
 
 return script_mover }
@@ -129,7 +132,7 @@ entity function CreateFloppytownPlayerTrigger(vector pos, string name = "", floa
     entity player_trigger = CreateEntity( "trigger_cylinder" )
     player_trigger.SetRadius( box_radius );player_trigger.SetAboveHeight( 256 );player_trigger.SetBelowHeight( 10 );
     player_trigger.SetOrigin( pos )
-    SetTargetName( player_trigger, name )
+    SetTargetName( player_trigger, "player_trigger_" + name )
     DispatchSpawn( player_trigger )
 
     FLOPPYTOWN_ENTITIES.append( player_trigger )
@@ -142,7 +145,6 @@ return player_trigger }
 void function FloppytownPlayerTriggerThread( entity player_trigger )
 {
     bool active = true
-    entity follower = GetEnt( "follower_object_01" )
 
     while ( active )
     {
@@ -161,12 +163,10 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
                         if( IsValid( player_trigger ) )
                         { player_trigger.Destroy() }
 
-                        if( IsValid( follower ) )
-                        { follower.UnsetUsable() }
-                        
+                        FlagSet( "FallingObjectThread()_IsActive" )
+
+                        thread ChangePanelState()
                         thread FallingObjectThread()
-                        
-                        active = false
                     }
                 }
             }
@@ -175,4 +175,26 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
         { active = false ; break }
         
     wait 0.01 }
+}
+
+void function Crane( vector pos, vector ang, string name )
+{
+    entity script_mover = CreateFloppytownScriptMover( pos )
+
+    string script_name = "crane_" + name
+
+    CreateFloppytownModel( CRANE_01_A, pos + < 0, 0, 0 >, < 0, -45, 0 >, script_name )
+    entity rotator_1 = CreateFloppytownModel( CRANE_01_B, pos + < 0, 0, 560 >, < 0, 0, 0 >, script_name )
+    entity rotator_2 = CreateFloppytownModel( CRANE_01_C, rotator_1.GetOrigin() + < -330, 0, 260 >, < 0, 0, 0 >, script_name )
+    entity sling_center = CreateFloppytownModel( EMPTY, rotator_2.GetOrigin() + < 885, 0, 80 >, < 0, 0, 0 >, script_name )
+
+    rotator_2.SetParent( rotator_1 )
+    sling_center.SetParent( rotator_2 )
+
+    rotator_1.SetAngles( < 0, 40, 0 > )
+    rotator_2.SetAngles( < 0, -155, 0 > )
+
+    foreach ( ent in GetEntArrayByScriptName( script_name ) )
+    { ent.SetParent( script_mover ) }
+    script_mover.SetAngles( ang )
 }

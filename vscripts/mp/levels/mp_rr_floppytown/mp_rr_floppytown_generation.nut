@@ -1,6 +1,6 @@
-global function Floppytown_MapInit_Generation
+untyped
 
-global function FallingObjectThread
+globalize_all_functions
 
 void function Floppytown_MapInit_Generation()
 {
@@ -8,12 +8,12 @@ void function Floppytown_MapInit_Generation()
     printt( "|=========================================================================|" )
     printt( "" )
 
+    FlagInit( "FallingObjectThread()_IsActive" )
+
     Map_Generation()
     Props_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
-
-    RespawnFallingObject( FT_FALLING_OBJECT_POS )
 
     if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
     { printt( "wall trigger disable !" ) }
@@ -21,6 +21,8 @@ void function Floppytown_MapInit_Generation()
     { CreateWallTriggerAroundTheMap() }
 
     thread SkyboxAnimation()
+
+    thread FallingObjectInit()
     
     SetFloppytownAngles()
 }
@@ -61,6 +63,8 @@ void function Map_Generation()
     LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "01" )
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
+
+    Crane( FT_CRANE_01_POS, FT_CRANE_01_ANG, "01" )
 }
 
 
@@ -134,9 +138,8 @@ void function Props_Generation()
     for ( int i = 0 ; i < 4 ; i++ )
     { CreateFloppytownModel( FIRSTGEN_256_CLOTH_01, FLOPPYTOWN_POS_OFFSET + < 1028, 4896, 200 > + < 256 * i, 0, 0 >, < 0, 0, 0 > ) }
     CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B, FLOPPYTOWN_POS_OFFSET + < 1344, 1600, 256 >, < 0, 0, 0 > )
-    for ( int i = 0 ; i < 2 ; i++ )
+    for ( int i = 0 ; i < 4 ; i++ )
     { CreateFloppytownModel( IMC_GENERATOR_01, FLOPPYTOWN_POS_OFFSET + < 5184, 2368, 2304 > + < 0, 128 * i, 0 >, < 0, 0, 0 > ) }
-    CreateFloppytownModel( IMC_GENERATOR_01, FLOPPYTOWN_POS_OFFSET + < 5184, 2752, 2304 >, < 0, 0, 0 > )
 }
 
 
@@ -237,7 +240,8 @@ void function Dynamic_Build_Generation()
         printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
         printt( "|Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
         printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
-        printt( "|============================================================|" ) }
+        printt( "|============================================================|" )
+        printt( "" ) }
 }
 
 
@@ -285,14 +289,78 @@ void function Zips_Generation()
     }
 }
 
-
-void function RespawnFallingObject( vector pos )
+void function FallingObjectInit()
 {
-    entity script_mover = CreateFloppytownScriptMover( pos, < 0, 0, 0 >, "falling_object_01" )
-    entity falling_object = CreateFloppytownUsableModel( IMC_GENERATOR_01, pos, < 0, 0, 0 >, "%&use%", "follower_object_01" )
-    entity player_trigger = CreateFloppytownPlayerTrigger( FT_PLAYER_TRIGGER_POS, "player_trigger_01", 510 )
+    FloppytownPanelInit()
 
-    if ( IsValid( script_mover ) && IsValid( falling_object ) && IsValid( player_trigger ) )
+        wait 0.1 // hack for the first activation to work
+
+    RespawnFallingObject()
+}
+
+void function FloppytownPanelInit()
+{
+    entity panel = CreateFloppytownUsableModel( PANEL_BUTTON_CONSOLE, FT_FALLING_OBJECT_PANEL_POS, FT_FALLING_OBJECT_PANEL_ANG, "%&use%", "PANEL_01" )
+    panel.SetSkin( 0 )
+
+    if ( IsValid( panel ) )
+    {
+        AddCallback_OnUseEntity( panel, void function(entity panel, entity user, int input) 
+        {
+            printt( "|==========================================================|" )
+            printt( "| FallingObjectThread(): Thread activate by panel" )
+            printt( "| Player: " + user )
+
+            entity player_trigger = GetEnt( "player_trigger_01" )
+
+            if ( IsValid( player_trigger ) )
+            {
+                player_trigger.Destroy()
+            }
+
+            FlagSet( "FallingObjectThread()_IsActive" )
+
+            thread ChangePanelState()
+            thread FallingObjectThread()
+        })
+    }
+}
+
+void function PlayerTriggerInit()
+{
+    entity find_sling_crane_01 = GetEntArrayByScriptName( "crane_01" )[3]
+    vector sling_crane_01_pos = find_sling_crane_01.GetOrigin()
+    sling_crane_01_pos.z = 0.0
+
+    CreateFloppytownPlayerTrigger( sling_crane_01_pos, "01", 300 )
+}
+
+void function ChangePanelState()
+{
+    entity panel = GetEnt( "PANEL_01" )
+
+    if ( IsValid( panel ) && panel.GetSkin() == 0 )
+    {
+        panel.UnsetUsable()
+        panel.SetSkin( 1 )
+
+            FlagWaitClear( "FallingObjectThread()_IsActive" )
+
+        panel.SetUsable()
+        panel.SetSkin( 0 )
+    }
+}
+
+void function RespawnFallingObject()
+{
+    entity find_sling_crane_01 = GetEntArrayByScriptName( "crane_01" )[3]
+    vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
+    vector model_offset_ang = find_sling_crane_01.GetAngles()
+
+    entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
+    entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
+
+    if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
     {
         printt( "" )
         printt( "|====================================================================|" )
@@ -300,44 +368,33 @@ void function RespawnFallingObject( vector pos )
         printt( "|====================================================================|" )
         printt( "" )
 
-        falling_object.SetParent( script_mover )
+        falling_object_model.SetParent( script_mover )
 
-        AddCallback_OnUseEntity( falling_object, void function(entity panel, entity user, int input) 
-        {
-            printt( "|==========================================================|" )
-            printt( "| FallingObjectThread(): Thread activate by button" )
-            printt( "| Player: " + user )
+        FlagClear( "FallingObjectThread()_IsActive" )
 
-            entity player_trigger = GetEnt( "player_trigger_01" )
-            entity follower = GetEnt( "follower_object_01" )
-
-            if ( IsValid( follower ) && IsValid( player_trigger ) )
-            {
-                player_trigger.Destroy()
-                follower.UnsetUsable()
-
-                thread FallingObjectThread()
-            }
-        })
+        PlayerTriggerInit()
     }
 }
 
-
 void function FallingObjectThread()
 {
-    entity script_mover = GetEnt( "falling_object_01" )
-    entity follower = GetEnt( "follower_object_01" )
-
     int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
 
     printt( "| FallingObjectThread(): Thread startup" )
     printt( "| wait() random_number: " + delay )
     printt( "|==========================================================|" )
 
-    vector start = script_mover.GetOrigin()
-    vector end = start + < -280, 0, -2280 >
+    entity script_mover = GetEnt( "floppytown_script_mover_01" )
+    entity falling_object_model = GetEntArrayByScriptName( "falling_object_model_01" )[0]
 
-    //16,7 = 1.2 
+    vector start = script_mover.GetOrigin()
+    vector end = start + < 0, 0, -3260 >
+
+    script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
+
+        wait 4
+
+    /*
     //0.3048 = 1 meter
 
     script_mover.NonPhysicsMoveTo( start + < -73, 0, 0 >, 1.2, 0, 0 )
@@ -395,6 +452,12 @@ void function FallingObjectThread()
 
     if ( IsValid( fx_3 ) )
     { fx_3.Destroy() }
+    */
+    if ( IsValid( script_mover ) )
+    { script_mover.Destroy() }
+
+    if ( IsValid( falling_object_model ) )
+    { falling_object_model.Destroy() }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}
@@ -405,7 +468,7 @@ void function FallingObjectThread()
     printt( "| FallingObjectThread(): End of the thread" )
     printt( "|==========================================================|" )
 
-    RespawnFallingObject( FT_FALLING_OBJECT_POS )
+    RespawnFallingObject()
 }
 
 

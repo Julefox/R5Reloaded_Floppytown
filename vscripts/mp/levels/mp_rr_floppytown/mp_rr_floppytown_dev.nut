@@ -21,7 +21,7 @@ void function FloppytownDevEnable()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////   become useless since in dev mode we can see the number of entities on the map in real time   /////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
     bool function ClientCommand_Props( entity player, array<string> args )
     {   PrinttPropsCount(); return true }
 
@@ -131,7 +131,7 @@ bool function ClientCommand_FallingObjectActiveThread( entity player, array<stri
     printt( "| FallingObjectThread(): Thread activate by client command" )
     printt( "| Player: " + player )
 
-    thread FallingObjectThread()
+    //thread FallingObjectThread()
 
 return true }
 
