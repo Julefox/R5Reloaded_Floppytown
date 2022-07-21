@@ -295,6 +295,8 @@ void function FallingObjectInit()
 
         wait 0.1 // hack for the first activation to work
 
+    thread GenerateCraneForFloppytown( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
+
     RespawnFallingObject()
 }
 
@@ -364,18 +366,19 @@ void function RespawnFallingObject()
         vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
         vector model_offset_ang = find_sling_crane_01.GetAngles()
 
-        entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
+        entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01", true )
         entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
         if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
         {
+            script_mover.SetParent( find_sling_crane_01 )
+            falling_object_model.SetParent( script_mover )
+
             printt( "" )
             printt( "|====================================================================|" )
             printt( "|>>>>>>>>>>>>>>  RespawnFallingObject():  Initialized  <<<<<<<<<<<<<<|" )
             printt( "|====================================================================|" )
             printt( "" )
-
-            falling_object_model.SetParent( script_mover )
 
             FlagClear( "FallingObjectThread()_IsActive" )
 
