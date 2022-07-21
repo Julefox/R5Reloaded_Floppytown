@@ -204,3 +204,12 @@ void function Crane( vector origin, vector ang_a, vector ang_b, vector ang_c, st
     script_mover_part_b.SetAngles( ang_b )
     script_mover_part_c.SetAngles( ang_c )
 }
+
+void function Test_Crane()
+{
+    entity script_mover_part_a = GetEnt( "floppytown_script_mover_crane_01_a" )
+    script_mover_part_a.NonPhysicsMoveTo( ZERO_VECTOR, 2, 0.0, 0.0 )
+
+    if ( script_mover_part_a.GetOrigin() == ZERO_VECTOR )
+        printt("yes")
+}

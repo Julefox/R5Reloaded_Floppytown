@@ -66,7 +66,8 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-    thread ListenSound( player )
+    thread Test_Crane()
+    //thread ListenSound( player )
 return true }
 
 bool function ClientCommand_AssetViewerActive( entity player, array<string> args )
