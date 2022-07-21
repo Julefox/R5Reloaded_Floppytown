@@ -64,7 +64,7 @@ void function Map_Generation()
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
 
-    Crane( FT_CRANE_01_POS, FT_CRANE_01_ANG, "01" )
+    Crane( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
 }
 
 
@@ -328,11 +328,12 @@ void function FloppytownPanelInit()
 
 void function PlayerTriggerInit()
 {
-    entity find_sling_crane_01 = GetEntArrayByScriptName( "crane_01" )[3]
-    vector sling_crane_01_pos = find_sling_crane_01.GetOrigin()
-    sling_crane_01_pos.z = 0.0
+    entity script_mover = GetEnt( "floppytown_script_mover_crane_01_sling" )
+    TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + <0,0,-6000>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
-    CreateFloppytownPlayerTrigger( sling_crane_01_pos, "01", 300 )
+    vector find_player_trigger_pos = result.endPos
+
+    CreateFloppytownPlayerTrigger( find_player_trigger_pos, "01", 300 )
 }
 
 void function ChangePanelState()
@@ -353,7 +354,8 @@ void function ChangePanelState()
 
 void function RespawnFallingObject()
 {
-    entity find_sling_crane_01 = GetEntArrayByScriptName( "crane_01" )[3]
+    entity find_sling_crane_01 = GetEnt( "floppytown_script_mover_crane_01_sling" )
+
     vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
     vector model_offset_ang = find_sling_crane_01.GetAngles()
 
@@ -387,56 +389,56 @@ void function FallingObjectThread()
     entity script_mover = GetEnt( "floppytown_script_mover_01" )
     entity falling_object_model = GetEntArrayByScriptName( "falling_object_model_01" )[0]
 
-    vector start = script_mover.GetOrigin()
-    vector end = start + < 0, 0, -3260 >
+    if ( IsValid( script_mover ) && IsValid( falling_object_model ) ) // 0.3048 = 1 meter
+    {
+        TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + <0,0,-6000>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
-    script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
+        vector end = result.endPos
 
-        wait 3
+        script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
 
-    //0.3048 = 1 meter
+            wait 3
 
-    entity fx_0 = PlayFXOnEntity( EXP_IMPACT_ARCBALL_DEFAULT, script_mover )
-    EmitSoundOnEntity( script_mover, DROPSHIP_EXPLODE_OLD )
-    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+        entity fx_0 = PlayFXOnEntity( EXP_IMPACT_ARCBALL_DEFAULT, script_mover )
+        EmitSoundOnEntity( script_mover, DROPSHIP_EXPLODE_OLD )
+        Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
-        wait 2.8
+            wait 2.8
 
-    if ( IsValid( falling_object_model ) )
-    { falling_object_model.Destroy() }
+        entity fx_1 = PlayFXOnEntity( EXP_IMPACT_TRIPLE_THREAT_FULL, script_mover )
 
-    //script_mover.SetAngles( ZERO_V )
+        falling_object_model.Destroy()
 
-    entity fx_1 = PlayFXOnEntity( EXP_IMPACT_TRIPLE_THREAT_FULL, script_mover )
+            wait 0.1
 
-        wait 0.1
+        entity fx_2 = PlayFXOnEntity( EXP_NUKE_3P, script_mover )
+        Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
-    entity fx_2 = PlayFXOnEntity( EXP_NUKE_3P, script_mover )
-    Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+            wait 0.2
 
-        wait 0.2
+        entity fx_3 = PlayFXOnEntity( FIRE_VENT_DOOM, script_mover )
+        EmitSoundOnEntity( script_mover, FIRE_MEDIUM )
 
-    entity fx_3 = PlayFXOnEntity( FIRE_VENT_DOOM, script_mover )
-    EmitSoundOnEntity( script_mover, FIRE_MEDIUM )
+            wait 6
 
-        wait 6
+        StopSoundOnEntity( script_mover, FIRE_MEDIUM )
 
-    StopSoundOnEntity( script_mover, FIRE_MEDIUM )
+        if ( IsValid( script_mover ) )
+        { script_mover.Destroy() }
 
-    if ( IsValid( script_mover ) )
-    { script_mover.Destroy() }
+        if ( IsValid( fx_0 ) )
+        { fx_0.Destroy() }
 
-    if ( IsValid( fx_0 ) )
-    { fx_0.Destroy() }
+        if ( IsValid( fx_1 ) )
+        { fx_1.Destroy() }
 
-    if ( IsValid( fx_1 ) )
-    { fx_1.Destroy() }
+        if ( IsValid( fx_2 ) )
+        { fx_2.Destroy() }
 
-    if ( IsValid( fx_2 ) )
-    { fx_2.Destroy() }
-
-    if ( IsValid( fx_3 ) )
-    { fx_3.Destroy() }
+        if ( IsValid( fx_3 ) )
+        { fx_3.Destroy() }
+    }
+    
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}

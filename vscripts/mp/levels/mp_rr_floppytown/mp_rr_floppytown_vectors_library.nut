@@ -140,12 +140,13 @@ global const vector FT_NESSY_5_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 
 // Crane
 global const vector FT_CRANE_01_POS = FLOPPYTOWN_POS_OFFSET + < 5720, 2915, 2600 >
-global const vector FT_CRANE_01_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
+global const vector FT_CRANE_01_ANG_A = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
+global const vector FT_CRANE_01_ANG_B = FLOPPYTOWN_ANG_OFFSET + < 0, 40, 0 >
+global const vector FT_CRANE_01_ANG_C = FLOPPYTOWN_ANG_OFFSET + < 0, -155, 0 >
 
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
-global const vector ZERO_V                  = < 0, 0, 0 >
 
 //
 global const int    FALLING_OBJ_DELAY_MIN   = 30

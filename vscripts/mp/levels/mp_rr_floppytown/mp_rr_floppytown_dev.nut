@@ -16,7 +16,8 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
-    AddClientCommandCallback( "fall",  ClientCommand_FallingObjectActiveThread )
+    AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
+    AddClientCommandCallback( "crane",  ClientCommand_MovingCrane )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +152,6 @@ bool function ClientCommand_FallingObjectActiveThread( entity player, array<stri
         printt( "| FallingObjectThread(): Thread is already activate" )
         printt( "|==========================================================|" )
     }
-    
 
 return true }
 
@@ -178,4 +178,9 @@ void function ListenSound( entity player )
     }
     printt( "You have listened to everything !" )
 }
-        
+
+bool function ClientCommand_MovingCrane( entity player, array<string> args )
+{
+    MovingCrane()
+
+return true }
