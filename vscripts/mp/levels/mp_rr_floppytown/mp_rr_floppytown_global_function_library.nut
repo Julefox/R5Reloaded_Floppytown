@@ -58,11 +58,16 @@ entity function CreateFloppytownUsableModel( asset model, vector pos, vector ang
 return UsableButton }
 
 
-entity function CreateFloppytownScriptMover( vector origin = < 0.0, 0.0, 0.0 >, vector angles = < 0.0, 0.0, 0.0 >, string name = "" )
+entity function CreateFloppytownScriptMover( vector origin = < 0.0, 0.0, 0.0 >, vector angles = < 0.0, 0.0, 0.0 >, string name = "", bool visible = false )
 {
     entity script_mover = CreateEntity( "script_mover_lightweight" )
     script_mover.kv.solid = 0
-    script_mover.SetValueForModelKey( $"mdl/dev/empty_model.rmdl" )
+
+    if ( visible == true)
+    { script_mover.SetValueForModelKey( EDITOR_REF ) }
+    else
+    { script_mover.SetValueForModelKey( $"mdl/dev/empty_model.rmdl" ) }
+
     script_mover.kv.SpawnAsPhysicsMover = 0
     script_mover.SetOrigin( origin )
     script_mover.SetAngles( angles )
