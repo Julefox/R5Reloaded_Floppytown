@@ -64,7 +64,7 @@ void function Map_Generation()
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
 
-    Crane( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
+    //thread GenerateCraneForFloppytown( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
 }
 
 
@@ -359,25 +359,28 @@ void function RespawnFallingObject()
 {
     entity find_sling_crane_01 = GetEnt( "floppytown_script_mover_crane_01_sling" )
 
-    vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
-    vector model_offset_ang = find_sling_crane_01.GetAngles()
-
-    entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
-    entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
-
-    if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
+    if ( IsValid( find_sling_crane_01 ) )
     {
-        printt( "" )
-        printt( "|====================================================================|" )
-        printt( "|>>>>>>>>>>>>>>  RespawnFallingObject():  Initialized  <<<<<<<<<<<<<<|" )
-        printt( "|====================================================================|" )
-        printt( "" )
+        vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
+        vector model_offset_ang = find_sling_crane_01.GetAngles()
 
-        falling_object_model.SetParent( script_mover )
+        entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
+        entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
-        FlagClear( "FallingObjectThread()_IsActive" )
+        if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
+        {
+            printt( "" )
+            printt( "|====================================================================|" )
+            printt( "|>>>>>>>>>>>>>>  RespawnFallingObject():  Initialized  <<<<<<<<<<<<<<|" )
+            printt( "|====================================================================|" )
+            printt( "" )
 
-        PlayerTriggerInit()
+            falling_object_model.SetParent( script_mover )
+
+            FlagClear( "FallingObjectThread()_IsActive" )
+
+            PlayerTriggerInit()
+        }
     }
 }
 

@@ -144,6 +144,9 @@ global const vector FT_CRANE_01_ANG_A = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 global const vector FT_CRANE_01_ANG_B = FLOPPYTOWN_ANG_OFFSET + < 0, 40, 0 >
 global const vector FT_CRANE_01_ANG_C = FLOPPYTOWN_ANG_OFFSET + < 0, -155, 0 >
 
+global const vector FT_CRANE_PART_B_OFFSET = < 0, 0, 560 >
+global const vector FT_CRANE_PART_C_OFFSET = FT_CRANE_PART_B_OFFSET + < -330, 0, 260 >
+
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
