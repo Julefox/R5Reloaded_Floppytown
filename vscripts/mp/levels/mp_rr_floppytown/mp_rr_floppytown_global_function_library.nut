@@ -165,8 +165,8 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
 
                         FlagSet( "FallingObjectThread()_IsActive" )
 
-                        //thread ChangePanelState()
-                        //thread FallingObjectThread()
+                        thread ChangePanelState()
+                        thread FallingObjectThread()
                     }
                 }
             }
@@ -182,17 +182,17 @@ void function Crane( vector origin, vector ang_a, vector ang_b, vector ang_c, st
     string target_name = "crane_" + name
 
     entity script_mover_part_a = CreateFloppytownScriptMover( origin, ZERO_VECTOR, target_name + "_a" )
-    entity rotator_a = CreateFloppytownModel( CRANE_01_A, origin, < 0, 0, 0 > )
+    entity rotator_a = CreateFloppytownModel( CRANE_01_A, origin, ZERO_VECTOR )
 
         rotator_a.SetParent( script_mover_part_a )
 
     entity script_mover_part_b = CreateFloppytownScriptMover( rotator_a.GetOrigin() + < 0, 0, 560 >, ZERO_VECTOR, target_name + "_b" )
-    entity rotator_b = CreateFloppytownModel( CRANE_01_B, rotator_a.GetOrigin() + < 0, 0, 560 >, < 0, 0, 0 > )
+    entity rotator_b = CreateFloppytownModel( CRANE_01_B, rotator_a.GetOrigin() + < 0, 0, 560 >, ZERO_VECTOR )
 
         rotator_b.SetParent( script_mover_part_b )
 
     entity script_mover_part_c = CreateFloppytownScriptMover( rotator_b.GetOrigin() + < -330, 0, 260 >, ZERO_VECTOR, target_name + "_c" )
-    entity rotator_c = CreateFloppytownModel( CRANE_01_C, rotator_b.GetOrigin() + < -330, 0, 260 >, < 0, 0, 0 > )
+    entity rotator_c = CreateFloppytownModel( CRANE_01_C, rotator_b.GetOrigin() + < -330, 0, 260 >, ZERO_VECTOR )
 
         rotator_c.SetParent( script_mover_part_c )
         script_mover_part_c.SetParent( script_mover_part_b )
@@ -203,22 +203,4 @@ void function Crane( vector origin, vector ang_a, vector ang_b, vector ang_c, st
     script_mover_part_a.SetAngles( ang_a )
     script_mover_part_b.SetAngles( ang_b )
     script_mover_part_c.SetAngles( ang_c )
-
-
-    //rotator_2.SetParent( rotator_b )
-    //sling_center.SetParent( rotator_2 )
-
-    //rotator_b.SetAngles( < 0, 40, 0 > )
-    //rotator_2.SetAngles( < 0, -155, 0 > )
-}
-
-void function MovingCrane()
-{
-    entity crane_01_a = GetEnt( "floppytown_script_mover_crane_01_a" )
-    entity crane_01_b = GetEnt( "floppytown_script_mover_crane_01_b" )
-    entity crane_01_c = GetEnt( "floppytown_script_mover_crane_01_c" )
-
-    //crane_01_a.NonPhysicsRotate( <0,50,0>, 3 )
-
-    crane_01_a.SetAngles( <0,180,0> )
 }

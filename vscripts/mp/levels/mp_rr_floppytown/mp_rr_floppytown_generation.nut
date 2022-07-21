@@ -329,7 +329,10 @@ void function FloppytownPanelInit()
 void function PlayerTriggerInit()
 {
     entity script_mover = GetEnt( "floppytown_script_mover_crane_01_sling" )
-    TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + <0,0,-6000>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+
+    vector model_offset_pos = script_mover.GetOrigin() + < 0, 0, -240 >
+
+    TraceResults result = TraceLine( model_offset_pos, model_offset_pos + -6000 * <0,0,1>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
     vector find_player_trigger_pos = result.endPos
 
@@ -391,7 +394,7 @@ void function FallingObjectThread()
 
     if ( IsValid( script_mover ) && IsValid( falling_object_model ) ) // 0.3048 = 1 meter
     {
-        TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + <0,0,-6000>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+        TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + -6000 * <0,0,1>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector end = result.endPos
 

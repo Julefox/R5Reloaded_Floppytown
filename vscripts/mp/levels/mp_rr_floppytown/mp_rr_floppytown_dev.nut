@@ -17,7 +17,6 @@ void function FloppytownDevEnable()
     AddClientCommandCallback( "test",   ClientCommand_Test )
     AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
     AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
-    AddClientCommandCallback( "crane",  ClientCommand_MovingCrane )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,9 +177,3 @@ void function ListenSound( entity player )
     }
     printt( "You have listened to everything !" )
 }
-
-bool function ClientCommand_MovingCrane( entity player, array<string> args )
-{
-    MovingCrane()
-
-return true }
