@@ -184,51 +184,35 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
 
 void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector ang_b, vector ang_c, string name )
 {
+    FlagSet( "FallingObjectThread()_IsActive" )
+
+    thread ChangePanelState()
+
     string target_name = "crane_" + name
 
-    entity script_mover_part_a = CreateFloppytownScriptMover( origin, ZERO_VECTOR, target_name + "_a", true )
     entity script_mover_part_b = CreateFloppytownScriptMover( origin + FT_CRANE_PART_B_OFFSET, ZERO_VECTOR, target_name + "_b", true )
     entity script_mover_part_c = CreateFloppytownScriptMover( origin + FT_CRANE_PART_C_OFFSET, ZERO_VECTOR, target_name + "_c", true )
-    entity script_mover_part_sling = CreateFloppytownScriptMover( origin + FT_CRANE_PART_SLING_OFFSET, ZERO_VECTOR, target_name + "_sling" )
+    entity script_mover_part_sling = CreateFloppytownScriptMover( origin + FT_CRANE_PART_SLING_OFFSET, ZERO_VECTOR, target_name + "_sling", true )
 
-    entity moving_part_model_a = CreateFloppytownModel( CRANE_01_A, origin                          , ZERO_VECTOR )
+    entity moving_part_model_a = CreateFloppytownModel( CRANE_01_A, origin                          , ang_a )
     entity moving_part_model_b = CreateFloppytownModel( CRANE_01_B, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
     entity moving_part_model_c = CreateFloppytownModel( CRANE_01_C, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
 
-    moving_part_model_a.SetParent( script_mover_part_a )
     moving_part_model_b.SetParent( script_mover_part_b )
     moving_part_model_c.SetParent( script_mover_part_c )
 
     script_mover_part_c.SetParent( moving_part_model_b )
 
-        wait 6
+    script_mover_part_sling.SetParent( script_mover_part_c )
 
-    script_mover_part_a.NonPhysicsRotateTo( <0,45,0>, 4, 2.0, 2.0 )
+        wait 0.1
+
     script_mover_part_b.NonPhysicsRotateTo( <0,40,0>, 4, 2.0, 2.0 )
     script_mover_part_c.NonPhysicsRotateTo( <0,-155,0>, 4, 2.0, 2.0 )
 
+        wait 4
 
-    /* entity rotator_a = CreateFloppytownModel( CRANE_01_A, origin, ZERO_VECTOR )
-
-        rotator_a.SetParent( script_mover_part_a )
-
-    
-    entity rotator_b = CreateFloppytownModel( CRANE_01_B, rotator_a.GetOrigin() + < 0, 0, 560 >, ZERO_VECTOR )
-
-        rotator_b.SetParent( script_mover_part_b )
-
-    
-    entity rotator_c = CreateFloppytownModel( CRANE_01_C, rotator_b.GetOrigin() + < -330, 0, 260 >, ZERO_VECTOR )
-
-        rotator_c.SetParent( script_mover_part_c )
-        script_mover_part_c.SetParent( script_mover_part_b )
-    
-    entity sling_center = CreateFloppytownScriptMover( rotator_c.GetOrigin() + < 885, 0, 80 >, ZERO_VECTOR, target_name + "_sling" )
-        sling_center.SetParent( script_mover_part_c )
-
-    script_mover_part_a.SetAngles( ang_a )
-    script_mover_part_b.SetAngles( ang_b )
-    script_mover_part_c.SetAngles( ang_c ) */
+    FlagClear( "FallingObjectThread()_IsActive" )
 }
 
 void function Test_Crane()
@@ -245,6 +229,4 @@ void function Test_Crane()
     //test.NonPhysicsMoveTo( <0,180,0>, 4, 2.0, 2.0 )
     test_mover_1.NonPhysicsRotateTo( <0,180,0>, 4, 2.0, 2.0 )
     test_mover_2.NonPhysicsRotateTo( <0,0,0>, 4, 2.0, 2.0 ) */
-
-    thread GenerateCraneForFloppytown( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
 }

@@ -9,6 +9,7 @@ void function Floppytown_MapInit_Generation()
     printt( "" )
 
     FlagInit( "FallingObjectThread()_IsActive" )
+    FlagInit( "FallingObjectThread()_thread_ending" )
 
     Map_Generation()
     Props_Generation()
@@ -379,32 +380,32 @@ void function RespawnFallingObject()
             printt( "|>>>>>>>>>>>>>>  RespawnFallingObject():  Initialized  <<<<<<<<<<<<<<|" )
             printt( "|====================================================================|" )
             printt( "" )
-
-            FlagClear( "FallingObjectThread()_IsActive" )
-
-            PlayerTriggerInit()
         }
     }
 }
 
 void function FallingObjectThread()
 {
-    int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
-
     printt( "| FallingObjectThread(): Thread startup" )
-    printt( "| wait() random_number: " + delay )
     printt( "|==========================================================|" )
+
+    FlagSet( "FallingObjectThread()_IsActive" )
+    FlagSet( "FallingObjectThread()_thread_ending" )
 
     entity script_mover = GetEnt( "floppytown_script_mover_01" )
     entity falling_object_model = GetEntArrayByScriptName( "falling_object_model_01" )[0]
 
     if ( IsValid( script_mover ) && IsValid( falling_object_model ) ) // 0.3048 = 1 meter
     {
+        script_mover.ClearParent()
+
         TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + -10000 * <0,0,1>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector end = result.endPos
 
         script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
+
+        thread CraneIsMoving()
 
             wait 3
 
@@ -446,19 +447,54 @@ void function FallingObjectThread()
 
         if ( IsValid( fx_3 ) )
         { fx_3.Destroy() }
+
+        FlagClear( "FallingObjectThread()_thread_ending" )
     }
-    
+
+    printt( "|==========================================================|" )
+    printt( "| FallingObjectThread(): End of the thread" )
+    printt( "|==========================================================|" )
+}
+
+void function CraneIsMoving()
+{
+    int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
+
+    printt( "|==========================================================|" )
+    printt( "| CraneIsMoving(): Thread startup" )
+    printt( "| wait() random_number: " + delay )
+    printt( "|==========================================================|" )
+
+    entity crane_01_b = GetEnt( "floppytown_script_mover_crane_01_b" )
+    entity crane_01_c = GetEnt( "floppytown_script_mover_crane_01_c" )
+
+    crane_01_b.NonPhysicsRotateTo( <0,120,0>, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( <0,30,0>, 4, 2.0, 2.0 )
+
+    FlagWaitClear( "FallingObjectThread()_thread_ending" )
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
     {}
     else
     { wait( delay ) }
 
-    printt( "|==========================================================|" )
-    printt( "| FallingObjectThread(): End of the thread" )
-    printt( "|==========================================================|" )
-
+    
     RespawnFallingObject()
+
+    wait 0.2
+
+    crane_01_b.NonPhysicsRotateTo( <0,40,0>, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( <0,-155,0>, 4, 2.0, 2.0 )
+
+    wait 4.2
+
+    PlayerTriggerInit()
+
+    FlagClear( "FallingObjectThread()_IsActive" )
+
+    printt( "|==========================================================|" )
+    printt( "| CraneIsMoving(): End of the thread" )
+    printt( "|==========================================================|" )
 }
 
 
