@@ -437,6 +437,7 @@ global const asset EXP_CAPITAL_SHIP_SBOX              = $"P_exp_capital_ship_SB"
 
 /////--- SFx ---/////
 global const string DROPSHIP_EXPLODE_OLD          = "goblin_dropship_explode_OLD"
+global const string PLAYER_ZIPLINE_DETACH         = "player_zipline_detach"
 global const string INCENDIARY_BURN               = "incendiary_trap_burn"
 global const string INCENDIARY_BURN_STOP          = "incendiary_trap_burn_stop"
 global const string FIRE_MEDIUM                   = "Grave_Emit_FireMedium"

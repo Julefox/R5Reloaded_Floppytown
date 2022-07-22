@@ -64,8 +64,6 @@ void function Map_Generation()
     LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "01" )
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
-
-    //thread GenerateCraneForFloppytown( FT_CRANE_01_POS, FT_CRANE_01_ANG_A, FT_CRANE_01_ANG_B, FT_CRANE_01_ANG_C, "01" )
 }
 
 
@@ -367,7 +365,7 @@ void function RespawnFallingObject()
         vector model_offset_pos = find_sling_crane_01.GetOrigin() + < 0, 0, -240 >
         vector model_offset_ang = find_sling_crane_01.GetAngles()
 
-        entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01", true )
+        entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
         entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
         if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
@@ -394,6 +392,14 @@ void function FallingObjectThread()
 
     entity script_mover = GetEnt( "floppytown_script_mover_01" )
     entity falling_object_model = GetEntArrayByScriptName( "falling_object_model_01" )[0]
+    entity sling = GetEnt( "floppytown_script_mover_crane_01_sling" )
+
+    foreach( player in GetPlayerArray() )
+    {
+        Remote_CallFunction_NonReplay( player, "ServerCallback_AnnouncementTest" )
+    }
+
+    wait RandomFloatRange( WAIT_BEFORE_FALL_MIN, WAIT_BEFORE_FALL_MAX )
 
     if ( IsValid( script_mover ) && IsValid( falling_object_model ) ) // 0.3048 = 1 meter
     {
@@ -402,6 +408,8 @@ void function FallingObjectThread()
         TraceResults result = TraceLine( script_mover.GetOrigin(), script_mover.GetOrigin() + -10000 * <0,0,1>, [ script_mover ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector end = result.endPos
+
+        EmitSoundOnEntity( sling, PLAYER_ZIPLINE_DETACH )
 
         script_mover.NonPhysicsMoveTo( end, 3, 0, 0 )
 
@@ -458,7 +466,7 @@ void function FallingObjectThread()
 
 void function CraneIsMoving()
 {
-    int delay = RandomIntRange( FALLING_OBJ_DELAY_MIN, FALLING_OBJ_DELAY_MAX )
+    int delay = RandomIntRange( FALLING_OBJ_RESTART_DELAY_MIN, FALLING_OBJ_RESTART_DELAY_MAX )
 
     printt( "|==========================================================|" )
     printt( "| CraneIsMoving(): Thread startup" )
@@ -468,8 +476,8 @@ void function CraneIsMoving()
     entity crane_01_b = GetEnt( "floppytown_script_mover_crane_01_b" )
     entity crane_01_c = GetEnt( "floppytown_script_mover_crane_01_c" )
 
-    crane_01_b.NonPhysicsRotateTo( <0,120,0>, 4, 2.0, 2.0 )
-    crane_01_c.NonPhysicsRotateTo( <0,30,0>, 4, 2.0, 2.0 )
+    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_OUT, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_OUT, 4, 2.0, 2.0 )
 
     FlagWaitClear( "FallingObjectThread()_thread_ending" )
 
@@ -481,12 +489,21 @@ void function CraneIsMoving()
     
     RespawnFallingObject()
 
-    wait 0.2
+        wait 0.2
 
-    crane_01_b.NonPhysicsRotateTo( <0,40,0>, 4, 2.0, 2.0 )
-    crane_01_c.NonPhysicsRotateTo( <0,-155,0>, 4, 2.0, 2.0 )
+    entity script_mover = GetEnt( "floppytown_script_mover_01" )
 
-    wait 4.2
+    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
+
+    script_mover.NonPhysicsRotateTo( < 0, 180, 10 >, 3.5, 2.0, 1.5 )
+    //script_mover.NonPhysicsRotateTo( < 0, 180, 10 >, 2, 1.0, 1.0 )
+    
+        wait 3.5
+
+    script_mover.NonPhysicsRotateTo( < 0, 180, 0 >, 0.5, 0.20, 0.30 )
+
+        wait 2.2
 
     PlayerTriggerInit()
 

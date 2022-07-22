@@ -1,5 +1,7 @@
 global function ClientCodeCallback_MapInit
 
+global function ServerCallback_AnnouncementTest
+
 void function ClientCodeCallback_MapInit()
 {
     printt( "" )
@@ -40,6 +42,14 @@ void function FloppytownLightEnvironment()
     dlight_dev_0_0.SetLightExponent( 0.1 )
     entity dlight_dev_0_1 = CreateClientSideDynamicLight( <896, 3264, 336>, <0,0,0>, DLIGHT_WHITE, brightness_dev )
     dlight_dev_0_1.SetLightExponent( 0.1 )
+}
+
+void function ServerCallback_AnnouncementTest()
+{
+    entity player = GetPlayerArray()[0]
+    AnnouncementData announcement = Announcement_Create( "" )
+	Announcement_SetSoundAlias( announcement, "survival_circle_close_alarm_01" )
+    AnnouncementFromClass( player, announcement )
 }
 
 void function Floppytown_MapInit_Client()

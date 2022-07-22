@@ -144,19 +144,24 @@ global const vector FT_CRANE_01_ANG_A = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 global const vector FT_CRANE_01_ANG_B = FLOPPYTOWN_ANG_OFFSET + < 0, 40, 0 >
 global const vector FT_CRANE_01_ANG_C = FLOPPYTOWN_ANG_OFFSET + < 0, -155, 0 >
 
-global const vector FT_CRANE_PART_B_OFFSET = < 0, 0, 560 >
-global const vector FT_CRANE_PART_C_OFFSET = FT_CRANE_PART_B_OFFSET + < -330, 0, 260 >
-global const vector FT_CRANE_PART_SLING_OFFSET = FT_CRANE_PART_C_OFFSET + < 885, 0, 80 >
+global const vector FT_CRANE_PART_B_OFFSET      = < 0, 0, 560 >
+global const vector FT_CRANE_PART_C_OFFSET      = FT_CRANE_PART_B_OFFSET + < -330, 0, 260 >
+global const vector FT_CRANE_PART_SLING_OFFSET  = FT_CRANE_PART_C_OFFSET + < 885, 0, 80 >
 
-global const vector FT_CRANE
+global const vector FT_CRANE_THREAD_PART_B_IN   = <0,40,0>
+global const vector FT_CRANE_THREAD_PART_C_IN   = <0,-155,0>
+global const vector FT_CRANE_THREAD_PART_B_OUT  = <0,120,0>
+global const vector FT_CRANE_THREAD_PART_C_OUT  = <0,30,0>
 
 //
 global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
 
 //
-global const int    FALLING_OBJ_DELAY_MIN   = 30
-global const int    FALLING_OBJ_DELAY_MAX   = 120
+global const int    FALLING_OBJ_RESTART_DELAY_MIN   = 30
+global const int    FALLING_OBJ_RESTART_DELAY_MAX   = 120
+global const float  WAIT_BEFORE_FALL_MIN            = 1.0
+global const float  WAIT_BEFORE_FALL_MAX            = 4.0
 
 void function Floppytown_MapInit_Vectors_Library()
 {
