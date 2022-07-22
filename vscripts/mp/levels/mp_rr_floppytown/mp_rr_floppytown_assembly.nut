@@ -2,8 +2,18 @@ untyped
 
 globalize_all_functions
 
+
+void function PrinttAssemblyFiles()
+{
+    printt( "|mp_rr_floppytown_assembly.nut:                  file called.|" )
+}
+
+
 void function Floppytown_MapInit_Assembly()
-{   printt( "| Floppytown_MapInit_Assembly:                  The file has been called. |" ) }
+{
+    
+}
+
 
 void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
 {

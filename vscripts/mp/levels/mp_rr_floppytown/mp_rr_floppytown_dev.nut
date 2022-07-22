@@ -2,21 +2,24 @@ untyped
 
 globalize_all_functions
 
-void function Floppytown_MapInit_Dev()
+void function PrinttDevFiles()
 {
-    printt( "| Floppytown_MapInit_Dev:                       The file has been called. |" )
-    FloppytownDevEnable()
+    printt( "|mp_rr_floppytown_dev.nut:                       file called.|" )
 }
 
-void function FloppytownDevEnable()
+
+void function Floppytown_MapInit_Dev()
 {
-    EditorRefAreVisible()
-    AreaBuildAreVisible()
-    AddClientCommandCallback( "props",  ClientCommand_Props )
-    AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
-    AddClientCommandCallback( "test",   ClientCommand_Test )
-    AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
-    AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
+    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
+    {
+        EditorRefAreVisible()
+        AreaBuildAreVisible()
+        AddClientCommandCallback( "props",  ClientCommand_Props )
+        AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
+        AddClientCommandCallback( "test",   ClientCommand_Test )
+        AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
+        AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

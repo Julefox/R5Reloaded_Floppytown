@@ -1,32 +1,31 @@
+untyped
+
 global function CodeCallback_MapInit
+global function PrinttServerFiles
 
 void function CodeCallback_MapInit()
 {
-    printt( "" )
-    printt( "|=========================================================================|" )
-    printt( "| Floppytown_MapInit:                           The file has been called. |" )
+    FlagInit( "FallingObjectThread()_IsActive" )
+    FlagInit( "FallingObjectThread()_thread_ending" )
 
     Floppytown_MapInit_Common()
 
+    DebugPrintt()
 
-    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
-    {
-        Floppytown_MapInit_Dev()
-    }
+    Floppytown_MapInit()
+}
 
+void function PrinttServerFiles()
+{
+    printt( "|mp_rr_floppytown.nut:                           file called.|" )
+}
 
-    Floppytown_MapInit_Global_Function_Library()
-    Floppytown_MapInit_Asset_Library()
-    Floppytown_MapInit_Vectors_Library()
+void function Floppytown_MapInit()
+{
+    Floppytown_MapInit_Global_Functions()
+    Floppytown_MapInit_Global_Assets()
+    Floppytown_MapInit_Global_Vectors()
     Floppytown_MapInit_Assembly()
     Floppytown_MapInit_Generation()
-
-
-    if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
-    {
-        printt( "|=============================================================|" )
-        printt( "|>>>>>>>>>>>>> WARNING: DEVELOPER MODE IS ENABLE <<<<<<<<<<<<<|" )
-        printt( "|=============================================================|" )
-    }
-    printt( "" )
+    Floppytown_MapInit_Dev()
 }

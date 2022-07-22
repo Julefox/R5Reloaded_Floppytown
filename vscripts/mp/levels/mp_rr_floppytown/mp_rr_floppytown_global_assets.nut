@@ -1,6 +1,8 @@
 untyped
 
+
 globalize_all_functions
+
 
 /////--- Main assets of the map ---/////
 // Desertlands
@@ -857,13 +859,21 @@ global array< string > SOUNDS_ARRAY =
 ]
 
 
-void function Floppytown_MapInit_Asset_Library()
+void function PrinttGlobalAssetsFiles()
 {
-    printt( "| Floppytown_MapInit_Asset_Library:             The file has been called. |" )
+    printt( "|mp_rr_floppytown_global_assets.nut:             file called.|" )
+}
 
+void function Floppytown_MapInit_Global_Assets()
+{
+    
+}
+
+void function PrecacheAssets()
+{
     for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
     {
-        PrecacheModel( ASSET_VIEWER_ARRAY[i] )
+       PrecacheModel( ASSET_VIEWER_ARRAY[i] )
     }
 
     for ( int i = 0 ; i < FX_ARRAY.len() ; i++)

@@ -1,6 +1,9 @@
 untyped
 
-globalize_all_functions
+
+global function PrinttGlobalVectorsFiles
+global function Floppytown_MapInit_Global_Vectors
+
 
 // Map Origin | Angles
 global const vector FLOPPYTOWN_POS_OFFSET   = < 0, 0, 0 > // map origin // Zips appear with "mp_rr_floppytown_scripts.ent", map position change is not available anymore !
@@ -163,7 +166,13 @@ global const int    FALLING_OBJ_RESTART_DELAY_MAX   = 120
 global const float  WAIT_BEFORE_FALL_MIN            = 1.0
 global const float  WAIT_BEFORE_FALL_MAX            = 4.0
 
-void function Floppytown_MapInit_Vectors_Library()
+
+void function PrinttGlobalVectorsFiles()
 {
-    printt( "| Floppytown_MapInit_Vectors_Library:           The file has been called. |" )
+    printt( "|mp_rr_floppytown_global_vectors.nut:            file called.|" )
+}
+
+void function Floppytown_MapInit_Global_Vectors()
+{
+
 }

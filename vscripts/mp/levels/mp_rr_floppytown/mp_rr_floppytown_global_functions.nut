@@ -3,9 +3,15 @@ untyped
 globalize_all_functions
 
 
-void function Floppytown_MapInit_Global_Function_Library()
+void function PrinttGlobalFunctionFiles()
 {
-    printt( "| Floppytown_MapInit_Global_Function_Library:   The file has been called. |" )
+    printt( "|mp_rr_floppytown_global_function.nut:           file called.|" )
+}
+
+
+void function Floppytown_MapInit_Global_Functions()
+{
+
 }
 
 
@@ -180,41 +186,4 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
         { active = false ; break }
         
     wait 0.01 }
-}
-
-void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector ang_b, vector ang_c, string name )
-{
-    FlagSet( "FallingObjectThread()_IsActive" )
-
-    thread ChangePanelState()
-
-    string target_name = "crane_" + name
-
-    entity script_mover_part_b = CreateFloppytownScriptMover( origin + FT_CRANE_PART_B_OFFSET, ZERO_VECTOR, target_name + "_b" )
-    entity script_mover_part_c = CreateFloppytownScriptMover( origin + FT_CRANE_PART_C_OFFSET, ZERO_VECTOR, target_name + "_c" )
-    entity script_mover_part_sling = CreateFloppytownScriptMover( origin + FT_CRANE_PART_SLING_OFFSET, ZERO_VECTOR, target_name + "_sling" )
-
-    entity script_mover = GetEnt( "floppytown_script_mover_crane_01_sling" )
-
-    entity moving_part_model_a = CreateFloppytownModel( CRANE_01_A, origin                          , ang_a )
-    entity moving_part_model_b = CreateFloppytownModel( CRANE_01_B, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
-    entity moving_part_model_c = CreateFloppytownModel( CRANE_01_C, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
-
-    moving_part_model_b.SetParent( script_mover_part_b )
-    moving_part_model_c.SetParent( script_mover_part_c )
-
-    script_mover_part_c.SetParent( moving_part_model_b )
-
-    script_mover_part_sling.SetParent( script_mover_part_c )
-
-        wait 0.1
-
-    script_mover_part_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
-    script_mover_part_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
-    script_mover.NonPhysicsRotateTo( < 0, 180, 0 >, 4, 2.0, 2.0 )
-
-        wait 4
-
-    FlagClear( "FallingObjectThread()_IsActive" )
-    PlayerTriggerInit()
 }
