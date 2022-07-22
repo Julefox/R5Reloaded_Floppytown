@@ -214,19 +214,3 @@ void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector an
 
     FlagClear( "FallingObjectThread()_IsActive" )
 }
-
-void function Test_Crane()
-{
-    /* entity test_mover_1 = CreateFloppytownScriptMover( < 3072, 2816, 200 >, < 0, 0, 0 >, "for_test", true )
-    entity test_mover_2 = CreateFloppytownScriptMover( < 3372, 2816, 456 >, < 0, 180, 0 >, "for_test", true )
-    entity test_1 = CreateFloppytownModel( THUNDERDOME_WALL_256x256_01, < 3072, 2816, 200 >, < 0, 0, 0 > )
-
-    test_1.SetParent( test_mover_1 )
-    test_mover_2.SetParent( test_mover_1 )
-    
-        wait 2
-
-    //test.NonPhysicsMoveTo( <0,180,0>, 4, 2.0, 2.0 )
-    test_mover_1.NonPhysicsRotateTo( <0,180,0>, 4, 2.0, 2.0 )
-    test_mover_2.NonPhysicsRotateTo( <0,0,0>, 4, 2.0, 2.0 ) */
-}
