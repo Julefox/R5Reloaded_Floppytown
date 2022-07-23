@@ -32,6 +32,16 @@ void function ClientCodeCallback_MapInit()
     printt( "" )
 }
 
+void function ServerCallback_Crane_Announcement()
+{
+    foreach( player in GetPlayerArray() )
+    {
+        AnnouncementData announcement = Announcement_Create( "" )
+	    Announcement_SetSoundAlias( announcement, "survival_circle_close_alarm_01" )
+        AnnouncementFromClass( player, announcement )
+    }
+}
+
 void function Thanks()
 {
     wait 6

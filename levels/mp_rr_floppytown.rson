@@ -14,6 +14,8 @@ Scripts:
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_assembly.nut
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_generation.nut
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_dev.nut
+
+    mp/levels/mp_rr_floppytown/mp_rr_floppytown_crane_scripts.nut
 ]
 
 When: "CLIENT"
@@ -26,5 +28,4 @@ When: "SERVER || CLIENT"
 Scripts:
 [
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_common.nut
-    mp/levels/mp_rr_floppytown/mp_rr_floppytown_crane_scripts.nut
 ]

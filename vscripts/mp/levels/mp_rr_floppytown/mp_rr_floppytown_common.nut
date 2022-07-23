@@ -18,8 +18,6 @@ untyped
         #if SERVER
             PrecacheAssets()
         #endif
-
-        Floppytown_MapInit_Crane_Scripts()
     }
 
 
@@ -37,6 +35,7 @@ untyped
                 PrinttServerFiles()
                 PrinttAssemblyFiles()
                 PrinttGenerationFiles()
+                PrinttCraneFiles()
 
                 if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) // map editing, do not activate in normal use
                     PrinttDevFiles()
@@ -44,7 +43,6 @@ untyped
 
             #if SERVER || CLIENT // server || client side
                 PrinttCommonFiles()
-                PrinttCraneFiles()
             #endif
 
             #if CLIENT // client side

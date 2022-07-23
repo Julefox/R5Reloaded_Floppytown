@@ -15,14 +15,14 @@ void function Floppytown_MapInit_Generation()
     Dynamic_Build_Generation()
     Zips_Generation()
 
+    Floppytown_MapInit_Crane_Scripts()
+
     if( GetCurrentPlaylistVarBool( "ft_walltrigger_disable", false ) )
     { printt( "wall trigger disable !" ) }
         else
     { CreateWallTriggerAroundTheMap() }
 
     thread SkyboxAnimation()
-
-    Floppytown_MapInit_Crane_Scripts()
     
     SetFloppytownAngles()
 }
@@ -296,9 +296,9 @@ void function SkyboxAnimation()
     while ( true )
     {
         entity Fx = PlayFX( SPACE_DEBRIS_COMET, pos, ang )
-        printt("PlayFX( NOW )")
+        //printt("PlayFX( NOW )")
 
-        wait 6
+        wait 8
         Fx.Destroy()
         WaitFrame()
     }

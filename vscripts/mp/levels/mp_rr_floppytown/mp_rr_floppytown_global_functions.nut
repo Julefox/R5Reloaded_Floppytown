@@ -49,7 +49,7 @@ return editor_ref }
 
 entity function CreateFloppytownUsableModel( asset model, vector pos, vector ang, string prompt, string name = "" )
 {
-     entity UsableButton = CreateEntity("prop_dynamic")
+    entity UsableButton = CreateEntity("prop_dynamic")
     UsableButton.kv.solid = 6
     UsableButton.SetValueForModelKey( model )
     UsableButton.AllowMantle()
@@ -169,6 +169,7 @@ void function FloppytownPlayerTriggerThread( entity player_trigger )
                     {
                         printt( "|====================================================================|" )
                         printt( "| FallingObjectThread(): Thread activate by player trigger" )
+                        printt( "|" )
                         printt( "| Player: " + player )
 
                         if( IsValid( player_trigger ) )

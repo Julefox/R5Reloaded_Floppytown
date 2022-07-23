@@ -134,6 +134,7 @@ bool function ClientCommand_FallingObjectActiveThread( entity player, array<stri
     {
         printt( "|==========================================================|" )
         printt( "| FallingObjectThread(): Thread activate by client command" )
+        printt( "|" )
         printt( "| Player: " + player )
 
         entity player_trigger = GetEnt( "player_trigger_01" )
