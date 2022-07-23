@@ -30,6 +30,10 @@ global const asset THUNDERDOME_MINI_CEILING       = $"mdl/thunderdome/thunderdom
 // ---
 global const asset SPACE_ELEVATOR                 = $"mdl/levels_terrain/mp_rr_desertlands/desertlands_space_elevator_platform_01.rmdl"
 global const asset MID_PLATFORM                   = $"mdl/levels_terrain/mp_rr_desertlands/desertlands_z12_mid_platform_01.rmdl"
+global const asset RADAR_01                       = $"mdl/levels_terrain/mp_rr_canyonlands/radar_dish_01.rmdl"
+global const asset RADAR_SECTION_01_02            = $"mdl/levels_terrain/mp_rr_canyonlands/canyonlands_terrain_section_01_radar_dish_02.rmdl"
+global const asset MIL_BASE_RUNWAY_01             = $"mdl/levels_terrain/mp_rr_canyonlands/mil_base_south_runway_01.rmdl"
+global const asset MIL_BASE_RUNWAY_02             = $"mdl/levels_terrain/mp_rr_canyonlands/mil_base_south_runway_02.rmdl"
 
 
 /////--- Zipline Assets ---/////
@@ -544,6 +548,10 @@ global array< asset > ASSET_VIEWER_ARRAY =
     THUNDERDOME_MINI_CEILING
     SPACE_ELEVATOR
     MID_PLATFORM
+    RADAR_01
+    RADAR_SECTION_01_02
+    MIL_BASE_RUNWAY_01
+    MIL_BASE_RUNWAY_02
     SECURITY_FENCE
     ZIP_ARM
     WOOD_BOARD

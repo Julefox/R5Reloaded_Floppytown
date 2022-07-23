@@ -15,17 +15,19 @@ void function Floppytown_MapInit_Assembly()
 }
 
 
-void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis, int Zaxis )
+void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis )
 {
     entity script_mover = CreateScriptMover( pos )
-    for ( int i = 0 ; i <  Xaxis ; i++ )
-    {   for ( int j = 0 ; j <  Yaxis ; j++ )
-        {   for ( int k = 0 ; k <  Zaxis ; k++ )
-            {
-                CreateFloppytownModel( BUILDING_PLATFORM_LARGE, pos + < 1024 * i, 352 * j, 0 * k > , < 0, 180, 0 >, "floor" )
-            }
+
+    for ( int i = 0 ; i < Xaxis ; i++ )
+    {
+        for ( int j = 0 ; j < Yaxis ; j++ )
+        {
+        CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 0, 0, 0 > + < 0, 1290 * i, 0 >, < 0, 270, 0 >, "floor" )
+        CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 1020, 0, -0.1 > + < 0, 1290 * i, 0 >, < 0, 90, 0 >, "floor" )
         }
     }
+
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
     { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )

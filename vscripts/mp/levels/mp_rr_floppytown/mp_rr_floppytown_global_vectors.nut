@@ -75,7 +75,7 @@ global const vector FT_BUILDING_POS_20      = FLOPPYTOWN_POS_OFFSET + < 1344, 16
 global const vector FT_BUILDING_ANG_20      = < 0, 0, 0 >
 
 // Floor
-global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 0, 0, 0 >
+global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 2400, 600, 0 >
 global const vector FT_FLOOR_ANG            = < 0, 0, 0 >
 
 // Walls
