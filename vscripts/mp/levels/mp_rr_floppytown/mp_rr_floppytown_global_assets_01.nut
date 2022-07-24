@@ -881,7 +881,7 @@ void function PrecacheAssets()
 {
     for ( int i = 0 ; i < ASSET_VIEWER_ARRAY.len() ; i++)
     {
-       PrecacheModel( ASSET_VIEWER_ARRAY[i] )
+        PrecacheModel( ASSET_VIEWER_ARRAY[i] )
     }
 
     for ( int i = 0 ; i < FX_ARRAY.len() ; i++)

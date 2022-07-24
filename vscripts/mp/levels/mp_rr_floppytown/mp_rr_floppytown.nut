@@ -8,6 +8,8 @@ void function CodeCallback_MapInit()
     FlagInit( "FallingObjectThread()_IsActive" )
     FlagInit( "FallingObjectThread()_thread_ending" )
 
+    //PrecacheAll()
+
     Floppytown_MapInit_Common()
 
     DebugPrintt()

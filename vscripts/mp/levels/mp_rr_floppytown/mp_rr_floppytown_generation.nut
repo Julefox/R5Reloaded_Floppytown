@@ -13,6 +13,7 @@ void function Floppytown_MapInit_Generation()
     Map_Generation()
     Props_Generation()
     Dynamic_Build_Generation()
+    thread Scripted_Model()
     Zips_Generation()
 
     Floppytown_MapInit_Crane_Scripts()
@@ -240,6 +241,40 @@ void function Dynamic_Build_Generation()
         printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
         printt( "|============================================================|" )
         printt( "" ) }
+}
+
+
+void function Scripted_Model()
+{
+    CreateFloppytownModel( RADAR_SECTION_01_02, FT_SCRIPTED_RADAR_POS, FT_SCRIPTED_RADAR_ANG )
+
+    entity script_mover = CreateFloppytownScriptMover( FT_SCRIPTED_RADAR_POS + < 0, 0, 1600 >, FT_SCRIPTED_RADAR_ANG, "scripted_radar", true )
+    entity radar = CreateFloppytownModel( RADAR_01, script_mover.GetOrigin(), FT_SCRIPTED_RADAR_ANG )
+
+    radar.SetModelScale( 0.6 )
+
+        wait 0.2
+
+    radar.SetParent( script_mover )
+
+    thread OnMovingRadar( script_mover )
+}
+
+void function OnMovingRadar( entity script_mover )
+{
+    wait 0.1
+
+    while( true )
+    {
+        script_mover.NonPhysicsRotateTo( < 0, 90, 0 >, 3, 0, 0 )
+            wait 3
+        script_mover.NonPhysicsRotateTo( < 0, 180, 0 >, 3, 0, 0 )
+            wait 3
+        script_mover.NonPhysicsRotateTo( < 0, -90, 0 >, 3, 0, 0 )
+            wait 3
+        script_mover.NonPhysicsRotateTo( < 0, 0, 0 >, 3, 0, 0 )
+            wait 3
+    }
 }
 
 
