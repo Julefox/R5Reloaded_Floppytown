@@ -308,8 +308,7 @@ void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector an
     FlagClear( "FallingObjectThread()_IsActive" )
     PlayerTriggerInit()
 
-    //Desertlands_Generic_Emit_Creaks_CranePlatform
-    //Desertlands_Generic_Emit_Creaks_MetalCrane_A
-    //Desertlands_Generic_Emit_Creaks_MetalCrane_B
-    //Desertlands_Generic_Emit_CableCreak
+    //amb_colony_fireloop_big_lr_v2_lp_flame
+    //amb_emit_boneyard_generator_hum_1ch_01
+    //amb_overlook_ext_generatorloop_lr_v3_lp
 }

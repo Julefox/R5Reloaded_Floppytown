@@ -169,7 +169,7 @@ void function ListenSound( entity player )
         printt( "" )
 
         EmitSoundOnEntity( player, SOUNDS_ARRAY[i] )
-        wait 5
+            wait 5
         StopSoundOnEntity( player, SOUNDS_ARRAY[i] )
 
         printt( "" )

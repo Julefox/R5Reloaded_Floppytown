@@ -6,7 +6,8 @@ Scripts:
     mp/levels/survival_preprocess/mp_rr_floppytown.nut
 
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_global_functions.nut
-    mp/levels/mp_rr_floppytown/mp_rr_floppytown_global_assets.nut
+    mp/levels/mp_rr_floppytown/mp_rr_floppytown_global_assets_01.nut
+    mp/levels/mp_rr_floppytown/mp_rr_floppytown_global_assets_02.nut
     mp/levels/mp_rr_floppytown/mp_rr_floppytown_global_vectors.nut
 
     mp/levels/mp_rr_floppytown/mp_rr_floppytown.nut

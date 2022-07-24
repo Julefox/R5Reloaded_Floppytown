@@ -19,14 +19,24 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis )
 {
     entity script_mover = CreateScriptMover( pos )
 
+    int checker = 0
+    float m = 0.00
+    float n = -0.20
+
     for ( int i = 0 ; i < Xaxis ; i++ )
     {
         for ( int j = 0 ; j < Yaxis ; j++ )
         {
-        CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 0, 0, 0 > + < 0, 1290 * i, 0 >, < 0, 270, 0 >, "floor" )
-        CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 1020, 0, -0.1 > + < 0, 1290 * i, 0 >, < 0, 90, 0 >, "floor" )
+            //CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 0, 0, m > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" ).SetModelScale( 2 )            //1
+            //CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, n > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 2 )      //1
+
+            //m = m-0.06 // 1
+            //n = n+0.06 // 1
+            CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < 0, 0, -0.01 > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" )       //2
+            CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, -0.01 > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ) //2
         }
     }
+    CreateFloppytownModel( MIL_BASE_RUNWAY_01, FT_FLOOR_POS + < -680, -1000, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 10 )     //2
 
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
     { ent.SetParent( script_mover ) }
