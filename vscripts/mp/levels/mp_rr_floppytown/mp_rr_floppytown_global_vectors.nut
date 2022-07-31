@@ -161,7 +161,7 @@ global const vector FT_SCRIPTED_RADAR_POS = FLOPPYTOWN_POS_OFFSET + < -400, 768,
 global const vector FT_SCRIPTED_RADAR_ANG = FLOPPYTOWN_ANG_OFFSET + < 0, 0, 0 >
 
 //
-global const int    SSB_UP_TO_0             = 128 // set to 0 SQUARE_SHELL_BOX axis Z
+global const int    SSB_UP_TO_0             = 128 // set to 0 DESERTLANDS_HIGHRISE_S_SHELL_BOX_C axis Z
 global const float  SSB_UP_TO_0_PATCH       = SSB_UP_TO_0 - 0.1
 
 //

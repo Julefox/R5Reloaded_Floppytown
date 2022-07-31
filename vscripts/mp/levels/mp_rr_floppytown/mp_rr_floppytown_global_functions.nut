@@ -15,7 +15,7 @@ void function Floppytown_MapInit_Global_Functions()
 }
 
 
-entity function CreateFloppytownModel( asset a, vector pos, vector ang, string script_name = "FloppytownEntities" )
+entity function CreateSingleFloppytownModel( asset a, vector pos, vector ang, string script_name = "FloppytownEntities" )
 {
     entity prop = CreatePropDynamic( a, pos, ang, SOLID_VPHYSICS, 20000 )
     prop.kv.fadedist = 20000
@@ -31,17 +31,26 @@ entity function CreateFloppytownModel( asset a, vector pos, vector ang, string s
 return prop }
 
 
+void function CreateMultipleFloppytownModel( asset a, vector pos, vector ang, float x_spacing, int x, float y_spacing, int y, float z_spacing, int z, string script_name = "FloppytownEntities" )
+{
+    for ( int i = 0 ; i < x ; i++ )
+    {   for ( int j = 0 ; j < y ; j++ )
+        {   for ( int k = 0 ; k < z ; k++ )
+            {   CreateSingleFloppytownModel( a, pos + < x_spacing * i, y_spacing * j, z_spacing * k >, ang, script_name ) }
+}   }   }
+
+
 array< entity > function CreateFloppytownZiplineModel( vector pos, vector ang )
 {
-    entity column   = CreateFloppytownModel( SECURITY_FENCE, pos, ang )
-    entity support  = CreateFloppytownModel( ZIP_ARM, pos + < 0, 0, 185 >, ang )
+    entity column   = CreateSingleFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos, ang )
+    entity support  = CreateSingleFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos + < 0, 0, 185 >, ang )
 
 return [ column, support ] }
 
 
 entity function CreateEditorRef( vector pos, vector ang, string name )
 {
-    entity editor_ref = CreateFloppytownModel( EDITOR_REF, pos, ang )
+    entity editor_ref = CreateSingleFloppytownModel( EDITOR_REF, pos, ang )
     SetTargetName( editor_ref, name )
     editor_ref.SetScriptName( "editor_ref" )
 return editor_ref }

@@ -33,7 +33,7 @@ void function FallingObjectInit()
 void function FloppytownPanelInit()
 {
     
-    entity panel = CreateFloppytownUsableModel( PANEL_BUTTON_CONSOLE, FT_FALLING_OBJECT_PANEL_POS, FT_FALLING_OBJECT_PANEL_ANG, "%&use%", "PANEL_01" )
+    entity panel = CreateFloppytownUsableModel( PROPS_ACCES_PANEL_BUTTON_CONSOLE_STAND, FT_FALLING_OBJECT_PANEL_POS, FT_FALLING_OBJECT_PANEL_ANG, "%&use%", "PANEL_01" )
     panel.SetSkin( 0 )
 
 
@@ -108,7 +108,7 @@ void function RespawnFallingObject()
         vector model_offset_ang = find_sling_crane_01.GetAngles()
 
         entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
-        entity falling_object_model = CreateFloppytownModel( IMC_THUMPER_GENERATOR_SET_B,model_offset_pos, model_offset_ang, "falling_object_model_01" )
+        entity falling_object_model = CreateSingleFloppytownModel( IMC_BASE_GENERATOR_02,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
         if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
         {
@@ -231,11 +231,11 @@ void function CraneIsMoving()
 
         wait 2
 
-    entity crane_01_b = GetEnt( "floppytown_script_mover_crane_01_b" )
-    entity crane_01_c = GetEnt( "floppytown_script_mover_crane_01_c" )
+    entity DESERTLANDS_INDUSTRIAL_CRANE_B_01 = GetEnt( "floppytown_script_mover_DESERTLANDS_INDUSTRIAL_CRANE_B_01" )
+    entity DESERTLANDS_INDUSTRIAL_CRANE_C_01 = GetEnt( "floppytown_script_mover_DESERTLANDS_INDUSTRIAL_CRANE_C_01" )
 
-    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_OUT, 4, 2.0, 2.0 )
-    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_OUT, 4, 2.0, 2.0 )
+    DESERTLANDS_INDUSTRIAL_CRANE_B_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_OUT, 4, 2.0, 2.0 )
+    DESERTLANDS_INDUSTRIAL_CRANE_C_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_OUT, 4, 2.0, 2.0 )
 
     FlagWaitClear( "FallingObjectThread()_thread_ending" )
 
@@ -251,8 +251,8 @@ void function CraneIsMoving()
 
     entity script_mover = GetEnt( "floppytown_script_mover_01" )
 
-    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
-    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
+    DESERTLANDS_INDUSTRIAL_CRANE_B_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
+    DESERTLANDS_INDUSTRIAL_CRANE_C_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
 
     script_mover.NonPhysicsRotateTo( < 0, 180, 10 >, 3.5, 2.0, 1.5 )
 
@@ -286,9 +286,9 @@ void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector an
 
     entity script_mover = GetEnt( "floppytown_script_mover_crane_01_sling" )
 
-    entity moving_part_model_a = CreateFloppytownModel( CRANE_01_A, origin                          , ang_a )
-    entity moving_part_model_b = CreateFloppytownModel( CRANE_01_B, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
-    entity moving_part_model_c = CreateFloppytownModel( CRANE_01_C, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
+    entity moving_part_model_a = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_A_01, origin                          , ang_a )
+    entity moving_part_model_b = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_B_01, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
+    entity moving_part_model_c = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_C_01, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
 
     moving_part_model_b.SetParent( script_mover_part_b )
     moving_part_model_c.SetParent( script_mover_part_c )
