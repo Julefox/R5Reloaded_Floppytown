@@ -231,11 +231,11 @@ void function CraneIsMoving()
 
         wait 2
 
-    entity DESERTLANDS_INDUSTRIAL_CRANE_B_01 = GetEnt( "floppytown_script_mover_DESERTLANDS_INDUSTRIAL_CRANE_B_01" )
-    entity DESERTLANDS_INDUSTRIAL_CRANE_C_01 = GetEnt( "floppytown_script_mover_DESERTLANDS_INDUSTRIAL_CRANE_C_01" )
+    entity crane_01_b = GetEnt( "floppytown_script_mover_crane_01_b" )
+    entity crane_01_c = GetEnt( "floppytown_script_mover_crane_01_c" )
 
-    DESERTLANDS_INDUSTRIAL_CRANE_B_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_OUT, 4, 2.0, 2.0 )
-    DESERTLANDS_INDUSTRIAL_CRANE_C_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_OUT, 4, 2.0, 2.0 )
+    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_OUT, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_OUT, 4, 2.0, 2.0 )
 
     FlagWaitClear( "FallingObjectThread()_thread_ending" )
 
@@ -251,8 +251,8 @@ void function CraneIsMoving()
 
     entity script_mover = GetEnt( "floppytown_script_mover_01" )
 
-    DESERTLANDS_INDUSTRIAL_CRANE_B_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
-    DESERTLANDS_INDUSTRIAL_CRANE_C_01.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
+    crane_01_b.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_B_IN, 4, 2.0, 2.0 )
+    crane_01_c.NonPhysicsRotateTo( FT_CRANE_THREAD_PART_C_IN, 4, 2.0, 2.0 )
 
     script_mover.NonPhysicsRotateTo( < 0, 180, 10 >, 3.5, 2.0, 1.5 )
 
