@@ -108,7 +108,7 @@ void function RespawnFallingObject()
         vector model_offset_ang = find_sling_crane_01.GetAngles()
 
         entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
-        entity falling_object_model = CreateSingleFloppytownModel( IMC_BASE_GENERATOR_02,model_offset_pos, model_offset_ang, "falling_object_model_01" )
+        entity falling_object_model = CreateFloppytownModel( IMC_BASE_GENERATOR_02,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
         if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
         {
@@ -149,7 +149,7 @@ void function FallingObjectThread()
 
     foreach( player in GetPlayerArray() )
     {
-        Remote_CallFunction_NonReplay( player, "ServerCallback_Crane_Announcement" )
+        Remote_CallFunction_NonReplay( player, "ServerCallback_Crane_DoAnnouncement" )
     }
         
         wait waiting_fall
@@ -172,7 +172,7 @@ void function FallingObjectThread()
 
         entity fx_0 = PlayFXOnEntity( EXP_IMPACT_ARCBALL_DEFAULT, script_mover )
         EmitSoundOnEntity( script_mover, DROPSHIP_EXPLODE_OLD )
-        Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+        Explosion_DamageDefSimple( damagedef_falling_object_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
             wait 2.8
 
@@ -183,7 +183,7 @@ void function FallingObjectThread()
             wait 0.1
 
         entity fx_2 = PlayFXOnEntity( EXP_NUKE_3P, script_mover )
-        Explosion_DamageDefSimple( damagedef_falling_object_on_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
+        Explosion_DamageDefSimple( damagedef_falling_object_floppytown, script_mover.GetOrigin(), script_mover, script_mover, script_mover.GetOrigin() )
 
             wait 0.2
 
@@ -286,9 +286,9 @@ void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector an
 
     entity script_mover = GetEnt( "floppytown_script_mover_crane_01_sling" )
 
-    entity moving_part_model_a = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_A_01, origin                          , ang_a )
-    entity moving_part_model_b = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_B_01, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
-    entity moving_part_model_c = CreateSingleFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_C_01, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
+    entity moving_part_model_a = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_A_01, origin                          , ang_a )
+    entity moving_part_model_b = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_B_01, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
+    entity moving_part_model_c = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_C_01, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
 
     moving_part_model_b.SetParent( script_mover_part_b )
     moving_part_model_c.SetParent( script_mover_part_c )

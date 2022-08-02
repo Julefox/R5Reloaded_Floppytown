@@ -32,7 +32,7 @@ void function ClientCodeCallback_MapInit()
     printt( "" )
 }
 
-void function ServerCallback_Crane_Announcement()
+void function ServerCallback_Crane_DoAnnouncement()
 {
     foreach( player in GetPlayerArray() )
     {

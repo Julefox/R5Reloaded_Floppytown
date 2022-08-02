@@ -11,7 +11,7 @@ void function PrinttAssemblyFiles()
 
 void function Floppytown_MapInit_Assembly()
 {
-    
+     
 }
 
 
@@ -27,16 +27,16 @@ void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis )
     {
         for ( int j = 0 ; j < Yaxis ; j++ )
         {
-            //CreateSingleFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, m > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" ).SetModelScale( 2 )            //1
-            //CreateSingleFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, n > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 2 )      //1
+            //CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, m > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" ).SetModelScale( 2 )            //1
+            //CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, n > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 2 )      //1
 
             //m = m-0.06 // 1
             //n = n+0.06 // 1
-            CreateSingleFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, -0.01 > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" )       //2
-            CreateSingleFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, -0.01 > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ) //2
+            CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, -0.01 > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" )       //2
+            CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, -0.01 > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ) //2
         }
     }
-    CreateSingleFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -680, -1000, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 10 )     //2
+    CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -680, -1000, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 10 )     //2
 
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
     { ent.SetParent( script_mover ) }
@@ -50,52 +50,18 @@ void function North_Wall( vector pos, vector ang, string name )
     string script = "north_wall_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, 96, 1200 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 529, 96, 0 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 144, 58, 2000 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 1160, 64, 0 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 2202.8, 0, 1792 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 10 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 3245.6, 0, 0 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int j = 0 ; j < 2 ; j++ )
-    {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 2062, 140, 1792 > + < 0, 0, 224 * j >, < 0, 90, 0 >, script_name ) }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 12 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 3900, 0, 0 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 4028, -50, 2400 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 6 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 4500, -64, 896 > + < 260.7 * i, 0, 224 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 5044, -64, 1000 > + < 529 * i, 0, 200 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 5172, -114, 2400 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, 96, 1200 >, < 0, 180, 0 >, 200, 4, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 529, 96, 0 >, < 0, 180, 0 >, 200, 10, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 144, 58, 2000 >, < 0, 90, 0 >, 256, 4, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 1160, 64, 0 >, < 0, 180, 0 >, 260.7, 4, 224, 10, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 2202.8, 0, 1792 >, < 0, 180, 0 >, 260.7, 4, 224, 2, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 3245.6, 0, 0 >, < 0, 180, 0 >, 260.7, 3, 224, 10, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 2062, 140, 1792 >, < 0, 90, 0 >, 224, 2, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 3900, 0, 0 >, < 0, 180, 0 >, 200, 12, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 4028, -50, 2400 >, < 0, 90, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 4500, -64, 896 >, < 0, 180, 0 >, 260.7, 4, 224, 6, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 5044, -64, 1000 >, < 0, 180, 0 >, 200, 7, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 5172, -114, 2400 >, < 0, 90, 0 >, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -109,39 +75,14 @@ void function South_Wall( vector pos, vector ang, string name )
     string script = "south_wall_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -500, -80, 2000 > + < 529 * i, 0, 200 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -884, -42, 2600 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 5 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -2097.3, 0, 1120 > + < 260.7 * i, 0, 224 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -2358, 0, 2016 > + < 260.7 * i, 0, 224 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 19 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_WALL_PILLAR_64_01, pos + < -5840, -32, 2002 > + < 128 * i, 0, 286 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 6 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -3400, -64, 1600 > + < 529 * i, 0, 200 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    //CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -3784+1408, -26, 2800-128 >, < 0, 90, 90 >, script_name )
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -3784, -26, 2800 > + < 256 * i, 128 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -3784+1408, -26, 2800-128 > + < 16 * i, 0 * j, 0 >, < 0, 90, 90 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -500, -80, 2000 >, < 0, 0, 0 >, 529, 2, 200, 3, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -884, -42, 2600 >, < 0, 90, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -2097.3, 0, 1120 >, < 0, 0, 0 >, 260.7, 5, 224, 7, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -2358, 0, 2016 >, < 0, 0, 0 >, 224, 3, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_CITY_SLANTED_BLDG_WALL_PILLAR_64_01, pos + < -5840, -32, 2002 >, < 0, 270, 0 >, 128, 19, 286, 4, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -3400, -64, 1600 >, < 0, 0, 0 >, 529, 3, 200, 6, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -3784, -26, 2800 >, < 0, 90, 0 >, 256, 6, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -2376, -26, 2672 >, < 0, 90, 90 >, 16, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -155,50 +96,13 @@ void function West_Wall( vector pos, vector ang, string name )
     string script = "west_wall_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 13 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_WALL_PILLAR_64_01, pos + < -32, 0, 1716 > + < 0, 128 * i, 286 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 1664, 1120 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 1664, 448 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 3228.2, 1120 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 3749.6, 672 > + < 0, 260.7 * i, 224 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_WALL_PILLAR_64_01, pos + < -32, 1536, 1144 > + < 0, 128 * i, 286 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -89, 4360, 1200 > + < 0, 529 * i, 200 * j >, < 0, -90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -58, 4494, 2200 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_CITY_SLANTED_BLDG_WALL_PILLAR_64_01, pos + < -32, 0, 1716 >, < 0, 180, 0 >, 128, 13, 286, 4, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 1664, 1120 >, < 0, -90, 0 >, 260.7, 2, 224, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 1664, 448 >, < 0, -90, 0 >, 260.7, 6, 224, 8, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 3228.2, 1120 >, < 0, -90, 0 >, 260.7, 2, 224, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 3749.6, 672 >, < 0, -90, 0 >, 260.7, 3, 224, 7, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -89, 4360, 1200 >, < 0, -90, 0 >, 200, 5, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -58, 4494, 2200 >, < 0, 180, 0 >, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -212,44 +116,17 @@ void function East_Wall( vector pos, vector ang, string name )
     string script = "east_wall_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, 0, 1600 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -46, -384, 2400 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, -1058, 1600 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -46, -1420, 2600 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -38, -1420-128, 2488 >, < 0, 0, 90 >, script_name )
-    for ( int i = 0 ; i < 5 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, -2600, 2240 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 14 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, -2730, 0 > + < 0, 529 * i, 200 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -34, -3114, 2800 > + < 128 * i, 256 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -34, -2202, 2687 >, < 0, 0, 90 >, script_name )
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 13 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -64, -3500, 0 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -64, -4282.1, 2016 > + < 0, 260.7 * i, 224 * j >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, 0, 1600 >, < 0, 90, 0 >, 529, 2, 200, 4, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -46, -384, 2400 >, < 0, 180, 0 >, 256, 4, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, -1058, 1600 >, < 0, 90, 0 >, 529, 2, 200, 5, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -46, -1420, 2600 >, < 0, 180, 0 >, 256, 4, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -38, -1420-128, 2488 >, < 0, 0, 90 >, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, -2600, 2240 >, < 0, 90, 0 >, 260.7, 5, 224, 2, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < 0, -2730, 0 >, < 0, 90, 0 >, 529, 2, 200, 14, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -34, -3114, 2800 >, < 0, 180, 0 >, 256, 4, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -34, -2202, 2687 >, < 0, 0, 90 >, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -64, -3500, 0 >, < 0, 90, 0 >, 260.7, 2, 224, 13, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < -64, -4282.1, 2016 >, < 0, 90, 0 >, 260.7, 3, 224, 4, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -321,42 +198,17 @@ void function Building_01( vector pos, vector ang, string name )
     string script = "bldg_01_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_BLDG_PLATFORM_02, pos + < -592, -528, 1792.1 > + < 592 * i, 352 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 9 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -592, -464, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 592, -480, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, script_name )  
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -528, -528, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 568, -464, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 584, -864, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -456, -850, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -400, -912, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 568, -860, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, script_name )
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, -720, 256 > + < 512 * i, 0 * j, 0 >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -320, -784, 192 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_02, pos + < -592, -528, 1792.1 >, < 0, 180, 0 >, 592, 2, 352, 3, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -592, -464, SSB_UP_TO_0 >, < 0, 90, 0 >, 128, 9, 256, 7, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 592, -480, SSB_UP_TO_0 >, < 0, 270, 0 >, 128, 9, 256, 7, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -528, -528, SSB_UP_TO_0 >, < 0, 180, 0 >, 128, 9, 256, 7, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 568, -464, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 256, 7, script_name )
+    CreateLoopFloppytownModel_Y( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 584, -864, SSB_UP_TO_0_PATCH >, < 0, -90, 0 >, 128, 3, script_name )
+    CreateLoopFloppytownModel_Y( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -456, -850, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 3, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -400, -912, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 8, script_name )
+    CreateFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 568, -860, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, -720, 256 >, < 0, 180, 0 >, 512, 2, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -320, -784, 192 >, < 0, 0, 0 >, 256, 4, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -370,60 +222,24 @@ void function Building_02( vector pos, vector ang, string name )
     string script = "bldg_02_"
     string script_name = script + name
 
-    //for ( int i = 0 ; i < 3 ; i++ )  // Side of the building not visible //
-    //{   for ( int j = 0 ; j < 5 ; j++ )
-    //    { CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    //}
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 640, -128, 0 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 640, 128, 768 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, script_name ) }
-    }
-    //for ( int i = 0 ; i < 4 ; i++ )  // Side of the building not visible //
-    //{   for ( int j = 0 ; j < 6 ; j++ )
-    //    { CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -128, -384, 0 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, script_name ) }
-    //}
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, -512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 512, -256, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        { CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, -384, 0 > + < 256 * i, 0, 256 * j >, < 0, -90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -384, 768 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 256, -384, 768 > + < 256, 256, 0 >, < 0, 0, 0 >, script_name )
-    //for ( int i = 0 ; i < 2 ; i++ ) // Side of the building not visible //
-    //{   for ( int j = 0 ; j < 2 ; j++ )
-    //    { CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -128, 128, 768 > + < 0, 256 * i, 256 * j >, < 0, -90, 0 >, script_name ) }
-    //}
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 0, 768 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 128, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 0, -96 > , < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 760, 12, 148 > , < -65, 0, 90 >, script_name )
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 896, 128, -96 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 767.6, 128, 200 > + < 256 * i, 256 * j, 0 >, < 25, 0, 0 >, script_name )
-        }
-    }
+    // Side of the building not visible //
+    //CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 512, 0 >, < 0, 0, 0 >, 256, 3, 256, 5, script_name )
+    //CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -128, -384, 0 >, < 0, -90, 0 >, 256, 4, 256, 3, script_name )
+    //CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -128, 128, 768 >, < 0, -90, 0 >, 256, 2, 256, 2, script_name )
+    // End //
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 640, -128, 0 >, < 0, -90, 0 >, 256, 3, 256, 3, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 640, 128, 768 >, < 0, -90, 0 >, 256, 2, 256, 2, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, -512, 0 >, < 0, 0, 0 >, 256, 2, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 512, -256, 0 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, -384, 0 >, < 0, -90, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -384, 768 >, < 0, 0, 0 >, 256, 2, 256, 2, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 256, -384, 768 > + < 256, 256, 0 >, < 0, 0, 0 >, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 0, 768 >, < 0, 0, 0 >, 256, 3, 256, 2, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 128, 1280 >, < 0, 0, 0 >, 256, 3, 256, 2, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 760, 12, 148 >, < -90, 90, 0 >, -256, 2, 506, 2, script_name, true, < -65, 0, 90 > )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 0, -96.2 >, < 0, 0, 0 >, 512, 2, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 896, 128, -96 >, < 0, 90, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 767.6, 128, 200 >, < 0, 0, 0 >, -256, 2, 256, 2, script_name, true, < 25, 0, 0 > )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -437,27 +253,12 @@ void function Building_03( vector pos, vector ang, string name )
     string script = "bldg_03_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos+ < 0, -256, 0 > + < 0 * i, 256 * j, 1280 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 64, -320, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 64, 448, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 0, 384, 768 >, < 0, 0, 0 >, script_name )
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, -384, 640 > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        { CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 0, 384, 896 > + < 0, 128 * i, 256 * j >, < 0, 0, 0 >, script_name ) } // 330 
-    }
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos+ < 0, -256, 1280 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 64, -320, SSB_UP_TO_0 >, < 0, 270, 0 >, 128, 6, 256, 5, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 64, 448, SSB_UP_TO_0 >, < 0, 270, 0 >, 256, 3, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 0, 384, 768 >, < 0, 0, 0 >, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, -384, 640 >, < 0, 180, 0 >, 128, 2, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 0, 384, 896 >, < 0, 0, 0 >, 256, 2, script_name ) // 330 
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -471,18 +272,9 @@ void function Building_04( vector pos, vector ang, string name )
     string script = "bldg_04_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 128, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -256, 512 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 384, 0 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 128, -256, 0 >, < 0, 270, 0 >, 256, 3, 256, 2, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -256, 512 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 384, 0 >, < 0, 0, 0 >, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -496,16 +288,10 @@ void function Building_05( vector pos, vector ang, string name )
     string script = "bldg_05_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 5 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        { CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 128, -256, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( LEVELS_TERRAIN_SPACE_ELEVATOR_PLATFORM_01, pos + < 0, 0, 1220 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_FRAME_256_01, pos + < 0, -304, 1248 >, < 0, 180, 0 >, script_name )
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 324, 512 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 128, -256, SSB_UP_TO_0 >, < 0, 270, 0 >, 128, 5, 256, 5, script_name )
+    CreateFloppytownModel( LEVELS_TERRAIN_SPACE_ELEVATOR_PLATFORM_01, pos + < 0, 0, 1220 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_FRAME_256_01, pos + < 0, -304, 1248 >, < 0, 180, 0 >, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 324, 512 >, < 0, 0, 0 >, 256, 3, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -519,27 +305,11 @@ void function Building_06( vector pos, vector ang, string name )
     string script = "bldg_06_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 256, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 270, 0 >, script_name ) }
-    }
-    //CreateSingleFloppytownModel( LEVELS_TERRAIN_SPACE_ELEVATOR_PLATFORM_01, pos + < 0, 0, 1220 >, < 0, 90, 0 >, script_name )
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -256, 1792 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 192, -256, 1792 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 192, 384, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_SMALL_03, pos + < -128, 384, 1279.9 > + < 128 * i, 0, 128 * j >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 256, -256, 0 >, < 0, 270, 0 >, 256, 3, 256, 7, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -256, 1792 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 192, -256, 1792 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 192, 384, SSB_UP_TO_0 >, < 0, 0, 0 >, 256, 7, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_CARGO_CONTAINER_SMALL_03, pos + < -128, 384, 1279.9 >, < 0, 0, 0 >, 128, 2, 128, 4, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -553,99 +323,39 @@ void function Building_07( vector pos, vector ang, string name )
     string script = "bldg_07_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 5 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 2304 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 512, 2304 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1152, 0, 2048 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 640, 1792 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 256, 640, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 512, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1024, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1280, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 512, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 16 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1920, 320, 0 > + < 0, 128 * i, 128 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1904, 320, 0 > + < 0, 128 * i, 128 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1920, -64, 1536 > + < 0, 128 * i, 128 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1904, -64, 1536 > + < 0, 128 * i, 128 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 1344, 128, 2048 > + < 384 * i, 384 * j, 0 >, < 0, -90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 896, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 640, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 270, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 704, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_A, pos + < 512, 384, 768 > + < 0, 0 * i, 512 * j >, < 0, 180, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_B , pos + < 1024, 384, 768 > + < 0, 0 * i, 512 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 768, 448, 2560 >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 2304 >, < 0, 0, 0 >, 256, 5, 256, 2, script_name)
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 512, 2304 >, < 0, 0, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1152, 0, 2048 >, < 0, 90, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 640, 1792 >, < 0, 0, 0 >, 256, 2, 256, 2, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 256, 640, 0 >, < 0, 0, 0 >, 256, 7, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 512, 384, 0 >, < 0, 0, 0 >, 256, 9, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1024, 384, 0 >, < 0, 0, 0 >, 256, 9, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 1280, 384, 0 >, < 0, 0, 0 >, 256, 3, 256, 8, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 512, 0 >, < 0, 90, 0 >, 256, 9, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1920, 320, 0 >, < 0, 90, 0 >, 128, 16, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1904, 320, 0 >, < 0, -90, 0 >, 128, 16, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1920, -64, 1536 >, < 0, 90, 0 >, 128, 3, 128, 4, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < 1904, -64, 1536 >, < 0, -90, 0 >, 128, 3, 128, 4, script_name )
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 1344, 128, 2048 >, < 0, -90, 0 >, 384, 2, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 896, 192, SSB_UP_TO_0 >, < 0, 90, 0 >, 128, 2, 256, 9, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 640, 192, SSB_UP_TO_0 >, < 0, 270, 0 >, 128, 2, 256, 9, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 704, 128, SSB_UP_TO_0 >, < 0, 0, 0 >, 128, 2, 256, 9, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_A, pos + < 512, 384, 768 >, < 0, 180, 0 >, 512, 4, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_B , pos + < 1024, 384, 768 >, < 0, 180, 0 >, 512, 4, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 768, 448, 2560 >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 384, 512 >, < 0, 0, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 384, 1536 >, < 0, 0, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_FRAME_256_01, pos + < 768, 384, 768 >, < 0, 0, 0 >, 1024, 2, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 1280, 0, 2000 >, < 0, 0, 0 >, 256, 3, 256, 2, script_name )
+
     for ( int i = 0 ; i < 1 ; i++ )
     {   for ( int j = 0 ; j < 8 ; j++ )
         {
             if ( j == 1 )
-            { CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 768, 256, 256.1 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
+            { CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 768, 256, 256.1 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
             else
-            { CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
+            { CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
         }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 384, 512 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 768, 384, 1536 > + < 0, 256 * i, 256 * j >, < 0, 0, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_FRAME_256_01, pos + < 768, 384, 768 > + < 0, 256 * i, 1024 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 1280, 0, 2016 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
     }
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
@@ -660,21 +370,10 @@ void function Building_08( vector pos, vector ang, string name )
     string script = "bldg_08_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -256, 64, 1664 > + < 512 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 13 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < -448, 256, 0 > + < 128 * i, 0, 128 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < -448, 256-16, 0 > + < 128 * i, 0, 128 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -128, 1600 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -256, 64, 1664 >, < 0, 0, 0 >, 512, 2, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < -448, 256, 0 >, < 0, 0, 0 >, 128, 8, 128, 13, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_WALL_CITY_PANEL_CONCRETE_128_01, pos + < -448, 256-16, 0 >, < 0, 180, 0 >, 128, 8, 128, 13, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -128, 1600 >, < 0, 0, 0 >, 256, 4, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -688,33 +387,13 @@ void function Building_09( vector pos, vector ang, string name )
     string script = "bldg_09_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, 128, 2048 > + < 384 * i, 384 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 1984 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 0, 1536 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 0, 1280 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 6 ; j++ )
-        { 
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name )
-        }
-    }
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, 128, 2048 >, < 0, 90, 0 >, 384, 2, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, 384, 0 >, < 0, 0, 0 >, 256, 3, 256, 8, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 1984 >, < 0, 0, 0 >, 256, 3, 256, 2, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 0, 1536 >, < 0, 90, 0 >, 256, 2, 256, 2, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 0, 1280 >, < 0, 90, 0 >, 256, 2, 256, 3, script_name  )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, 256, 0 >, < 0, 90, 0 >, 256, 6, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 256, 0 >, < 0, 90, 0 >, 256, 6, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -728,14 +407,8 @@ void function Building_10( vector pos, vector ang, string name )
     string script = "bldg_10_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, 0, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, 0, 1280 >, < 0, 0, 0 >, 256, 4, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 128, 0 >, < 0, 0, 0 >, 256, 4, 256, 5, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -749,27 +422,12 @@ void function Building_11( vector pos, vector ang, string name )
     string script = "bldg_11_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -128, 0, 2048 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, 0, 2048 >, < 0, 0, 0 > )
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -512, -64, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, 128, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, 640, SSB_UP_TO_0 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -256, 192, SSB_UP_TO_0 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -128, 0, 2048 >, < 0, 0, 0 >, 256, 2, 256, 3, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, 0, 2048 >, < 0, 0, 0 > )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -512, -64, SSB_UP_TO_0 >, < 0, 90, 0 >, 128, 2, 256, 8, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, 128, SSB_UP_TO_0 >, < 0, 0, 0 >, 128, 2, 256, 8, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, 640, SSB_UP_TO_0 >, < 0, 0, 0 >, 128, 4, 256, 8, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -256, 192, SSB_UP_TO_0 >, < 0, 90, 0 >, 128, 4, 256, 8, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -783,55 +441,18 @@ void function Building_12( vector pos, vector ang, string name )
     string script = "bldg_12_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -640, 0, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 0, 1280 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 512, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, -128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, -128, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, 1024, SSB_UP_TO_0_PATCH + 1536 > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 9 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, 960, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -512, 0, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -128, 64, 2304 > + < 0 * i, 384 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 2272-32 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -256, 960, 2272 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -640, 0, 0 >, < 0, 90, 0 >, 256, 2, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 0, 1280 >, < 0, 90, 0 >, 256, 2, 256, 4, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, 512, 0 >, < 0, 90, 0 >, 256, 2, 256, 9, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, -128, 0 >, < 0, 0, 0 >, 256, 2, 256, 9, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, -128, 0 >, < 0, 0, 0 >, 256, 5, script_name )
+    CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, 384, 0 >, < 0, 0, 0 >, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, 1024, SSB_UP_TO_0_PATCH + 1536 >, < 0, 0, 0 >, 128, 4, 256, 3, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, 960, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 256, 9, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -512, 0, 1280 >, < 0, 0, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_Y( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -128, 64, 2304 >, < 0, 0, 0 >, 384, 3, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 2240 >, < 0, 0, 0 >, 256, 2, 256, 4, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -256, 960, 2240 >, < 0, 90, 0 >, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -845,22 +466,11 @@ void function Building_13( vector pos, vector ang, string name )
     string script = "bldg_13_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -128, 64, 1792 > + < 0 * i, 384 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 7 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, -64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, 832, SSB_UP_TO_0_PATCH + 1024 > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0; i < 2 ; i++ )
-    {   for ( int j = 0; j < 8 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 1728 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_Y( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -128, 64, 1792 >, < 0, 0, 0 >, 384, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, -64, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 7, 256, 7, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, 832, SSB_UP_TO_0_PATCH + 1024 >, < 0, 90, 0 >, 128, 8, 256, 3, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, 0, 1728 >, < 0, 0, 0 >, 256, 2, 256, 8, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -384, 896, 960 >, < 90, 0, 0 >, 256, 4, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -874,22 +484,10 @@ void function Building_14( vector pos, vector ang, string name )
     string script = "bldg_14_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, -384, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, -512, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -256, -320, 1024 > + < 512 * i, 384 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -384, 960 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -512, -384, 0 >, < 0, 90, 0 >, 256, 4, 256, 4, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, -512, 0 >, < 0, 0, 0 >, 256, 4, 256, 4, script_name )
+    CreateLoopFloppytownModel_XY( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -256, -320, 1024 >, < 0, 0, 0 >, 512, 2, 384, 3, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -384, 960 >, < 0, 0, 0 >, 256, 4, 256, 4, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -903,26 +501,15 @@ void function Building_15( vector pos, vector ang, string name )
     string script = "bldg_15_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 7 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384, 32, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384, -32, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384, 32, 1024 >, < 0, 0, 0 >, 128, 7, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384, -32, 1024 >, < 0, 0, 0 >, 128, 7, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384.1, 31.9, 1024 >, < 0, 0, 180 >, 128, 7, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384.1, -31.9, 1024 >, < 0, 0, 180 >, 128, 7, script_name )
 
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384.1, 31.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -384.1, -31.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 11 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640, 96, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640, -96, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name )
-
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640.1, 95.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640.1, -95.9, 1024 > + < 128 * i, 0 * j, 0 >, < 0, 0, 180 >, script_name )
-        }
-    }
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640, 96, 1024 >, < 0, 0, 0 >, 128, 11, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640, -96, 1024 >, < 0, 0, 0 >, 128, 11, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640.1, 95.9, 1024 >, < 0, 0, 180 >, 128, 11, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_PIPE_GRATE_MEDIUM_128, pos + < -640.1, -95.9, 1024 >, < 0, 0, 180 >, 128, 11, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -936,19 +523,11 @@ void function Building_16( vector pos, vector ang, string name )
     string script = "bldg_16_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, 384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, -384, 0 > + < 256 * i, 0, 256 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, -256, 0 > + < 0, 256 * i, 256 * j >, < 0, 90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -256, 1280 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 > ) }
-    }
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, 384, 0 >, < 0, 0, 0 >, 256, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -256, -384, 0 >, < 0, 0, 0 >, 256, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 384, -256, 0 >, < 0, 90, 0 >, 256, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < -384, -256, 0 >, < 0, 90, 0 >, 256, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -256, 1280 >, < 0, 0, 0 >, 256, 3, 256, 3, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -962,18 +541,15 @@ void function Building_17( vector pos, vector ang, string name )
     string script = "bldg_17_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < -128, -384, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < 256, -384, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < 128, 384, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < -256, 384, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < -384, 128, 0 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < -384, -256, 0 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < 384, -128, 0 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < 384, 256, 0 >, < 0, 90, 0 >, script_name )
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -256, 352 > + < 256 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < -128, -384, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < 256, -384, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < 128, 384, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < -256, 384, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < -384, 128, 0 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < -384, -256, 0 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < 384, -128, 0 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < 384, 256, 0 >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -256, 352 >, < 0, 0, 0 >, 256, 3, 256, 3, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -987,29 +563,13 @@ void function Building_18( vector pos, vector ang, string name )
     string script = "bldg_18_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 512, -192, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, 256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, -256, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -320, 0, 1280 > + < 640 * i, 384 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 0, 0, 1280.1 >, < 0, 90, 0 >, script_name )
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -128, 1216 > + < 256 * i, 256 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -512, -192, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 4, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 512, -192, SSB_UP_TO_0_PATCH >, < 0, -90, 0 >, 128, 4, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, 256, SSB_UP_TO_0_PATCH >, < 0, 0, 0 >, 128, 8, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -448, -256, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 8, 256, 5, script_name )
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -320, 0, 1280 >, < 0, 90, 0 >, 640, 2, script_name )
+    CreateFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 0, 0, 1280.1 >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -384, -128, 1216 >, < 0, 90, 0 >, 256, 4, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1023,62 +583,20 @@ void function Building_19( vector pos, vector ang, string name )
     string script = "bldg_19_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 0, -256, 1280 > + < 0 * i, 512 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name ) } // droit
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 12 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1664, 0, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 12 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {    CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1664, -384, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, 64, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1728, -320, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 3 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -1472, -192, 1280 > + < 512 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 128, -384, 1216 > + < 0 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 4 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -64, -384, 1216 > + < 0 * i, 256 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -1600, -256, 1216 > + < 256 * i, 0 * j, 0 >, < 0, 0, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -1600, -64, 1216 > + < 256 * i, 0 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateLoopFloppytownModel_Y( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < 0, -256, 1280 >, < 0, 90, 0 >, 512, 2, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 192, -448, SSB_UP_TO_0_PATCH >, < 0, -90, 0 >, 128, 8, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, -512, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -128, 512, SSB_UP_TO_0_PATCH >, < 0, 0, 0 >, 128, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1664, 0, SSB_UP_TO_0_PATCH >, < 0, 0, 0 >, 128, 12, 256, 5, script_name )
+    CreateLoopFloppytownModel_XZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1664, -384, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 12, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, 64, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 4, 256, 5, script_name )
+    CreateLoopFloppytownModel_Z( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -192, -448, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 256, 5, script_name )
+    CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -1728, -320, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 3, 256, 5, script_name )
+    CreateLoopFloppytownModel_X( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -1472, -192, 1280 >, < 0, 0, 0 >, 512, 3, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 128, -384, 1216 >, < 0, 0, 0 >, 256, 4, script_name )
+    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -64, -384, 1216 >, < 0, 0, 0 >, 256, 4, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -1600, -256, 1216 >, < 0, 0, 0 >, 256, 6, script_name )
+    CreateLoopFloppytownModel_X( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -1600, -64, 1216 >, < 0, 90, 0 >, 256, 6, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1092,24 +610,11 @@ void function Building_20( vector pos, vector ang, string name )
     string script = "bldg_20_"
     string script_name = script + name
 
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, -256, 256 > + < 384 * i, 512 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
-    for ( int i = 0 ; i < 8 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, -90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, -448, SSB_UP_TO_0_PATCH > + < 0, 128 * i, 256 * j >, < 0, 90, 0 >, script_name )
-        }
-    }
-    for ( int i = 0 ; i < 6 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, 512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 0, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, -512, SSB_UP_TO_0_PATCH > + < 128 * i, 0, 256 * j >, < 0, 180, 0 >, script_name )
-        }
-    }
+    CreateLoopFloppytownModel_XY( LEVELS_TERRAIN_ZONE12_MID_PLATFORM_01, pos + < -192, -256, 256 >, < 0, 90, 0 >, 384, 2, 512, 2, script_name )
+    CreateLoopFloppytownModel_Y( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < 384, -448, SSB_UP_TO_0_PATCH >, < 0, -90, 0 >, 128, 8, script_name )
+    CreateLoopFloppytownModel_Y( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, -448, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 8, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, 512, SSB_UP_TO_0_PATCH >, < 0, 0, 0 >, 128, 6, script_name )
+    CreateLoopFloppytownModel_X( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, -512, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 6, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1123,11 +628,8 @@ void function LittleBridge( vector pos, vector ang, string name )
     string script = "little_bridge_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( IMC_BASE_CARGO_CONTAINER_WHITE_01, pos + < -128, 0, 0 >, < 0, 90, 0 >, script_name )
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateSingleFloppytownModel( INDUSTRIAL_SUPPORT_BEAM_256_01, pos + < -96, -48, -2 > + < 256 * i, 72 * j, 0 >, < 0, 90, 0 >, script_name ) }
-    }
+    CreateFloppytownModel( IMC_BASE_CARGO_CONTAINER_WHITE_01, pos + < -128, 0, 0 >, < 0, 90, 0 >, script_name )
+    CreateLoopFloppytownModel_XY( INDUSTRIAL_SUPPORT_BEAM_256_01, pos + < -96, -48, -2 >, < 0, 90, 0 >, 256, 2, 72, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1141,12 +643,12 @@ void function BalconyLeft( vector pos, vector ang, string name )
     string script = "balcony_left_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -128, -128, 7 >, < 0, -90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < -128, -32, 7 >, < 0, 180, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_32_01, pos + < -128, 16, 7 >, < 0, 180, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_128_01, pos + < 0, -128, 7 >, < 0, -90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < 96, -128, 7 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -128, -128, 7 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < -128, -32, 7 >, < 0, 180, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_32_01, pos + < -128, 16, 7 >, < 0, 180, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_128_01, pos + < 0, -128, 7 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < 96, -128, 7 >, < 0, -90, 0 >, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1160,12 +662,12 @@ void function BalconyRight( vector pos, vector ang, string name )
     string script = "balcony_right_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 0 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < 128, -128, 7 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < 128, -32, 7 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_32_01, pos + < 128, 16, 7 >, < 0, 0, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_128_01, pos + < 0, -128, 7 >, < 0, -90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < -96, -128, 7 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, 0, 0 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < 128, -128, 7 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < 128, -32, 7 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_32_01, pos + < 128, 16, 7 >, < 0, 0, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_128_01, pos + < 0, -128, 7 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < -96, -128, 7 >, < 0, -90, 0 >, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1179,11 +681,11 @@ void function MiniBalconyLeft( vector pos, vector ang, string name )
     string script = "mini_balcony_left_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -128, -64, 9 >, < 0, -90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < -128, 32, 9 >, < 0, 180, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_128_01, pos + < 0, -64, 9 >, < 0, -90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_64_01, pos + < 96, -64, 9 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -128, -64, 9 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < -128, 32, 9 >, < 0, 180, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_128_01, pos + < 0, -64, 9 >, < 0, -90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_64_01, pos + < 96, -64, 9 >, < 0, -90, 0 >, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1197,9 +699,9 @@ void function LilBalcony( vector pos, vector ang, string name )
     string script = "lil_balcony_"
     string script_name = script + name
 
-    CreateSingleFloppytownModel( PLAYBACK_BRIDGE_PANEL_128x64_01, pos + < 64, 0, 0 >, < 0, 90, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -64, 64, 4 >, < 0, 180, 0 >, script_name )
-    CreateSingleFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < 64, 64, 4 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( PLAYBACK_BRIDGE_PANEL_128x64_01, pos + < 64, 0, 0 >, < 0, 90, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < -64, 64, 4 >, < 0, 180, 0 >, script_name )
+    CreateFloppytownModel( OLA_RAILING_CORNER_IN_01, pos + < 64, 64, 4 >, < 0, 90, 0 >, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -1216,17 +718,17 @@ void function cargo_ground( vector pos, vector ang, string type, string number )
     switch( type )
     {
         case "first":
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
             break
         case "second":
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_OPEN_01, pos + < 55, 137, 137 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_LARGE_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_OPEN_01, pos + < 55, 137, 137 >, < 0, 90, 0 >, script_name )
             break
         case "third":
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
-            CreateSingleFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
+            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, script_name )
             break
         default:
         break
@@ -1239,16 +741,15 @@ void function cargo_ground( vector pos, vector ang, string type, string number )
 
 void function spawn_nessy( vector pos, vector ang )
 {
-    CreateSingleFloppytownModel( DOMESTIC_NESSY_DOLL, pos, ang)
+    CreateFloppytownModel( DOMESTIC_NESSY_DOLL, pos, ang)
 }
 
 void function AreaBuildAreVisible()
 {
     entity script_mover = CreateFloppytownScriptMover( FT_BUILD_AREA_POS )
-    for ( int i = 0 ; i <  3 ; i++ )
-    {   for ( int j = 0 ; j <  7 ; j++ )
-        {   CreateSingleFloppytownModel( DESERTLANDS_BLDG_PLATFORM_02, FT_BUILD_AREA_POS + < 1024 * i, 352 * j, 0 >, < 0, 180, 0 >, "area_build" ) }
-    }
+
+    CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_01, FT_BUILD_AREA_POS, < 0, 180, 0 >, 1024, 3, 352, 7, "area_build" )
+    
     foreach ( ent in GetEntArrayByScriptName( "area_build" ) )
     { ent.SetParent( script_mover ) }
     script_mover.SetAngles( FT_BUILD_AREA_ANG )
