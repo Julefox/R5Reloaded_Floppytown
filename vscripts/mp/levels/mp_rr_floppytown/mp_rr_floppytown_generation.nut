@@ -31,7 +31,7 @@ void function Floppytown_MapInit_Generation()
 
 void function Map_Generation()
 {
-    Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG, 6, 1 )
+    Ft_Floor( FT_FLOOR_POS, FT_FLOOR_ANG )
 
     North_Wall( FT_NORTH_WALL_POS, FT_NORTH_WALL_ANG, "01" )
     South_Wall( FT_SOUTH_WALL_POS, FT_SOUTH_WALL_ANG, "01" )

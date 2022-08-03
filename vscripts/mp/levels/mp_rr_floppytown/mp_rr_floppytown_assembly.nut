@@ -15,28 +15,11 @@ void function Floppytown_MapInit_Assembly()
 }
 
 
-void function Ft_Floor( vector pos, vector ang, int Xaxis, int Yaxis )
+void function Ft_Floor( vector pos, vector ang )
 {
     entity script_mover = CreateScriptMover( pos )
 
-    int checker = 0
-    float m = 0.00
-    float n = -0.20
-
-    for ( int i = 0 ; i < Xaxis ; i++ )
-    {
-        for ( int j = 0 ; j < Yaxis ; j++ )
-        {
-            //CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, m > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" ).SetModelScale( 2 )            //1
-            //CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, n > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 2 )      //1
-
-            //m = m-0.06 // 1
-            //n = n+0.06 // 1
-            CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < 0, 0, -0.01 > + < 0, 700 * i, 0 >, < 0, 270, 0 >, "floor" )       //2
-            CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -1600, -200, -0.01 > + < 0, 700 * i, 0 >, < 0, 90, 0 >, "floor" ) //2
-        }
-    }
-    CreateFloppytownModel( LEVELS_TERRAIN_MIL_BASE_SOUTH_RUNWAY_01, FT_FLOOR_POS + < -680, -1000, 0 >, < 0, 90, 0 >, "floor" ).SetModelScale( 10 )     //2
+    CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_01, pos, < 0, 180, 0 >, 1024, 6, 352, 14, "floor" )
 
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
     { ent.SetParent( script_mover ) }

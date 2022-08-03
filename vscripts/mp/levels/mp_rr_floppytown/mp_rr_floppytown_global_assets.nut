@@ -676,63 +676,63 @@ globalize_all_functions
 
 
 /////--- Fx ---/////
-    global const asset ROCK_IMPACT_XL                     = $"P_sw_rock_impact_XL"
-    global const asset SPACE_DEBRIS_COMET                 = $"P_space_debris_comet"
-    global const asset CORE_EXP                           = $"P_sw_core_exp"
-    global const asset SPRINT_FP                          = $"P_sprint_FP"
-    global const asset HARVESTER_BEAM_AIR                 = $"P_harvester_beam_air"
-    global const asset HARVESTER_BEAM_END                 = $"P_harvester_beam_end"
-    global const asset HARVESTER_BEAM_HLD                 = $"P_harvester_beam_hld"
-    global const asset HARVESTER_DAMAGED                  = $"P_harvester_damaged_1"
-    global const asset WIND_CRUISING                      = $"P_wind_cruising"
-    global const asset COREROOM_SPARKS                    = $"P_coreroom_sparks"
-    global const asset TOXIC_AIR_BLOWN                    = $"P_toxic_air_blown"
-    global const asset TOXIC_AIR_256_FLOOR                = $"P_toxic_air_256_floor"
-    global const asset TOXIC_AIR_256_THIN                 = $"P_toxic_air_256_thin"
-    global const asset TOXIC_AIR_256_TOP                  = $"P_toxic_air_256_top"
-    global const asset TOXIC_AIR_256                      = $"P_toxic_air_256"
-    global const asset WRAITH_TT_PORTAL_SKY               = $"P_wrth_tt_portal_sky"
-    global const asset WRAITH_TT_PORTAL_BASE              = $"P_wrth_tt_portal_base"
-    global const asset WRAITH_TT_PORTAL_LAB               = $"P_wrth_tt_portal_lab"
-    global const asset WRAITH_TT_PORTAL_FLASH             = $"P_wrth_tt_portal_screen_flash"
-    global const asset WRAITH_TT_PHASE                    = $"P_wrth_tt_phase"
-    global const asset TITAN_SMOKE_MARKER                 = $"P_titan_smoke_marker"
-    global const asset NPE_GOAL                           = $"P_npe_goal"
-    global const asset NPE_PIT_ORANGE                     = $"P_npe_pit_orange"
-    global const asset NPE_STREAKS_BLUE                   = $"P_npe_streaks_400_blue"
-    global const asset HEALTH_HEX                         = $"P_health_hex"
-    global const asset PHASE_SHIFT_MAIN_XO                = $"P_phase_shift_main_xo"
-    global const asset PHASE_SHIFT_SCREEN                 = $"P_phase_shift_screen"
-    global const asset ADRENALINE_SCREEN_CP               = $"P_adrenaline_screen_CP"
-    global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
-    global const asset DOG_SMOKE_TRAIL                    = $"P_dog_w_smoke_trail"
-    global const asset SPARKS_BEACON_DISH                 = $"P_sparks_beacon_dish"
-    global const asset SMOKE_LOOP_XL                      = $"P_smoke_loop_light_XL"
-    global const asset ORDINANCE_ICON                     = $"P_ordinance_icon"
-    global const asset TITAN_DROPPOINT                    = $"P_ar_titan_droppoin"
-    global const asset TITAN_DROPPOINT_TALL               = $"P_ar_titan_droppoint_tall"
-    global const asset HUMAN_JETWASH_CONCRETE             = $"P_human_jetwash_concrete"
-    global const asset EXP_IMPACT_ARTILLERY               = $"P_impact_exp_artillery"
+    //global const asset ADRENALINE_SCREEN_CP               = $"P_adrenaline_screen_CP"
+    //global const asset CORE_EXP                           = $"P_sw_core_exp"
+    //global const asset COREROOM_SPARKS                    = $"P_coreroom_sparks"
+    //global const asset DOG_SMOKE_TRAIL                    = $"P_dog_w_smoke_trail"
+    //global const asset ESCAPE_POD_L_SBOX                  = $"P_SB_Escape_Pod_L"
+    //global const asset EXP_ANNAPOLIS_SPACE                = $"P_exp_annapolis_space"
+    //global const asset EXP_CAPITAL_SHIP_SBOX              = $"P_exp_capital_ship_SB"
     global const asset EXP_IMPACT_ARCBALL_DEFAULT         = $"P_impact_exp_arcball_default"
-    global const asset EXP_IMPACT_EMP_DEFAULT             = $"P_impact_exp_emp_med_default"
+    //global const asset EXP_IMPACT_ARTILLERY               = $"P_impact_exp_artillery"
+    //global const asset EXP_IMPACT_EMP_DEFAULT             = $"P_impact_exp_emp_med_default"
     global const asset EXP_IMPACT_TRIPLE_THREAT_FULL      = $"P_impact_exp_triplethreat_full"
-    global const asset EXP_IMPACT_XLG_CONCRETE            = $"P_impact_exp_XLG_concrete"
-    global const asset EXP_REDEYE_SPACE                   = $"P_exp_redeye_space"
-    global const asset EXP_ANNAPOLIS_SPACE                = $"P_exp_annapolis_space"
-    global const asset EXP_SHIP_NUKE_SPACE                = $"P_exp_ship_nuke_space"
-    global const asset EXP_WALL_CONCRETE                  = $"P_exp_wall_concrete"
-    global const asset EXP_PLANET_FLASH                   = $"P_planet_exp_flash"
-    global const asset EXP_SW_BT                          = $"P_sw_bt_exp"
-    global const asset EXP_NUKE_1P                        = $"P_xo_exp_nuke_1P"
+    //global const asset EXP_IMPACT_XLG_CONCRETE            = $"P_impact_exp_XLG_concrete"
+    //global const asset EXP_NUKE_1P                        = $"P_xo_exp_nuke_1P"
     global const asset EXP_NUKE_3P                        = $"P_xo_exp_nuke_3P"
-    global const asset SPEC_GRNDPND                       = $"P_sup_spec_grndpnd"
-    global const asset LEVIATHAN_FOOT_SAND                = $"P_leviathan_foot_sand"
-    global const asset SPECTRE_DEATH_XL                   = $"P_sup_spectre_death_XL"
+    //global const asset EXP_PLANET_FLASH                   = $"P_planet_exp_flash"
+    //global const asset EXP_REDEYE_SPACE                   = $"P_exp_redeye_space"
+    //global const asset EXP_REFUELSHIP_SBOX                = $"P_exp_refuelship_SBox"
+    //global const asset EXP_SHIP_NUKE_SPACE                = $"P_exp_ship_nuke_space"
+    //global const asset EXP_SW_BT                          = $"P_sw_bt_exp"
+    //global const asset EXP_WALL_CONCRETE                  = $"P_exp_wall_concrete"
     global const asset FIRE_VENT_DOOM                     = $"P_xo_health_fire_vent_doom"
-    global const asset TRACERS_LOOP_SBOX                  = $"P_tracers_loop_SBox"
-    global const asset ESCAPE_POD_L_SBOX                  = $"P_SB_Escape_Pod_L"
-    global const asset EXP_REFUELSHIP_SBOX                = $"P_exp_refuelship_SBox"
-    global const asset EXP_CAPITAL_SHIP_SBOX              = $"P_exp_capital_ship_SB"
+    //global const asset HARVESTER_BEAM_AIR                 = $"P_harvester_beam_air"
+    //global const asset HARVESTER_BEAM_END                 = $"P_harvester_beam_end"
+    //global const asset HARVESTER_BEAM_HLD                 = $"P_harvester_beam_hld"
+    //global const asset HARVESTER_DAMAGED                  = $"P_harvester_damaged_1"
+    //global const asset HEALTH_HEX                         = $"P_health_hex"
+    //global const asset HUMAN_JETWASH_CONCRETE             = $"P_human_jetwash_concrete"
+    //global const asset LEVIATHAN_FOOT_SAND                = $"P_leviathan_foot_sand"
+    //global const asset NPE_GOAL                           = $"P_npe_goal"
+    //global const asset NPE_PIT_ORANGE                     = $"P_npe_pit_orange"
+    //global const asset NPE_STREAKS_BLUE                   = $"P_npe_streaks_400_blue"
+    //global const asset ORDINANCE_ICON                     = $"P_ordinance_icon"
+    //global const asset PHASE_SHIFT_MAIN_XO                = $"P_phase_shift_main_xo"
+    //global const asset PHASE_SHIFT_SCREEN                 = $"P_phase_shift_screen"
+    //global const asset ROCK_IMPACT_XL                     = $"P_sw_rock_impact_XL"
+    //global const asset SMOKE_LOOP_XL                      = $"P_smoke_loop_light_XL"
+    global const asset SPACE_DEBRIS_COMET                 = $"P_space_debris_comet"
+    //global const asset SPARKS_BEACON_DISH                 = $"P_sparks_beacon_dish"
+    //global const asset SPEC_GRNDPND                       = $"P_sup_spec_grndpnd"
+    //global const asset SPECTRE_DEATH_XL                   = $"P_sup_spectre_death_XL"
+    //global const asset SPRINT_FP                          = $"P_sprint_FP"
+    //global const asset TITAN_DROPPOINT                    = $"P_ar_titan_droppoin"
+    //global const asset TITAN_DROPPOINT_TALL               = $"P_ar_titan_droppoint_tall"
+    //global const asset TITAN_SMOKE_MARKER                 = $"P_titan_smoke_marker"
+    //global const asset TOXIC_AIR_256                      = $"P_toxic_air_256"
+    //global const asset TOXIC_AIR_256_FLOOR                = $"P_toxic_air_256_floor"
+    //global const asset TOXIC_AIR_256_THIN                 = $"P_toxic_air_256_thin"
+    //global const asset TOXIC_AIR_256_TOP                  = $"P_toxic_air_256_top"
+    //global const asset TOXIC_AIR_BLOWN                    = $"P_toxic_air_blown"
+    //global const asset TPOD_SCREEN_DISTORT                = $"P_tpod_screen_distort"
+    //global const asset TRACERS_LOOP_SBOX                  = $"P_tracers_loop_SBox"
+    //global const asset WIND_CRUISING                      = $"P_wind_cruising"
+    //global const asset WRAITH_TT_PHASE                    = $"P_wrth_tt_phase"
+    //global const asset WRAITH_TT_PORTAL_BASE              = $"P_wrth_tt_portal_base"
+    //global const asset WRAITH_TT_PORTAL_FLASH             = $"P_wrth_tt_portal_screen_flash"
+    //global const asset WRAITH_TT_PORTAL_LAB               = $"P_wrth_tt_portal_lab"
+    //global const asset WRAITH_TT_PORTAL_SKY               = $"P_wrth_tt_portal_sky"
 
 /////--- SFx ---/////
     global const string DROPSHIP_EXPLODE_OLD          = "goblin_dropship_explode_OLD"
@@ -759,63 +759,63 @@ global array< entity > FLOPPYTOWN_ENTITIES = [ ]
 
 global array< asset > FX_ARRAY =
 [
-    ROCK_IMPACT_XL
-    SPACE_DEBRIS_COMET
-    CORE_EXP
-    SPRINT_FP
-    HARVESTER_BEAM_AIR
-    HARVESTER_BEAM_END
-    HARVESTER_BEAM_HLD
-    HARVESTER_DAMAGED
-    WIND_CRUISING
-    COREROOM_SPARKS
-    TOXIC_AIR_BLOWN
-    TOXIC_AIR_256_FLOOR
-    TOXIC_AIR_256_THIN
-    TOXIC_AIR_256_TOP
-    TOXIC_AIR_256
-    WRAITH_TT_PORTAL_SKY
-    WRAITH_TT_PORTAL_BASE
-    WRAITH_TT_PORTAL_LAB
-    WRAITH_TT_PORTAL_FLASH
-    WRAITH_TT_PHASE
-    TITAN_SMOKE_MARKER
-    NPE_GOAL
-    NPE_PIT_ORANGE
-    NPE_STREAKS_BLUE
-    HEALTH_HEX
-    PHASE_SHIFT_MAIN_XO
-    PHASE_SHIFT_SCREEN
-    ADRENALINE_SCREEN_CP
-    TPOD_SCREEN_DISTORT
-    DOG_SMOKE_TRAIL
-    SPARKS_BEACON_DISH
-    SMOKE_LOOP_XL
-    ORDINANCE_ICON
-    TITAN_DROPPOINT
-    TITAN_DROPPOINT_TALL
-    HUMAN_JETWASH_CONCRETE
-    EXP_IMPACT_ARTILLERY
+    //ADRENALINE_SCREEN_CP
+    //CORE_EXP
+    //COREROOM_SPARKS
+    //DOG_SMOKE_TRAIL
+    //ESCAPE_POD_L_SBOX
+    //EXP_ANNAPOLIS_SPACE
+    //EXP_CAPITAL_SHIP_SBOX
     EXP_IMPACT_ARCBALL_DEFAULT
-    EXP_IMPACT_EMP_DEFAULT
+    //EXP_IMPACT_ARTILLERY
+    //EXP_IMPACT_EMP_DEFAULT
     EXP_IMPACT_TRIPLE_THREAT_FULL
-    EXP_IMPACT_XLG_CONCRETE
-    EXP_REDEYE_SPACE
-    EXP_ANNAPOLIS_SPACE
-    EXP_SHIP_NUKE_SPACE
-    EXP_WALL_CONCRETE
-    EXP_PLANET_FLASH
-    EXP_SW_BT
-    EXP_NUKE_1P
+    //EXP_IMPACT_XLG_CONCRETE
+    //EXP_NUKE_1P
     EXP_NUKE_3P
-    SPEC_GRNDPND
-    LEVIATHAN_FOOT_SAND
-    SPECTRE_DEATH_XL
+    //EXP_PLANET_FLASH
+    //EXP_REDEYE_SPACE
+    //EXP_REFUELSHIP_SBOX
+    //EXP_SHIP_NUKE_SPACE
+    //EXP_SW_BT
+    //EXP_WALL_CONCRETE
     FIRE_VENT_DOOM
-    TRACERS_LOOP_SBOX
-    ESCAPE_POD_L_SBOX
-    EXP_REFUELSHIP_SBOX
-    EXP_CAPITAL_SHIP_SBOX
+    //HARVESTER_BEAM_AIR
+    //HARVESTER_BEAM_END
+    //HARVESTER_BEAM_HLD
+    //HARVESTER_DAMAGED
+    //HEALTH_HEX
+    //HUMAN_JETWASH_CONCRETE
+    //LEVIATHAN_FOOT_SAND
+    //NPE_GOAL
+    //NPE_PIT_ORANGE
+    //NPE_STREAKS_BLUE
+    //ORDINANCE_ICON
+    //PHASE_SHIFT_MAIN_XO
+    //PHASE_SHIFT_SCREEN
+    //ROCK_IMPACT_XL
+    //SMOKE_LOOP_XL
+    SPACE_DEBRIS_COMET
+    //SPARKS_BEACON_DISH
+    //SPEC_GRNDPND
+    //SPECTRE_DEATH_XL
+    //SPRINT_FP
+    //TITAN_DROPPOINT
+    //TITAN_DROPPOINT_TALL
+    //TITAN_SMOKE_MARKER
+    //TOXIC_AIR_256
+    //TOXIC_AIR_256_FLOOR
+    //TOXIC_AIR_256_THIN
+    //TOXIC_AIR_256_TOP
+    //TOXIC_AIR_BLOWN
+    //TPOD_SCREEN_DISTORT
+    //TRACERS_LOOP_SBOX
+    //WIND_CRUISING
+    //WRAITH_TT_PHASE
+    //WRAITH_TT_PORTAL_BASE
+    //WRAITH_TT_PORTAL_FLASH
+    //WRAITH_TT_PORTAL_LAB
+    //WRAITH_TT_PORTAL_SKY
 ]
 
 

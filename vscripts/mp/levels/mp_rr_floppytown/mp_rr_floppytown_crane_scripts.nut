@@ -110,6 +110,10 @@ void function RespawnFallingObject()
         entity script_mover = CreateFloppytownScriptMover( model_offset_pos, model_offset_ang, "01" )
         entity falling_object_model = CreateFloppytownModel( IMC_BASE_GENERATOR_02,model_offset_pos, model_offset_ang, "falling_object_model_01" )
 
+        falling_object_model.SetPusher( true )
+        falling_object_model.Solid()
+        falling_object_model.AllowMantle()
+
         if ( IsValid( script_mover ) && IsValid( falling_object_model ) )
         {
             script_mover.SetParent( find_sling_crane_01 )
@@ -289,6 +293,13 @@ void function GenerateCraneForFloppytown( vector origin, vector ang_a, vector an
     entity moving_part_model_a = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_A_01, origin                          , ang_a )
     entity moving_part_model_b = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_B_01, origin + FT_CRANE_PART_B_OFFSET , ZERO_VECTOR )
     entity moving_part_model_c = CreateFloppytownModel( DESERTLANDS_INDUSTRIAL_CRANE_C_01, origin + FT_CRANE_PART_C_OFFSET , ZERO_VECTOR )
+
+    moving_part_model_a.SetPusher( true )
+    moving_part_model_b.SetPusher( true )
+    moving_part_model_c.SetPusher( true )
+    moving_part_model_a.Solid()
+    moving_part_model_b.Solid()
+    moving_part_model_c.Solid()
 
     moving_part_model_b.SetParent( script_mover_part_b )
     moving_part_model_c.SetParent( script_mover_part_c )

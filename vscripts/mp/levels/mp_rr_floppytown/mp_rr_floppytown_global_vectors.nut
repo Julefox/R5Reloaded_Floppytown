@@ -75,7 +75,7 @@ global const vector FT_BUILDING_POS_20      = FLOPPYTOWN_POS_OFFSET + < 1344, 16
 global const vector FT_BUILDING_ANG_20      = < 0, 0, 0 >
 
 // Floor
-global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET + < 3200, 1000, 0 >
+global const vector FT_FLOOR_POS            = FLOPPYTOWN_POS_OFFSET
 global const vector FT_FLOOR_ANG            = < 0, 0, 0 >
 
 // Walls
@@ -147,7 +147,7 @@ global const vector FT_CRANE_01_ANG_A = FLOPPYTOWN_ANG_OFFSET + < 0, 45, 0 >
 global const vector FT_CRANE_01_ANG_B = FLOPPYTOWN_ANG_OFFSET + < 0, 40, 0 >
 global const vector FT_CRANE_01_ANG_C = FLOPPYTOWN_ANG_OFFSET + < 0, -155, 0 >
 
-global const vector FT_CRANE_PART_B_OFFSET      = < 0, 0, 560 >
+global const vector FT_CRANE_PART_B_OFFSET      = < 0, 0, 672 >
 global const vector FT_CRANE_PART_C_OFFSET      = FT_CRANE_PART_B_OFFSET + < -330, 0, 260 >
 global const vector FT_CRANE_PART_SLING_OFFSET  = FT_CRANE_PART_C_OFFSET + < 885, 0, 80 >
 
