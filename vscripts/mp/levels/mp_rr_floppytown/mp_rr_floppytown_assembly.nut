@@ -86,6 +86,7 @@ void function West_Wall( vector pos, vector ang, string name )
     CreateLoopFloppytownModel_YZ( DESERTLANDS_HIGHRISE_S_BLOCK_03, pos + < 0, 3749.6, 672 >, < 0, -90, 0 >, 260.7, 3, 224, 7, script_name )
     CreateLoopFloppytownModel_Z( DESERTLANDS_CITY_SLANTED_BLDG_SLICE_01, pos + < -89, 4360, 1200 >, < 0, -90, 0 >, 200, 5, script_name )
     CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x128_06, pos + < -58, 4494, 2200 >, < 0, 180, 0 >, 256, 2, script_name )
+    CreateLoopFloppytownModel_YZ( COLONY_WALLRUN_PLATE, pos + < -6, 3840, 1340 >, < 0, 180, 0 >, 100, 5, 116, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -256,7 +257,7 @@ void function Building_04( vector pos, vector ang, string name )
     string script_name = script + name
 
     CreateLoopFloppytownModel_YZ( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 128, -256, 0 >, < 0, 270, 0 >, 256, 3, 256, 2, script_name )
-    CreateLoopFloppytownModel_Y( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 0, -256, 512 >, < 0, 0, 0 >, 256, 3, script_name )
+    CreateLoopFloppytownModel_Y( IMC_BASE_FLOORPANEL_DARK_256x256_01, pos + < 0, -256, 512 >, < 0, 0, 0 >, 256, 3, script_name )
     CreateLoopFloppytownModel_Z( THUNDERDOME_CAGE_WALL_256x256_01, pos + < 0, 384, 0 >, < 0, 0, 0 >, 256, 2, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
@@ -340,6 +341,7 @@ void function Building_07( vector pos, vector ang, string name )
             { CreateFloppytownModel( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < 768, 256, 256 > + < 0 * i, 0, 256 * j >, < 0, 0, 0 >, script_name ) }
         }
     }
+    CreateCamera( pos + < 1536, 392, 1920 >, <0,90,0>, 35, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }
@@ -533,6 +535,7 @@ void function Building_17( vector pos, vector ang, string name )
     CreateFloppytownModel( THUNDERDOME_CAGE_WALL_512x352_01, pos + < 384, -128, 0 >, < 0, 90, 0 >, script_name )
     CreateFloppytownModel( THUNDERDOME_CAGE_WALL_256x352_01, pos + < 384, 256, 0 >, < 0, 90, 0 >, script_name )
     CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -256, 352 >, < 0, 0, 0 >, 256, 3, 256, 3, script_name )
+    CreateCamera( pos + < 392, 128, 320 >, <0,0,0>, 20, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }

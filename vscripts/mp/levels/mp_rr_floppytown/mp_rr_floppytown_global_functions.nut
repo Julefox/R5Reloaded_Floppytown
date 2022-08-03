@@ -157,6 +157,62 @@ entity function CreateFloppytownScriptMover( vector origin = < 0.0, 0.0, 0.0 >, 
 
 return script_mover }
 
+entity function CreateFloppytownScriptMoverModel( asset model, vector origin = < 0.0, 0.0, 0.0 >, vector angles = < 0.0, 0.0, 0.0 >, int solidType = 0 )
+{
+	entity script_mover = CreateEntity( "script_mover_lightweight" )
+	script_mover.kv.solid = solidType
+	script_mover.SetValueForModelKey( model )
+	script_mover.kv.SpawnAsPhysicsMover = 0
+	script_mover.SetOrigin( origin )
+	script_mover.SetAngles( angles )
+	DispatchSpawn( script_mover )
+	return script_mover
+}
+
+
+void function CreateCamera( vector pos, vector ang, float inclination, string script_name = "FloppytownEntities" )
+{
+    entity script_mover_01 = CreateFloppytownScriptMover( pos, < 0, 0, 0 > )
+
+    entity camera_base = CreateFloppytownModel( IMC_BASE_CAMERA_BASE_01, pos, < 0, 0, 0 > )
+    entity camera = CreateFloppytownScriptMoverModel( IMC_BASE_CAMERA_01, pos + < 16, 0, 8 >, < 0, 0, 0 >, 8 )
+    
+    camera_base.SetParent( script_mover_01 )
+    camera.SetParent( script_mover_01 )
+
+    script_mover_01.SetScriptName( script_name )
+    camera_base.SetScriptName( script_name )
+    camera.SetScriptName( script_name )
+
+    script_mover_01.SetAngles( ang )
+
+    camera_base.ClearParent()
+    camera.ClearParent()
+
+    script_mover_01.Destroy()
+
+    thread OnMoveCamera( camera, inclination )
+}
+
+
+void function OnMoveCamera( entity script_mover, float inclination )
+{
+    vector baseAng_01 = script_mover.GetAngles()
+
+    script_mover.SetAngles( baseAng_01 + < inclination, 45, 0 > )
+
+    wait 0.1
+
+    while ( true )
+    {
+        script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < 0, -90, 0 >, 6, 3, 3 )
+        
+            wait RandomFloatRange( 6.2, 8.0 )
+        script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < 0, 90, 0 >, 6, 3, 3 )
+            wait RandomFloatRange( 6.2, 8.0 )
+    }
+}
+
 
 entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 {
