@@ -277,6 +277,5 @@ void function SetFloppytownAngles()
         //entities.Destroy()
     }
 
-    script_mover.SetOrigin( FLOPPYTOWN_POS_OFFSET )
     script_mover.SetAngles( FLOPPYTOWN_ANG_OFFSET )
 }
