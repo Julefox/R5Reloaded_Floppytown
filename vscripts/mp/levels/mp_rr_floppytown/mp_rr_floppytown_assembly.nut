@@ -17,7 +17,7 @@ void function Floppytown_MapInit_Assembly()
 
 void function Ft_Floor( vector pos, vector ang )
 {
-    entity script_mover = CreateScriptMover( pos )
+    entity script_mover = CreateFloppytownScriptMover( pos )
 
     CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_01, pos, < 0, 180, 0 >, 1024, 6, 352, 14, "floor" )
 
