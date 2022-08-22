@@ -19,6 +19,8 @@ void function Floppytown_MapInit_Dev()
         AddClientCommandCallback( "test",   ClientCommand_Test )
         AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
         AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
+        AddClientCommandCallback( "ent",    ClientCommand_EntGenerator )
+        AddClientCommandCallback( "hud",    ClientCommand_HUD_Test )
     }
 }
 
@@ -70,6 +72,11 @@ return true }
 bool function ClientCommand_Test( entity player, array<string> args )
 {
     
+return true }
+
+bool function ClientCommand_HUD_Test( entity player, array<string> args )
+{
+    Remote_CallFunction_NonReplay( player, "ServerCallback_HUD_Test_DoAnnouncement" )
 return true }
 
 bool function ClientCommand_AssetViewerActive( entity player, array<string> args )
@@ -156,4 +163,12 @@ bool function ClientCommand_FallingObjectActiveThread( entity player, array<stri
         printt( "|==========================================================|" )
     }
 
+return true }
+
+bool function ClientCommand_EntGenerator( entity player, array<string> args )
+{
+    foreach( ent in FLOPPYTOWN_ENTITIES )
+    {
+
+    }
 return true }

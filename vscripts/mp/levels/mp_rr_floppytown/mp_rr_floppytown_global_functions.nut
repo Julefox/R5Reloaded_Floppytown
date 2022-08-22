@@ -170,7 +170,7 @@ entity function CreateFloppytownScriptMoverModel( asset model, vector origin = <
 }
 
 
-void function CreateCamera( vector pos, vector ang, float inclination, string script_name = "FloppytownEntities" )
+void function CreateCamera( vector pos, vector ang, float inclination, float leftincl, float leftAng, float rightincl, float rightAng, string script_name = "FloppytownEntities" )
 {
     entity script_mover_01 = CreateFloppytownScriptMover( pos, < 0, 0, 0 > )
 
@@ -191,25 +191,61 @@ void function CreateCamera( vector pos, vector ang, float inclination, string sc
 
     script_mover_01.Destroy()
 
-    thread OnMoveCamera( camera, inclination )
+    thread OnMoveCamera( camera, inclination, leftincl, leftAng, rightincl, rightAng )
 }
 
 
-void function OnMoveCamera( entity script_mover, float inclination )
+void function OnMoveCamera( entity script_mover, float inclination, float leftincl, float leftAng, float rightincl, float rightAng )
 {
-    vector baseAng_01 = script_mover.GetAngles()
+    float setLeftAng
+    float setRightAng
+    float setLeftincl
+    float setRightincl
 
-    script_mover.SetAngles( baseAng_01 + < inclination, 45, 0 > )
+    if ( leftAng == 0 )
+    { setLeftAng = 90 }
+    else
+    { setLeftAng = leftAng }
 
-    wait 0.1
+    if ( rightAng == 0 )
+    { setRightAng = 90 }
+    else
+    { setRightAng = rightAng }
+
+    if ( leftincl == 0 )
+    { setLeftincl = inclination }
+    else
+    { setLeftincl = leftincl }
+
+    if ( rightincl == 0 )
+    { setRightincl = inclination }
+    else
+    { setRightincl = rightincl }
+
+    float preInitAng = setLeftAng / 2
+
+    vector getAnglesOrigin = script_mover.GetAngles()
+
+        wait 0.1
+
+    script_mover.NonPhysicsRotateTo( getAnglesOrigin + < inclination, preInitAng, 0 >, 2, 1, 1 )
+
+        wait 2.1
 
     while ( true )
     {
-        script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < 0, -90, 0 >, 6, 3, 3 )
-        
-            wait RandomFloatRange( 6.2, 8.0 )
-        script_mover.NonPhysicsRotateTo( script_mover.GetAngles() + < 0, 90, 0 >, 6, 3, 3 )
-            wait RandomFloatRange( 6.2, 8.0 )
+        float travelTimeRight = RandomFloatRange( 2.0, 8.2 )
+        float halfTravelTimeRight = travelTimeRight / 2
+        float travelTimeLeft = RandomFloatRange( 2.0, 8.2 )
+        float halfTravelTimeLeft = travelTimeLeft / 2
+
+        script_mover.NonPhysicsRotateTo( getAnglesOrigin + < setLeftincl, setLeftAng, 0 >, travelTimeRight, halfTravelTimeRight, halfTravelTimeRight )
+
+            wait RandomFloatRange( travelTimeRight + 0.2, travelTimeRight + 3.6 )
+
+        script_mover.NonPhysicsRotateTo( getAnglesOrigin + < setRightincl, setRightAng, 0 >, travelTimeLeft, halfTravelTimeLeft, halfTravelTimeLeft )
+
+            wait RandomFloatRange( travelTimeLeft + 0.2, travelTimeLeft + 3.6 )
     }
 }
 
@@ -217,7 +253,7 @@ void function OnMoveCamera( entity script_mover, float inclination )
 entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 {
     entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 10 );
+    map_trigger.SetRadius( radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 0 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
 

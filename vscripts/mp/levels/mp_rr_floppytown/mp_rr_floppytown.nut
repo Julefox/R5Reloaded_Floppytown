@@ -10,6 +10,9 @@ void function CodeCallback_MapInit()
 
     PrecacheAssets()
 
+    //SetConVarInt( "r_drawWorldMeshes", 0 )
+    SetConVarInt( "gl_clear_color_buffer", 1 )
+
     Floppytown_MapInit_Common()
 
     DebugPrintt()

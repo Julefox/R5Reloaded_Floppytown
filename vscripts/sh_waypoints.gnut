@@ -389,6 +389,9 @@ bool function ShouldHighlightForPing( entity wp, entity pingedEnt )
 	if ( pingedEnt.IsPlayerDecoy() )
 		return false
 
+	//if ( GetMapName() == "mp_rr_floppytown" )
+	//	return false
+
 	int pingType = Waypoint_GetPingTypeForWaypoint( wp )
 	switch( pingType )
 	{
