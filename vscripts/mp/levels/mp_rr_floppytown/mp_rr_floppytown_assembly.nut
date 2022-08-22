@@ -717,10 +717,6 @@ void function cargo_ground( vector pos, vector ang, string type, string number )
             CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_LARGE_01, pos + < 0, 137, 0 >, < 0, 90, 0 >, script_name )
             CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_OPEN_01, pos + < 55, 137, 137 >, < 0, 90, 0 >, script_name )
             break
-        case "third":
-            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 0, 0, 0 >, < 0, 90, 0 >, script_name )
-            CreateFloppytownModel( DESERTLANDS_CARGO_CONTAINER_320_01, pos + < 10, 137*2, 120 >, < 0, 270, 45 >, script_name )
-            break
         default:
         break
     }

@@ -3,6 +3,19 @@ untyped
 globalize_all_functions
 
 
+void function debug_printt( ... )
+{
+	if ( vargc <= 0 )
+		return
+
+	local msg = vargv[0]
+	for ( int i = 1; i < vargc; i++ )
+		msg = (msg + " " + vargv[i])
+
+	printl( msg )
+}
+
+
 void function PrinttGlobalFunctionFiles()
 {
     printt( "|mp_rr_floppytown_global_function.nut:           file called.|" )

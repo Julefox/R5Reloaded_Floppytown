@@ -64,6 +64,9 @@ void function Map_Generation()
     LilBalcony( FT_LIL_BALCONY_01_POS, FT_LIL_BALCONY_01_ANG, "01" )
     LilBalcony( FT_LIL_BALCONY_02_POS, FT_LIL_BALCONY_02_ANG, "02" )
     LilBalcony( FT_LIL_BALCONY_03_POS, FT_LIL_BALCONY_03_ANG, "03" )
+    LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG, "01" )
+    BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
+    BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
 }
 
 
@@ -113,7 +116,7 @@ void function Props_Generation()
     CreateLoopFloppytownModel_Y( IMC_BASE_GENERATOR_01, FLOPPYTOWN_POS_OFFSET + < 5184, 2368, 2304 >, < 0, 0, 0 >, 128, 4 )
     CreateFloppytownModel( INDUSTRIAL_LIGHT_POLE_BFORCE_02, FLOPPYTOWN_POS_OFFSET + < 320, 2176, 0 >, < 0, 0, 0 > )
     CreateFloppytownModel( FOLIAGE_FOREST_TREE_01, FLOPPYTOWN_POS_OFFSET + < 3200, 2956, 0 >, < 0, 0, 0 > )
-    CreateFloppytownModel( FOLIAGE_GRASS_DESERT_02, FLOPPYTOWN_POS_OFFSET + < 3200, 2956, 16 >, < 0, 0, 0 > )
+    //CreateFloppytownModel( FOLIAGE_GRASS_DESERT_02, FLOPPYTOWN_POS_OFFSET + < 3200, 2956, 16 >, < 0, 0, 0 > )
 
     // test
     //CreateLoopFloppytownModel_X( BARRIERS_SANDBAGS_LARGE_01, FLOPPYTOWN_POS_OFFSET + < 3200, 2956, 0 >, < 0, 0, 0 >, 116, 8 )
@@ -123,78 +126,19 @@ void function Props_Generation()
 
 void function Dynamic_Build_Generation()
 {
-    array<string> rng_0_choice = [ "hide", "visible" ]
-    string rng_0 = rng_0_choice.getrandom()
-    array<string> rng_1_choice = [ "none", "none", "left", "left", "right", "right", "both", "both", "both", "both" ]
-    string rng_1 = rng_1_choice.getrandom()
-    array<string> rng_2_choice = [ "hide", "hide", "visible" ]
-    string rng_2 = rng_2_choice.getrandom()
-    array<string> rng_3_choice = []
-    if(rng_0 == "hide") {
-        rng_3_choice = [ "1", "2", "3", "5" ]
-    } else {
-        rng_3_choice = [ "1", "2", "3", "4", "5" ]
-    }
-    string rng_3 = rng_3_choice.getrandom()
+    array<string> rng_nessy_choice = [ "1", "2", "3", "4", "5" ]
+    string rng_nessy = rng_nessy_choice.getrandom()
 
     if ( GetCurrentPlaylistVarBool( "ft_rng_is_not_rng", false ) )
     {
         printt( "|============================================================|" )
         printt( "|>>>>>>>>>>>>>>>>>>>  RNG State: DISABLE  <<<<<<<<<<<<<<<<<<<|" )
 
-        rng_0 = "visible"
-        rng_1 = "both"
-        rng_2 = "visible"
-        rng_3 = "inDev"
+        rng_nessy = "inDev"
     }
-
-    // rng_0
-    switch ( rng_0 )
+    // rng_nessy
+    switch( rng_nessy )
     {
-        case "hide":
-            break
-        case "visible":
-            LittleBridge( FT_LITTLE_BRIDGE_POS, FT_LITTLE_BRIDGE_ANG, "01" )
-        break
-    }
-
-    // rng_1
-    switch ( rng_1 )
-    {
-        case "none":
-            break
-        case "left":
-            BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
-            break
-        case "right":
-            BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
-            break
-        case "both":
-            BalconyLeft( FT_BALCONY_LEFT_POS, FT_BALCONY_LEFT_ANG, "01" )
-            BalconyRight( FT_BALCONY_RIGHT_POS, FT_BALCONY_RIGHT_ANG, "01" )
-        break
-    }
-    // rng_2
-    switch ( rng_2 )
-    {
-        case "hide":
-            break
-        case "visible":
-            cargo_ground( FT_CARGO_GROUND_THIRD_POS, FT_CARGO_GROUND_THIRD_ANG, "third", "01" )
-        break
-    }
-    // rng_3
-    switch( rng_3 )
-    {
-        case "inDev":
-            spawn_nessy(FT_NESSY_1_POS, FT_NESSY_1_ANG)
-            spawn_nessy(FT_NESSY_2_POS, FT_NESSY_2_ANG)
-            spawn_nessy(FT_NESSY_3_POS, FT_NESSY_3_ANG)
-            spawn_nessy(FT_NESSY_4_POS, FT_NESSY_4_ANG)
-            spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
-            break
-        case "none":
-            break
         case "1":
             spawn_nessy(FT_NESSY_1_POS, FT_NESSY_1_ANG)
             break
@@ -209,15 +153,19 @@ void function Dynamic_Build_Generation()
             break
         case "5":
             spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
+            break
+        case "inDev":
+            spawn_nessy(FT_NESSY_1_POS, FT_NESSY_1_ANG)
+            spawn_nessy(FT_NESSY_2_POS, FT_NESSY_2_ANG)
+            spawn_nessy(FT_NESSY_3_POS, FT_NESSY_3_ANG)
+            spawn_nessy(FT_NESSY_4_POS, FT_NESSY_4_ANG)
+            spawn_nessy(FT_NESSY_5_POS, FT_NESSY_5_ANG)
         break
     }
 
     if ( GetCurrentPlaylistVarBool( "ft_dev_enable", false ) ) { // map editing, do not activate in normal use
         printt( "|============================================================|" )
-        printt( "|Dynamic_Build_Generation RNG: Little Bridge       = " + rng_0 )
-        printt( "|Dynamic_Build_Generation RNG: Balcony             = " + rng_1 )
-        printt( "|Dynamic_Build_Generation RNG: Cargo on the ground = " + rng_2 )
-        printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_3 )
+        printt( "|Dynamic_Build_Generation RNG: Nessy Location      = " + rng_nessy )
         printt( "|============================================================|" )
         printt( "" ) }
 }
