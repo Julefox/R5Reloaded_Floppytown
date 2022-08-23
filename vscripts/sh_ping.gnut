@@ -572,6 +572,9 @@ PingTraceResults function DoPingTrace( entity player )
                         printt(	"Editor Ref:            "	+ result.hitEnt.GetTargetName() )
                     }
                 }
+                
+                printt( "===========================" )
+                printt( "" )
 
                 thread ShowCenterOfEntity( result.hitEnt )
 
@@ -581,9 +584,6 @@ PingTraceResults function DoPingTrace( entity player )
                 }
                 //else
                 //thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
-
-                printt( "===========================" )
-                printt( "" )
             #endif
 
             #if CLIENT || UI

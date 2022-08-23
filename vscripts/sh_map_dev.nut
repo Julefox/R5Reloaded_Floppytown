@@ -126,22 +126,16 @@ void function Map_Dev_Init()
 
         printt( "" )
         printt( "===== .ent file generation =====" )
-        
-        printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
 
         for ( float i = fxPos.z ; i > end.z ; i = i-304 )
-        {
-            rst_pt_++
-        }
+        {   rst_pt_++ }
 
         for ( float i = fxPos.z ; i > end.z ; i = i-304 )
-        {
-            printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + fxPos.x + " " + fxPos.y + " " + i + "\"" )
-            rst_pt_--
-        }
+        {   printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + fxPos.x + " " + fxPos.y + " " + i + "\"" ) ; rst_pt_-- }
 
         printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + fxPos.x + " " + fxPos.y + " " + end.z + "\"" )
-        
+
+        printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
         printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + end.z + "\"" )
 
         printt( "===== end .ent file generation =====\n" )
@@ -150,50 +144,53 @@ void function Map_Dev_Init()
 
     void function EntFilesGeneratorForHorizontalZip( vector fxPos_start, vector fxPos_end )
     {
-        int rst_pt_ = 0
+        int rst_pt_     = 0
+        int index_start = 0
+        int index_end   = 1
         int indeterminateInt = 999
-        array< vector > lastestPos = []
+
+        array< vector > lastestPos = [ ]
 
         lastestPos.append( fxPos_start )
 
         printt( "" )
         printt( "===== .ent file generation =====" )
-        printt( "\"origin\"" + "\"" + fxPos_start.x + " " + fxPos_start.y + " " + fxPos_start.z + "\"" )
-        printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + fxPos_start.x + " " + fxPos_start.y + " " + fxPos_start.z + "\"" )
-
-        rst_pt_++
 
         for ( int i = 1 ; i <= indeterminateInt ; i++ )
         {
             vector direction = Normalize( fxPos_end - fxPos_start ) * 304.0 * i
             vector calculatedDir = fxPos_start + direction
+
             lastestPos.append( calculatedDir )
 
             if ( calculatedDir >= fxPos_end )
             {
                 indeterminateInt = i
                 calculatedDir = fxPos_end
-                lastestPos[1] = fxPos_end
+                lastestPos[index_end] = fxPos_end
             }
             else
-            {
-                indeterminateInt++
-            }
+            {   indeterminateInt++ }
 
-            DebugDrawLine( lastestPos[0], lastestPos[1], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 4.0 )
+            DebugDrawLine( lastestPos[index_start], lastestPos[index_end], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 4.0 )
 
-            lastestPos.remove(0)
-
-            printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + calculatedDir.x + " " + calculatedDir.y + " " + calculatedDir.z + "\"" )
-
-            rst_pt_++
+            index_start++ ; index_end++ ; rst_pt_++
         }
-        
+
+        printt( "\"_zipline_rest_point_" + rst_pt_ + "\" \"" + fxPos_end.x + " " + fxPos_end.y + " " + fxPos_end.z + "\"" )
+        rst_pt_-- ; index_start = index_start - 1
+
+        for ( int i = rst_pt_ ; i >= 0 ; i-- )
+        {
+            printt( "\"_zipline_rest_point_" + i + "\" \"" + lastestPos[index_start].x + " " + lastestPos[index_start].y + " " + lastestPos[index_start].z + "\"" )
+
+            index_start--
+            index_end--
+        }
+
+        printt( "\"origin\"" + "\"" + fxPos_start.x + " " + fxPos_start.y + " " + fxPos_start.z + "\"" )
         printt( "\"origin\"" + "\"" + fxPos_end.x + " " + fxPos_end.y + " " + fxPos_end.z + "\"" )
         printt( "===== end .ent file generation =====\n" )
-
-        for( int i = 0 ; i < lastestPos.len() ; i++ )
-        {   lastestPos.remove(i) }
     }
 
 
