@@ -117,7 +117,7 @@ void function CreateLoopFloppytownModel_XYZ( asset a, vector pos, vector ang, fl
 }   }   }
 
 
-void function CreateVerticalFloppytownZiplineModel( vector pos_0, vector ang_0, int isVertical = 0, vector pos_1 = ZERO_VECTOR, vector ang_1 = ZERO_VECTOR )
+void function CreateVerticalFloppytownZiplineModel( vector pos_0, vector ang_0 )
 {
     entity stand = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_0, ang_0 )
     entity arm   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0 + < 0, 0, 185 >, ang_0 )
@@ -129,18 +129,37 @@ void function CreateVerticalFloppytownZiplineModel( vector pos_0, vector ang_0, 
 }
 
 
-void function CreateHorizontalFloppytownZiplineModel( vector pos_0, vector ang_0, vector pos_1, vector ang_1 )
+void function CreateHorizontalFloppytownZiplineModel( vector pos_0, vector ang_0, vector pos_1, vector ang_1, int variant = 0 )
 {
-    entity arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0, ang_0 )
-    entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1, ang_1 )
+    switch ( variant )
+    {
+        case 0:
+            entity arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0, ang_0 )
+            entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1, ang_1 )
 
-    arm_start.SetParent( arm_end )
+            arm_start.SetScriptName( "IsHorizontal_start" )
+            arm_end.SetScriptName( "IsHorizontal_end" )
 
-    arm_start.SetScriptName( "IsHorizontal_start" )
-    arm_end.SetScriptName( "IsHorizontal_end" )
+            HORIZONTAL_ZIPLINE_START.append( arm_start )
+            HORIZONTAL_ZIPLINE_END.append( arm_end )
+        break
 
-    HORIZONTAL_ZIPLINE_START.append( arm_start )
-    HORIZONTAL_ZIPLINE_END.append( arm_end )
+        case 1:
+            entity stand_start = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_0, ang_0 )
+            entity arm_start   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0 + < 0, 0, 185 >, ang_0 )
+            entity stand_end = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_1, ang_1 )
+            entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1 + < 0, 0, 185 >, ang_1 )
+
+            arm_start.SetScriptName( "IsHorizontal_start" )
+            arm_end.SetScriptName( "IsHorizontal_end" )
+
+            HORIZONTAL_ZIPLINE_START.append( arm_start )
+            HORIZONTAL_ZIPLINE_END.append( arm_end )
+        break
+
+        default:
+        break
+    }
 }
 
 

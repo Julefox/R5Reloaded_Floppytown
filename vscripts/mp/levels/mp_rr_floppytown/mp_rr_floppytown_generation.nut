@@ -245,7 +245,9 @@ void function Zips_Generation()
     CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 1760, 1140, 168 >, <0, -90, 0>, FLOPPYTOWN_POS_OFFSET + < 1760, 2036, 168 >, <0, -90, 0> )
     CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 2216, 3418, 176 >, <0, 140, 0>, FLOPPYTOWN_POS_OFFSET + < 3240, 3418, 176 >, <0, -140, 0> )
 
-    CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 3832, 3072, 128 >, < 0, 90, 0 >, FLOPPYTOWN_POS_OFFSET + < 3200+16, 2368, 640 >, < 0, -90, 0 > ) // For test
+    CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 3832, 3072, 128 >, < 0, 90, 0 >, FLOPPYTOWN_POS_OFFSET + < 3216, 2368, 640 >, < 0, -90, 0 > ) // For test
+    CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 0, 0 >, FLOPPYTOWN_POS_OFFSET + < 2072, 3824, 1792.09998 >, < 0, -90, 0 >, 1 ) // For test
+    //CreateHorizontalFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 2072, 3824, 1792.09998 >, < 0, -90, 0 >, FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 0, 0 >, 1 ) // For test
 }
 
 
