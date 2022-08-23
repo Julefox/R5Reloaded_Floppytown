@@ -122,7 +122,7 @@ void function Map_Dev_Init()
 
         vector end = result.endPos + < 0, 0, 35 >
 
-        DebugDrawLine( fxPos, end, 55, 120, 194, true, 4.0 )
+        DebugDrawLine( fxPos, end, RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 )
 
         printt( "" )
         printt( "===== .ent file generation =====" )
@@ -172,7 +172,7 @@ void function Map_Dev_Init()
             else
             {   indeterminateInt++ }
 
-            DebugDrawLine( lastestPos[index_start], lastestPos[index_end], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 4.0 )
+            DebugDrawLine( lastestPos[index_start], lastestPos[index_end], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 )
 
             index_start++ ; index_end++ ; rst_pt_++
         }
