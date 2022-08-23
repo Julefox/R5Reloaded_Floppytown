@@ -245,6 +245,9 @@ void function Zips_Generation()
 
     CreateLoopFloppytownModel_Y( INDUSTRIAL_ZIPLINE_ARM, FT_BUILDING_POS_20 + < 416, -460, 168 >, < 0, -90, 0 >, 896, 2 )
     CreateLoopFloppytownModel_Y( INDUSTRIAL_ZIPLINE_ARM, FT_BUILDING_POS_20 + < -416, 460, 168 >, < 0, 90, 0 >, -896, 2 )
+
+
+    CreateFloppytownZiplineModel( FLOPPYTOWN_POS_OFFSET + < 2264, 3000, 128 >, < 0, 180, 0 >, 1, FLOPPYTOWN_POS_OFFSET + < 3160, 3000, 128 >, < 0, 180, 0 > ) // For test
 }
 
 

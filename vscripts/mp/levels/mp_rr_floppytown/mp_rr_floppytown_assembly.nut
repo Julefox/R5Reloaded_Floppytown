@@ -123,60 +123,48 @@ void function East_Wall( vector pos, vector ang, string name )
 
 void function CreateWallTriggerAroundTheMap()
 {
+    vector pos = FLOPPYTOWN_POS_OFFSET
     // North_Wall()
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 100, 5858, 0 > + < 190 * i, 0 * j, 0 > ) }
-    }
-    for ( int i = 0 ; i < 4 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 1160, 5928, 0 > + < 200 * i, 0 * j, 0 > ) }
-    }
-    for ( int i = 0 ; i < 7 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 2404, 5864, 0 > + < 200 * i, 0 * j, 0 > ) }
-    }
-    CreateFloppytownWallTrigger( < 4156, 5364, 0 >, 500 )
-    for ( int i = 0 ; i < 5 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 4500, 5800, 0 > + < 250 * i, 0 * j, 0 > ) }
-    }
-    for ( int i = 0 ; i < 2 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 5230, 5800, 0 > + < 500 * i, 0 * j, 0 > ) }
-    }
+    for ( int i = 0 ; i < 16 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 48, 4922, 2000 > + < 64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 16 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 1064, 4976, 2240 > + < 64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 28 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 2106.80005, 4912, 2240 > + < 64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 8 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 3932, 4814, 2400 > + < 64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 10 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 4436, 4848, 2240 > + < 64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 8 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5076, 4750, 2400 > + < 64 * i, 0, 0 >, 64 ) }
 
     // South_Wall()
     for ( int i = 0 ; i < 12 ; i++ )
-    {   for ( int j = 0 ; j < 1 ; j++ )
-        {   CreateFloppytownWallTrigger( < 0, -1000, 0 > + < 500 * i, 0 * j, 0 > ) }
-    }
+    {   CreateFloppytownWallTrigger( pos + < 5612, -42, 2600 > + < -64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 21 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 4833.5, -60, 2688 > + < -64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 25 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 3512, -26, 2800 > + < -64 * i, 0, 0 >, 64 ) }
+    for ( int i = 0 ; i < 32 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 1968, -32, 3146 > + < -64 * i, 0, 0 >, 64 ) }
 
     // West_Wall()
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 11 ; j++ )
-        {   CreateFloppytownWallTrigger( < -1000, 0, 0 > + < 0 * i, 500 * j, 0 > ) }
-    }
+    for ( int i = 0 ; i < 24 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < -32, 64, 2860 > + < 0, 64 * i, 0 >, 64 ) }
+    for ( int i = 0 ; i < 51 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < -58, 1664, 2200 > + < 0, 64 * i, 0 >, 64 ) }
 
     // East_Wall()
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 7 ; j++ )
-        {   CreateFloppytownWallTrigger( < 6529.8, 3215, 0 > + < 0 * i, 250 * j, 0 > ) }
-    }
-    CreateFloppytownWallTrigger( < 5746, 2915, 0 >, 200 )
-    CreateFloppytownWallTrigger( < 5746, 2795, 0 >, 100 )
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 3 ; j++ )
-        {   CreateFloppytownWallTrigger( < 6632, 2257, 0 > + < 0 * i, 250 * j, 0 > ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 2 ; j++ )
-        {   CreateFloppytownWallTrigger( < 6568, 1400, 0 > + < 0 * i, 250 * j, 0 > ) }
-    }
-    for ( int i = 0 ; i < 1 ; i++ )
-    {   for ( int j = 0 ; j < 5 ; j++ )
-        {   CreateFloppytownWallTrigger( < 6580, 53, 0 > + < 0 * i, 250 * j, 0 > ) }
-    }
+    for ( int i = 0 ; i < 15 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5586, 4719, 2400 > + < 0, -64 * i, 0 >, 64 ) }
+    for ( int i = 0 ; i < 16 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5586, 3779, 2600 > + < 0, -64 * i, 0 >, 64 ) }
+    for ( int i = 0 ; i < 11 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5680, 2778, 2688 > + < 0, -64 * i, 0 >, 64 ) }
+    for ( int i = 0 ; i < 16 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5598, 2085, 2800 > + < 0, -64 * i, 0 >, 64 ) }
+    for ( int i = 0 ; i < 18 ; i++ )
+    {   CreateFloppytownWallTrigger( pos + < 5680, 1096, 2912 > + < 0, -64 * i, 0 >, 64 ) }
 }
 
 void function Building_01( vector pos, vector ang, string name )

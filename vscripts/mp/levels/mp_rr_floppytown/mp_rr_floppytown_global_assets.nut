@@ -754,7 +754,9 @@ globalize_all_functions
     global const asset SFX_TEST                       = $"P_MDL_TEST"
 
 
-    global array< entity > FLOPPYTOWN_ENTITIES = [ ]
+    global array< entity > FLOPPYTOWN_ENTITIES  = [ ]
+    global array< entity > VERTICAL_ZIPLINE     = [ ]
+    global array< entity > HORIZONTAL_ZIPLINE   = [ ]
 
 
 global array< asset > FX_ARRAY =

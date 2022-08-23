@@ -117,10 +117,27 @@ void function CreateLoopFloppytownModel_XYZ( asset a, vector pos, vector ang, fl
 }   }   }
 
 
-void function CreateFloppytownZiplineModel( vector pos, vector ang )
+void function CreateFloppytownZiplineModel( vector pos_0, vector ang_0, int isVertical = 0, vector pos_1 = ZERO_VECTOR, vector ang_1 = ZERO_VECTOR )
 {
-    CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos, ang )
-    CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos + < 0, 0, 185 >, ang )
+    switch ( isVertical )
+    {
+        case 0:
+            entity stand = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_0, ang_0 )
+            entity arm   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0 + < 0, 0, 185 >, ang_0 )
+            VERTICAL_ZIPLINE.append( arm )
+            break
+
+        case 1:
+            entity arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0, ang_0 )
+            entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1, ang_1 )
+            arm_start.SetParent( arm_end )
+
+            HORIZONTAL_ZIPLINE.append( arm_start )
+            break
+
+        default:
+        break
+    }
 }
 
 
@@ -266,7 +283,8 @@ void function OnMoveCamera( entity script_mover, float inclination, float leftin
 entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 {
     entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( radius );map_trigger.SetAboveHeight( 5000 );map_trigger.SetBelowHeight( 0 );
+    float aboveHeight = FLOPPYTOWN_POS_OFFSET.z - pos.z + 8000.0
+    map_trigger.SetRadius( radius );map_trigger.SetAboveHeight( aboveHeight );map_trigger.SetBelowHeight( 0 );
     map_trigger.SetOrigin( pos )
     DispatchSpawn( map_trigger )
 
@@ -277,9 +295,11 @@ entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 return map_trigger }
 
 
-void function FloppytownWallTriggerThread( entity map_trigger, float speed = 0.6 )
+void function FloppytownWallTriggerThread( entity map_trigger, float speed = 0.1 )
 {
     bool active = true
+
+    vector approx_map_center = FLOPPYTOWN_POS_OFFSET + < 2800, 2400, 2000 >
 
     while ( active )
     {
@@ -293,18 +313,19 @@ void function FloppytownWallTriggerThread( entity map_trigger, float speed = 0.6
                     {
                         player.Zipline_Stop()
 
+                        
                         vector target_origin = player.GetOrigin()
                         target_origin.z = 0.0
                         vector map_trigger_origin = map_trigger.GetOrigin()
                         vector target_angles = player.GetAngles()
                         vector map_trigger_angles = map_trigger.GetAngles()
 
-                        vector velocity = target_origin - map_trigger_origin
+                        vector velocity = approx_map_center - target_origin
                         velocity = velocity * speed
 
-                        vector angles = target_angles - map_trigger_angles
+                        //vector angles = target_angles - map_trigger_angles
 
-                        velocity = velocity + angles
+                        //velocity = velocity + angles
                         player.SetVelocity(velocity)
             }   }   }
         }

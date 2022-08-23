@@ -896,6 +896,8 @@ Scripts:
 
 	gamemodes/custom_hideandseek/sh_gamemode_custom_hideandseek.nut
 	gamemodes/custom_hideandseek/custom_hideandseek_settings.nut
+
+	sh_map_dev.nut
 ]
 
 When: "SERVER"

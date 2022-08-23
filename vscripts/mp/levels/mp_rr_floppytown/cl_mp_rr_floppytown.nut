@@ -21,8 +21,6 @@ void function ClientCodeCallback_MapInit()
 
     ServerCallback_ToneMapping( 16.0, 2.0, 0.1, 0.75 )
 
-    //FloppytownLightEnvironment()
-
     thread Thanks()
 
     printt( "" )
@@ -74,7 +72,7 @@ void function HUD_Test()
 
     entity player = GetLocalViewPlayer()
 
-    // LINE 1
+    /* // LINE 1
 	var titleRui = CreateCockpitRui( $"ui/cockpit_console_text_top_left.rpak", 0 )
 	RuiSetInt( titleRui, "maxLines", 30 )
 	RuiSetInt( titleRui, "lineNum", 0 )
@@ -123,21 +121,21 @@ void function HUD_Test()
 
     RuiSetString( titleRui3, "msgText", "Archtux" )
 
-        wait 6
+        wait 6 */
 
     foreach( rui in ruis )
 	{
 		RuiDestroyIfAlive( rui )
 	}
 
-	wait 1
-}
+    /* AnnouncementData announcement = Announcement_Create( "Trace Results" )
+    Announcement_SetSubText(announcement, "subtext")
+	Announcement_SetStyle( announcement, ANNOUNCEMENT_STYLE_SWEEP )
+	Announcement_SetPurge( announcement, true )
+	Announcement_SetOptionalTextArgsArray( announcement, [ "true" ] )
+	Announcement_SetPriority( announcement, 200 )
+	announcement.duration = 4.0
+	AnnouncementFromClass( GetLocalViewPlayer(), announcement ) */
 
-void function FloppytownLightEnvironment()
-{
-    float brightness_dev = 600.0
-    entity dlight_dev_0_0 = CreateClientSideDynamicLight( <1152, 3008, 336>, <0,0,0>, DLIGHT_WHITE, brightness_dev )
-    dlight_dev_0_0.SetLightExponent( 0.1 )
-    entity dlight_dev_0_1 = CreateClientSideDynamicLight( <896, 3264, 336>, <0,0,0>, DLIGHT_WHITE, brightness_dev )
-    dlight_dev_0_1.SetLightExponent( 0.1 )
+	wait 1
 }

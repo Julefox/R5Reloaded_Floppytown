@@ -17,6 +17,8 @@ void function Floppytown_MapInit_Dev()
         AddClientCommandCallback( "props",  ClientCommand_Props )
         AddClientCommandCallback( "god",    ClientCommand_Invulnerable )
         AddClientCommandCallback( "test",   ClientCommand_Test )
+        AddClientCommandCallback( "cyl",    ClientCommand_DebugCylender )
+        AddClientCommandCallback( "zip",    ClientCommand_Zipline )
         AddClientCommandCallback( "asset",  ClientCommand_AssetViewerActive )
         AddClientCommandCallback( "fall",   ClientCommand_FallingObjectActiveThread )
         AddClientCommandCallback( "ent",    ClientCommand_EntGenerator )
@@ -71,7 +73,24 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-    
+
+return true }
+
+bool function ClientCommand_DebugCylender( entity player, array<string> args )
+{
+    foreach( ent in GetEntArrayByClass_Expensive( "trigger_cylinder" ) )
+    {
+        DebugDrawCylinder( ent.GetOrigin(), ent.GetAngles() + < -90, 0, 0 >, ent.GetRadius(), ent.GetAboveHeight(), 55, 120, 194, false, 40.0 )
+        DebugDrawCylinder( ent.GetOrigin(), ent.GetAngles() + < -90, 45, 0 >, ent.GetRadius(), ent.GetAboveHeight(), 55, 120, 194, false, 40.0 )
+    }
+return true }
+
+bool function ClientCommand_Zipline( entity player, array<string> args )
+{
+    foreach( ent in VERTICAL_ZIPLINE )
+    {
+        thread FindBestZiplineLocation( ent )
+    }
 return true }
 
 bool function ClientCommand_HUD_Test( entity player, array<string> args )
