@@ -2,6 +2,10 @@ untyped
 
 globalize_all_functions
 
+global array< entity > VERTICAL_ZIPLINE         = [ ]
+global array< entity > HORIZONTAL_ZIPLINE_START = [ ]
+global array< entity > HORIZONTAL_ZIPLINE_END   = [ ]
+
 void function Map_Dev_Init()
 {
 
@@ -28,24 +32,70 @@ void function Map_Dev_Init()
     {
         if ( IsValid( ent ) )
         {
-            entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > )
-            vector fxPos = fx.GetOrigin()
-
-            printt( "Zip_Placement_Origin:  " + fxPos )
-                wait 0.5
-
-            thread EntFilesGeneratorForZip( fxPos )
-                wait 1.0
-            if ( IsValid( fx ) )
+            switch ( ent.GetScriptName() )
             {
-                fx.Destroy()
-                printt( "FindBestZiplineLocation(): FXOnEntity as been destroy." )
+                case "IsVertical":
+
+                    entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > )
+
+                    vector fxPos = fx.GetOrigin()
+
+                    thread EntFilesGeneratorForVerticalZip( fxPos )
+                        wait 1.5
+
+                    if ( IsValid( fx ) )
+                    {   fx.Destroy() }
+
+                break
+
+                case "IsHorizontal_start":
+                case "IsHorizontal_end":
+
+                    int index
+
+                    if ( HORIZONTAL_ZIPLINE_START.contains( ent ) )
+                    {   index = HORIZONTAL_ZIPLINE_START.find( ent ) }
+                    else if ( HORIZONTAL_ZIPLINE_END.contains( ent ) )
+                    {   index = HORIZONTAL_ZIPLINE_END.find( ent ) }
+
+                    entity ent_start = HORIZONTAL_ZIPLINE_START[ index ]
+                    entity ent_end = HORIZONTAL_ZIPLINE_END[ index ]
+
+                    vector entPos_start = ent_start.GetOrigin()
+                    vector entPos_end = ent_end.GetOrigin()
+
+                    vector entAng_start = ent_start.GetAngles()
+                    vector entAng_end = ent_end.GetAngles()
+
+                    entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > )
+                    entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > )
+
+                    vector fxPos_start = fx_start.GetOrigin()
+                    vector fxPos_end   = fx_end.GetOrigin()
+
+                    thread EntFilesGeneratorForHorizontalZip( fxPos_start, fxPos_end )
+                        wait 1.0
+
+                    printt( "" )
+                    printt( "armPos_start: " + entPos_start + ", " + entAng_start )
+                    printt( "armPos_end: " + entPos_end + ", " + entAng_end )
+                    printt( "" )
+
+                    if ( IsValid( fx_start ) )
+                    {   fx_start.Destroy() }
+                    if ( IsValid( fx_end ) )
+                    {   fx_end.Destroy() }
+
+                break
+                
+                default:
+                break
             }
         }
     }
 
 
-    void function EntFilesGeneratorForZip( vector fxPos )
+    void function EntFilesGeneratorForVerticalZip( vector fxPos )
     {
         int j = 0
 
@@ -78,6 +128,42 @@ void function Map_Dev_Init()
         printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + end.z + "\"" )
 
         printt( "===== end .ent file generation =====\n" )
+    }
+
+
+    void function EntFilesGeneratorForHorizontalZip( vector fxPos_start, vector fxPos_end )
+    {
+        /* int j = 0
+
+        vector fxPosOffset = fxPos - < 0, 0, 80 >
+
+        TraceResults result = TraceLine( fxPosOffset, fxPosOffset + -6000 * <0,0,1>, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+
+        vector end = result.endPos + < 0, 0, 35 > */
+
+        DebugDrawLine( fxPos_start, fxPos_end, 55, 120, 194, true, 4.0 )
+
+        /* printt( "" )
+        printt( "===== .ent file generation =====" )
+        
+        printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + fxPos.z + "\"" )
+
+        for ( float i = fxPos.z ; i > end.z ; i = i-304 )
+        {
+            j++
+        }
+
+        for ( float i = fxPos.z ; i > end.z ; i = i-304 )
+        {
+            printt( "\"_zipline_rest_point_" + j + "\" \"" + fxPos.x + " " + fxPos.y + " " + i + "\"" )
+            j--
+        }
+
+        printt( "\"_zipline_rest_point_" + j + "\" \"" + fxPos.x + " " + fxPos.y + " " + end.z + "\"" )
+        
+        printt( "\"origin\"" + "\"" + fxPos.x + " " + fxPos.y + " " + end.z + "\"" )
+
+        printt( "===== end .ent file generation =====\n" ) */
     }
 
 

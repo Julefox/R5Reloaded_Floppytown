@@ -538,7 +538,7 @@ PingTraceResults function DoPingTrace( entity player )
     result.tr = tr
 
     #if R5DEV
-        printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
+        //printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
     #endif
 
     ///////////////////////////// Floppytown Tool /////////////////////////////
@@ -559,29 +559,29 @@ PingTraceResults function DoPingTrace( entity player )
                 printt( "Ent_ModelName:         " + result.hitEnt.GetModelName() )
                 printt( "Ent_Origin:            " + result.hitEnt.GetOrigin() )
                 printt( "Ent_Angles:            " + result.hitEnt.GetAngles() )
-                
+                printt(	"Ping_Origin:           " + result.endPos )
+
+                if (  result.hitEnt.GetTargetName() != "" )
+                {
+                    if ( result.hitEnt.GetTargetName() != "editor_ref" )
+                    {
+                        printt(	"Target Name:           "	+ result.hitEnt.GetTargetName() )
+                    }
+                    else
+                    {
+                        printt(	"Editor Ref:            "	+ result.hitEnt.GetTargetName() )
+                    }
+                }
+
+                thread ShowCenterOfEntity( result.hitEnt )
+
                 if ( result.hitEnt.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
                 {
                     thread FindBestZiplineLocation( result.hitEnt )
                 }
                 //else
                 //thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
-                
-                printt(	"Ping_Origin:           " + result.endPos )
 
-                thread ShowCenterOfEntity( result.hitEnt )
-
-                if (  result.hitEnt.GetTargetName() != "" )
-                {
-                    if ( result.hitEnt.GetTargetName() != "editor_ref" )
-                    {
-                        printt(	"Target Name: "	+ result.hitEnt.GetTargetName() )
-                    }
-                    else
-                    {
-                        printt(	"Editor Ref: "	+ result.hitEnt.GetTargetName() )
-                    }
-                }
                 printt( "===========================" )
                 printt( "" )
             #endif

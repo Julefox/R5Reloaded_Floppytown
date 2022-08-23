@@ -117,27 +117,30 @@ void function CreateLoopFloppytownModel_XYZ( asset a, vector pos, vector ang, fl
 }   }   }
 
 
-void function CreateFloppytownZiplineModel( vector pos_0, vector ang_0, int isVertical = 0, vector pos_1 = ZERO_VECTOR, vector ang_1 = ZERO_VECTOR )
+void function CreateVerticalFloppytownZiplineModel( vector pos_0, vector ang_0, int isVertical = 0, vector pos_1 = ZERO_VECTOR, vector ang_1 = ZERO_VECTOR )
 {
-    switch ( isVertical )
-    {
-        case 0:
-            entity stand = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_0, ang_0 )
-            entity arm   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0 + < 0, 0, 185 >, ang_0 )
-            VERTICAL_ZIPLINE.append( arm )
-            break
+    entity stand = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, pos_0, ang_0 )
+    entity arm   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0 + < 0, 0, 185 >, ang_0 )
 
-        case 1:
-            entity arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0, ang_0 )
-            entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1, ang_1 )
-            arm_start.SetParent( arm_end )
+    stand.SetScriptName( "IsVertical" )
+    arm.SetScriptName( "IsVertical" )
 
-            HORIZONTAL_ZIPLINE.append( arm_start )
-            break
+    VERTICAL_ZIPLINE.append( arm )
+}
 
-        default:
-        break
-    }
+
+void function CreateHorizontalFloppytownZiplineModel( vector pos_0, vector ang_0, vector pos_1, vector ang_1 )
+{
+    entity arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_0, ang_0 )
+    entity arm_end   = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, pos_1, ang_1 )
+
+    arm_start.SetParent( arm_end )
+
+    arm_start.SetScriptName( "IsHorizontal_start" )
+    arm_end.SetScriptName( "IsHorizontal_end" )
+
+    HORIZONTAL_ZIPLINE_START.append( arm_start )
+    HORIZONTAL_ZIPLINE_END.append( arm_end )
 }
 
 
