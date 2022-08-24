@@ -98,44 +98,51 @@ void function Map_Dev_Init()
 
     void function EntFilesGeneratorForVerticalZip( vector zipPos_start )
     {
+        // Part of the calculation
         int indexStartPos = 0 ; int indexEndPos = 1
         vector zipPos_Offset = zipPos_start - < 0, 0, 80 >
 
-        array< vector > lastestPos = [ ] ; lastestPos.append( zipPos_start )
+        array< vector > lastestPos = [ ]
 
         TraceResults result = TraceLine( zipPos_Offset, zipPos_Offset + -6000 * <0,0,1>, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector zipPos_end = result.endPos + < 0, 0, 35 >
 
-        int rst_pt_calc = int ( floor ( Distance( zipPos_end ,zipPos_start ) / 304.0 ) + 1 )
+        int rst_pt_calc = int ( floor ( Distance( zipPos_end, zipPos_start ) / 304.0 ) + 1 )
 
+        lastestPos.append( zipPos_start )
+
+        for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
+        {
+            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
+            vector calculatedDir = zipPos_start + direction
+            lastestPos.append( calculatedDir )
+        }
+
+        lastestPos.append( zipPos_end )
+
+        int lastestPosInt = lastestPos.len()
+        int lastestPosIntCorrection = lastestPosInt - 1
+
+        // Draw all sections of the zipline
+        DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 6.0 )
+
+        for ( int i = 0 ; i < lastestPosIntCorrection ; i++ )
+        {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 ) }
+
+        DebugDrawCircle( zipPos_end, < 0, 0, 0 >, 16, 255, 0, 0, true, 6.0 )
+
+        indexStartPos = 0
+
+        // Printt on the console
         printt( "" )
         printt( "===== .ent file generation =====" )
 
         for ( int i = 0 ; i <= rst_pt_calc ; i++ )
-        {
-            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
-            vector calculatedDir
+        {   printt( "\"_zipline_rest_point_" + lastestPosIntCorrection-- + "\" \"" + lastestPos[ indexStartPos ].x + " " + lastestPos[ indexStartPos ].y + " " + lastestPos[ indexStartPos ].z + "\"" ) ; indexStartPos++ }
 
-            if ( i == rst_pt_calc )
-            {   calculatedDir = zipPos_end } else { calculatedDir = zipPos_start + direction }
-
-            lastestPos.append( calculatedDir )
-
-            DebugDrawLine( lastestPos[indexStartPos], lastestPos[indexEndPos], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 )
-            indexStartPos++ ; indexEndPos++
-        }
-
-        indexStartPos = 1 ; indexEndPos = 2
-
-        for ( int i = rst_pt_calc ; i >= 0 ; i-- )
-        {
-            printt( "\"_zipline_rest_point_" + i + "\" \"" + lastestPos[indexStartPos].x + " " + lastestPos[indexStartPos].y + " " + lastestPos[indexStartPos].z + "\"" )
-            indexStartPos++ ; indexEndPos++
-        }
-
-        printt( "\"origin\"" + "\"" + zipPos_end.x      + " "  + zipPos_end.y   + " " + zipPos_end.z    + "\"" )
-        printt( "\"origin\"" + "\"" + zipPos_start.x    + " "  + zipPos_start.y + " " + zipPos_start.z  + "\"" )
+        printt( "\"origin\" " + "\"" + zipPos_end.x      + " "  + zipPos_end.y   + " " + zipPos_end.z    + "\"" )
+        printt( "\"origin\" " + "\"" + zipPos_start.x    + " "  + zipPos_start.y + " " + zipPos_start.z  + "\"" )
         printt( "===== end .ent file generation =====" )
     }
 
@@ -180,11 +187,11 @@ void function Map_Dev_Init()
             indexStartPos-- ; indexEndPos--
         }
 
-        printt( "\"angles\"" + "\"" + anglesStartToEnd.x    + " " + anglesStartToEnd.y  + " " + anglesStartToEnd.z  + "\"" )
-        printt( "\"origin\"" + "\"" + zipPos_start.x    + " " + zipPos_start.y  + " " + zipPos_start.z  + "\"" )
+        printt( "\"angles\" " + "\"" + anglesStartToEnd.x    + " " + anglesStartToEnd.y  + " " + anglesStartToEnd.z  + "\"" )
+        printt( "\"origin\" " + "\"" + zipPos_start.x    + " " + zipPos_start.y  + " " + zipPos_start.z  + "\"" )
         printt( "" )
-        printt( "\"angles\"" + "\"" + anglesEndToStart.x    + " " + anglesEndToStart.y  + " " + anglesEndToStart.z  + "\"" )
-        printt( "\"origin\"" + "\"" + zipPos_end.x      + " " + zipPos_end.y    + " " + zipPos_end.z    + "\"" )
+        printt( "\"angles\" " + "\"" + anglesEndToStart.x    + " " + anglesEndToStart.y  + " " + anglesEndToStart.z  + "\"" )
+        printt( "\"origin\" " + "\"" + zipPos_end.x      + " " + zipPos_end.y    + " " + zipPos_end.z    + "\"" )
         printt( "===== end .ent file generation =====\n" )
     }
 
