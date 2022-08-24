@@ -30,21 +30,6 @@ void function Map_Dev_Init()
 
 
 #if SERVER
-    void function ShowCenterOfEntity( entity ent )
-    {
-        for ( int i = 0 ; i < 3 ; i++ )
-        {
-            if ( IsValid( ent ) )
-            {
-                entity fx = PlayFXOnEntity( $"P_test_angles", ent )
-                    wait 1.5
-
-                if ( IsValid( fx ) ) fx.Destroy()
-            }
-        }
-    printt( "ShowCenterOfEntity(): FXOnEntity as been destroy." ) }
-
-
     void function FindBestZiplineLocation( entity ent )
     {
         if ( IsValid( ent ) )
@@ -91,12 +76,13 @@ void function Map_Dev_Init()
                     vector fxPos_end   = fx_end.GetOrigin()
 
                     thread EntFilesGeneratorForHorizontalZip( fxPos_start, fxPos_end )
-                        wait 1.0
 
                     printt( "" )
                     printt( "armPos_start: " + entPos_start + ", " + entAng_start )
                     printt( "armPos_end: " + entPos_end + ", " + entAng_end )
                     printt( "" )
+
+                        wait 1.0
 
                     if ( IsValid( fx_start ) )
                     {   fx_start.Destroy() }
@@ -152,7 +138,7 @@ void function Map_Dev_Init()
 
         printt( "\"origin\"" + "\"" + zipPos_end.x      + " "  + zipPos_end.y   + " " + zipPos_end.z    + "\"" )
         printt( "\"origin\"" + "\"" + zipPos_start.x    + " "  + zipPos_start.y + " " + zipPos_start.z  + "\"" )
-        printt( "===== end .ent file generation =====\n" )
+        printt( "===== end .ent file generation =====" )
     }
 
 

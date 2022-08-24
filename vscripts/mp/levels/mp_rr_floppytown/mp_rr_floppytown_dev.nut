@@ -73,7 +73,7 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-
+    
 return true }
 
 bool function ClientCommand_DebugCylender( entity player, array<string> args )

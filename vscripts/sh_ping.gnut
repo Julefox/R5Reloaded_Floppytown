@@ -572,11 +572,11 @@ PingTraceResults function DoPingTrace( entity player )
                         printt(	"Editor Ref:            "	+ result.hitEnt.GetTargetName() )
                     }
                 }
-                
+
                 printt( "===========================" )
                 printt( "" )
 
-                thread ShowCenterOfEntity( result.hitEnt )
+                DebugDrawAxis( result.hitEnt.GetOrigin(), result.hitEnt.GetAngles(), 6.0, 30, <0,0,0> )
 
                 if ( result.hitEnt.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
                 {
