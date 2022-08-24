@@ -310,6 +310,8 @@ void function Server_Init()
 	SvXP_Init()
 	Achievements_Init()
 
+	Map_Dev_Init()
+
 	SvDevStats_LevelInit()
 	SURVIVAL_Loot_All_InitShared() // need this to precache the weapons
 

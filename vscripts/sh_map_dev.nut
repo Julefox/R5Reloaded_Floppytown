@@ -31,7 +31,9 @@ global array< vector > RANDOM_COLOR =
 
 void function Map_Dev_Init()
 {
-
+    #if SERVER
+        AddClientCommandCallback( "Zipline_Debug", ClientCommand_DebugDrawZipline )
+    #endif
 }
 
 
@@ -63,34 +65,32 @@ void function Map_Dev_Init()
                 if ( NON_HORIZONTAL_ZIPLINE_START.contains( ent ) ) index = NON_HORIZONTAL_ZIPLINE_START.find( ent )
                 else if ( NON_HORIZONTAL_ZIPLINE_END.contains( ent ) ) index = NON_HORIZONTAL_ZIPLINE_END.find( ent )
 
-                    entity ent_start = NON_HORIZONTAL_ZIPLINE_START[ index ]
-                    entity ent_end = NON_HORIZONTAL_ZIPLINE_END[ index ]
+                entity ent_start = NON_HORIZONTAL_ZIPLINE_START[ index ]
+                entity ent_end = NON_HORIZONTAL_ZIPLINE_END[ index ]
 
-                    vector entPos_start = ent_start.GetOrigin()
-                    vector entPos_end = ent_end.GetOrigin()
+                vector entPos_start = ent_start.GetOrigin()
+                vector entPos_end = ent_end.GetOrigin()
 
-                    vector entAng_start = ent_start.GetAngles()
-                    vector entAng_end = ent_end.GetAngles()
+                vector entAng_start = ent_start.GetAngles()
+                vector entAng_end = ent_end.GetAngles()
 
-                    entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > ) // hack for find origin
-                    entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > ) // hack for find origin
+                entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > ) // hack for find origin
+                entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > ) // hack for find origin
 
-                    vector fxPos_start = fx_start.GetOrigin()
-                    vector fxPos_end   = fx_end.GetOrigin()
+                vector fxPos_start = fx_start.GetOrigin()
+                vector fxPos_end   = fx_end.GetOrigin()
 
-                    thread EntFilesGeneratorForHorizontalZip( fxPos_start, fxPos_end )
+                thread EntFilesGeneratorForNonVerticalZip( fxPos_start, fxPos_end )
 
-                    printt( "" )
-                    printt( "armPos_start: " + entPos_start + ", " + entAng_start )
-                    printt( "armPos_end: " + entPos_end + ", " + entAng_end )
-                    printt( "" )
+                printt( "" )
+                printt( "armPos_start: " + entPos_start + ", " + entAng_start )
+                printt( "armPos_end: " + entPos_end + ", " + entAng_end )
+                printt( "" )
 
-                        wait 1.0
+                    wait 1.0
 
-                    if ( IsValid( fx_start ) )
-                    {   fx_start.Destroy() }
-                    if ( IsValid( fx_end ) )
-                    {   fx_end.Destroy() }
+                if ( IsValid( fx_start ) ) fx_start.Destroy()
+                if ( IsValid( fx_end ) ) fx_end.Destroy()
             }
         } else printt( "FindBestZiplineLocation(): entitie is not valid." )
     }
@@ -107,6 +107,8 @@ void function Map_Dev_Init()
         TraceResults result = TraceLine( zipPos_Offset, zipPos_Offset + -6000 * <0,0,1>, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector zipPos_end = result.endPos + < 0, 0, 35 >
+
+        vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
 
         int rst_pt_calc = int ( floor ( Distance( zipPos_end, zipPos_start ) / 304.0 ) + 1 )
 
@@ -127,10 +129,11 @@ void function Map_Dev_Init()
         // Draw all sections of the zipline
         DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 6.0 )
 
+        for ( int i = 1 ; i < lastestPosInt ; i++ )
+        { DebugDrawCircle( lastestPos[ i ], debugDirection, 16, 255, 0, 0, true, 6.0 ) } 
+
         for ( int i = 0 ; i < lastestPosIntCorrection ; i++ )
         {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 ) }
-
-        DebugDrawCircle( zipPos_end, < 0, 0, 0 >, 16, 255, 0, 0, true, 6.0 )
 
         indexStartPos = 0
 
@@ -147,53 +150,173 @@ void function Map_Dev_Init()
     }
 
 
-    void function EntFilesGeneratorForHorizontalZip( vector zipPos_start, vector zipPos_end )
+    void function EntFilesGeneratorForNonVerticalZip( vector zipPos_start, vector zipPos_end )
     {
+        // Part of the calculation
         int indexStartPos = 0 ; int indexEndPos = 1
         int rst_pt_calc = int ( floor ( Distance( zipPos_end ,zipPos_start ) / 304.0 ) + 1 )
 
-        array< vector > lastestPos = [ ] ; lastestPos.append( zipPos_start )
+        array< vector > lastestPos = [ ]
 
         vector anglesStartToEnd = VectorToAngles( Normalize( zipPos_end - zipPos_start ) )
-        if ( anglesStartToEnd.x > 180.0 ) anglesStartToEnd.x = 180.0 - anglesStartToEnd.x
-        if ( anglesStartToEnd.y > 180.0 ) anglesStartToEnd.y = 180.0 - anglesStartToEnd.y
-        if ( anglesStartToEnd.z > 180.0 ) anglesStartToEnd.z = 180.0 - anglesStartToEnd.z
+        anglesStartToEnd.x = anglesStartToEnd.x % 180.0
+        anglesStartToEnd.y = anglesStartToEnd.y % 180.0
+        anglesStartToEnd.z = anglesStartToEnd.z % 180.0
 
         vector anglesEndToStart = VectorToAngles( Normalize( zipPos_start - zipPos_end ) )
-        if ( anglesEndToStart.x > 180.0 ) anglesEndToStart.x = 180.0 - anglesEndToStart.x
-        if ( anglesEndToStart.y > 180.0 ) anglesEndToStart.y = 180.0 - anglesEndToStart.y
-        if ( anglesEndToStart.z > 180.0 ) anglesEndToStart.z = 180.0 - anglesEndToStart.z
+        anglesEndToStart.x = anglesEndToStart.x % 180.0
+        anglesEndToStart.y = anglesEndToStart.y % 180.0
+        anglesEndToStart.z = anglesEndToStart.z % 180.0
 
+        vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
+
+        lastestPos.append( zipPos_start )
+
+        for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
+        {
+            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
+            vector calculatedDir = zipPos_start + direction
+            lastestPos.append( calculatedDir )
+        }
+
+        lastestPos.append( zipPos_end )
+
+        int lastestPosInt = lastestPos.len()
+        int lastestPosIntCorrection = lastestPosInt - 1
+        int lastestPosIntDebugDraw  = lastestPosInt - 2
+
+        // Draw all sections of the zipline
+        DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 6.0 )
+        DebugDrawSphere( zipPos_end, 8, 255, 0, 0, true, 6.0 )
+
+        for ( int i = 1 ; i <= lastestPosIntDebugDraw ; i++ )
+        { DebugDrawCircle( lastestPos[ i ], debugDirection, 16, 255, 0, 0, true, 6.0 ) } 
+
+        for ( int i = 0 ; i < lastestPosIntCorrection ; i++ )
+        {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 ) }
+
+        indexStartPos = 0
+
+        // Printt on the console
         printt( "" )
         printt( "===== .ent file generation =====" )
 
         for ( int i = 0 ; i <= rst_pt_calc ; i++ )
-        {
-            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
-            vector calculatedDir
-
-            if ( i == rst_pt_calc )
-            {   calculatedDir = zipPos_end } else { calculatedDir = zipPos_start + direction }
-
-            lastestPos.append( calculatedDir )
-
-            DebugDrawLine( lastestPos[indexStartPos], lastestPos[indexEndPos], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 )
-            indexStartPos++ ; indexEndPos++
-        }
-
-        for ( int i = rst_pt_calc ; i >= 0 ; i-- )
-        {
-            printt( "\"_zipline_rest_point_" + i + "\" \"" + lastestPos[indexStartPos].x + " " + lastestPos[indexStartPos].y + " " + lastestPos[indexStartPos].z + "\"" )
-            indexStartPos-- ; indexEndPos--
-        }
+        {   printt( "\"_zipline_rest_point_" + lastestPosIntCorrection-- + "\" \"" + lastestPos[ indexStartPos ].x + " " + lastestPos[ indexStartPos ].y + " " + lastestPos[ indexStartPos ].z + "\"" ) ; indexStartPos++ }
 
         printt( "\"angles\" " + "\"" + anglesStartToEnd.x    + " " + anglesStartToEnd.y  + " " + anglesStartToEnd.z  + "\"" )
-        printt( "\"origin\" " + "\"" + zipPos_start.x    + " " + zipPos_start.y  + " " + zipPos_start.z  + "\"" )
+        printt( "\"origin\" " + "\"" + zipPos_end.x      + " " + zipPos_end.y    + " " + zipPos_end.z    + "\"" )
         printt( "" )
         printt( "\"angles\" " + "\"" + anglesEndToStart.x    + " " + anglesEndToStart.y  + " " + anglesEndToStart.z  + "\"" )
-        printt( "\"origin\" " + "\"" + zipPos_end.x      + " " + zipPos_end.y    + " " + zipPos_end.z    + "\"" )
-        printt( "===== end .ent file generation =====\n" )
+        printt( "\"origin\" " + "\"" + zipPos_start.x    + " " + zipPos_start.y  + " " + zipPos_start.z  + "\"" )
+        printt( "===== end .ent file generation =====\n" ) 
     }
+
+
+    bool function ClientCommand_DebugDrawZipline( entity player, array<string> args )
+    {
+        foreach ( ziplines in IS_VERTICAL_ZIPLINE )
+        {
+            if ( ziplines.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
+            {
+                // Part of the calculation
+                entity fx = PlayFXOnEntity( $"P_test_angles", ziplines, "", < -4, -55.5, -12 > ) // hack for find origin
+                vector zipPos_start = fx.GetOrigin()
+                if ( IsValid( fx ) ) fx.Destroy()
+
+                int indexStartPos = 0 ; int indexEndPos = 1
+                vector zipPos_Offset = zipPos_start - < 0, 0, 80 >
+
+                array< vector > lastestPos = [ ]
+
+                TraceResults result = TraceLine( zipPos_Offset, zipPos_Offset + -6000 * <0,0,1>, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+
+                vector zipPos_end = result.endPos + < 0, 0, 35 >
+
+                vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
+
+                int rst_pt_calc = int ( floor ( Distance( zipPos_end, zipPos_start ) / 304.0 ) + 1 )
+
+                lastestPos.append( zipPos_start )
+
+                for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
+                {
+                    vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
+                    vector calculatedDir = zipPos_start + direction
+                    lastestPos.append( calculatedDir )
+                }
+
+                lastestPos.append( zipPos_end )
+
+                int lastestPosInt = lastestPos.len()
+                int lastestPosIntCorrection = lastestPosInt - 1
+
+                // Draw all sections of the zipline
+                DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 20.0 )
+
+                for ( int i = 1 ; i < lastestPosInt ; i++ )
+                { DebugDrawCircle( lastestPos[ i ], debugDirection, 16, 255, 0, 0, true, 20.0 ) } 
+
+                for ( int i = 0 ; i < lastestPosIntCorrection ; i++ )
+                {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 20.0 ) }
+            }
+        }
+
+        foreach ( ziplines in NON_HORIZONTAL_ZIPLINE_START )
+        {
+            if ( ziplines.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
+            {
+                // Part of the calculation
+                int index
+                index = NON_HORIZONTAL_ZIPLINE_START.find( ziplines )
+
+                entity ent_start = NON_HORIZONTAL_ZIPLINE_START[ index ]
+                entity ent_end = NON_HORIZONTAL_ZIPLINE_END[ index ]
+
+                entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > ) // hack for find origin
+                entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > ) // hack for find origin
+
+                vector zipPos_start = fx_start.GetOrigin()
+                vector zipPos_end   = fx_end.GetOrigin()
+
+                if ( IsValid( fx_start ) ) fx_start.Destroy()
+                if ( IsValid( fx_end ) ) fx_end.Destroy()
+
+                int indexStartPos = 0 ; int indexEndPos = 1
+                int rst_pt_calc = int ( floor ( Distance( zipPos_end ,zipPos_start ) / 304.0 ) + 1 )
+
+                array< vector > lastestPos = [ ]
+
+                vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
+
+                lastestPos.append( zipPos_start )
+
+                for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
+                {
+                    vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
+                    vector calculatedDir = zipPos_start + direction
+                    lastestPos.append( calculatedDir )
+                }
+
+                lastestPos.append( zipPos_end )
+
+                int lastestPosInt = lastestPos.len()
+                int lastestPosIntCorrection = lastestPosInt - 1
+                int lastestPosIntDebugDraw  = lastestPosInt - 2
+
+                // Draw all sections of the zipline
+                DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 20.0 )
+                DebugDrawSphere( zipPos_end, 8, 255, 0, 0, true, 20.0 )
+
+                for ( int i = 1 ; i <= lastestPosIntDebugDraw ; i++ )
+                { DebugDrawCircle( lastestPos[ i ], debugDirection, 16, 255, 0, 0, true, 20.0 ) } 
+
+                for ( int i = 0 ; i < lastestPosIntCorrection ; i++ )
+                {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 20.0 ) }
+            }
+        }
+
+    return true }
 
 
     void function EntFilesGeneratorForProps( entity ent )

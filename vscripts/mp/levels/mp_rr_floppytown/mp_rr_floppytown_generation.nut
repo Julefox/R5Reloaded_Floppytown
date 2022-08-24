@@ -248,15 +248,20 @@ void function Zips_Generation()
     ///////////////////////////////////
     // FOR TEST
     ///////////////////////////////////
-    //CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 3832, 3072, 128 >, < 0, 90, 0 >, FLOPPYTOWN_POS_OFFSET + < 3216, 2368, 640 >, < 0, -90, 0 >, 1, 1 )
-    //CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 2072, 3824, 1792.09998 >, < 0, -90, 0 >, FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 0, 0 > )
+    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 3832, 3072, 128 >, < 0, 90, 0 >, FLOPPYTOWN_POS_OFFSET + < 3216, 2368, 640 >, < 0, -90, 0 >, 1, 1 )
+    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 2072, 3824, 1792.09998 >, < 0, -90, 0 >, FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 0, 0 > )
     //CreateZiplinePoint( true, <2264, 3000, 0>, <0,0,0>, <0,0,0>, < 0, 0, 0 > )
     //CreateZiplinePoint( true, <2400, 3000, 100>, <0,0,0>, <0,0,0>, < 0, 0, 0 >, 1 )
     //CreateZiplinePoint( false, <2200, 3000, 100>, <0,0,0>, <2400, 3000, 0>, < 0, 0, 0 >, 1, 0 )
     //CreateZiplinePoint( false, <2200, 2600, 100>, <0,0,0>, <2400, 2600, 100>, < 0, 0, 0 >, 1, 1 )
     //CreateZiplinePoint( false, <2800, 3000, 0>, <0,0,0>, <3000, 3000, 0>, < 0, 0, 0 >, 0, 0 )
     //CreateZiplinePoint( false, <2800, 2600, 0>, <0,0,0>, <3000, 2600, 100>, < 0, 0, 0 >, 0, 1 )
-    //CreateZiplinePoint( false, <2472, 3632, 256>, <0,90,0>, <400, 1152, 1536>, < 0, -90, 0 >, 0, 1 )
+    CreateZiplinePoint( false, <2472, 3632, 256>, <0,90,0>, <400, 1152, 1536>, < 0, -90, 0 >, 0, 1 )
+
+    //CreateZiplinePoint( false, <0, 2967.5, 2016>, <0,-90,0>, <2984, 3632, 4000>, < 0, 90, 0 >, 1, 0 )
+    //CreateZiplinePoint( false, <0, 2967.5, 4000>, <0,-90,0>, <2984, 3632, 2016>, < 0, 90, 0 >, 1, 0 )
+    //CreateZiplinePoint( false, <4000, 2967.5, 0>, <0,-90,0>, <2984, 3632, 4000>, < 0, 90, 0 >, 1, 0 )
+    //CreateZiplinePoint( false, <4000, 2967.5, 0>, <0,-90,0>, <2984, 3632, 2016>, < 0, 90, 0 >, 1, 0 )
 }
 
 
