@@ -6,6 +6,12 @@ global array< entity > VERTICAL_ZIPLINE         = [ ]
 global array< entity > HORIZONTAL_ZIPLINE_START = [ ]
 global array< entity > HORIZONTAL_ZIPLINE_END   = [ ]
 
+global array< entity > ZIPLINE_ENTS                 = [ ]
+global array< entity > IS_VERTICAL_ZIPLINE          = [ ]
+global array< entity > IS_NON_VERTICAL_ZIPLINE      = [ ]
+global array< entity > NON_HORIZONTAL_ZIPLINE_START = [ ]
+global array< entity > NON_HORIZONTAL_ZIPLINE_END   = [ ]
+
 global array< vector > RANDOM_COLOR =
 [
     < 55, 120, 194 >,   // #3778c2 Sky Blue
@@ -34,34 +40,31 @@ void function Map_Dev_Init()
     {
         if ( IsValid( ent ) )
         {
-            switch ( ent.GetScriptName() )
+            if ( ent.GetModelName() == $"mdl/industrial/security_fence_post.rmdl" )
+            {   int index = ZIPLINE_ENTS.find( ent ) + 1 ; ent = ZIPLINE_ENTS[ index ] }
+
+            if ( IS_VERTICAL_ZIPLINE.contains( ent ) )
             {
-                case "IsVertical":
+                entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > ) // hack for find origin
 
-                    entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > )
+                vector fxPos = fx.GetOrigin()
 
-                    vector fxPos = fx.GetOrigin()
+                thread EntFilesGeneratorForVerticalZip( fxPos )
 
-                    thread EntFilesGeneratorForVerticalZip( fxPos )
-                        wait 1.5
+                    wait 1.5
 
-                    if ( IsValid( fx ) )
-                    {   fx.Destroy() }
+                if ( IsValid( fx ) )
+                {   fx.Destroy() }
+            }
+            else if ( NON_HORIZONTAL_ZIPLINE_START.contains( ent ) || NON_HORIZONTAL_ZIPLINE_END.contains( ent ) )
+            {
+                int index
 
-                break
+                if ( NON_HORIZONTAL_ZIPLINE_START.contains( ent ) ) index = NON_HORIZONTAL_ZIPLINE_START.find( ent )
+                else if ( NON_HORIZONTAL_ZIPLINE_END.contains( ent ) ) index = NON_HORIZONTAL_ZIPLINE_END.find( ent )
 
-                case "IsHorizontal_start":
-                case "IsHorizontal_end":
-
-                    int index
-
-                    if ( HORIZONTAL_ZIPLINE_START.contains( ent ) )
-                    {   index = HORIZONTAL_ZIPLINE_START.find( ent ) }
-                    else if ( HORIZONTAL_ZIPLINE_END.contains( ent ) )
-                    {   index = HORIZONTAL_ZIPLINE_END.find( ent ) }
-
-                    entity ent_start = HORIZONTAL_ZIPLINE_START[ index ]
-                    entity ent_end = HORIZONTAL_ZIPLINE_END[ index ]
+                    entity ent_start = NON_HORIZONTAL_ZIPLINE_START[ index ]
+                    entity ent_end = NON_HORIZONTAL_ZIPLINE_END[ index ]
 
                     vector entPos_start = ent_start.GetOrigin()
                     vector entPos_end = ent_end.GetOrigin()
@@ -69,8 +72,8 @@ void function Map_Dev_Init()
                     vector entAng_start = ent_start.GetAngles()
                     vector entAng_end = ent_end.GetAngles()
 
-                    entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > )
-                    entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > )
+                    entity fx_start = PlayFXOnEntity( $"P_test_angles", ent_start, "", < -4, -55.5, -12 > ) // hack for find origin
+                    entity fx_end   = PlayFXOnEntity( $"P_test_angles", ent_end, "", < -4, -55.5, -12 > ) // hack for find origin
 
                     vector fxPos_start = fx_start.GetOrigin()
                     vector fxPos_end   = fx_end.GetOrigin()
@@ -88,13 +91,8 @@ void function Map_Dev_Init()
                     {   fx_start.Destroy() }
                     if ( IsValid( fx_end ) )
                     {   fx_end.Destroy() }
-
-                break
-                
-                default:
-                break
             }
-        }
+        } else printt( "FindBestZiplineLocation(): entitie is not valid." )
     }
 
 
@@ -149,6 +147,16 @@ void function Map_Dev_Init()
 
         array< vector > lastestPos = [ ] ; lastestPos.append( zipPos_start )
 
+        vector anglesStartToEnd = VectorToAngles( Normalize( zipPos_end - zipPos_start ) )
+        if ( anglesStartToEnd.x > 180.0 ) anglesStartToEnd.x = 180.0 - anglesStartToEnd.x
+        if ( anglesStartToEnd.y > 180.0 ) anglesStartToEnd.y = 180.0 - anglesStartToEnd.y
+        if ( anglesStartToEnd.z > 180.0 ) anglesStartToEnd.z = 180.0 - anglesStartToEnd.z
+
+        vector anglesEndToStart = VectorToAngles( Normalize( zipPos_start - zipPos_end ) )
+        if ( anglesEndToStart.x > 180.0 ) anglesEndToStart.x = 180.0 - anglesEndToStart.x
+        if ( anglesEndToStart.y > 180.0 ) anglesEndToStart.y = 180.0 - anglesEndToStart.y
+        if ( anglesEndToStart.z > 180.0 ) anglesEndToStart.z = 180.0 - anglesEndToStart.z
+
         printt( "" )
         printt( "===== .ent file generation =====" )
 
@@ -172,7 +180,10 @@ void function Map_Dev_Init()
             indexStartPos-- ; indexEndPos--
         }
 
+        printt( "\"angles\"" + "\"" + anglesStartToEnd.x    + " " + anglesStartToEnd.y  + " " + anglesStartToEnd.z  + "\"" )
         printt( "\"origin\"" + "\"" + zipPos_start.x    + " " + zipPos_start.y  + " " + zipPos_start.z  + "\"" )
+        printt( "" )
+        printt( "\"angles\"" + "\"" + anglesEndToStart.x    + " " + anglesEndToStart.y  + " " + anglesEndToStart.z  + "\"" )
         printt( "\"origin\"" + "\"" + zipPos_end.x      + " " + zipPos_end.y    + " " + zipPos_end.z    + "\"" )
         printt( "===== end .ent file generation =====\n" )
     }

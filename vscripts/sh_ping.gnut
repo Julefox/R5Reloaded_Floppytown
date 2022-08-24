@@ -578,12 +578,8 @@ PingTraceResults function DoPingTrace( entity player )
 
                 DebugDrawAxis( result.hitEnt.GetOrigin(), result.hitEnt.GetAngles(), 6.0, 30, <0,0,0> )
 
-                if ( result.hitEnt.GetModelName() == $"mdl/industrial/zipline_arm.rmdl" )
-                {
-                    thread FindBestZiplineLocation( result.hitEnt )
-                }
-                //else
-                //thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
+                if ( ZIPLINE_ENTS.contains( result.hitEnt ) ) thread FindBestZiplineLocation( result.hitEnt )
+                //else thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
             #endif
 
             #if CLIENT || UI
