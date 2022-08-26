@@ -72,7 +72,7 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-    
+    CodeCallback_ZiplineAINFile()
 return true }
 
 bool function ClientCommand_DebugCylender( entity player, array<string> args )

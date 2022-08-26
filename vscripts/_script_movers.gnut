@@ -6,6 +6,8 @@ global function ScriptToyChangeStatusLights
 global function SetSwitchUseFunc
 global function ScriptedRotatorRotate
 global function CodeCallback_PreBuildAINFile
+global function CodeCallback_ZiplineAINFile
+global function CreateHovertankZipline2
 global function CreateDoorMoverModel
 global function GetLinkedEntsByClassName
 global function MoverThink
@@ -136,6 +138,62 @@ void function CodeCallback_PreBuildAINFile()
 			}
 		}
 	}
+}
+ 
+
+void function CodeCallback_ZiplineAINFile()
+{
+	array<entity> zips = GetEntArrayByClass_Expensive( "zipline" )
+
+	foreach ( entity zip in zips )
+	{
+		if ( GetEditorClass( zip ) == "zipline" )
+			continue
+
+		array<entity> linkedEnts = zip.GetLinkEntArray()
+
+		foreach ( entity ent in linkedEnts )
+		{
+            printt( zip )
+            printt( zip.GetOrigin() )
+			printt( ent )
+            printt( ent.GetOrigin() )
+		}
+	}
+}
+
+array<entity> function CreateHovertankZipline2( vector startPos, vector endPos, bool IsVertical = false )
+{
+	entity zipline_start = CreateEntity( "zipline" )
+	zipline_start.kv.Material = "cable/zipline.vmt"
+	zipline_start.kv.ZiplineAutoDetachDistance = "160"
+    zipline_start.kv.ZiplineLengthScale = "1"
+
+    if ( IsVertical != false )
+    {
+        zipline_start.kv.ZiplineVertical = "1"
+    }
+
+	zipline_start.kv._zipline_rest_point_0 = startPos.x + " " + startPos.y + " " + startPos.z
+	zipline_start.kv._zipline_rest_point_1 = endPos.x + " " + endPos.y + " " + endPos.z
+	zipline_start.SetOrigin( startPos )
+
+	entity zipline_end = CreateEntity( "zipline_end" )
+	zipline_end.kv.ZiplineAutoDetachDistance = "160"
+	zipline_end.SetOrigin( endPos )
+	// Comment in if using zipline sequence
+	// zipline_end.SetOrigin( startPos )
+
+	zipline_start.LinkToEnt( zipline_end )
+
+	DispatchSpawn( zipline_start )
+	DispatchSpawn( zipline_end )
+
+	// Comment in if using zipline sequence
+	// zipline_start.Zipline_Disable()
+
+	array<entity> ziplineEnts = [ zipline_start, zipline_end ]
+	return ziplineEnts
 }
 
 

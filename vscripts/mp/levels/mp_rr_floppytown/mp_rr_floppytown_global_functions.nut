@@ -117,22 +117,33 @@ void function CreateLoopFloppytownModel_XYZ( asset a, vector pos, vector ang, fl
 }   }   }
 
 
-array< entity > function CreateZiplinePoint( bool isVertical, vector startPos, vector startAng, vector endPos = < 0, 0, 0 >, vector endAng = < 0, 0, 0 >, int setSkinStart = 0, int setSkinEnd = 0 )
+array< entity > function CreateZiplinePoint( bool isVertical, vector startPos, vector startAng, float startArmOffset = 160, vector endPos = < 0, 0, 0 >, vector endAng = < 0, 0, 0 >, float endArmOffset = 160, int setSkinStart = 0, int setSkinEnd = 0 )
 {
-    entity stand_start ; entity arm_start ; entity stand_end ; entity arm_end
+    entity stand_start ; entity arm_start ; entity stand_end ; entity arm_end ; entity emptyModel
     array< entity > entityArray = []
+
+    float offsetMin = 160.0 ; float offsetMax = 280.0
+
+    if ( startArmOffset < offsetMin ) startArmOffset = offsetMin
+    if ( startArmOffset > offsetMax ) startArmOffset = offsetMax
+    if ( endArmOffset < offsetMin )   endArmOffset   = offsetMin
+    if ( endArmOffset > offsetMax )   endArmOffset   = offsetMax
+
+    vector tempAng = < 0, 0, 0 >
+    vector tempAngForStand = < 0, 90, 0 >
 
     if ( isVertical == true )
     {
         switch ( setSkinStart )
         {
             case 0:
-                stand_start = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, startPos, startAng )
-                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos + < 0, 0, 185 >, startAng )
+                stand_start = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, startPos, tempAngForStand )
+                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos + < -1, -2, startArmOffset >, tempAng )
                 entityArray.append( stand_start ) ; entityArray.append( arm_start )
+                arm_start.SetParent( stand_start ) ; stand_start.SetAngles( startAng )
                 break
             case 1:
-                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos, startAng )
+                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos, startAng - < 0, 90, 0 > )
                 entityArray.append( arm_start )
                 break
             default:
@@ -146,12 +157,13 @@ array< entity > function CreateZiplinePoint( bool isVertical, vector startPos, v
         switch ( setSkinStart )
         {
             case 0:
-                stand_start = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, startPos, startAng )
-                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos + < 0, 0, 185 >, startAng )
+                stand_start = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, startPos, tempAngForStand )
+                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos + < -1, -2, startArmOffset >, tempAng )
                 entityArray.append( stand_start ) ; entityArray.append( arm_start ) ; NON_HORIZONTAL_ZIPLINE_START.append( arm_start )
+                arm_start.SetParent( stand_start ) ; stand_start.SetAngles( startAng )
                 break
             case 1:
-                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos, startAng )
+                arm_start = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, startPos, startAng - < 0, 90, 0 > )
                 entityArray.append( arm_start ) ; NON_HORIZONTAL_ZIPLINE_START.append( arm_start )
                 break
             default:
@@ -161,12 +173,13 @@ array< entity > function CreateZiplinePoint( bool isVertical, vector startPos, v
         switch ( setSkinEnd )
         {
             case 0:
-                stand_end = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, endPos, endAng )
-                arm_end = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, endPos + < 0, 0, 185 >, endAng )
+                stand_end = CreateFloppytownModel( INDUSTRIAL_SECURITY_FENCE_POST, endPos, tempAngForStand )
+                arm_end = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, endPos + < -1, -2, startArmOffset >, tempAng )
                 entityArray.append( stand_end ) ; entityArray.append( arm_end ) ; NON_HORIZONTAL_ZIPLINE_END.append( arm_end )
+                arm_start.SetParent( stand_start ) ; stand_start.SetAngles( startAng )
                 break
             case 1:
-                arm_end = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, endPos, endAng )
+                arm_end = CreateFloppytownModel( INDUSTRIAL_ZIPLINE_ARM, endPos, endAng - < 0, 90, 0 > )
                 entityArray.append( arm_end ) ; NON_HORIZONTAL_ZIPLINE_END.append( arm_end )
                 break
             default:

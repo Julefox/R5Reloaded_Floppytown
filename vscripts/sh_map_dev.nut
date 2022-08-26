@@ -2,10 +2,6 @@ untyped
 
 globalize_all_functions
 
-global array< entity > VERTICAL_ZIPLINE         = [ ]
-global array< entity > HORIZONTAL_ZIPLINE_START = [ ]
-global array< entity > HORIZONTAL_ZIPLINE_END   = [ ]
-
 global array< entity > ZIPLINE_ENTS                 = [ ]
 global array< entity > IS_VERTICAL_ZIPLINE          = [ ]
 global array< entity > IS_NON_VERTICAL_ZIPLINE      = [ ]
@@ -29,10 +25,23 @@ global array< vector > RANDOM_COLOR =
     < 75, 172, 53 >     // #4BAC35
 ]
 
+struct PingTraceResults
+{
+    entity player
+    vector endPos
+    vector surfaceNormal
+    float  hitDist
+    entity hitEnt
+    bool   success = false
+
+    TraceResults & tr
+}
+
 void function Map_Dev_Init()
 {
     #if SERVER
         AddClientCommandCallback( "Zipline_Debug", ClientCommand_DebugDrawZipline )
+        AddClientCommandCallback( "GetEnt", ClientCommand_GetEnt )
     #endif
 }
 
@@ -49,9 +58,9 @@ void function Map_Dev_Init()
             {
                 entity fx = PlayFXOnEntity( $"P_test_angles", ent, "", < -4, -55.5, -12 > ) // hack for find origin
 
-                vector fxPos = fx.GetOrigin()
+                vector fxPos = fx.GetOrigin() ; vector fxAng = fx.GetAngles()
 
-                thread EntFilesGeneratorForVerticalZip( fxPos )
+                thread EntFilesGeneratorForVerticalZip( fxPos, fxAng )
 
                     wait 1.5
 
@@ -96,30 +105,34 @@ void function Map_Dev_Init()
     }
 
 
-    void function EntFilesGeneratorForVerticalZip( vector zipPos_start )
+    void function EntFilesGeneratorForVerticalZip( vector zipPos_start, vector zipAng_start )
     {
         // Part of the calculation
         int indexStartPos = 0 ; int indexEndPos = 1
-        vector zipPos_Offset = zipPos_start - < 0, 0, 80 >
 
         array< vector > lastestPos = [ ]
+
+        vector zipPos_Offset = zipPos_start - < 0, 0, 80 >
 
         TraceResults result = TraceLine( zipPos_Offset, zipPos_Offset + -6000 * <0,0,1>, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
 
         vector zipPos_end = result.endPos + < 0, 0, 35 >
 
+        int rst_pt_calc = int ( floor ( Distance( zipPos_end, zipPos_start ) / 304.0 ) + 1 )
+
+        float ziplineLengthDist = Length( zipPos_end - zipPos_start )
+        float ziplineLengthMidDist = ziplineLengthDist / 2
+
+        vector direction = Normalize( zipPos_end - zipPos_start )
+
         vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
 
-        int rst_pt_calc = int ( floor ( Distance( zipPos_end, zipPos_start ) / 304.0 ) + 1 )
+        float bestSpacing = floor( ziplineLengthDist / rst_pt_calc ) ; bestSpacing = bestSpacing % 304.0
 
         lastestPos.append( zipPos_start )
 
         for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
-        {
-            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
-            vector calculatedDir = zipPos_start + direction
-            lastestPos.append( calculatedDir )
-        }
+        {   vector calculatedDir = zipPos_start + ( direction * bestSpacing * i ) ; lastestPos.append( calculatedDir ) }
 
         lastestPos.append( zipPos_end )
 
@@ -137,6 +150,8 @@ void function Map_Dev_Init()
 
         indexStartPos = 0
 
+        //CreateHovertankZipline2( zipPos_start, zipPos_end, true )
+
         // Printt on the console
         printt( "" )
         printt( "===== .ent file generation =====" )
@@ -144,6 +159,7 @@ void function Map_Dev_Init()
         for ( int i = 0 ; i <= rst_pt_calc ; i++ )
         {   printt( "\"_zipline_rest_point_" + lastestPosIntCorrection-- + "\" \"" + lastestPos[ indexStartPos ].x + " " + lastestPos[ indexStartPos ].y + " " + lastestPos[ indexStartPos ].z + "\"" ) ; indexStartPos++ }
 
+        printt( "\"angles\" " + "\"" + zipAng_start.x    + " "  + zipAng_start.y + " " + zipAng_start.z  + "\"" )
         printt( "\"origin\" " + "\"" + zipPos_end.x      + " "  + zipPos_end.y   + " " + zipPos_end.z    + "\"" )
         printt( "\"origin\" " + "\"" + zipPos_start.x    + " "  + zipPos_start.y + " " + zipPos_start.z  + "\"" )
         printt( "===== end .ent file generation =====" )
@@ -154,7 +170,10 @@ void function Map_Dev_Init()
     {
         // Part of the calculation
         int indexStartPos = 0 ; int indexEndPos = 1
-        int rst_pt_calc = int ( floor ( Distance( zipPos_end ,zipPos_start ) / 304.0 ) + 1 )
+        int rst_pt_calc = int ( floor ( Distance( zipPos_end ,zipPos_start ) / 978.0 ) + 1 )
+
+        float ziplineLengthDist = Length( zipPos_end - zipPos_start )
+        float ziplineLengthMidDist = ziplineLengthDist / 2
 
         array< vector > lastestPos = [ ]
 
@@ -168,16 +187,16 @@ void function Map_Dev_Init()
         anglesEndToStart.y = anglesEndToStart.y % 180.0
         anglesEndToStart.z = anglesEndToStart.z % 180.0
 
-        vector debugDirection = AnglesCompose( VectorToAngles( Normalize( zipPos_end - zipPos_start ) ), < 90, 0, 0 > )
+        vector direction = Normalize( zipPos_end - zipPos_start )
+
+        vector debugDirection = AnglesCompose( VectorToAngles( direction ), < 90, 0, 0 > )
+
+        float bestSpacing = floor( ziplineLengthDist / rst_pt_calc ) ; bestSpacing = bestSpacing % 978.0
 
         lastestPos.append( zipPos_start )
 
         for ( int i = 1 ; i < rst_pt_calc ; i++ ) // Calculate and add vectors in array
-        {
-            vector direction = Normalize( zipPos_end - zipPos_start ) * 304.0 * i
-            vector calculatedDir = zipPos_start + direction
-            lastestPos.append( calculatedDir )
-        }
+        {   vector calculatedDir = zipPos_start + ( direction * bestSpacing * i ) ; lastestPos.append( calculatedDir ) }
 
         lastestPos.append( zipPos_end )
 
@@ -187,7 +206,7 @@ void function Map_Dev_Init()
 
         // Draw all sections of the zipline
         DebugDrawSphere( zipPos_start, 8, 255, 0, 0, true, 6.0 )
-        DebugDrawSphere( zipPos_end, 8, 255, 0, 0, true, 6.0 )
+        DebugDrawSphere( zipPos_end, 8, 0, 0, 255, true, 6.0 )
 
         for ( int i = 1 ; i <= lastestPosIntDebugDraw ; i++ )
         { DebugDrawCircle( lastestPos[ i ], debugDirection, 16, 255, 0, 0, true, 6.0 ) } 
@@ -196,6 +215,8 @@ void function Map_Dev_Init()
         {   DebugDrawLine( lastestPos[ indexStartPos++ ], lastestPos[ indexEndPos++ ], RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), RandomIntRange( 0, 255 ), true, 6.0 ) }
 
         indexStartPos = 0
+
+        //CreateHovertankZipline2( zipPos_start, zipPos_end )
 
         // Printt on the console
         printt( "" )
@@ -319,6 +340,12 @@ void function Map_Dev_Init()
     return true }
 
 
+    bool function ClientCommand_GetEnt( entity player, array<string> args )
+    {
+        GetEntityTouched( player )
+    return true }
+
+
     void function EntFilesGeneratorForProps( entity ent )
     {
         vector ent_pos = ent.GetOrigin()
@@ -379,5 +406,101 @@ void function Map_Dev_Init()
         printt( "}" )
 
         printt( "===== end .ent file generation =====\n" )
+    }
+#endif
+
+#if SERVER || CLIENT
+    PingTraceResults function GetEntityTouched( entity player )
+    {
+        const int colGroup = TRACE_COLLISION_GROUP_NONE
+        const int colMask = ( TRACE_MASK_VISIBLE_AND_NPCS | CONTENTS_BLOCKLOS | CONTENTS_BLOCK_PING | CONTENTS_HITBOX )
+
+        TraceResults tr = PingTraceForPlayer( player, 9000, colMask, colGroup )
+
+        PingTraceResults result
+        if ( ConsiderPingTraceFailed2( tr ) )
+        {
+            result.success = false
+        }
+        else
+        {        
+            result.player = player
+            result.endPos = tr.endPos
+            result.surfaceNormal = tr.surfaceNormal
+            result.hitDist = ( tr.fraction * 9000 )
+            result.hitEnt = tr.hitEnt
+            result.success = true
+        }
+        result.tr = tr
+
+        if ( result.hitEnt == null )
+        {
+            return result
+        }
+        else
+        {
+            #if SERVER
+                printt( "" )
+                printt( "		TraceResults:		" )
+                printt( "===========================" )
+                printt( "Ent_Number:            " + result.hitEnt )
+                printt( "Ent_ModelName:         " + result.hitEnt.GetModelName() )
+                printt( "Ent_Origin:            " + result.hitEnt.GetOrigin() )
+                printt( "Ent_Angles:            " + result.hitEnt.GetAngles() )
+                printt(	"Ping_Origin:           " + result.endPos )
+
+                if (  result.hitEnt.GetTargetName() != "" )
+                {
+                    if ( result.hitEnt.GetTargetName() != "editor_ref" )
+                    {
+                        printt(	"Target Name:           "	+ result.hitEnt.GetTargetName() )
+                    }
+                    else
+                    {
+                        printt(	"Editor Ref:            "	+ result.hitEnt.GetTargetName() )
+                    }
+                }
+
+                printt( "===========================" )
+                printt( "" )
+
+                DebugDrawAxis( result.hitEnt.GetOrigin(), result.hitEnt.GetAngles(), 6.0, 30, <0,0,0> )
+                if ( ZIPLINE_ENTS.contains( result.hitEnt ) ) thread FindBestZiplineLocation( result.hitEnt )
+                //else thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid
+
+            #endif
+
+            #if CLIENT
+                if ( result.hitEnt.GetScriptName() == "editor_ref" )
+                {
+                    AddPlayerHint( 3.0, 0.0, $"",
+                    "\nEditor Ref Name : "	+ result.hitEnt.GetTargetName() +
+                    "\nEditor Ref Origin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
+                }
+                else
+                {
+                    AddPlayerHint( 3.0, 0.0, $"", // rui/menu/buttons/tip
+                    "Name : " + result.hitEnt.GetModelName() +
+                    "\nOrigin : " + result.hitEnt.GetOrigin() + " " + result.hitEnt.GetAngles() )
+                }
+            #endif
+
+            #if SERVER
+                //if ( result.hitEnt.GetScriptName() == "FloppytownEntities" || result.hitEnt.GetScriptName() == "editor_ref")
+                //{ result.hitEnt.Destroy() }
+            #endif
+        }
+
+        return result
+    }
+
+    bool function ConsiderPingTraceFailed2( TraceResults tr )
+    {
+        if ( tr.hitSky )
+            return true
+        if ( tr.fraction >= 0.99 )
+            return true
+
+        return false
     }
 #endif
