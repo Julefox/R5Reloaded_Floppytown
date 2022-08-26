@@ -207,7 +207,7 @@ void function OnMovingRadar( entity script_mover )
 
 void function Zips_Generation()
 {
-     CreateZiplinePoint( true, FT_BUILDING_POS_01 + < -598, 272, 1792 >, < 0, -170, 0 >, 200 )
+    CreateZiplinePoint( true, FT_BUILDING_POS_01 + < -598, 272, 1792 >, < 0, -170, 0 >, 200 )
     CreateZiplinePoint( true, FT_BUILDING_POS_01 + < 600, 0, 1792 >, < 0, 0, 0 >, 200 )
     CreateZiplinePoint( true, FLOPPYTOWN_POS_OFFSET + < 2712, 3810, 896 >, < 0, -90, 0 >, 0, < 0, 0, 0 >, < 0, 0, 0 >, 0, 1 ) // BUILDING_01
     CreateZiplinePoint( true, FT_BUILDING_POS_02 + < 256, -512, 768 >, < 0, -90, 0 >, 200 )

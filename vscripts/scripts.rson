@@ -908,6 +908,8 @@ Scripts:
 	gamemodes/custom_ctf/_gamemode_custom_ctf.nut
 
 	gamemodes/custom_hideandseek/_gamemode_custom_hideandseek.nut
+
+    _zipline_utility.nut
 ]
 
 When: "CLIENT"

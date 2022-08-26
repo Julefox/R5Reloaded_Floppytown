@@ -2,12 +2,6 @@ untyped
 
 globalize_all_functions
 
-global array< entity > ZIPLINE_ENTS                 = [ ]
-global array< entity > IS_VERTICAL_ZIPLINE          = [ ]
-global array< entity > IS_NON_VERTICAL_ZIPLINE      = [ ]
-global array< entity > NON_HORIZONTAL_ZIPLINE_START = [ ]
-global array< entity > NON_HORIZONTAL_ZIPLINE_END   = [ ]
-
 global array< vector > RANDOM_COLOR =
 [
     < 55, 120, 194 >,   // #3778c2 Sky Blue
@@ -150,7 +144,7 @@ void function Map_Dev_Init()
 
         indexStartPos = 0
 
-        //CreateHovertankZipline2( zipPos_start, zipPos_end, true )
+        CreateHovertankZipline2( zipPos_start, zipPos_end, true )
 
         // Printt on the console
         printt( "" )
@@ -216,7 +210,7 @@ void function Map_Dev_Init()
 
         indexStartPos = 0
 
-        //CreateHovertankZipline2( zipPos_start, zipPos_end )
+        CreateHovertankZipline2( zipPos_start, zipPos_end )
 
         // Printt on the console
         printt( "" )
