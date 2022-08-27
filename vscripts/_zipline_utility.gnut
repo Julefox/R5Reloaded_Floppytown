@@ -22,7 +22,7 @@ global function Zipline_SetAngles
 global array< entity > ZIPLINE_ENTITIES               = [ ]
 global array< entity > VERTICAL_ZIPLINE               = [ ]
 global array< entity > NH_ZIPLINE_START               = [ ]
-global array< entity > NH_ZIPLINE_END                 = [ ]
+global array< entity > NH_ZIPLINE_END                 = [ ] // Not used.
 global array< vector > VERTICAL_ZIPLINE_VEC_START     = [ ]
 global array< vector > NH_ZIPLINE_VEC_START           = [ ]
 global array< vector > NH_ZIPLINE_VEC_END             = [ ]
