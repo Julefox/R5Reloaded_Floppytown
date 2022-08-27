@@ -19,6 +19,12 @@ global array< vector > RANDOM_COLOR =
     < 75, 172, 53 >     // #4BAC35
 ]
 
+global array< entity > ZIPLINE_ENTS                   = [ ]
+global array< entity > IS_VERTICAL_ZIPLINE            = [ ]
+global array< entity > IS_NON_VERTICAL_ZIPLINE        = [ ]
+global array< entity > NON_HORIZONTAL_ZIPLINE_START   = [ ]
+global array< entity > NON_HORIZONTAL_ZIPLINE_END     = [ ]
+
 struct PingTraceResults
 {
     entity player
@@ -37,6 +43,22 @@ void function Map_Dev_Init()
         AddClientCommandCallback( "Zipline_Debug", ClientCommand_DebugDrawZipline )
         AddClientCommandCallback( "GetEnt", ClientCommand_GetEnt )
     #endif
+}
+
+
+void function debug_printt( ... )
+{
+    if ( GetCurrentPlaylistVarBool( "r5devDebug", true) )
+    {
+	    if ( vargc <= 0 )
+	    	return
+
+	    local msg = vargv[0]
+	    for ( int i = 1; i < vargc; i++ )
+	    	msg = (msg + " " + vargv[i])
+
+	    printl( msg )
+    }
 }
 
 

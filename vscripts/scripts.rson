@@ -389,7 +389,7 @@ Scripts:
 When: "SERVER"
 Scripts:
 [
-  _utility.gnut
+    _utility.gnut
 	_anim.gnut
 	_bubble_shield.gnut
 	_codecallbacks_common.gnut
@@ -397,6 +397,7 @@ Scripts:
 	_codecallbacks_player_input.gnut
 	_control_panel.gnut
 	_script_movers.gnut
+    _zipline_utility.gnut
 	_script_toys.gnut
 	_global_entities.gnut
 	_objective.gnut
@@ -498,12 +499,12 @@ Scripts:
 	gamemodes/_gamemode_survival.nut
 	mp/_base_gametype_mp.gnut
 	mp/_playlist.gnut
-  mp/_bombardment_utility.gnut
-  mp/_bleedout.gnut
+    mp/_bombardment_utility.gnut
+    mp/_bleedout.gnut
 	mp/_staging_area.gnut
 	_sneak_peek.gnut
 
-  ai/_ai_mortar_spectres.gnut
+    ai/_ai_mortar_spectres.gnut
 	survival_loot.gnut
 	survival_ship.gnut
 	mp/_loot_ticks.nut
@@ -909,7 +910,7 @@ Scripts:
 
 	gamemodes/custom_hideandseek/_gamemode_custom_hideandseek.nut
 
-    _zipline_utility.nut
+    
 ]
 
 When: "CLIENT"
