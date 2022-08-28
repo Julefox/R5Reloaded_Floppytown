@@ -14,7 +14,7 @@ void function Floppytown_MapInit_Generation()
     Props_Generation()
     Dynamic_Build_Generation()
     thread Scripted_Model()
-    Zips_Generation()
+    AddCallback_EntitiesDidLoad( Zips_Generation )
 
     Floppytown_MapInit_Crane_Scripts()
 
@@ -207,60 +207,210 @@ void function OnMovingRadar( entity script_mover )
 
 void function Zips_Generation()
 {
-    CreateZiplinePoint( true, FT_BUILDING_POS_01 + < -598, 272, 1792 >, < 0, -170, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_01 + < 600, 0, 1792 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FLOPPYTOWN_POS_OFFSET + < 2712, 3810, 896 >, < 0, -90, 0 >, 0, < 0, 0, 0 >, < 0, 0, 0 >, 0, 1 ) // BUILDING_01
-    CreateZiplinePoint( true, FT_BUILDING_POS_02 + < 256, -512, 768 >, < 0, -90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_02 + < 640, 256, 1280 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_04 + < 128, 256, 512 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_05 + < 0, 320, 1280 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_06 + < 192, 384, 1792 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_07 + < 0, 640, 2304 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_07 + < 1920, 64, 2048 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_08 + < 256, 256, 1664 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_09 + < -256, 384, 2048 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_10 + < -384, 128, 1280 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_12 + < -128, -128, 2304 >, < 0, -90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_12 + < -128, 1024, 2304 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_12 + < -384, 256, 2304 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_12 + < -640, 0, 1280 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_13 + < -384, 1408, 1792 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_14 + < -512, 0, 1024 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_14 + < 128, -512, 1024 >, < 0, -90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_16 + < -384, -256, 1280 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_16 + < 0, 384, 1280 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_16 + < 384, -256, 1280 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_18 + < -320, -256, 1280 >, < 0, -90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_18 + < 320, 256, 1280 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_19 + < -192, 256, 1280 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_19 + < 192, -256, 1280 >, < 0, 0, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_19 + < -1728, -192, 1280 >, < 0, 180, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_19 + < -960, 0, 1280 >, < 0, 90, 0 >, 200 )
-    CreateZiplinePoint( true, FT_BUILDING_POS_19 + < -1472, -384, 1280 >, < 0, -90, 0 >, 200 )
+    // Building 01
+    ZiplineUtility zipline_0 = Zipline_CreateZipline(  "zipline_0", FT_BUILDING_POS_01 + < -598, 272, 1792 >, < 0, -170, 0 > )
+    Zipline_SetZiplineAngles( zipline_0, < 0, -32, 0 > )
+    Zipline_BuildInit( zipline_0 )
 
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 1024, 4352, 148 >, < 0, 0, 0 >, 0, FLOPPYTOWN_POS_OFFSET + < 1024, 4892, 148 >, < 0, 0, 0 >, 0, 1, 1 ) // BUILDING_02
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 1280, 512, 2176 >, < 0, 0, 0 >, 0, FLOPPYTOWN_POS_OFFSET + < 1280, 16, 2176 >, < 0, 0, 0 >, 0, 1, 1 ) // BUILDING_07
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 960, 1152, 160 >, < 0, 180, 0 >, 160, FLOPPYTOWN_POS_OFFSET + < 960, 2048, 180 >, < 0, 180, 0 >, 160, 1, 1 )
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 1728, 1152, 160 >, < 0, 0, 0 >, 160, FLOPPYTOWN_POS_OFFSET + < 1728, 2048, 160 >, < 0, 0, 0 >, 160, 1, 1 )
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 3160, 3424, 160 >, < 0, -90, 0 >, 160, FLOPPYTOWN_POS_OFFSET + < 2264, 3424, 160 >, < 0, -90, 0 >, -90, 1, 1 )
+    ZiplineUtility zipline_1 = Zipline_CreateZipline(  "zipline_1", FT_BUILDING_POS_01 + < 600, 0, 1792 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_1, < 0, 144, 0 > )
+    Zipline_BuildInit( zipline_1 )
+
+    ZiplineUtility zipline_2 = Zipline_CreateZipline(  "zipline_2", FLOPPYTOWN_POS_OFFSET + < 2712, 3810, 896 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_2, < 0, -175, 0 > )
+    Zipline_BuildInit( zipline_2 )
+
+    ZiplineUtility zipline_35 = Zipline_CreateZipline( "zipline_35", FLOPPYTOWN_POS_OFFSET + < 3160, 3424, 160 >, < 0, -90, 0 >, FLOPPYTOWN_POS_OFFSET + < 2264, 3424, 160 >, < 0, -90, 0 > )
+    Zipline_SetSkin( zipline_35, 1, 1 )
+    Zipline_BuildInit( zipline_35 )
+
+    // Building 02
+    ZiplineUtility zipline_3 = Zipline_CreateZipline(  "zipline_3", FT_BUILDING_POS_02 + < 256, -512, 768 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_3, < 0, 150, 0 > )
+    Zipline_BuildInit( zipline_3 )
+
+    ZiplineUtility zipline_4 = Zipline_CreateZipline(  "zipline_4", FT_BUILDING_POS_02 + < 640, 256, 1280 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_4, < 0, 150, 0 > )
+    Zipline_BuildInit( zipline_4 )
+
+    ZiplineUtility zipline_31 = Zipline_CreateZipline(  "zipline_31", FLOPPYTOWN_POS_OFFSET + < 1024, 4352, 148 >, < 0, 0, 0 >, FLOPPYTOWN_POS_OFFSET + < 1024, 4892, 148 >, < 0, 0, 0 > )
+    Zipline_SetSkin( zipline_31, 1, 1 )
+    Zipline_BuildInit( zipline_31 )
+
+    // Building 04
+    ZiplineUtility zipline_5 = Zipline_CreateZipline(  "zipline_5", FT_BUILDING_POS_04 + < 128, 256, 512 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_5, < 0, -140, 0 > )
+    Zipline_SetArmOffset( zipline_5, 228.0 )
+    Zipline_BuildInit( zipline_5 )
+
+    // Building 05
+    ZiplineUtility zipline_6 = Zipline_CreateZipline( "zipline_6", FT_BUILDING_POS_05 + < 0, 320, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_6, < 0, -114, 0 > )
+    Zipline_BuildInit( zipline_6 )
+
+    // Building 06
+    ZiplineUtility zipline_7 = Zipline_CreateZipline( "zipline_7", FT_BUILDING_POS_06 + < 192, 384, 1792 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_7, < 0, -132, 0 > )
+    Zipline_BuildInit( zipline_7 )
+
+    // Building 07
+    ZiplineUtility zipline_8 = Zipline_CreateZipline( "zipline_8", FT_BUILDING_POS_07 + < 0, 640, 2304 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_8, < 0, -44, 0 > )
+    Zipline_SetArmOffset( zipline_8, 228.0 )
+    Zipline_BuildInit( zipline_8 )
+
+    ZiplineUtility zipline_9 = Zipline_CreateZipline( "zipline_9", FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_9, < 0, -90, 0 > )
+    Zipline_SetSkin( zipline_9, 2 )
+    Zipline_BuildInit( zipline_9 )
+
+    ZiplineUtility zipline_10 = Zipline_CreateZipline( "zipline_10", FT_BUILDING_POS_07 + < 1916, 64, 2048 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_10, < 0, 138, 0 > )
+    Zipline_SetArmOffset( zipline_10, 228.0 )
+    Zipline_BuildInit( zipline_10 )
+
+    ZiplineUtility zipline_32 = Zipline_CreateZipline(  "zipline_32", FLOPPYTOWN_POS_OFFSET + < 1280, 512, 2176 >, < 0, 0, 0 >, FLOPPYTOWN_POS_OFFSET + < 1280, 16, 2176 >, < 0, 0, 0 > )
+    Zipline_SetSkin( zipline_32, 1, 1 )
+    Zipline_BuildInit( zipline_32 )
+
+    // Building 08
+    ZiplineUtility zipline_11 = Zipline_CreateZipline( "zipline_11", FT_BUILDING_POS_08 + < 256, 256, 1664 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_11, < 0, -132, 0 > )
+    Zipline_SetArmOffset( zipline_11, 230.0 )
+    Zipline_SetHeightLimit( zipline_11, 800 )
+    Zipline_BuildInit( zipline_11 )
+
+    // Building 09
+    ZiplineUtility zipline_12 = Zipline_CreateZipline( "zipline_12", FT_BUILDING_POS_09 + < -256, 384, 2048 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_12, < 0, -42, 0 > )
+    Zipline_SetArmOffset( zipline_12, 230.0 )
+    Zipline_BuildInit( zipline_12 )
+
+    // Building 10
+    ZiplineUtility zipline_13 = Zipline_CreateZipline( "zipline_13", FT_BUILDING_POS_10 + < -384, 128, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_13, < 0, -42, 0 > )
+    Zipline_SetHeightLimit( zipline_13, 600 )
+    Zipline_SetArmOffset( zipline_13, 230.0 )
+    Zipline_BuildInit( zipline_13 )
+
+    ZiplineUtility zipline_14 = Zipline_CreateZipline( "zipline_14", FT_BUILDING_POS_10 + < -384, 128, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_14, < 0, -42, 0 > )
+    Zipline_SetHeightLimit( zipline_14, 600 )
+    Zipline_SetArmOffset( zipline_14, 230.0 )
+    Zipline_BuildInit( zipline_14 )
+
+    //Building 12
+    ZiplineUtility zipline_15 = Zipline_CreateZipline( "zipline_15", FT_BUILDING_POS_12 + < -128, -128, 2304 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_15, < 0, 72, 0 > )
+    Zipline_BuildInit( zipline_15 )
+
+    ZiplineUtility zipline_16 = Zipline_CreateZipline( "zipline_16", FT_BUILDING_POS_12 + < -128, 1024, 2304 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_16, < 0, -106, 0 > )
+    Zipline_BuildInit( zipline_16 )
+
+    ZiplineUtility zipline_17 = Zipline_CreateZipline( "zipline_17", FT_BUILDING_POS_12 + < -384, 256, 2304 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_17, < 0, -26, 0 > )
+    Zipline_BuildInit( zipline_17 )
+
+    // Building 13
+    ZiplineUtility zipline_18 = Zipline_CreateZipline( "zipline_18", FT_BUILDING_POS_13 + < -384, 1408, 1792 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_18, < 0, -32, 0 > )
+    Zipline_BuildInit( zipline_18 )
+
+    // Building 14
+    ZiplineUtility zipline_19 = Zipline_CreateZipline( "zipline_19", FT_BUILDING_POS_14 + < -512, 0, 1024 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_19, < 0, -32, 0 > )
+    Zipline_BuildInit( zipline_19 )
+
+    ZiplineUtility zipline_20 = Zipline_CreateZipline( "zipline_20", FT_BUILDING_POS_14 + < 128, -512, 1024 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_20, < 0, 58, 0 > )
+    Zipline_BuildInit( zipline_20 )
+
+    // Building 16
+    ZiplineUtility zipline_21 = Zipline_CreateZipline( "zipline_21", FT_BUILDING_POS_16 + < -384, -256, 1280 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_21, < 0, 30, 0 > )
+    Zipline_SetArmOffset( zipline_21, 230.0 )
+    Zipline_BuildInit( zipline_21 )
+
+    ZiplineUtility zipline_22 = Zipline_CreateZipline( "zipline_22", FT_BUILDING_POS_16 + < 0, 384, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_22, < 0, -120, 0 > )
+    Zipline_SetArmOffset( zipline_22, 230.0 )
+    Zipline_BuildInit( zipline_22 )
+
+    ZiplineUtility zipline_23 = Zipline_CreateZipline( "zipline_23", FT_BUILDING_POS_16 + < 384, -256, 1280 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_23, < 0, 152, 0 > )
+    Zipline_SetArmOffset( zipline_23, 230.0 )
+    Zipline_BuildInit( zipline_23 )
+
+    // Building 18
+    ZiplineUtility zipline_24 = Zipline_CreateZipline( "zipline_24", FT_BUILDING_POS_18 + < -320, -256, 1280 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_24, < 0, 58, 0 > )
+    Zipline_SetHeightLimit( zipline_24, 660.0 )
+    Zipline_SetArmOffset( zipline_24, 230.0 )
+    Zipline_BuildInit( zipline_24 )
+
+    ZiplineUtility zipline_25 = Zipline_CreateZipline( "zipline_25", FT_BUILDING_POS_18 + < 320, 256, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_25, < 0, -120, 0 > )
+    Zipline_SetArmOffset( zipline_25, 230.0 )
+    Zipline_BuildInit( zipline_25 )
+
+    // Building 19
+    ZiplineUtility zipline_26 = Zipline_CreateZipline( "zipline_26", FT_BUILDING_POS_19 + < -192, 256, 1280 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_26, < 0, -40, 0 > )
+    Zipline_SetArmOffset( zipline_26, 230.0 )
+    Zipline_BuildInit( zipline_26 )
+
+    ZiplineUtility zipline_27 = Zipline_CreateZipline( "zipline_27", FT_BUILDING_POS_19 + < 192, -256, 1280 >, < 0, 0, 0 > )
+    Zipline_SetZiplineAngles( zipline_27, < 0, 144, 0 > )
+    Zipline_SetArmOffset( zipline_27, 230.0 )
+    Zipline_BuildInit( zipline_27 )
+
+    ZiplineUtility zipline_28 = Zipline_CreateZipline( "zipline_28", FT_BUILDING_POS_19 + < -1728, -192, 1280 >, < 0, 180, 0 > )
+    Zipline_SetZiplineAngles( zipline_28, < 0, -28, 0 > )
+    Zipline_SetArmOffset( zipline_28, 230.0 )
+    Zipline_BuildInit( zipline_28 )
+
+    ZiplineUtility zipline_29 = Zipline_CreateZipline( "zipline_29", FT_BUILDING_POS_19 + < -960, 0, 1280 >, < 0, 90, 0 > )
+    Zipline_SetZiplineAngles( zipline_29, < 0, -118, 0 > )
+    Zipline_SetArmOffset( zipline_29, 230.0 )
+    Zipline_BuildInit( zipline_29 )
+
+    ZiplineUtility zipline_30 = Zipline_CreateZipline( "zipline_30", FT_BUILDING_POS_19 + < -1472, -384, 1280 >, < 0, -90, 0 > )
+    Zipline_SetZiplineAngles( zipline_30, < 0, 62, 0 > )
+    Zipline_SetArmOffset( zipline_30, 230.0 )
+    Zipline_BuildInit( zipline_30 )
+
+    // Building 20
+    ZiplineUtility zipline_33 = Zipline_CreateZipline( "zipline_33", FLOPPYTOWN_POS_OFFSET + < 960, 1152, 160 >, < 0, 180, 0 >, FLOPPYTOWN_POS_OFFSET + < 960, 2048, 160 >, < 0, 180, 0 > )
+    Zipline_SetSkin( zipline_33, 1, 1 )
+    Zipline_BuildInit( zipline_33 )
+
+    ZiplineUtility zipline_34 = Zipline_CreateZipline( "zipline_34", FLOPPYTOWN_POS_OFFSET + < 1728, 1152, 160 >, < 0, 0, 0 >, FLOPPYTOWN_POS_OFFSET + < 1728, 2048, 160 >, < 0, 0, 0 > )
+    Zipline_SetSkin( zipline_34, 1, 1 )
+    Zipline_BuildInit( zipline_34 )
+
 
     ///////////////////////////////////
     // FOR TEST
     ///////////////////////////////////
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 3832, 3072, 160 >, < 0, 180, 0 >, 160, FLOPPYTOWN_POS_OFFSET + < 3216, 2368, 640 >, < 0, 0, 0 >, 160, 1, 1 )
-    CreateZiplinePoint( false, FLOPPYTOWN_POS_OFFSET + < 2192.24072, 3908.95801, 1792.13123 >, < 0, -50, 0 >, 160, FLOPPYTOWN_POS_OFFSET + < 896, 576, 2560 >, < 0, 30, 0 >, 160 )
-    //CreateZiplinePoint( true, <2264, 3000, 0>, <0,0,0>, <0,0,0>, < 0, 0, 0 > )
-    //CreateZiplinePoint( true, <2400, 3000, 100>, <0,0,0>, <0,0,0>, < 0, 0, 0 >, 1 )
-    //CreateZiplinePoint( false, <2200, 3000, 100>, <0,0,0>, 160, <2400, 3000, 0>, < 0, 0, 0 >, 160, 1, 0 )
-    //CreateZiplinePoint( false, <2200, 2600, 100>, <0,0,0>, 160, <2400, 2600, 100>, < 0, 0, 0 >, 160, 1, 1 )
-    //CreateZiplinePoint( false, <2800, 3000, 0>, <0,0,0>, 160, <3000, 3000, 0>, < 0, 0, 0 >, 160, 0, 0 )
-    //CreateZiplinePoint( false, <2800, 2600, 0>, <0,0,0>, 160, <3000, 2600, 100>, < 0, 0, 0 >, 160, 0, 1 )
-    CreateZiplinePoint( false, <2472, 3632-60, 256>, <0,136,0>, 160, <400, 1152, 1536>, < 0, 0, 0 >, 160, 0, 1 )
+    ZiplineUtility zipline_test_2 = Zipline_CreateZipline(  "zipline_test_2", < 640, 4224, 768 >, < 0, -135, 0 >, < 2181.61841, 2336.21582, 1280.03125 >, < 0, 40, 0 > )
+    Zipline_BuildInit( zipline_test_2 )
 
-    //CreateZiplinePoint( false, <0, 2967.5, 2016>, <0,-90,0>, 160, <2984, 3632, 4000>, < 0, 90, 0 >, 160, 1, 0 )
-    //CreateZiplinePoint( false, <0, 2967.5, 4000>, <0,-90,0>, 160, <2984, 3632, 2016>, < 0, 90, 0 >, 160, 1, 0 )
-    //CreateZiplinePoint( false, <4000, 2967.5, 0>, <0,-90,0>, 160, <2984, 3632, 4000>, < 0, 90, 0 >, 160, 1, 0 )
-    //CreateZiplinePoint( false, <4000, 2967.5, 0>, <0,-90,0>, 160, <2984, 3632, 2016>, < 0, 90, 0 >, 160, 1, 0 )
+    ZiplineUtility zipline_test_3 = Zipline_CreateZipline(  "zipline_test_3", < 3918.55176, 1762.95129, 1280.03125 >, < 0, 18, 0 >, < 3044.17651, 3944.20044, 1792.13123 >, < 0, -60, 0 > )
+    Zipline_BuildInit( zipline_test_3 )
+
+    ZiplineUtility zipline_test_4 = Zipline_CreateZipline(  "zipline_test_4", < 1042.14746, 515.290771, 2470 >, < 0, -50, 0 >, GetZiplineOrigin( zipline_test_3, "zip", "end" ), GetZiplineAngles( zipline_test_3, "zip", "end" ) )
+    Zipline_SetSkin( zipline_test_4, 1, 2 )
+    Zipline_BuildInit( zipline_test_4 )
+    
+    ZiplineUtility zipline_test_5 = Zipline_CreateZipline(  "zipline_test_5", < 144, 4922, 2000 >, < 0, -26, 0 >, < 2712.98682, 32483.4297, -3308.88623 >, < 0, 0, 0 > )
+    Zipline_SetSkin( zipline_test_5, 0, 1 )
+    Zipline_SetSpeedScale( zipline_test_5, 6 )
+    Zipline_BuildInit( zipline_test_5 )
+
+    ZiplineUtility zipline_test_6 = Zipline_CreateZipline(  "zipline_test_6", GetZiplineOrigin( zipline_test_4, "zip", "start" ), < 0, 0, 0 >, GetZiplineOrigin( zipline_12, "zip", "start" ), < 0, 0, 0 > )
+    Zipline_SetSkin( zipline_test_6, 2, 2 )
+    Zipline_BuildInit( zipline_test_6 )
 }
 
 

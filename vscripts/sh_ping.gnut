@@ -598,7 +598,7 @@ PingTraceResults function DoPingTrace( entity player )
             #endif
 
             #if SERVER
-                //if ( result.hitEnt.GetScriptName() == "FloppytownEntities" || result.hitEnt.GetScriptName() == "editor_ref")
+                //if ( result.hitEnt.GetScriptName() == "FloppytownEntities" || result.hitEnt.GetScriptName() == "editor_ref" || result.hitEnt.GetClassName() == "prop_dynamic" )
                 //{ result.hitEnt.Destroy() }
             #endif
         }
