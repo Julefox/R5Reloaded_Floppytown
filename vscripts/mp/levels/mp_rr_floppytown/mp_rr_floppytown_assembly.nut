@@ -594,6 +594,7 @@ void function Building_20( vector pos, vector ang, string name )
     CreateLoopFloppytownModel_Y( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -384, -448, SSB_UP_TO_0_PATCH >, < 0, 90, 0 >, 128, 8, script_name )
     CreateLoopFloppytownModel_X( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, 512, SSB_UP_TO_0_PATCH >, < 0, 0, 0 >, 128, 6, script_name )
     CreateLoopFloppytownModel_X( DESERTLANDS_HIGHRISE_S_SHELL_BOX_C, pos + < -320, -512, SSB_UP_TO_0_PATCH >, < 0, 180, 0 >, 128, 6, script_name )
+    CreateLoopFloppytownModel_XY( THUNDERDOME_CAGE_CEILING_256x256_06, pos + < -256, -384, 190 >, < 0, 0, 0 >, 256, 3, 256, 4, script_name )
 
     foreach ( ent in GetEntArrayByScriptName( script_name ) )
     { ent.SetParent( script_mover ) }

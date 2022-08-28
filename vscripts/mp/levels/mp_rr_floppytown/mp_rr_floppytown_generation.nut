@@ -411,6 +411,10 @@ void function Zips_Generation()
     ZiplineUtility zipline_test_6 = Zipline_CreateZipline(  "zipline_test_6", GetZiplineOrigin( zipline_test_4, "zip", "start" ), < 0, 0, 0 >, GetZiplineOrigin( zipline_12, "zip", "start" ), < 0, 0, 0 > )
     Zipline_SetSkin( zipline_test_6, 2, 2 )
     Zipline_BuildInit( zipline_test_6 )
+
+    ZiplineUtility zipline_test_7 = Zipline_CreateZipline(  "zipline_test_7", < 2395.59521, 4804.46289, -3301.81323 >, < 0, 90, 0 >, < 5211.65137, 4026.5376, -3593.22632 >, < 0, -90, 0 > )
+    Zipline_SetSkin( zipline_test_7, 1, 1 )
+    Zipline_BuildInit( zipline_test_7 )
 }
 
 
