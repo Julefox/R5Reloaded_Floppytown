@@ -218,6 +218,7 @@ void function Zips_Generation()
 
     ZiplineUtility zipline_2 = Zipline_CreateZipline(  "zipline_2", FLOPPYTOWN_POS_OFFSET + < 2712, 3810, 896 >, < 0, -90, 0 > )
     Zipline_SetZiplineAngles( zipline_2, < 0, -175, 0 > )
+    Zipline_SetSkin( zipline_2, 1 )
     Zipline_BuildInit( zipline_2 )
 
     ZiplineUtility zipline_35 = Zipline_CreateZipline( "zipline_35", FLOPPYTOWN_POS_OFFSET + < 3160, 3424, 160 >, < 0, -90, 0 >, FLOPPYTOWN_POS_OFFSET + < 2264, 3424, 160 >, < 0, -90, 0 > )
@@ -389,32 +390,10 @@ void function Zips_Generation()
     Zipline_SetSkin( zipline_34, 1, 1 )
     Zipline_BuildInit( zipline_34 )
 
-
-    ///////////////////////////////////
-    // FOR TEST
-    ///////////////////////////////////
-    ZiplineUtility zipline_test_2 = Zipline_CreateZipline(  "zipline_test_2", < 640, 4224, 768 >, < 0, -135, 0 >, < 2181.61841, 2336.21582, 1280.03125 >, < 0, 40, 0 > )
-    Zipline_BuildInit( zipline_test_2 )
-
-    ZiplineUtility zipline_test_3 = Zipline_CreateZipline(  "zipline_test_3", < 3918.55176, 1762.95129, 1280.03125 >, < 0, 18, 0 >, < 3044.17651, 3944.20044, 1792.13123 >, < 0, -60, 0 > )
-    Zipline_BuildInit( zipline_test_3 )
-
-    ZiplineUtility zipline_test_4 = Zipline_CreateZipline(  "zipline_test_4", < 1042.14746, 515.290771, 2470 >, < 0, -50, 0 >, GetZiplineOrigin( zipline_test_3, "zip", "end" ), GetZiplineAngles( zipline_test_3, "zip", "end" ) )
-    Zipline_SetSkin( zipline_test_4, 1, 2 )
-    Zipline_BuildInit( zipline_test_4 )
-    
-    ZiplineUtility zipline_test_5 = Zipline_CreateZipline(  "zipline_test_5", < 144, 4922, 2000 >, < 0, -26, 0 >, < 2712.98682, 32483.4297, -3308.88623 >, < 0, 0, 0 > )
-    Zipline_SetSkin( zipline_test_5, 0, 1 )
-    Zipline_SetSpeedScale( zipline_test_5, 6 )
-    Zipline_BuildInit( zipline_test_5 )
-
-    ZiplineUtility zipline_test_6 = Zipline_CreateZipline(  "zipline_test_6", GetZiplineOrigin( zipline_test_4, "zip", "start" ), < 0, 0, 0 >, GetZiplineOrigin( zipline_12, "zip", "start" ), < 0, 0, 0 > )
-    Zipline_SetSkin( zipline_test_6, 2, 2 )
-    Zipline_BuildInit( zipline_test_6 )
-
-    ZiplineUtility zipline_test_7 = Zipline_CreateZipline(  "zipline_test_7", < 2395.59521, 4804.46289, -3301.81323 >, < 0, 90, 0 >, < 5211.65137, 4026.5376, -3593.22632 >, < 0, -90, 0 > )
-    Zipline_SetSkin( zipline_test_7, 1, 1 )
-    Zipline_BuildInit( zipline_test_7 )
+    // Others
+    ZiplineUtility zipline_36 = Zipline_CreateZipline( "zipline_36", FLOPPYTOWN_POS_OFFSET + < 1176.6416, 8.03125, 2951.6167 >, < 0, 90, 0 >, FLOPPYTOWN_POS_OFFSET + < 5190.79443, 4697.54688, 2338.87305 >, < 0, -90, 0 > )
+    Zipline_SetSkin( zipline_36, 1, 1 )
+    Zipline_BuildInit( zipline_36 )
 }
 
 

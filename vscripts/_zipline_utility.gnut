@@ -377,8 +377,6 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
     // Entities Declaration
     array< entity > entityArray = [ ] ; entity startSupport ; entity startArm ; entity endSupport ; entity endArm
 
-    string ziplineName = zipline.ziplineName
-
     // Offset for arm heigth | locked between 160.0 (min) / 280.0 (max)
     float minOffset = 160.0 ; float maxOffset = 280.0 ; float startArmOffset = zipline.startArmOffset ; float endArmOffset = zipline.endArmOffset
     if ( startArmOffset < minOffset ) startArmOffset = minOffset else if ( startArmOffset > maxOffset ) startArmOffset = maxOffset
@@ -415,7 +413,7 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 
         // Set script name and target
         foreach ( ent in entityArray ) ent.SetScriptName( "IsVerticalZipline" )
-        if ( startSupport != null ) SetTargetName( startSupport, ziplineName ) ; SetTargetName( startArm, ziplineName )
+        if ( startSupport != null ) SetTargetName( startSupport, zipline.ziplineName ) ; SetTargetName( startArm, zipline.ziplineName )
     }
     else // If non vertical
     {
@@ -462,8 +460,8 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 
         // Set script name and target
         foreach ( ent in entityArray ) ent.SetScriptName( "IsNonVerticalZipline" )
-        if ( startSupport != null ) SetTargetName( startSupport, ziplineName + "_start" ) ; SetTargetName( startArm, ziplineName + "_start" )
-        if ( endSupport   != null ) SetTargetName( endSupport,   ziplineName + "_end" )   ; SetTargetName( endArm, ziplineName + "_end" )
+        if ( startSupport != null ) SetTargetName( startSupport, zipline.ziplineName + "_start" ) ; SetTargetName( startArm, zipline.ziplineName + "_start" )
+        if ( endSupport   != null ) SetTargetName( endSupport,   zipline.ziplineName + "_end" )   ; SetTargetName( endArm,   zipline.ziplineName + "_end" )
     }
 
 return entityArray }
@@ -483,7 +481,7 @@ array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
             startZipAng.y         = startZipAng.y % 180.0
             startZipAng.z         = startZipAng.z % 180.0
 
-            if ( zipline.heightLimit == HEIGHT_LIMIT ) { endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
+            if ( zipline.settingsHeightLimit == false ) { endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
             break
         case false:
             startZipAng    = zipline.startZipAng ; endZipAng = zipline.endZipAng ; endZipPos = zipline.endZipPos
@@ -542,7 +540,7 @@ array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
 
     DispatchSpawn( startZiplinePoint ) ; DispatchSpawn( endZiplinePoint )
     
-    if ( zipline.settingsChange == true ) SettingsChangeDetected( zipline )
+    if ( GetCurrentPlaylistVarBool( "debug_printt_zipline", true ) && zipline.settingsChange == true ) SettingsChangeDetected( zipline )
 
 return [ startZiplinePoint, endZiplinePoint ] }
 
@@ -552,26 +550,26 @@ return [ startZiplinePoint, endZiplinePoint ] }
 ////////////////////////////////////////////////////////////
 void function SettingsChangeDetected( ZiplineUtility zipline )
 {
-    debug_printt( "" )
-    debug_printt( "Settings Change Detected on: " + zipline.ziplineName )
+    printt( "" )
+    printt( "Settings Change Detected on: " + zipline.ziplineName )
 
-    if ( zipline.settingsAnglesChange           == true ) debug_printt( "Zip Angles Setted to: start: "          + zipline.startZipAng              + " end: "   + zipline.endZipAng )
-    if ( zipline.settingsArmOffset              == true ) debug_printt( "Arm Offset Setted to: start: "          + zipline.startArmOffset           + " end: "   + zipline.endArmOffset )
-    if ( zipline.settingsAutoDetachDistance     == true ) debug_printt( "Auto Detach Setted to: start: "         + zipline.startAutoDetachDistance  + " end: "   + zipline.endAutoDetachDistance )
-    if ( zipline.settingsDetachEndOnUseAndSpawn == true ) debug_printt( "Detach On Use / Spawn Setted to: use: " + zipline.detachEndOnUse           + " spawn: " + zipline.detachEndOnSpawn )
-    if ( zipline.settingsDropToBottom           == true ) debug_printt( "Drop To Bottom Setted to: "             + zipline.dropToBottom )
-    if ( zipline.settingsFadeDistance           == true ) debug_printt( "Fade Distance Setted to: "              + zipline.fadeDistance )
-    if ( zipline.settingsHeightLimit            == true ) debug_printt( "Height Limit Setted to: "               + zipline.heightLimit )
-    if ( zipline.settingsLengthScale            == true ) debug_printt( "Length Scale Setted to: "               + zipline.lengthScale )
-    if ( zipline.settingsMaterial               == true ) debug_printt( "Material Setted to: "                   + zipline.material )
-    if ( zipline.settingsPreserveVelocity       == true ) debug_printt( "Preserve Velocity Setted to: "          + zipline.preserveVelocity )
-    if ( zipline.settingsPushOffInDirectionX    == true ) debug_printt( "PushOffInDirectionX Setted to: start: " + zipline.startPushOffInDirectionX + " end: "   + zipline.endPushOffInDirectionX )
-    if ( zipline.settingsRestPoint              == true ) debug_printt( "Rest Point Setted to: "                 + zipline.restPoint )
-    if ( zipline.settingsScale                  == true ) debug_printt( "Zipline Scale Setted to: "              + zipline.scale )
-    if ( zipline.settingsSetSkin                == true ) debug_printt( "Skin Setted to: start: "                + zipline.setSkinStart             + " end: "   + zipline.setSkinEnd )
-    if ( zipline.settingsSpeedScale             == true ) debug_printt( "Speed Scale Setted to: "                + zipline.speedScale )
-    if ( zipline.settingsWidth                  == true ) debug_printt( "Width Setted to: "                      + zipline.width )
-    debug_printt( "" )
+    if ( zipline.settingsAnglesChange           == true ) printt( "Zip Angles Setted to: start: "          + zipline.startZipAng              + " end: "   + zipline.endZipAng )
+    if ( zipline.settingsArmOffset              == true ) printt( "Arm Offset Setted to: start: "          + zipline.startArmOffset           + " end: "   + zipline.endArmOffset )
+    if ( zipline.settingsAutoDetachDistance     == true ) printt( "Auto Detach Setted to: start: "         + zipline.startAutoDetachDistance  + " end: "   + zipline.endAutoDetachDistance )
+    if ( zipline.settingsDetachEndOnUseAndSpawn == true ) printt( "Detach On Use / Spawn Setted to: use: " + zipline.detachEndOnUse           + " spawn: " + zipline.detachEndOnSpawn )
+    if ( zipline.settingsDropToBottom           == true ) printt( "Drop To Bottom Setted to: "             + zipline.dropToBottom )
+    if ( zipline.settingsFadeDistance           == true ) printt( "Fade Distance Setted to: "              + zipline.fadeDistance )
+    if ( zipline.settingsHeightLimit            == true ) printt( "Height Limit Setted to: "               + zipline.heightLimit )
+    if ( zipline.settingsLengthScale            == true ) printt( "Length Scale Setted to: "               + zipline.lengthScale )
+    if ( zipline.settingsMaterial               == true ) printt( "Material Setted to: "                   + zipline.material )
+    if ( zipline.settingsPreserveVelocity       == true ) printt( "Preserve Velocity Setted to: "          + zipline.preserveVelocity )
+    if ( zipline.settingsPushOffInDirectionX    == true ) printt( "PushOffInDirectionX Setted to: start: " + zipline.startPushOffInDirectionX + " end: "   + zipline.endPushOffInDirectionX )
+    if ( zipline.settingsRestPoint              == true ) printt( "Rest Point Setted to: "                 + zipline.restPoint )
+    if ( zipline.settingsScale                  == true ) printt( "Zipline Scale Setted to: "              + zipline.scale )
+    if ( zipline.settingsSetSkin                == true ) printt( "Skin Setted to: start: "                + zipline.setSkinStart             + " end: "   + zipline.setSkinEnd )
+    if ( zipline.settingsSpeedScale             == true ) printt( "Speed Scale Setted to: "                + zipline.speedScale )
+    if ( zipline.settingsWidth                  == true ) printt( "Width Setted to: "                      + zipline.width )
+    printt( "" )
 }
 
 

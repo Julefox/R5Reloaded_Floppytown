@@ -255,6 +255,10 @@ entity function CreateFloppytownWallTrigger( vector pos, float radius = 1000 )
 
     thread FloppytownWallTriggerThread( map_trigger )
 
+    SetupOutOfBoundsTrigger( map_trigger )
+	map_trigger.SetEnterCallback( OnOOBTriggerEnter )
+	map_trigger.SetLeaveCallback( OnOOBTriggerLeave )
+
 return map_trigger }
 
 
