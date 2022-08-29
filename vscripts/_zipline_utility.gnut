@@ -30,35 +30,14 @@ global function GetZiplineLength
 
 
 // Const values
-    const bool   REST_POINT_BOOL                    = false
     const float  END_AUTO_DETACH_DISTANCE           = 50.0
-    const float  FADE_DISTANCE                      = -1.0
-    const float  HEIGHT_LIMIT                       = 6000.0
-    const float  LENGTH_SCALE                       = 1.0
     const float  NH_ARM_OFFSET                      = 160.0
     const float  NH_END_AUTO_DETACH_DISTANCE        = 150.0
     const float  NH_START_AUTO_DETACH_DISTANCE      = 150.0
-    const float  SCALE                              = 1.0
-    const float  SPEED_SCALE                        = 1.0
     const float  START_AUTO_DETACH_DISTANCE         = 100.0
     const float  VERTICAL_ARM_OFFSET                = 200.0
-    const float  WIDTH                              = 2.0
     const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS   = 0.99
-    const int    BOOL_DETACH_END_ON_SPAWN           = 0
-    const int    BOOL_DETACH_END_ON_USE             = 0
-    const int    BOOL_DROP_TO_BOTTOM                = 1
-    const int    BOOL_PRESERVE_VELOCITY             = 0
-    const int    BOOL_REST_POINT                    = 0
-    const int    END_BOOL_PUSH_X                    = 1
-    const int    END_SKIN                           = 0
-    const int    START_BOOL_PUSH_X                  = 1
-    const int    START_SKIN                         = 0
-    const int    X_LIMIT                            = 0
-    const int    Y_LIMIT                            = 0
-    const int    Z_LIMIT                            = 1
-    const int    ZIPLINE_VERSION                    = 3
-    const string MATERIAL                           = "cable/zipline.vmt"
-    const vector END_POS_OFFSET                     = < 0, 0, 80 >
+
 
 
 // Assets
@@ -78,40 +57,40 @@ global struct ZiplineUtility
     vector startZipPos
 
     // Vars
-    bool restPoint        = REST_POINT_BOOL
+    bool restPoint        = false
     float endArmOffset
-    float heightLimit     = HEIGHT_LIMIT
+    float heightLimit     = 6000.0
     float startArmOffset
-    int setSkinEnd        = END_SKIN
-    int setSkinStart      = START_SKIN
-    int xLimit            = X_LIMIT
-    int yLimit            = Y_LIMIT
-    int zLimit            = Z_LIMIT
+    int setSkinEnd        = 0
+    int setSkinStart      = 0
+    int xLimit            = 0
+    int yLimit            = 0
+    int zLimit            = 1
     string ziplineName
-    vector zipPosOffset   = END_POS_OFFSET
+    vector zipPosOffset   = < 0, 0, 80 >
 
     // Array
     array < ZiplineUtility > ziplineArrayInit
 
     // KV.Files vars start
     bool isVertical
-    float fadeDistance              = FADE_DISTANCE
-    float lengthScale               = LENGTH_SCALE
-    float scale                     = SCALE
-    float speedScale                = SPEED_SCALE
+    float fadeDistance              = -1.0
+    float lengthScale               = 1.0
+    float scale                     = 1.0
+    float speedScale                = 1.0
     float startAutoDetachDistance
-    float width                     = WIDTH
-    int detachEndOnSpawn            = BOOL_DETACH_END_ON_SPAWN
-    int detachEndOnUse              = BOOL_DETACH_END_ON_USE
-    int dropToBottom                = BOOL_DROP_TO_BOTTOM
-    int preserveVelocity            = BOOL_PRESERVE_VELOCITY
-    int startPushOffInDirectionX    = START_BOOL_PUSH_X
-    int ziplineVersion              = ZIPLINE_VERSION
-    string material                 = MATERIAL
+    float width                     = 2.0
+    int detachEndOnSpawn            = 0
+    int detachEndOnUse              = 0
+    int dropToBottom                = 1
+    int preserveVelocity            = 0
+    int startPushOffInDirectionX    = 1
+    int ziplineVersion              = 3
+    string material                 = "cable/zipline.vmt"
 
     // KV.Files vars end
     float endAutoDetachDistance
-    int endPushOffInDirectionX      = END_BOOL_PUSH_X
+    int endPushOffInDirectionX      = 1
 
     // Settings change detected
     bool settingsChange                   = false
