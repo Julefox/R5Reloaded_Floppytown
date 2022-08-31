@@ -119,6 +119,10 @@ void function debug_printt( ... )
                 printt( "===========================" )
                 printt( "" )
 
+                printt( "Height: " + GetEntHeight( result.hitEnt ) )
+                printt( "Width:  " + GetEntWidth ( result.hitEnt ) )
+                printt( "Depth:  " + GetEntDepth ( result.hitEnt ) )
+
                 DebugDrawAxis( result.hitEnt.GetOrigin(), result.hitEnt.GetAngles(), 6.0, 30, <0,0,0> )
                 //if ( ZIPLINE_ENTS.contains( result.hitEnt ) ) thread FindBestZiplineLocation( result.hitEnt )
                 //else thread EntFilesGeneratorForProps( result.hitEnt ) // For testing but the ent is not solid

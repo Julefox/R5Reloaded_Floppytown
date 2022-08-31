@@ -6,7 +6,6 @@ global function ScriptToyChangeStatusLights
 global function SetSwitchUseFunc
 global function ScriptedRotatorRotate
 global function CodeCallback_PreBuildAINFile
-global function CodeCallback_ZiplineAINFile
 global function CreateHovertankZipline2
 global function CreateDoorMoverModel
 global function GetLinkedEntsByClassName
@@ -136,28 +135,6 @@ void function CodeCallback_PreBuildAINFile()
 				ent.NotSolid()
 				break
 			}
-		}
-	}
-}
- 
-
-void function CodeCallback_ZiplineAINFile()
-{
-	array<entity> zips = GetEntArrayByClass_Expensive( "zipline" )
-
-	foreach ( entity zip in zips )
-	{
-		if ( GetEditorClass( zip ) == "zipline" )
-			continue
-
-		array<entity> linkedEnts = zip.GetLinkEntArray()
-
-		foreach ( entity ent in linkedEnts )
-		{
-            printt( zip )
-            printt( zip.GetOrigin() )
-			printt( ent )
-            printt( ent.GetOrigin() )
 		}
 	}
 }

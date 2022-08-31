@@ -21,6 +21,25 @@ void function Ft_Floor( vector pos, vector ang )
 
     CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_01, pos, < 0, 180, 0 >, 1024, 6, 352, 14, "floor" )
 
+
+    /* array<entity> test = []
+
+    entity zeroPos = CreateLoopFloppytownModel_XY( DESERTLANDS_BLDG_PLATFORM_01, pos, < 0, 180, 0 >, 1024, 6, 352, 14, "floor" )
+    entity refModel = CreateFloppytownModel( DESERTLANDS_BLDG_PLATFORM_01, < 0, 0, 4000 >, < 0, 180, 0 > )
+    entity startPos = CreateFloppytownModel( EMPTY, pos, < 0, 0, 0 > )
+    test.append(startPos)
+
+    float width = GetEntWidth( refModel ) * 6
+
+    float depth = GetEntDepth( refModel ) * 14
+
+    vector calculPos = pos + < width, depth, 0 >
+
+    entity endPos = CreateFloppytownModel( EMPTY, calculPos, < 0, 0, 0 > )
+    test.append(endPos)
+
+    CreateFloppytownModel( EDITOR_REF , GetCenter( test ), < 0, 0, 0 > ) */
+
     foreach ( ent in GetEntArrayByScriptName( "floor" ) )
     { ent.SetParent( script_mover ) }
     script_mover.SetAngles( ang )
