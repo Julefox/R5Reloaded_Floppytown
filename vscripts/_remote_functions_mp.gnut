@@ -29,8 +29,8 @@ void function RemoteFunctions_Init_Begin()
 
 	if ( GetMapName() == "mp_rr_floppytown" )
 	{
-		Remote_RegisterClientFunction("ServerCallback_Crane_DoAnnouncement")
-		Remote_RegisterClientFunction("ServerCallback_HUD_Test_DoAnnouncement")
+		//Remote_RegisterClientFunction("ServerCallback_Crane_DoAnnouncement")
+		//Remote_RegisterClientFunction("ServerCallback_HUD_Test_DoAnnouncement")
 	}
 		
 
