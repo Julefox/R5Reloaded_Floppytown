@@ -14,6 +14,7 @@ global function Zipline_SetDetachEndOnUse_OnSpawn
 global function Zipline_SetDropToBottom
 global function Zipline_SetFadeDistance
 global function Zipline_SetHeightLimit
+global function Zipline_SetIsMoving
 global function Zipline_SetLengthScale
 global function Zipline_SetMaterial
 global function Zipline_SetPreserveVelocity
@@ -23,6 +24,10 @@ global function Zipline_SetSkin
 global function Zipline_SetSpeedScale
 global function Zipline_SetWidth
 global function Zipline_SetZiplineAngles
+
+global function Zipline_CreatePanel
+
+global function Zipline_Destroy
 
 global function GetZiplineOrigin
 global function GetZiplineAngles
@@ -46,6 +51,10 @@ global function GetZiplineLength
 
 global struct ZiplineUtility
 {
+    // Entities
+    entity startZiplinePoint
+    entity endZiplinePoint
+
     // Vectors entities start / end
     vector endAng
     vector endPos
@@ -57,6 +66,8 @@ global struct ZiplineUtility
     vector startZipPos
 
     // Vars
+    bool isMoving         = false
+    bool isValid          = false
     bool restPoint        = false
     float endArmOffset
     float heightLimit     = 6000.0
@@ -102,6 +113,7 @@ global struct ZiplineUtility
     bool settingsDropToBottom             = false
     bool settingsFadeDistance             = false
     bool settingsHeightLimit              = false
+    bool settingsIsMoving                 = false
     bool settingsLengthScale              = false
     bool settingsMaterial                 = false
     bool settingsPreserveVelocity         = false
@@ -168,7 +180,7 @@ return zipline }
 //  Create zipline
 ////////////////////////////////////////////////////////////
 void function Zipline_BuildInit( ZiplineUtility zipline )
-{   Zipline_CreateSupport( zipline ) ; Zipline_CreateZiplineThread( zipline ) }
+{   Zipline_CreateSupport( zipline ) ; Zipline_CreateZiplineInit( zipline ) }
 
 
 ////////////////////////////////////////////////////////////
@@ -226,6 +238,13 @@ void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit 
     zipline.settingsHeightLimit   = true
 }
 
+void function Zipline_SetIsMoving( ZiplineUtility zipline )
+{
+    zipline.isMoving              = true
+    zipline.settingsChange        = true
+    zipline.settingsIsMoving      = true
+}
+
 void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale )
 {
     zipline.lengthScale           = lengthScale
@@ -240,9 +259,9 @@ void function Zipline_SetMaterial( ZiplineUtility zipline, string material )
     zipline.settingsMaterial  = true
 }
 
-void function Zipline_SetPreserveVelocity( ZiplineUtility zipline, int preserveVelocity )
+void function Zipline_SetPreserveVelocity( ZiplineUtility zipline )
 {
-    zipline.preserveVelocity            = preserveVelocity
+    zipline.preserveVelocity            = 1
     zipline.settingsChange              = true
     zipline.settingsPreserveVelocity    = true
 }
@@ -302,6 +321,56 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
     zipline.settingsAnglesChange  = true
     zipline.settingsChange        = true
 }
+
+
+////////////////////////////////////////////////////////////
+//  Create panel for ziplines
+////////////////////////////////////////////////////////////
+void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang )
+{
+    entity panel = CreateUsablePanel( pos, ang, "%&use%" )
+    panel.SetSkin( 0 )
+
+    if ( IsValid( panel ) )
+    {
+        AddCallback_OnUseEntity( panel, OnUseZiplinePanel )
+    }
+}
+
+void function OnUseZiplinePanel( entity panel, entity player, int useInputFlags )
+{
+    thread ChangePanelState( panel )
+}
+
+
+void function ChangePanelState( entity panel )
+{
+    if ( IsValid( panel ) && panel.GetSkin() == 0 )
+    {
+        panel.UnsetUsable()
+        panel.SetSkin( 1 )
+
+            wait 6
+
+        panel.SetUsable()
+        panel.SetSkin( 0 )
+    }
+}
+
+entity function CreateUsablePanel( vector pos, vector ang, string prompt )
+{
+    entity UsableButton = CreateEntity( "prop_dynamic" )
+    UsableButton.kv.solid = 6
+    UsableButton.SetValueForModelKey( $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl" )
+    UsableButton.AllowMantle()
+    UsableButton.SetOrigin( pos )
+    UsableButton.SetAngles( ang )
+    DispatchSpawn( UsableButton )
+
+    UsableButton.SetUsable()
+    UsableButton.SetUsableByGroup( "pilot" )
+    UsableButton.SetUsePrompts( prompt, prompt )
+return UsableButton }
 
 
 ////////////////////////////////////////////////////////////
@@ -466,7 +535,7 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 
 return entityArray }
 
-array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
+array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
 {
     // Calculation part
     vector startZipPos = zipline.startZipPos ; vector endZipPos ; vector startZipAng ; vector endZipAng
@@ -481,7 +550,7 @@ array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
             startZipAng.y         = startZipAng.y % 180.0
             startZipAng.z         = startZipAng.z % 180.0
 
-            if ( zipline.settingsHeightLimit == false ) { endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
+            if ( zipline.settingsHeightLimit == false ) { endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos } ; zipline.endZipPos = endZipPos
             break
         case false:
             startZipAng    = zipline.startZipAng ; endZipAng = zipline.endZipAng ; endZipPos = zipline.endZipPos
@@ -499,6 +568,8 @@ array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
         default:
         break
     }
+
+    if ( zipline.isMoving == true ) endZipPos = startZipPos - < 0, 0, 0.1 >
 
     // Create start point
     entity startZiplinePoint = CreateEntity( "zipline" )
@@ -539,10 +610,63 @@ array< entity > function Zipline_CreateZiplineThread( ZiplineUtility zipline )
     startZiplinePoint.LinkToEnt( endZiplinePoint )
 
     DispatchSpawn( startZiplinePoint ) ; DispatchSpawn( endZiplinePoint )
+
+    zipline.startZiplinePoint = startZiplinePoint
+    zipline.endZiplinePoint   = endZiplinePoint
+
+    if ( zipline.isMoving == true )
+    {   thread Zipline_Mover( zipline ) }
     
     if ( GetCurrentPlaylistVarBool( "debug_printt_zipline", true ) && zipline.settingsChange == true ) SettingsChangeDetected( zipline )
 
+    zipline.isValid = true
+
 return [ startZiplinePoint, endZiplinePoint ] }
+
+function Zipline_Mover( ZiplineUtility zipline )
+{
+    entity endPoint = zipline.endZiplinePoint
+
+    entity mover = CreateOwnedScriptMover( endPoint )
+	endPoint.SetParent( mover )
+
+    OnThreadEnd(
+		function() : ( endPoint, mover )
+		{
+			if ( IsValid( mover ) )
+				mover.Destroy()
+		}
+	)
+
+    int travelTime
+
+    if ( zipline.isVertical == true ) { travelTime = 6 } else { travelTime = 2 }
+
+    mover.MoveTo( zipline.endZipPos, travelTime, travelTime / 2, travelTime / 2 )
+
+    wait travelTime
+
+    if ( IsValid( endPoint ) ) endPoint.ClearParent()
+}
+
+
+////////////////////////////////////////////////////////////
+//  Destroy Zipline
+///////////////////////////////////////////////////////////
+void function Zipline_Destroy( ZiplineUtility zipline )
+{
+    entity startSkin = GetEnt( zipline.ziplineName + "_start" )
+    entity endSkin   = GetEnt( zipline.ziplineName + "_end" )
+    entity startZiplinePoint = zipline.startZiplinePoint
+    entity endZiplinePoint   = zipline.endZiplinePoint
+
+    if ( IsValid( startSkin ) )         startSkin.Destroy()
+    if ( IsValid( endSkin ) )           endSkin.Destroy()
+    if ( IsValid( startZiplinePoint ) ) startZiplinePoint.Destroy()
+    if ( IsValid( endZiplinePoint ) )   endZiplinePoint.Destroy()
+
+    zipline.isValid = false
+}
 
 
 ////////////////////////////////////////////////////////////
@@ -560,6 +684,7 @@ void function SettingsChangeDetected( ZiplineUtility zipline )
     if ( zipline.settingsDropToBottom           == true ) printt( "Drop To Bottom Setted to: "             + zipline.dropToBottom )
     if ( zipline.settingsFadeDistance           == true ) printt( "Fade Distance Setted to: "              + zipline.fadeDistance )
     if ( zipline.settingsHeightLimit            == true ) printt( "Height Limit Setted to: "               + zipline.heightLimit )
+    if ( zipline.settingsIsMoving               == true ) printt( "Moving Zipline Setted to: "             + zipline.isMoving )
     if ( zipline.settingsLengthScale            == true ) printt( "Length Scale Setted to: "               + zipline.lengthScale )
     if ( zipline.settingsMaterial               == true ) printt( "Material Setted to: "                   + zipline.material )
     if ( zipline.settingsPreserveVelocity       == true ) printt( "Preserve Velocity Setted to: "          + zipline.preserveVelocity )

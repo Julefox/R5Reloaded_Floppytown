@@ -35,8 +35,28 @@ void function Map_Dev_Init()
 {
     #if SERVER
         //AddClientCommandCallback( "GetEnt", ClientCommand_GetEnt )
+        AddClientCommandCallback( "zip", ClientCommand_ZipTest )
     #endif
 }
+
+#if SERVER
+    bool function ClientCommand_ZipTest( entity player, array<string> args )
+    {
+        ZiplineUtility ZiplineTest = Zipline_CreateZipline(  "zipline_test", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -90, 0 > )
+        Zipline_SetIsMoving( ZiplineTest )
+        Zipline_SetSkin( ZiplineTest, 2 )
+        Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, 0, 0 > )
+        Zipline_BuildInit( ZiplineTest )
+
+        //ZiplineUtility ZiplineTest0 = Zipline_CreateZipline(  "zipline_test0", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -58, 0 >, < 8150.14795, 5399.45068, 4307.85645 >, < 0, 90, 0 > )
+        //Zipline_SetIsMoving( ZiplineTest0 )
+        //Zipline_SetLengthScale( ZiplineTest0, 0.98 )
+        //Zipline_SetPreserveVelocity( ZiplineTest0 )
+        //Zipline_BuildInit( ZiplineTest0 )
+        //thread Yes()
+
+    return true }
+#endif
 
 
 /* void function debug_printt( ... )

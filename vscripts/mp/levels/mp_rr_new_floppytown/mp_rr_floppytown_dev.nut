@@ -35,7 +35,7 @@ return true }
 
 bool function ClientCommand_Test( entity player, array<string> args )
 {
-    printt( 5 % 2 + " " + 4 % 2 )
+    
 return true }
 
 bool function ClientCommand_DebugCylender( entity player, array<string> args )

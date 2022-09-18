@@ -40,7 +40,7 @@ void function LoadLobbyAfterLeave()
 	}
 
 	//Create lobby server
-	CreateServer("In development floppytown", "Please do not try to join, you will not be able to join, the map is in development", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
+	CreateServer("In development floppytown", "", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
 
 	//Refresh Server Browser
 	RefreshServerListing()
