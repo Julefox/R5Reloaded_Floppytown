@@ -32,6 +32,8 @@ global function Zipline_Destroy
 global function GetZiplineOrigin
 global function GetZiplineAngles
 global function GetZiplineLength
+global function GetZiplineFromEntityPanel
+global function GetZiplineFromZiplineName
 
 
 // Const values
@@ -52,8 +54,12 @@ global function GetZiplineLength
 global struct ZiplineUtility
 {
     // Entities
-    entity startZiplinePoint
     entity endZiplinePoint
+    entity startZiplinePoint
+
+    // Panels
+    array < entity > newPanel
+    entity panel
 
     // Vectors entities start / end
     vector endAng
@@ -66,9 +72,11 @@ global struct ZiplineUtility
     vector startZipPos
 
     // Vars
-    bool isMoving         = false
-    bool isValid          = false
-    bool restPoint        = false
+    bool isMoving           = false
+    bool restPoint          = false
+    bool supportIsValid     = false
+    bool ziplineIsDestroyed = true
+    bool ziplineIsValid     = false
     float endArmOffset
     float heightLimit     = 6000.0
     float startArmOffset
@@ -130,6 +138,8 @@ global ZiplineUtility ziplineUtility
 
 void function ZiplineUtility_Init()
 {
+    FlagInit( "PanelActivated" )
+    FlagInit( "MovingZiplineThread" )
     AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
 }
 
@@ -145,7 +155,10 @@ void function ZiplineUtility_Didload()
 ////////////////////////////////////////////////////////////
 ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = < 0, 0, 0 >, vector endAng = < 0, 0, 0 > )
 {
-    ZiplineUtility zipline 
+    ZiplineUtility zipline
+
+    if ( IsZiplineHaveSameName( ziplineName ) == true ) return zipline
+
     zipline.ziplineName = ziplineName
 
     zipline.startPos    = startPos ; zipline.startAng = startAng
@@ -180,7 +193,10 @@ return zipline }
 //  Create zipline
 ////////////////////////////////////////////////////////////
 void function Zipline_BuildInit( ZiplineUtility zipline )
-{   Zipline_CreateSupport( zipline ) ; Zipline_CreateZiplineInit( zipline ) }
+{
+    if ( zipline.supportIsValid == false ) Zipline_CreateSupport( zipline )
+    if ( zipline.ziplineIsValid == false ) Zipline_CreateZiplineInit( zipline )
+}
 
 
 ////////////////////////////////////////////////////////////
@@ -329,7 +345,7 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
 void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang )
 {
     entity panel = CreateUsablePanel( pos, ang, "%&use%" )
-    panel.SetSkin( 0 )
+    panel.SetSkin( 0 ) ; zipline.newPanel.append( panel )
 
     if ( IsValid( panel ) )
     {
@@ -339,9 +355,27 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
 
 void function OnUseZiplinePanel( entity panel, entity player, int useInputFlags )
 {
-    thread ChangePanelState( panel )
+    thread OnUseZiplinePanelThread( panel )
 }
 
+void function OnUseZiplinePanelThread( entity panel )
+{
+    FlagSet( "PanelActivated" )
+
+    ZiplineUtility zipline = GetZiplineFromEntityPanel( panel )
+
+    foreach ( panels in zipline.newPanel )
+        thread ChangePanelState( panels )
+
+    if ( zipline.ziplineIsDestroyed == true )
+        Zipline_BuildInit( zipline )
+    else if ( zipline.ziplineIsDestroyed == false )
+        Zipline_Destroy( zipline )
+
+    FlagWaitClear( "MovingZiplineThread" )
+
+    FlagClear( "PanelActivated" )
+}
 
 void function ChangePanelState( entity panel )
 {
@@ -350,7 +384,7 @@ void function ChangePanelState( entity panel )
         panel.UnsetUsable()
         panel.SetSkin( 1 )
 
-            wait 6
+            FlagWaitClear( "PanelActivated" )
 
         panel.SetUsable()
         panel.SetSkin( 0 )
@@ -370,15 +404,16 @@ entity function CreateUsablePanel( vector pos, vector ang, string prompt )
     UsableButton.SetUsable()
     UsableButton.SetUsableByGroup( "pilot" )
     UsableButton.SetUsePrompts( prompt, prompt )
+
 return UsableButton }
 
 
 ////////////////////////////////////////////////////////////
 //  Get zipline params
 ////////////////////////////////////////////////////////////
-vector function GetZiplineOrigin( ZiplineUtility zipline, string org_or_zip, string start_or_end )
+vector function GetZiplineOrigin( string ziplineName, string org_or_zip, string start_or_end )
 {
-    vector vec
+    ZiplineUtility zipline = GetZiplineFromZiplineName( ziplineName ) ; vector vec
 
     switch ( org_or_zip )
     {
@@ -405,9 +440,9 @@ vector function GetZiplineOrigin( ZiplineUtility zipline, string org_or_zip, str
 
 return vec }
 
-vector function GetZiplineAngles( ZiplineUtility zipline, string org_or_zip, string start_or_end )
+vector function GetZiplineAngles( string ziplineName, string org_or_zip, string start_or_end )
 {
-    vector vec
+    ZiplineUtility zipline = GetZiplineFromZiplineName( ziplineName ) ; vector vec
 
     switch ( org_or_zip )
     {
@@ -434,8 +469,38 @@ vector function GetZiplineAngles( ZiplineUtility zipline, string org_or_zip, str
 
 return vec }
 
-float function GetZiplineLength( ZiplineUtility zipline )
-{   return zipline.lengthScale }
+float function GetZiplineLength( string ziplineName )
+{
+    ZiplineUtility zipline = GetZiplineFromZiplineName( ziplineName )
+    return zipline.lengthScale
+}
+
+ZiplineUtility function GetZiplineFromEntityPanel( entity panel )
+{
+    foreach( ziplines in ziplineUtility.ziplineArrayInit )
+    {
+        if ( ziplines.newPanel.contains( panel ) )
+            return ziplines
+    }
+unreachable }
+
+ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
+{
+    foreach( ziplines in ziplineUtility.ziplineArrayInit )
+    {
+        if ( ziplines.ziplineName == ziplineName )
+            return ziplines
+    }
+unreachable }
+
+bool function IsZiplineHaveSameName( string ziplineName )
+{
+    foreach( ziplines in ziplineUtility.ziplineArrayInit )
+    {
+        if ( ziplines.ziplineName == ziplineName )
+            return true
+    }
+return false }
 
 
 ////////////////////////////////////////////////////////////
@@ -533,6 +598,8 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
         if ( endSupport   != null ) SetTargetName( endSupport,   zipline.ziplineName + "_end" )   ; SetTargetName( endArm,   zipline.ziplineName + "_end" )
     }
 
+    zipline.supportIsValid = true
+
 return entityArray }
 
 array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
@@ -619,53 +686,63 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
     
     if ( GetCurrentPlaylistVarBool( "debug_printt_zipline", true ) && zipline.settingsChange == true ) SettingsChangeDetected( zipline )
 
-    zipline.isValid = true
+    zipline.ziplineIsValid     = true
+    zipline.ziplineIsDestroyed = false
 
 return [ startZiplinePoint, endZiplinePoint ] }
 
 function Zipline_Mover( ZiplineUtility zipline )
 {
+    FlagSet( "MovingZiplineThread" )
+
     entity endPoint = zipline.endZiplinePoint
 
     entity mover = CreateOwnedScriptMover( endPoint )
-	endPoint.SetParent( mover )
+    endPoint.SetParent( mover )
 
     OnThreadEnd(
-		function() : ( endPoint, mover )
-		{
-			if ( IsValid( mover ) )
-				mover.Destroy()
-		}
-	)
+        function() : ( endPoint, mover )
+        {
+            if ( IsValid( endPoint ) ) endPoint.ClearParent()
+            if ( IsValid( mover ) && endPoint.GetParent() == null ) mover.Destroy()
+        }
+    )
 
-    int travelTime
+    float travelTime ; float travelTimeDivised
 
     if ( zipline.isVertical == true ) { travelTime = 6 } else { travelTime = 2 }
 
-    mover.MoveTo( zipline.endZipPos, travelTime, travelTime / 2, travelTime / 2 )
+    travelTimeDivised = travelTime / 2
+
+    mover.MoveTo( zipline.endZipPos, travelTime, travelTimeDivised, travelTimeDivised )
 
     wait travelTime
 
-    if ( IsValid( endPoint ) ) endPoint.ClearParent()
+    FlagClear( "MovingZiplineThread" )
 }
 
 
 ////////////////////////////////////////////////////////////
 //  Destroy Zipline
 ///////////////////////////////////////////////////////////
-void function Zipline_Destroy( ZiplineUtility zipline )
+void function Zipline_Destroy( ZiplineUtility zipline, bool destroyAll = false )
 {
     entity startSkin = GetEnt( zipline.ziplineName + "_start" )
     entity endSkin   = GetEnt( zipline.ziplineName + "_end" )
     entity startZiplinePoint = zipline.startZiplinePoint
     entity endZiplinePoint   = zipline.endZiplinePoint
 
-    if ( IsValid( startSkin ) )         startSkin.Destroy()
-    if ( IsValid( endSkin ) )           endSkin.Destroy()
+    if ( destroyAll == true && zipline.supportIsValid == true )
+    {
+        if ( IsValid( startSkin ) ) startSkin.Destroy()
+        if ( IsValid( endSkin ) )   endSkin.Destroy()
+        zipline.supportIsValid = false
+    }
     if ( IsValid( startZiplinePoint ) ) startZiplinePoint.Destroy()
     if ( IsValid( endZiplinePoint ) )   endZiplinePoint.Destroy()
 
-    zipline.isValid = false
+    zipline.ziplineIsValid     = false
+    zipline.ziplineIsDestroyed = true
 }
 
 

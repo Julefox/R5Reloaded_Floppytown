@@ -36,6 +36,7 @@ void function Map_Dev_Init()
     #if SERVER
         //AddClientCommandCallback( "GetEnt", ClientCommand_GetEnt )
         AddClientCommandCallback( "zip", ClientCommand_ZipTest )
+        AddClientCommandCallback( "zip0", ClientCommand_ZipTest0 )
     #endif
 }
 
@@ -46,14 +47,23 @@ void function Map_Dev_Init()
         Zipline_SetIsMoving( ZiplineTest )
         Zipline_SetSkin( ZiplineTest, 2 )
         Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, 0, 0 > )
-        Zipline_BuildInit( ZiplineTest )
+        Zipline_CreatePanel( ZiplineTest, < 4036.33276, 4045.34351, 2061.67651 >, < 0, 180, 0 > )
+        //Zipline_BuildInit( ZiplineTest )
 
-        //ZiplineUtility ZiplineTest0 = Zipline_CreateZipline(  "zipline_test0", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -58, 0 >, < 8150.14795, 5399.45068, 4307.85645 >, < 0, 90, 0 > )
-        //Zipline_SetIsMoving( ZiplineTest0 )
-        //Zipline_SetLengthScale( ZiplineTest0, 0.98 )
-        //Zipline_SetPreserveVelocity( ZiplineTest0 )
+        ZiplineUtility ZiplineTest0 = Zipline_CreateZipline(  "zipline_test", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -58, 0 >, < 8150.14795, 5399.45068, 4307.85645 >, < 0, 90, 0 > )
+        Zipline_SetIsMoving( ZiplineTest0 )
+        Zipline_SetLengthScale( ZiplineTest0, 0.98 )
+        Zipline_SetPreserveVelocity( ZiplineTest0 )
         //Zipline_BuildInit( ZiplineTest0 )
         //thread Yes()
+
+    return true }
+
+    bool function ClientCommand_ZipTest0( entity player, array<string> args )
+    {
+        foreach ( ziplines in ziplineUtility.ziplineArrayInit ) {
+            printt( ziplines.ziplineName )
+            Zipline_BuildInit( ziplines ) }
 
     return true }
 #endif
