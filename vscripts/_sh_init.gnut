@@ -169,6 +169,8 @@ void function SV_CL_Init()
 
 	ShLootRollers_Init()
 
+    ShZiplineUtility_Init()
+
 
 	CharacterSelectNewMenu_Init()
 

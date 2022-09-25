@@ -114,6 +114,7 @@ global function GetInstalledWeaponAttachment
 global function GetAllWeaponAttachments
 
 global function SURVIVAL_GetAllPlayerOrdnance
+global function SURVIVAL_PlayerCanUse_AnimatedInteraction
 global function SURVIVAL_CanPlayerPickup
 global function SURVIVAL_PlayerAllowedToPickup
 global function SURVIVAL_PlayerCanSwitchOrdnance
@@ -2132,6 +2133,29 @@ array<string> function SURVIVAL_GetAllPlayerOrdnance( entity player )
 	}
 
 	return allOrdnance
+}
+
+bool function SURVIVAL_PlayerCanUse_AnimatedInteraction( entity player, entity ent )
+{
+	if ( !IsValid( player ) )
+		return false
+
+	if ( Bleedout_IsBleedingOut( player ) )
+		return false
+
+	if ( player.ContextAction_IsActive() )
+		return false
+
+	if ( !SURVIVAL_PlayerAllowedToPickup( player ) )
+		return false
+
+	if ( IsValid( player.GetParent() ) )
+		return false
+
+	if ( ent.e.isBusy )
+		return false
+
+	return true
 }
 
 bool function SURVIVAL_CanPlayerPickup( entity player, entity pickup )

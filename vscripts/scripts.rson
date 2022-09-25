@@ -397,7 +397,6 @@ Scripts:
 	_codecallbacks_player_input.gnut
 	_control_panel.gnut
 	_script_movers.gnut
-    _zipline_utility.gnut
 	_script_toys.gnut
 	_global_entities.gnut
 	_objective.gnut
@@ -929,4 +928,17 @@ When: "SERVER"
 Scripts:
 [
 	freelance/_freelance.gnut
+]
+
+// Zipline Utility
+When: "SERVER"
+Scripts:
+[
+	_zipline_utility.gnut
+]
+
+When: "SERVER || CLIENT"
+Scripts:
+[
+	sh_zipline_utility.gnut
 ]
