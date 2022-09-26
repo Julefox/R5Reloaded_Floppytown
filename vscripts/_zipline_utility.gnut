@@ -4,6 +4,7 @@ global function ZiplineUtility_Init
 
 global function Zipline_CreateZipline
 global function Zipline_BuildInit
+global function Zipline_Destroy
 
 global function Zipline_EnableRestPoint
 global function Zipline_SetArmOffset
@@ -26,9 +27,10 @@ global function Zipline_SetZiplineAngles
 
 global function Zipline_CreatePanel
 global function Zipline_PanelNoTimer
-global function Zipline_PanelUsableOneTime
+global function Zipline_PanelUsableLimit
 global function OnUseZiplinePanelThread
 global function UpdatePanelsPrompts
+global function ChangeAllPanelState
 
 global function GetAllZiplines
 global function GetZiplineAngles
@@ -38,8 +40,6 @@ global function GetZiplineLength
 global function GetZiplineOrigin
 global function GZFEP
 global function GZFZN
-
-global function Zipline_Destroy
 
 
 /*
@@ -71,6 +71,7 @@ global function Zipline_Destroy
     (19) Choose the angle for the zipline Options: Angles / Native "Basic Zipline Angles" ( (1) = 3rd and 5th parameter )
     (20) Create a panel to destroy and created the zipline
     (21) Disables the recharge time after using the panel ( more for development applications ) | Options: If set, turned on "false" / Native "true"
+    (22) Destroy all panels of the zipline after having used a certain number of times | Options: Unlimited / Native "1"
 
     (1)  ZiplineUtility NameOfYourZip = Zipline_CreateZipline( "NameOfYourZip", < 0, 0, 0 >, < 0, 0, 0 > ) // Vertical Zipline
     (1)  ZiplineUtility NameOfYourZip = Zipline_CreateZipline( "NameOfYourZip", < 0, 0, 0 >, < 0, 0, 0 >, < 0, 600, 0 >, < 0, 90, 0 > ) // Non Vertical Zipline
@@ -97,6 +98,7 @@ global function Zipline_Destroy
     (19) Zipline_SetZiplineAngles( NameOfYourZip, < 0, 180, 0 >, < 0, 180, 0 > ) // Non Vertical Zipline
     (20) Zipline_CreatePanel( NameOfYourZip, < 0, 0, 180 >, < 0, 0, 0 > )
     (21) Zipline_PanelNoTimer( NameOfYourZip )
+    (22) Zipline_PanelUsableLimit( NameOfYourZip, 2 )
 
     /!\ Values are for the example /!\
 */
@@ -118,21 +120,24 @@ global function Zipline_Destroy
     const string ZIPLINE_START_SOUND                = "pathfinder_zipline_expand"
 
 // Const assets
-    const asset ZIPLINE_SUPPORT   = $"mdl/industrial/security_fence_post.rmdl"
-    const asset ZIPLINE_ARM       = $"mdl/industrial/zipline_arm.rmdl"
-
+    const asset ZIPLINE_ARM                 = $"mdl/industrial/zipline_arm.rmdl"
+    const asset ZIPLINE_PLANEL_WALL         = $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl"
+    const asset ZIPLINE_PLANEL_STAND        = $"mdl/props/global_access_panel_button/global_access_panel_button_console_w_stand.rmdl"
+    const asset ZIPLINE_PLANEL_WALL_SUPPORT = $"mdl/colony/antenna_01_colony_pole.rmdl"
+    const asset ZIPLINE_SUPPORT             = $"mdl/industrial/security_fence_post.rmdl"
 
 global struct ZiplineUtility
 {
     // Entities
     entity endZiplinePoint
     entity startZiplinePoint
+    array < entity > skinArray
 
     // Panels
     array < entity > newPanel
-    entity panel
     bool panelNoTimer       = false
-    bool panelUsableOneTime = false
+    int numberMaxUsedPanel  = 0
+    int numberUsedPanel     = 1
 
     // Vectors entities start / end
     vector endAng
@@ -145,6 +150,7 @@ global struct ZiplineUtility
     vector startZipPos
 
     // Vars
+    bool destroyAll         = false
     bool disableVerticalZiplineOffset = false
     bool isFirstTimeInited  = true
     bool isMoving           = false
@@ -201,7 +207,7 @@ global struct ZiplineUtility
     bool settingsLengthScale                  = false
     bool settingsMaterial                     = false
     bool settingsPanelNoTimer                 = false
-    bool settingsPanelUsableOneTime           = false
+    bool settingsPanelUsableLimit             = false
     bool settingsPreserveVelocity             = false
     bool settingsPushOffInDirectionX          = false
     bool settingsRestPoint                    = false
@@ -217,6 +223,8 @@ global ZiplineUtility ziplineUtility
 void function ZiplineUtility_Init()
 {
     PrecacheParticleSystem( ZIPLINE_EXPLOSION )
+    PrecacheModel( ZIPLINE_SUPPORT ) ; PrecacheModel( ZIPLINE_ARM )
+    PrecacheModel( ZIPLINE_PLANEL_WALL_SUPPORT ) ; PrecacheModel( ZIPLINE_PLANEL_WALL ) ; PrecacheModel( ZIPLINE_PLANEL_STAND )
     AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
 }
 
@@ -224,16 +232,42 @@ void function ZiplineUtility_Didload()
 {
     ZiplineUtility ZiplineTest = Zipline_CreateZipline( "zipline_test", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -90, 0 > )
         Zipline_SetIsMoving( ZiplineTest )
-        Zipline_SetDropToBottom( ZiplineTest )
         Zipline_SetSkin( ZiplineTest, 2 )
-        Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, 0, 0 > )
-        Zipline_CreatePanel( ZiplineTest, < 4036.33276, 4045.34351, 2061.67651 >, < 0, 180, 0 > )
-        //Zipline_PanelUsableOneTime( ZiplineTest )
+        Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, -90, 0 > )
+        Zipline_CreatePanel( ZiplineTest, < 4036.33276, 4045.34351, 2061.67651 >, < 0, 90, 0 > )
+        //Zipline_PanelUsableLimit( ZiplineTest, 2 )
         Zipline_BuildInit( ZiplineTest )
 
-    ZiplineUtility ZiplineTest0 = Zipline_CreateZipline( "zipline_test0", < 4144.02441, 3908.53882, 4293.1001 >, < 0, 0, 0 >, < 5167.99316, 7408.08008, 3792 >, < 0, 180, 0 > )
-        Zipline_SetLengthScale( ZiplineTest0, 0.98 )
+    ZiplineUtility ZiplineTest0 = Zipline_CreateZipline( "zipline_test0", < 9756.25293, 5392.38428, -3583.03125 >, < 0, 180, 0 > )
+        Zipline_SetSkin( ZiplineTest0, 2 )
+        Zipline_SetAutoDetachDistance( ZiplineTest0, 10.0 )
+        Zipline_SetDisableVerticalZiplineOffset( ZiplineTest0 )
         Zipline_BuildInit( ZiplineTest0 )
+
+    ZiplineUtility ZiplineTest1 = Zipline_CreateZipline( "zipline_test1", < 9328.03125, 5477.05078, -3582.93433 >, < 0, 0, 0 >, < 9328.03125, 5795.61279, -3582.93433 >, < 0, 0, 0 > )
+        Zipline_SetSkin( ZiplineTest1, 1, 1 )
+        Zipline_BuildInit( ZiplineTest1 )
+
+    ZiplineUtility ZiplineTest2 = Zipline_CreateZipline( "zipline_test2", < 9166.14258, 5365.87402, -3567.96875 >, < 0, 90, 0 >, < 6439.54834, 4410.91992, -3281.80249 >, < 0, -44.5, 0 > )
+        Zipline_SetLengthScale( ZiplineTest2, 0.99 )
+        Zipline_SetSkin( ZiplineTest2, 0, 1 )
+        Zipline_CreatePanel( ZiplineTest2, < 9193.51074, 5607.93457, -3567.96875 >, < 0, -62, 0 >, 1 )
+        Zipline_CreatePanel( ZiplineTest2, < 6501.91846, 4217.86719, -3443.09888 >, < 0, 180, 0 > )
+        Zipline_PanelUsableLimit( ZiplineTest2, 2 )
+        Zipline_BuildInit( ZiplineTest2, false )
+
+    ZiplineUtility ZiplineTest3 = Zipline_CreateZipline( "zipline_test3", < 4034.55396, 4650.06982, -4173.39551 >, < 0, 0, 0 >, < 2401.04688, 4917.23535, -3828.27344 >, < 0, 0, 0 > )
+        Zipline_EnableRestPoint( ZiplineTest3 )
+        Zipline_SetSkin( ZiplineTest3, 2, 2 )
+        Zipline_BuildInit( ZiplineTest3 )
+
+    ZiplineUtility ZiplineTest4 = Zipline_CreateZipline( "zipline_test4", < 4856.17529, 5006.62109, -3302.93188 >, < 0, 180, 0 > )
+        Zipline_SetSkin( ZiplineTest4, 1 )
+        Zipline_SetHeightLimit( ZiplineTest4, 260 )
+        Zipline_SetIsMoving( ZiplineTest4 )
+        Zipline_CreatePanel( ZiplineTest4, < 4879.12207, 5007.38184, -3440.5979 >, < 0, 0, 0 > )
+        Zipline_PanelUsableLimit( ZiplineTest4, 1 )
+        Zipline_BuildInit( ZiplineTest4, false )
 }
 
 
@@ -272,7 +306,7 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startP
 
     if ( IsZiplineVertical( zipline ) == false && startPos.z == endPos.z ) zipline.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
 
-    #if ZIPLINE_DEBUG_SCRIPTS 
+    #if ZIPLINE_DEBUG_SCRIPTS
         Zipline_PanelNoTimer( zipline )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
@@ -284,10 +318,10 @@ return zipline }
 ////////////////////////////////////////////////////////////
 //  Create zipline
 ////////////////////////////////////////////////////////////
-void function Zipline_BuildInit( ZiplineUtility zipline )
+void function Zipline_BuildInit( ZiplineUtility zipline, bool dontSpawnZipline = true )
 {
     if ( zipline.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( zipline.ziplineIsValid == false ) Zipline_CreateZiplineInit( zipline )
+    if ( zipline.ziplineIsValid == false && dontSpawnZipline == true ) Zipline_CreateZiplineInit( zipline )
 }
 
 
@@ -441,11 +475,15 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
 ////////////////////////////////////////////////////////////
 //  Create panel for ziplines
 ////////////////////////////////////////////////////////////
-void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang )
+void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang, int skin = 0 )
 {
-    entity panel = CreateUsablePanel( pos, ang )
-    panel.SetSkin( 0 ) ; zipline.newPanel.append( panel )
+    asset model = DecidePanelModel( skin )
+    entity panel = CreateUsablePanel( model, pos, ang )
+    panel.SetSkin( 0 )
+
     UpdatePanelsPrompts( zipline )
+    ChangeAllPanelState( zipline )
+    zipline.newPanel.append( panel )
 }
 
 void function Zipline_PanelNoTimer( ZiplineUtility zipline )
@@ -455,22 +493,22 @@ void function Zipline_PanelNoTimer( ZiplineUtility zipline )
     zipline.settingsPanelNoTimer  = true
 }
 
-void function Zipline_PanelUsableOneTime( ZiplineUtility zipline )
+void function Zipline_PanelUsableLimit( ZiplineUtility zipline, int maxUse = 1 )
 {
-    zipline.panelUsableOneTime          = true
-    zipline.settingsChange              = true
-    zipline.settingsPanelUsableOneTime  = true
+    zipline.numberMaxUsedPanel        = maxUse
+    zipline.settingsChange            = true
+    zipline.settingsPanelUsableLimit  = true
 }
 
-entity function CreateUsablePanel( vector pos, vector ang )
+entity function CreateUsablePanel( asset model, vector pos, vector ang )
 {
     entity UsableButton = CreateEntity( "prop_dynamic" )
     UsableButton.kv.solid = 6
-    UsableButton.SetValueForModelKey( $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl" )
+    UsableButton.SetValueForModelKey( model )
     UsableButton.AllowMantle()
     UsableButton.SetScriptName( ZIPLINE_PANEL_SCRIPT_NAME )
     UsableButton.SetOrigin( pos )
-    UsableButton.SetAngles( ang )
+    UsableButton.SetAngles( ang + < 0, 90, 0 > ) // ang offset
     DispatchSpawn( UsableButton )
 
     UsableButton.SetUsable()
@@ -482,13 +520,30 @@ void function OnUseZiplinePanelThread( entity panel )
 {
     ZiplineUtility zipline = GZFEP( panel )
 
-    if ( IsPanelAreUsableOneTime( zipline ) == true )
+    int panelused   = zipline.numberUsedPanel++
+    int panelMaxUse = zipline.numberMaxUsedPanel
+    bool isUsableLimitEnable = zipline.settingsPanelUsableLimit
+
+    #if ZIPLINE_DEBUG_SCRIPTS
+        if ( isUsableLimitEnable == true ) printt( "Number of used panel: " + panelused + " / " + panelMaxUse )
+    #endif // ZIPLINE_DEBUG_SCRIPTS
+
+    if ( panelused == panelMaxUse )
     {
+        foreach ( panels in GetZiplinePanelArray( zipline ) )
+        {
+            if ( IsValid( panels ) )
+            {
+                panels.UnsetUsable()
+                panels.SetSkin( 1 )
+            }
+        }
+
         thread DestoryPanelsAfterUsed( zipline )
         DecidingZipline( zipline )
     }
     else
-    {  
+    {
         DecidingZipline( zipline )
         UpdatePanelsPrompts( zipline )
         ChangeAllPanelState( zipline )
@@ -552,7 +607,7 @@ void function ChangePanelState( entity panel, bool forceUsable = false )
     #if ZIPLINE_DEBUG_SCRIPTS
         if ( zipline.isFirstTimeInited == false )
             if ( IsValid( zipline.newPanel[0] ) && panel == zipline.newPanel[0] )
-                printt( zipline.ziplineName + " panels can be reused in " + ( waitPanelState + travelTime ) + " seconds")
+                printt( zipline.ziplineName + " panels can be reused in " + ( waitPanelState + travelTime ) + " seconds" )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
     if ( IsValid( panel ) )
@@ -579,19 +634,29 @@ void function ChangePanelState( entity panel, bool forceUsable = false )
 
 void function DestoryPanelsAfterUsed( ZiplineUtility zipline )
 {
-    printt( "DestoryPanelsAfterUsed" )
+    wait 4
+
     foreach ( panels in GetZiplinePanelArray( zipline ) )
     {
         if ( IsValid( panels ) )
-        {
-            panels.UnsetUsable()
-            panels.SetSkin( 1 )
-                wait 4
-            panels.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
-        }
+        {   panels.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 ) }
     }
+    ArrayRemoveInvalid( zipline.newPanel )
 }
 
+asset function DecidePanelModel( int skinType )
+{
+    asset skin
+    switch ( skinType )
+    {
+        case 0:
+            skin = ZIPLINE_PLANEL_WALL ; break
+        case 1:
+            skin = ZIPLINE_PLANEL_STAND ; break
+        default:
+        skin = $"" ; break
+    }
+return skin }
 
 ////////////////////////////////////////////////////////////
 //  Get zipline params
@@ -719,13 +784,6 @@ bool function IsZiplineVertical( ZiplineUtility zipline )
 
 return false }
 
-bool function IsPanelAreUsableOneTime( ZiplineUtility zipline )
-{
-    if ( zipline.panelUsableOneTime == true )
-        return true
-
-return false }
-
 float function ChooseZiplineTravelTime( ZiplineUtility zipline )
 {
     float travelTime
@@ -741,6 +799,8 @@ array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
     array< entity > panelArray
 
     foreach ( panels in zipline.newPanel ) panelArray.append( panels )
+
+    ArrayRemoveInvalid( panelArray )
 
 return panelArray }
 
@@ -840,7 +900,7 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
         if ( endSupport   != null ) SetTargetName( endSupport,   zipline.ziplineName + "_end" )   ; SetTargetName( endArm,   zipline.ziplineName + "_end" )
     }
 
-    zipline.supportIsValid = true
+    zipline.supportIsValid = true ; zipline.skinArray.extend( entityArray )
 
 return entityArray }
 
@@ -855,9 +915,6 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
             vector offset         = startZipPos - zipline.zipPosOffset
             TraceResults result   = TraceLine( offset, offset + -zipline.heightLimit * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
             startZipAng           = zipline.startZipAng ; endZipAng = zipline.endZipAng
-            startZipAng.x         = startZipAng.x % 180.0
-            startZipAng.y         = startZipAng.y % 180.0
-            startZipAng.z         = startZipAng.z % 180.0
 
             if ( zipline.settingsHeightLimit == false && zipline.disableVerticalZiplineOffset == false )
             {   endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
@@ -962,6 +1019,8 @@ function Zipline_Mover( ZiplineUtility zipline )
 
     float travelTime = ChooseZiplineTravelTime( zipline ) ; float travelTimeDivised
 
+    if ( zipline.isFirstTimeInited == true ) travelTime = 1.0
+
     travelTimeDivised = travelTime / 2
 
     mover.MoveTo( zipline.endZipPos, travelTime, travelTimeDivised, travelTimeDivised )
@@ -973,33 +1032,22 @@ function Zipline_Mover( ZiplineUtility zipline )
 ////////////////////////////////////////////////////////////
 //  Destroy Zipline
 ///////////////////////////////////////////////////////////
-void function Zipline_Destroy( ZiplineUtility zipline, bool destroyAll = false )
+void function Zipline_Destroy( ZiplineUtility zipline )
 {
     entity startSkin = GetEnt( zipline.ziplineName + "_start" )
     entity endSkin   = GetEnt( zipline.ziplineName + "_end" )
     entity startZiplinePoint = zipline.startZiplinePoint
     entity endZiplinePoint   = zipline.endZiplinePoint
 
-    if ( destroyAll == true && zipline.supportIsValid == true )
+    if ( zipline.destroyAll == true && zipline.supportIsValid == true )
     {
-        if ( IsValid( startSkin ) ) Zipline_DestroyFX( startSkin )
-        if ( IsValid( endSkin ) )   Zipline_DestroyFX( endSkin )
+        foreach( ents in zipline.skinArray ) if ( IsValid( ents ) ) ents.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
         zipline.supportIsValid = false
     }
 
-    if ( IsValid( startZiplinePoint ) )
-    {
-        if ( destroyAll == true )
-            startZiplinePoint.Destroy()
-        else Zipline_DestroyFX( startZiplinePoint )
-    }
+    if ( IsValid( startZiplinePoint ) ) Zipline_DestroyFX( startZiplinePoint )
 
-    if ( IsValid( endZiplinePoint ) )
-    {
-        if ( destroyAll == true )
-            endZiplinePoint.Destroy()
-        else Zipline_DestroyFX( endZiplinePoint )
-    }
+    if ( IsValid( endZiplinePoint ) ) Zipline_DestroyFX( endZiplinePoint )
 
     zipline.ziplineIsValid     = false
     zipline.ziplineIsDestroyed = true
@@ -1036,7 +1084,7 @@ void function SettingsChangeDetected( ZiplineUtility zipline )
     if ( zipline.settingsLengthScale                  == true ) printt( "Length Scale Setted to: "               + zipline.lengthScale )
     if ( zipline.settingsMaterial                     == true ) printt( "Material Setted to: "                   + zipline.material )
     if ( zipline.settingsPanelNoTimer                 == true ) printt( "Panels has no timer: "                  + zipline.panelNoTimer )
-    if ( zipline.settingsPanelUsableOneTime           == true ) printt( "Panels can used one time: "                  + zipline.panelNoTimer )
+    if ( zipline.settingsPanelUsableLimit             == true ) printt( "Panels is limited on use: "             + zipline.numberMaxUsedPanel )
     if ( zipline.settingsPreserveVelocity             == true ) printt( "Preserve Velocity Setted to: "          + zipline.preserveVelocity )
     if ( zipline.settingsPushOffInDirectionX          == true ) printt( "PushOffInDirectionX Setted to: start: " + zipline.startPushOffInDirectionX + " end: "   + zipline.endPushOffInDirectionX )
     if ( zipline.settingsRestPoint                    == true ) printt( "Rest Point Setted to: "                 + zipline.restPoint )

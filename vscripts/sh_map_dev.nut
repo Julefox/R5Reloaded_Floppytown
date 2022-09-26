@@ -43,7 +43,11 @@ void function Map_Dev_Init()
 #if SERVER
     bool function ClientCommand_ZipTest( entity player, array<string> args )
     {
-        thread Yes()
+        foreach ( ziplines in GetAllZiplines() )
+        {
+            UpdatePanelsPrompts( ziplines )
+            ChangeAllPanelState( ziplines )
+        }
     return true }
 
     void function Yes()

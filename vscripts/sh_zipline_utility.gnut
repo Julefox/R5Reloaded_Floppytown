@@ -8,6 +8,7 @@ global function ShZiplineUtility_Init
     global const string ZIPLINE_CREATE              = "Hold %use_long% to deploy zipline"
     global const string ZIPLINE_DESTROY             = "Hold %use_long% to destroy zipline"
     global const string ZIPLINE_PANEL_SCRIPT_NAME   = "ZiplineUsableButton"
+    global const string ZIPLINE_PANEL_SUPPORT_SCRIPT_NAME = "ZiplineSupportButton"
 
     #if CLIENT || UI
         const string    ZIPLINE_PROCESSING          = "Panel Processing..."
@@ -57,7 +58,7 @@ bool function ZiplinePanel_CanUse( entity player, entity panel )
 
 void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFlags )
 {	
-	if ( !(useInputFlags & USE_INPUT_LONG) )
+	if ( !( useInputFlags & USE_INPUT_LONG ) )
 		return
 
 	ExtendedUseSettings settings
@@ -80,7 +81,7 @@ void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFl
 void function ZiplinePanelUseSuccess( entity panel, entity player, ExtendedUseSettings settings )
 {
     #if SERVER
-        thread OnUseZiplinePanelThread( panel )
+        OnUseZiplinePanelThread( panel )
     #endif // SERVER
 }
 
