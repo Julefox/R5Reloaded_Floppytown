@@ -6,12 +6,11 @@ global function Zipline_CreateZipline
 global function Zipline_BuildInit
 global function Zipline_Destroy
 
+global function Zipline_DisableVerticalZiplineOffset
 global function Zipline_EnableRestPoint
 global function Zipline_SetArmOffset
 global function Zipline_SetAutoDetachDistance
 global function Zipline_SetDetachEndOnUse_OnSpawn
-global function Zipline_SetDisableVerticalZiplineOffset
-global function Zipline_SetDropToBottom
 global function Zipline_SetFadeDistance
 global function Zipline_SetHeightLimit
 global function Zipline_SetIsMoving
@@ -24,6 +23,7 @@ global function Zipline_SetSkin
 global function Zipline_SetSpeedScale
 global function Zipline_SetWidth
 global function Zipline_SetZiplineAngles
+global function Zipline_UnsetDropToBottom
 
 global function Zipline_CreatePanel
 global function Zipline_PanelNoTimer
@@ -34,8 +34,6 @@ global function ChangeAllPanelState
 
 global function GetAllZiplines
 global function GetZiplineAngles
-global function GetZiplineFromEntityPanel
-global function GetZiplineFromZiplineName
 global function GetZiplineLength
 global function GetZiplineOrigin
 global function GZFEP
@@ -81,7 +79,7 @@ global function GZFZN
     (4)  Zipline_SetAutoDetachDistance( NameOfYourZip, 180.0 ) // Vertical Zipline
     (4)  Zipline_SetAutoDetachDistance( NameOfYourZip, 180.0, 80.0 ) // Non Vertical Zipline
     (5)  Zipline_SetDetachEndOnUse_OnSpawn( NameOfYourZip, 1, 1 )
-    (6)  Zipline_SetDisableVerticalZiplineOffset( NameOfYourZip )
+    (6)  Zipline_DisableVerticalZiplineOffset( NameOfYourZip )
     (7)  Zipline_SetDropToBottom( NameOfYourZip )
     (8)  Zipline_SetFadeDistance( NameOfYourZip, 12000.0 )
     (9)  Zipline_SetHeightLimit( NameOfYourZip, 4256.8 )
@@ -200,9 +198,12 @@ global ZiplineUtility ziplineUtility
 
 void function ZiplineUtility_Init()
 {
+    PrecacheModel( ZIPLINE_ARM )
+    PrecacheModel( ZIPLINE_PLANEL_STAND )
+    PrecacheModel( ZIPLINE_PLANEL_WALL )
+    PrecacheModel( ZIPLINE_PLANEL_WALL_SUPPORT )
+    PrecacheModel( ZIPLINE_SUPPORT )
     PrecacheParticleSystem( ZIPLINE_EXPLOSION )
-    PrecacheModel( ZIPLINE_SUPPORT ) ; PrecacheModel( ZIPLINE_ARM )
-    PrecacheModel( ZIPLINE_PLANEL_WALL_SUPPORT ) ; PrecacheModel( ZIPLINE_PLANEL_WALL ) ; PrecacheModel( ZIPLINE_PLANEL_STAND )
     AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
 }
 
@@ -213,13 +214,12 @@ void function ZiplineUtility_Didload()
         Zipline_SetSkin( ZiplineTest, 2 )
         Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, -90, 0 > )
         Zipline_CreatePanel( ZiplineTest, < 4036.33276, 4045.34351, 2061.67651 >, < 0, 90, 0 > )
-        //Zipline_PanelUsableLimit( ZiplineTest, 2 )
         Zipline_BuildInit( ZiplineTest )
 
     ZiplineUtility ZiplineTest0 = Zipline_CreateZipline( "zipline_test0", < 9756.25293, 5392.38428, -3583.03125 >, < 0, 180, 0 > )
         Zipline_SetSkin( ZiplineTest0, 2 )
         Zipline_SetAutoDetachDistance( ZiplineTest0, 10.0 )
-        Zipline_SetDisableVerticalZiplineOffset( ZiplineTest0 )
+        Zipline_DisableVerticalZiplineOffset( ZiplineTest0 )
         Zipline_BuildInit( ZiplineTest0 )
 
     ZiplineUtility ZiplineTest1 = Zipline_CreateZipline( "zipline_test1", < 9328.03125, 5477.05078, -3582.93433 >, < 0, 0, 0 >, < 9328.03125, 5795.61279, -3582.93433 >, < 0, 0, 0 > )
@@ -243,7 +243,7 @@ void function ZiplineUtility_Didload()
         Zipline_SetSkin( ZiplineTest4, 1 )
         Zipline_SetHeightLimit( ZiplineTest4, 260 )
         Zipline_SetIsMoving( ZiplineTest4 )
-        Zipline_CreatePanel( ZiplineTest4, < 4879.12207, 5007.38184, -3440.5979 >, < 0, 0, 0 > )
+        //Zipline_CreatePanel( ZiplineTest4, < 4879.12207, 5007.38184, -3440.5979 >, < 0, 0, 0 > )
         Zipline_PanelUsableLimit( ZiplineTest4, 1 )
         Zipline_BuildInit( ZiplineTest4, false )
 }
@@ -306,6 +306,9 @@ void function Zipline_BuildInit( ZiplineUtility zipline, bool dontSpawnZipline =
 ////////////////////////////////////////////////////////////
 //  Change zipline params
 ////////////////////////////////////////////////////////////
+void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline )
+{   zipline.disableVerticalZiplineOffset = true }
+
 void function Zipline_EnableRestPoint ( ZiplineUtility zipline )
 {   zipline.restPoint = true }
 
@@ -326,12 +329,6 @@ void function Zipline_SetDetachEndOnUse_OnSpawn( ZiplineUtility zipline, int det
     zipline.detachEndOnUse   = detachEndOnUse
     zipline.detachEndOnSpawn = detachEndOnSpawn
 }
-
-void function Zipline_SetDisableVerticalZiplineOffset( ZiplineUtility zipline )
-{   zipline.disableVerticalZiplineOffset = true }
-
-void function Zipline_SetDropToBottom( ZiplineUtility zipline )
-{   zipline.dropToBottom = 0 }
 
 void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistance )
 {   zipline.fadeDistance = fadeDistance }
@@ -388,6 +385,9 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
         break
     }
 }
+
+void function Zipline_UnsetDropToBottom( ZiplineUtility zipline )
+{   zipline.dropToBottom = 0 }
 
 
 ////////////////////////////////////////////////////////////
@@ -470,10 +470,13 @@ void function UpdatePanelsPrompts( ZiplineUtility zipline )
     foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
 }
 
-void function UpdatePanelForFirstTimeInited( ZiplineUtility zipline )
+void function UpdatePanelForFirstTimeInited()
 {
-    UpdatePanelsPrompts( zipline )
-    ChangeAllPanelState( zipline, true )
+    foreach ( ziplines in GetAllZiplines() )
+    {
+        UpdatePanelsPrompts( ziplines )
+        ChangeAllPanelState( ziplines, true )
+    }
 }
 
 void function DecidingZipline( ZiplineUtility zipline )
@@ -605,7 +608,7 @@ return vec }
 
 ZiplineUtility function GetZiplineFromEntityPanel( entity panel )
 {
-    foreach ( ziplines in ziplineUtility.ziplineArrayInit )
+    foreach ( ziplines in GetAllZiplines() )
     {
         if ( ziplines.newPanel.contains( panel ) )
             return ziplines
@@ -614,7 +617,7 @@ unreachable }
 
 ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
 {
-    foreach ( ziplines in ziplineUtility.ziplineArrayInit )
+    foreach ( ziplines in GetAllZiplines() )
     {
         if ( ziplines.ziplineName == ziplineName )
             return ziplines
@@ -896,7 +899,7 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
     EmitSoundOnEntity( startZiplinePoint, ZIPLINE_START_SOUND ) ; EmitSoundOnEntity( endZiplinePoint, ZIPLINE_START_SOUND )
 
     if ( zipline.isMoving == true ) thread Zipline_Mover( zipline )
-    if ( zipline.isFirstTimeInited == true ) UpdatePanelForFirstTimeInited( zipline )
+    //if ( zipline.isFirstTimeInited == true ) UpdatePanelForFirstTimeInited( zipline )
 
     zipline.ziplineIsValid     = true
     zipline.ziplineIsDestroyed = false
@@ -938,12 +941,14 @@ function Zipline_Mover( ZiplineUtility zipline )
 ////////////////////////////////////////////////////////////
 //  Destroy Zipline
 ///////////////////////////////////////////////////////////
-void function Zipline_Destroy( ZiplineUtility zipline )
+void function Zipline_Destroy( ZiplineUtility zipline, bool destroyAll = false )
 {
     entity startSkin = GetEnt( zipline.ziplineName + "_start" )
     entity endSkin   = GetEnt( zipline.ziplineName + "_end" )
     entity startZiplinePoint = zipline.startZiplinePoint
     entity endZiplinePoint   = zipline.endZiplinePoint
+
+    if ( destroyAll == true ) zipline.destroyAll = true
 
     if ( zipline.destroyAll == true && zipline.supportIsValid == true )
     {

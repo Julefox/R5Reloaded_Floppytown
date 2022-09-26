@@ -44,6 +44,14 @@ void function MapGen()
 void function ZipsGen()
 {
     vector origin = floppytown.worldspawnPos
+    
+    ZiplineUtility ZiplineTest4 = Zipline_CreateZipline( "zipline_test4", < 4856.17529, 5006.62109, -3302.93188 >, < 0, 180, 0 > )
+        Zipline_SetSkin( ZiplineTest4, 1 )
+        Zipline_SetHeightLimit( ZiplineTest4, 260 )
+        Zipline_SetIsMoving( ZiplineTest4 )
+        Zipline_CreatePanel( ZiplineTest4, < 4879.12207, 5007.38184, -3440.5979 >, < 0, 0, 0 > )
+        Zipline_PanelUsableLimit( ZiplineTest4, 1 )
+        Zipline_BuildInit( ZiplineTest4, false )
     /*
     // Building 01
     ZiplineUtility zipline_0 = Zipline_CreateZipline(  "zipline_0", origin + < -818.783691, 2174.89014, 1792.03125 >, < 0, -170, 0 > )

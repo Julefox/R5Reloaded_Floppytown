@@ -272,6 +272,7 @@ void function SetupDefaultDevCommandsMP()
 	SetupDevMenu( "Equip Weapon", SetDevMenu_Weapons )
     SetupDevMenu( "TDM Weapon", SetDevMenu_TDMWeapons )
 	//SetupDevMenu( "MDLSpawner", SetDevMenu_ModelSpawner )
+    SetupDevMenu( "AlterLoadout", SetDevMenu_AlterLoadout )
 
 	if ( IsSurvivalMenuEnabled() )
 	{
