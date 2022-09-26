@@ -136,6 +136,7 @@ global struct ZiplineUtility
     // Panels
     array < entity > newPanel
     bool panelNoTimer       = false
+    bool panelUsableLimit   = false
     int numberMaxUsedPanel  = 0
     int numberUsedPanel     = 1
 
@@ -158,6 +159,7 @@ global struct ZiplineUtility
     bool supportIsValid     = false
     bool ziplineIsDestroyed = true
     bool ziplineIsValid     = false
+    bool boolHeightLimit    = false
     float endArmOffset
     float heightLimit     = 10000.0
     float startArmOffset
@@ -191,30 +193,6 @@ global struct ZiplineUtility
     // KV.Files vars end
     float endAutoDetachDistance
     int endPushOffInDirectionX      = 1
-
-    // Settings change detected
-    bool settingsChange                       = false
-
-    bool settingsAnglesChange                 = false
-    bool settingsArmOffset                    = false
-    bool settingsAutoDetachDistance           = false
-    bool settingsDetachEndOnUseAndSpawn       = false
-    bool settingsDisableVerticalZiplineOffset = false
-    bool settingsDropToBottom                 = false
-    bool settingsFadeDistance                 = false
-    bool settingsHeightLimit                  = false
-    bool settingsIsMoving                     = false
-    bool settingsLengthScale                  = false
-    bool settingsMaterial                     = false
-    bool settingsPanelNoTimer                 = false
-    bool settingsPanelUsableLimit             = false
-    bool settingsPreserveVelocity             = false
-    bool settingsPushOffInDirectionX          = false
-    bool settingsRestPoint                    = false
-    bool settingsScale                        = false
-    bool settingsSetSkin                      = false
-    bool settingsSpeedScale                   = false
-    bool settingsWidth                        = false
 }
 
 global ZiplineUtility ziplineUtility
@@ -329,128 +307,70 @@ void function Zipline_BuildInit( ZiplineUtility zipline, bool dontSpawnZipline =
 //  Change zipline params
 ////////////////////////////////////////////////////////////
 void function Zipline_EnableRestPoint ( ZiplineUtility zipline )
-{
-    zipline.restPoint         = true
-    zipline.settingsChange    = true
-    zipline.settingsRestPoint = true
-}
+{   zipline.restPoint = true }
 
 void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset, float endArmOffset = 0.0 )
 {
-    zipline.startArmOffset    = startArmOffset
-    zipline.endArmOffset      = endArmOffset
-    zipline.settingsChange    = true
-    zipline.settingsArmOffset = true
+    zipline.startArmOffset = startArmOffset
+    zipline.endArmOffset   = endArmOffset
 }
 
 void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 50.0 )
 {
-    zipline.startAutoDetachDistance       = startAutoDetachDistance
-    zipline.endAutoDetachDistance         = endAutoDetachDistance
-    zipline.settingsChange                = true
-    zipline.settingsAutoDetachDistance    = true
+    zipline.startAutoDetachDistance = startAutoDetachDistance
+    zipline.endAutoDetachDistance   = endAutoDetachDistance
 }
 
 void function Zipline_SetDetachEndOnUse_OnSpawn( ZiplineUtility zipline, int detachEndOnUse, int detachEndOnSpawn )
 {
-    zipline.detachEndOnUse                    = detachEndOnUse
-    zipline.detachEndOnSpawn                  = detachEndOnSpawn
-    zipline.settingsChange                    = true
-    zipline.settingsDetachEndOnUseAndSpawn    = true
+    zipline.detachEndOnUse   = detachEndOnUse
+    zipline.detachEndOnSpawn = detachEndOnSpawn
 }
 
 void function Zipline_SetDisableVerticalZiplineOffset( ZiplineUtility zipline )
-{
-    zipline.disableVerticalZiplineOffset            = true
-    zipline.settingsChange                          = true
-    zipline.settingsDisableVerticalZiplineOffset    = true
-}
+{   zipline.disableVerticalZiplineOffset = true }
 
 void function Zipline_SetDropToBottom( ZiplineUtility zipline )
-{
-    zipline.dropToBottom            = 0
-    zipline.settingsChange          = true
-    zipline.settingsDropToBottom    = true
-}
+{   zipline.dropToBottom = 0 }
 
 void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistance )
-{
-    zipline.fadeDistance            = fadeDistance
-    zipline.settingsChange          = true
-    zipline.settingsFadeDistance    = true
-}
+{   zipline.fadeDistance = fadeDistance }
 
 void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit )
-{
-    zipline.heightLimit           = heightLimit
-    zipline.settingsChange        = true
-    zipline.settingsHeightLimit   = true
-}
+{   zipline.heightLimit = heightLimit ; zipline.boolHeightLimit = true }
 
 void function Zipline_SetIsMoving( ZiplineUtility zipline )
-{
-    zipline.isMoving              = true
-    zipline.settingsChange        = true
-    zipline.settingsIsMoving      = true
-}
+{   zipline.isMoving = true }
 
 void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale )
-{
-    zipline.lengthScale           = lengthScale
-    zipline.settingsChange        = true
-    zipline.settingsLengthScale   = true
-}
+{   zipline.lengthScale = lengthScale }
 
 void function Zipline_SetMaterial( ZiplineUtility zipline, string material )
-{
-    zipline.material          = material
-    zipline.settingsChange    = true
-    zipline.settingsMaterial  = true
-}
+{   zipline.material = material }
 
 void function Zipline_SetPreserveVelocity( ZiplineUtility zipline )
-{
-    zipline.preserveVelocity            = 1
-    zipline.settingsChange              = true
-    zipline.settingsPreserveVelocity    = true
-}
+{   zipline.preserveVelocity = 1 }
 
 void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int startPushOffInDirectionX, int endPushOffInDirectionX = 1 )
 {
-    zipline.startPushOffInDirectionX    = startPushOffInDirectionX
-    zipline.endPushOffInDirectionX      = endPushOffInDirectionX
-    zipline.settingsChange              = true
-    zipline.settingsPushOffInDirectionX = true
+    zipline.startPushOffInDirectionX = startPushOffInDirectionX
+    zipline.endPushOffInDirectionX   = endPushOffInDirectionX
 }
 
 void function Zipline_SetScale( ZiplineUtility zipline, float scale )
-{
-    zipline.scale             = scale
-    zipline.settingsChange    = true
-    zipline.settingsScale     = true
-}
+{   zipline.scale = scale }
 
 void function Zipline_SetSkin( ZiplineUtility zipline, int setSkinStart, int setSkinEnd = 0 )
 {
-    zipline.setSkinStart    = setSkinStart
-    zipline.setSkinEnd      = setSkinEnd
-    zipline.settingsChange  = true
-    zipline.settingsSetSkin = true
+    zipline.setSkinStart = setSkinStart
+    zipline.setSkinEnd   = setSkinEnd
 }
 
 void function Zipline_SetSpeedScale( ZiplineUtility zipline, float speedScale )
-{
-    zipline.speedScale            = speedScale
-    zipline.settingsChange        = true
-    zipline.settingsSpeedScale    = true
-}
+{   zipline.speedScale = speedScale }
 
 void function Zipline_SetWidth( ZiplineUtility zipline, float width )
-{
-    zipline.width             = width
-    zipline.settingsChange    = true
-    zipline.settingsWidth     = true
-}
+{   zipline.width = width }
 
 void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
 {
@@ -467,8 +387,6 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
         default:
         break
     }
-    zipline.settingsChange        = true
-    zipline.settingsAnglesChange  = true
 }
 
 
@@ -487,18 +405,10 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
 }
 
 void function Zipline_PanelNoTimer( ZiplineUtility zipline )
-{
-    zipline.panelNoTimer          = true
-    zipline.settingsChange        = true
-    zipline.settingsPanelNoTimer  = true
-}
+{   zipline.panelNoTimer = true }
 
 void function Zipline_PanelUsableLimit( ZiplineUtility zipline, int maxUse = 1 )
-{
-    zipline.numberMaxUsedPanel        = maxUse
-    zipline.settingsChange            = true
-    zipline.settingsPanelUsableLimit  = true
-}
+{   zipline.numberMaxUsedPanel = maxUse ; zipline.panelUsableLimit = true }
 
 entity function CreateUsablePanel( asset model, vector pos, vector ang )
 {
@@ -522,7 +432,7 @@ void function OnUseZiplinePanelThread( entity panel )
 
     int panelused   = zipline.numberUsedPanel++
     int panelMaxUse = zipline.numberMaxUsedPanel
-    bool isUsableLimitEnable = zipline.settingsPanelUsableLimit
+    bool isUsableLimitEnable = zipline.panelUsableLimit
 
     #if ZIPLINE_DEBUG_SCRIPTS
         if ( isUsableLimitEnable == true ) printt( "Number of used panel: " + panelused + " / " + panelMaxUse )
@@ -916,7 +826,7 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
             TraceResults result   = TraceLine( offset, offset + -zipline.heightLimit * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
             startZipAng           = zipline.startZipAng ; endZipAng = zipline.endZipAng
 
-            if ( zipline.settingsHeightLimit == false && zipline.disableVerticalZiplineOffset == false )
+            if ( zipline.boolHeightLimit == false && zipline.disableVerticalZiplineOffset == false )
             {   endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
 
             zipline.endZipPos = endZipPos
@@ -987,10 +897,6 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
 
     if ( zipline.isMoving == true ) thread Zipline_Mover( zipline )
     if ( zipline.isFirstTimeInited == true ) UpdatePanelForFirstTimeInited( zipline )
-    
-    #if ZIPLINE_DEBUG_SCRIPTS
-        if ( zipline.settingsChange == true && zipline.isFirstTimeInited == true ) SettingsChangeDetected( zipline )
-    #endif // ZIPLINE_DEBUG_SCRIPTS
 
     zipline.ziplineIsValid     = true
     zipline.ziplineIsDestroyed = false
@@ -1060,39 +966,7 @@ void function Zipline_DestroyFX( entity ent )
 	CreatePhysExplosion( ent.GetOrigin(), 50, PHYS_EXPLOSION_LARGE, 11 )
 	entity shake = CreateShake( ent.GetOrigin(), 5, 150, 1, 200 )
 	shake.kv.spawnflags = 4 // SF_SHAKE_INAIR
-    ent.Destroy()
-}
-
-
-////////////////////////////////////////////////////////////
-//  Print the changes of the ziplines on the console
-////////////////////////////////////////////////////////////
-void function SettingsChangeDetected( ZiplineUtility zipline )
-{
-    printt( "" )
-    printt( "Settings Change Detected on: " + zipline.ziplineName )
-
-    if ( zipline.settingsAnglesChange                 == true ) printt( "Zip Angles Setted to: start: "          + zipline.startZipAng              + " end: "   + zipline.endZipAng )
-    if ( zipline.settingsArmOffset                    == true ) printt( "Arm Offset Setted to: start: "          + zipline.startArmOffset           + " end: "   + zipline.endArmOffset )
-    if ( zipline.settingsAutoDetachDistance           == true ) printt( "Auto Detach Setted to: start: "         + zipline.startAutoDetachDistance  + " end: "   + zipline.endAutoDetachDistance )
-    if ( zipline.settingsDetachEndOnUseAndSpawn       == true ) printt( "Detach On Use / Spawn Setted to: use: " + zipline.detachEndOnUse           + " spawn: " + zipline.detachEndOnSpawn )
-    if ( zipline.settingsDisableVerticalZiplineOffset == true ) printt( "Disable Vetical Offset: "               + zipline.disableVerticalZiplineOffset )
-    if ( zipline.settingsDropToBottom                 == true ) printt( "Drop To Bottom Setted to: "             + zipline.dropToBottom )
-    if ( zipline.settingsFadeDistance                 == true ) printt( "Fade Distance Setted to: "              + zipline.fadeDistance )
-    if ( zipline.settingsHeightLimit                  == true ) printt( "Height Limit Setted to: "               + zipline.heightLimit )
-    if ( zipline.settingsIsMoving                     == true ) printt( "Moving Zipline Setted to: "             + zipline.isMoving )
-    if ( zipline.settingsLengthScale                  == true ) printt( "Length Scale Setted to: "               + zipline.lengthScale )
-    if ( zipline.settingsMaterial                     == true ) printt( "Material Setted to: "                   + zipline.material )
-    if ( zipline.settingsPanelNoTimer                 == true ) printt( "Panels has no timer: "                  + zipline.panelNoTimer )
-    if ( zipline.settingsPanelUsableLimit             == true ) printt( "Panels is limited on use: "             + zipline.numberMaxUsedPanel )
-    if ( zipline.settingsPreserveVelocity             == true ) printt( "Preserve Velocity Setted to: "          + zipline.preserveVelocity )
-    if ( zipline.settingsPushOffInDirectionX          == true ) printt( "PushOffInDirectionX Setted to: start: " + zipline.startPushOffInDirectionX + " end: "   + zipline.endPushOffInDirectionX )
-    if ( zipline.settingsRestPoint                    == true ) printt( "Rest Point Setted to: "                 + zipline.restPoint )
-    if ( zipline.settingsScale                        == true ) printt( "Zipline Scale Setted to: "              + zipline.scale )
-    if ( zipline.settingsSetSkin                      == true ) printt( "Skin Setted to: start: "                + zipline.setSkinStart             + " end: "   + zipline.setSkinEnd )
-    if ( zipline.settingsSpeedScale                   == true ) printt( "Speed Scale Setted to: "                + zipline.speedScale )
-    if ( zipline.settingsWidth                        == true ) printt( "Width Setted to: "                      + zipline.width )
-    printt( "" )
+    if ( IsValid( ent ) ) ent.Destroy()
 }
 
 
