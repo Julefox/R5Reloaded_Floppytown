@@ -4,6 +4,7 @@ global function ZiplineUtility_Init
 
 global function Zipline_CreateZipline
 global function Zipline_BuildInit
+global function Zipline_BuildInitSupportOnly
 global function Zipline_Destroy
 
 global function Zipline_DisableVerticalZiplineOffset
@@ -115,6 +116,7 @@ global function GZFZN
     const float  VERTICAL_ARM_OFFSET                = 200.0
     const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS   = 0.99
     const string ZIPLINE_END_SOUND                  = "explo_spectre"
+    const string ZIPLINE_PANEL_LOCKED               = "npe_player_fail"
     const string ZIPLINE_START_SOUND                = "pathfinder_zipline_expand"
 
 // Const assets
@@ -209,43 +211,18 @@ void function ZiplineUtility_Init()
 
 void function ZiplineUtility_Didload()
 {
-    ZiplineUtility ZiplineTest = Zipline_CreateZipline( "zipline_test", < 3888.00366, 4100.53906, 4561.24365 >, < 0, -90, 0 > )
-        Zipline_SetIsMoving( ZiplineTest )
-        Zipline_SetSkin( ZiplineTest, 2 )
-        Zipline_CreatePanel( ZiplineTest, < 4023.12964, 4036.49243, 4365.52832 >, < 0, -90, 0 > )
-        Zipline_CreatePanel( ZiplineTest, < 4036.33276, 4045.34351, 2061.67651 >, < 0, 90, 0 > )
-        Zipline_BuildInit( ZiplineTest )
+    ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 31033.5723, -8789.80273, -26724.127 >, < 0, 0, 0 > )
+        Zipline_DisableVerticalZiplineOffset( ZiplineDev_0 )
+        Zipline_CreatePanel( ZiplineDev_0, < 31012.4844, -8916.56348, -26730.5488 >, < 0, 118, 0 >, 1 )
+        Zipline_PanelUsableLimit( ZiplineDev_0, 4 )
+        Zipline_BuildInit( ZiplineDev_0 )
 
-    ZiplineUtility ZiplineTest0 = Zipline_CreateZipline( "zipline_test0", < 9756.25293, 5392.38428, -3583.03125 >, < 0, 180, 0 > )
-        Zipline_SetSkin( ZiplineTest0, 2 )
-        Zipline_SetAutoDetachDistance( ZiplineTest0, 10.0 )
-        Zipline_DisableVerticalZiplineOffset( ZiplineTest0 )
-        Zipline_BuildInit( ZiplineTest0 )
-
-    ZiplineUtility ZiplineTest1 = Zipline_CreateZipline( "zipline_test1", < 9328.03125, 5477.05078, -3582.93433 >, < 0, 0, 0 >, < 9328.03125, 5795.61279, -3582.93433 >, < 0, 0, 0 > )
-        Zipline_SetSkin( ZiplineTest1, 1, 1 )
-        Zipline_BuildInit( ZiplineTest1 )
-
-    ZiplineUtility ZiplineTest2 = Zipline_CreateZipline( "zipline_test2", < 9166.14258, 5365.87402, -3567.96875 >, < 0, 90, 0 >, < 6439.54834, 4410.91992, -3281.80249 >, < 0, -44.5, 0 > )
-        Zipline_SetLengthScale( ZiplineTest2, 0.99 )
-        Zipline_SetSkin( ZiplineTest2, 0, 1 )
-        Zipline_CreatePanel( ZiplineTest2, < 9193.51074, 5607.93457, -3567.96875 >, < 0, -62, 0 >, 1 )
-        Zipline_CreatePanel( ZiplineTest2, < 6501.91846, 4217.86719, -3443.09888 >, < 0, 180, 0 > )
-        Zipline_PanelUsableLimit( ZiplineTest2, 2 )
-        Zipline_BuildInit( ZiplineTest2, false )
-
-    ZiplineUtility ZiplineTest3 = Zipline_CreateZipline( "zipline_test3", < 4034.55396, 4650.06982, -4173.39551 >, < 0, 0, 0 >, < 2401.04688, 4917.23535, -3828.27344 >, < 0, 0, 0 > )
-        Zipline_EnableRestPoint( ZiplineTest3 )
-        Zipline_SetSkin( ZiplineTest3, 2, 2 )
-        Zipline_BuildInit( ZiplineTest3 )
-
-    ZiplineUtility ZiplineTest4 = Zipline_CreateZipline( "zipline_test4", < 4856.17529, 5006.62109, -3302.93188 >, < 0, 180, 0 > )
-        Zipline_SetSkin( ZiplineTest4, 1 )
-        Zipline_SetHeightLimit( ZiplineTest4, 260 )
-        Zipline_SetIsMoving( ZiplineTest4 )
-        //Zipline_CreatePanel( ZiplineTest4, < 4879.12207, 5007.38184, -3440.5979 >, < 0, 0, 0 > )
-        Zipline_PanelUsableLimit( ZiplineTest4, 1 )
-        Zipline_BuildInit( ZiplineTest4, false )
+    ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 30934.9004, -8568.30176, -26730.5488 >, < 0, 15, 0 >, < 30170.4668, -2572.01904, -25863.9375 >, < 0, -136, 0 > )
+        Zipline_CreatePanel( ZiplineDev_1, < 30168.8145, -2570.65894, -25796.5 >, < 0, 134, 0 > )
+        Zipline_CreatePanel( ZiplineDev_1, < 29962.375, -2672.30615, -25863.9375 >, < 0, 134, 0 >, 1 )
+        //Zipline_PanelUsableLimit( ZiplineDev_1, 1 )
+        Zipline_BuildInit( ZiplineDev_1 )
+    
 }
 
 
@@ -296,10 +273,16 @@ return zipline }
 ////////////////////////////////////////////////////////////
 //  Create zipline
 ////////////////////////////////////////////////////////////
-void function Zipline_BuildInit( ZiplineUtility zipline, bool dontSpawnZipline = true )
+void function Zipline_BuildInit( ZiplineUtility zipline )
 {
     if ( zipline.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( zipline.ziplineIsValid == false && dontSpawnZipline == true ) Zipline_CreateZiplineInit( zipline )
+    if ( zipline.ziplineIsValid == false ) Zipline_CreateZiplineInit( zipline )
+    UpdatePanelsPrompts( zipline )
+}
+
+void function Zipline_BuildInitSupportOnly( ZiplineUtility zipline )
+{   if ( zipline.supportIsValid == false ) Zipline_CreateSupport( zipline )
+    UpdatePanelsPrompts( zipline )
 }
 
 
@@ -399,8 +382,7 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
     entity panel = CreateUsablePanel( model, pos, ang )
     panel.SetSkin( 0 )
 
-    UpdatePanelsPrompts( zipline )
-    ChangeAllPanelState( zipline )
+    if ( zipline.isFirstTimeInited == true ) thread UpdatePanelForFirstTimeInited( zipline )
     zipline.newPanel.append( panel )
 }
 
@@ -446,6 +428,7 @@ void function OnUseZiplinePanelThread( entity panel )
             {
                 panels.UnsetUsable()
                 panels.SetSkin( 1 )
+                EmitSoundOnEntity( panels, ZIPLINE_PANEL_LOCKED )
             }
         }
 
@@ -470,13 +453,11 @@ void function UpdatePanelsPrompts( ZiplineUtility zipline )
     foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
 }
 
-void function UpdatePanelForFirstTimeInited()
+void function UpdatePanelForFirstTimeInited( ZiplineUtility zipline )
 {
-    foreach ( ziplines in GetAllZiplines() )
-    {
-        UpdatePanelsPrompts( ziplines )
-        ChangeAllPanelState( ziplines, true )
-    }
+    wait 2 // hack needed for the prompt to work
+    UpdatePanelsPrompts( zipline )
+    ChangeAllPanelState( zipline, true )
 }
 
 void function DecidingZipline( ZiplineUtility zipline )
@@ -899,12 +880,10 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
     EmitSoundOnEntity( startZiplinePoint, ZIPLINE_START_SOUND ) ; EmitSoundOnEntity( endZiplinePoint, ZIPLINE_START_SOUND )
 
     if ( zipline.isMoving == true ) thread Zipline_Mover( zipline )
-    //if ( zipline.isFirstTimeInited == true ) UpdatePanelForFirstTimeInited( zipline )
 
     zipline.ziplineIsValid     = true
     zipline.ziplineIsDestroyed = false
     zipline.isFirstTimeInited  = false
-    UpdatePanelsPrompts( zipline )
 
 return [ startZiplinePoint, endZiplinePoint ] }
 
