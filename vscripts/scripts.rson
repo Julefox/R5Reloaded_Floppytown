@@ -945,3 +945,17 @@ Scripts:
 [
 	freelance/_freelance.gnut
 ]
+
+
+// Zipline Utility
+When: "SERVER"
+Scripts:
+[
+	_zipline_utility.gnut
+]
+
+When: "SERVER || CLIENT"
+Scripts:
+[
+	sh_zipline_utility.gnut
+]
