@@ -11,7 +11,7 @@ global function InitOctaneTownTakeover
 global function PlaceOctaneTownTakeoverLoot
 global function CreateOctaneTTRingOfFireStatsTrigger
 
-#if R5DEV
+#if DEVELOPER
 global function LeviathanTeleportBug
 
 global function TestZone6LeviathanFootStomp
@@ -21,7 +21,7 @@ global function DEV_LeviathanAllowRoar
 
 global function TeleportPlayerZeroIntoLeviathanFoot
 global function RecreateLeviathanDeathTriggers
-#endif // R5DEV
+#endif // DEVELOPER
 #endif // SERVER
 
 //global const asset MU1_LEVIATHAN_MODEL = $"mdl/Creatures/leviathan/leviathan_kingscanyon_animated.rmdl"
@@ -139,22 +139,18 @@ struct{
 // Use for MU1/direct MU1 spinoffs (like night map)
 void function Canyonlands_MU1_CommonMapInit()
 {
-	//SetFlyersToSpawn( 8 )
+	Canyonlands_MapInit_Common()
+	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu1.rpak" )
 
-		Canyonlands_MapInit_Common()
-
-		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu1.rpak" )
-
-		AddCallback_EntitiesDidLoad( MU1_EntitiesDidLoad )
-
-		AddCallback_GameStateEnter( eGameState.Playing, Leviathan_OptimizeUpperBoneFollowersWhenAllPlayersHaveLanded )
-		AddSpawnCallback_ScriptName( "leviathan_staging", CreateClientSideLeviathanMarkers)
-		Survival_SetCallback_Leviathan_ConsiderLookAtEnt( Leviathan_ConsiderLookAtEnt_Callback )
+	AddCallback_EntitiesDidLoad( MU1_EntitiesDidLoad )
+	AddCallback_GameStateEnter( eGameState.Playing, Leviathan_OptimizeUpperBoneFollowersWhenAllPlayersHaveLanded )
+	AddSpawnCallback_ScriptName( "leviathan_staging", CreateClientSideLeviathanMarkers)
+	Survival_SetCallback_Leviathan_ConsiderLookAtEnt( Leviathan_ConsiderLookAtEnt_Callback )
 
 	InitOctaneTownTakeover()
 
-	//if ( RelayRockFixEnabled() )
-		//RegisterGeoFixAsset( RELAY_ROCK_FIX_MODEL )
+	thread InitWraithAudioLog()
+	thread PlaceOctaneTownTakeoverLoot()
 }
 
 void function MU1_EntitiesDidLoad()
@@ -174,6 +170,7 @@ void function InitOctaneTownTakeover()
 
 void function InitWraithAudioLog()
 {
+	wait 0.01
 	const string WRAITH_AUDIO_LOG_SCRIPTNAME = "wraith_audio_log_target"
 	if ( GetEntArrayByScriptName( WRAITH_AUDIO_LOG_SCRIPTNAME ).len() < 1 )
 		return
@@ -215,6 +212,7 @@ void function WraithTTAudioLog_SetUsableAfterDelay( entity log, float delay )
 
 void function PlaceOctaneTownTakeoverLoot()
 {
+	wait 0.01
 	array<entity> itemSpawn = GetEntArrayByScriptName( "octane_tt_hanging_item_spawn" )
 	if ( itemSpawn.len() != 1 )
 		return
@@ -222,26 +220,26 @@ void function PlaceOctaneTownTakeoverLoot()
 	entity target  = itemSpawn[ 0 ]
 	string itemRef = SURVIVAL_GetWeightedItemFromGroup( "POI_OctaneTT" )
 
-	//entity spawnedItem = SpawnGenericLoot( itemRef, target.GetOrigin(), < -1, -1, -1 > )
-	//spawnedItem.RemoveUsableValue( USABLE_USE_VERTICAL_LINE )
-	//spawnedItem.RemoveUsableValue( USABLE_HORIZONTAL_FOV )
-	//spawnedItem.AddUsableValue( USABLE_USE_DISTANCE_OVERRIDE )
-	//spawnedItem.SetUsableDistanceOverride( 300.0 )
+	entity spawnedItem = SpawnGenericLoot( itemRef, target.GetOrigin(), < -1, -1, -1 >, 1 )
+	spawnedItem.RemoveUsableValue( USABLE_USE_VERTICAL_LINE )
+	spawnedItem.RemoveUsableValue( USABLE_HORIZONTAL_FOV )
+	spawnedItem.AddUsableValue( USABLE_USE_DISTANCE_OVERRIDE )
+	spawnedItem.SetUsableDistanceOverride( 300.0 )
 
-	//vector boundingSize = spawnedItem.GetBoundingMaxs() - spawnedItem.GetBoundingMins()
-	//float originOffset  = boundingSize.z * 0.8
-	//if ( boundingSize.x > boundingSize.z )
-	//{
-	//	vector angles = spawnedItem.GetAngles()
-	//	spawnedItem.SetAngles( < angles.x + 90, angles.y, angles.z > )
-	//	originOffset = boundingSize.x * 0.5
-	//}
+	vector boundingSize = spawnedItem.GetBoundingMaxs() - spawnedItem.GetBoundingMins()
+	float originOffset  = boundingSize.z * 0.8
+	if ( boundingSize.x > boundingSize.z )
+	{
+		vector angles = spawnedItem.GetAngles()
+		spawnedItem.SetAngles( < angles.x + 90, angles.y, angles.z > )
+		originOffset = boundingSize.x * 0.5
+	}
 
-	//vector targetToCenter = spawnedItem.GetCenter() - target.GetOrigin()
-	//spawnedItem.SetOrigin( target.GetOrigin() - < 0, 0, boundingSize.z * 0.5 > )
+	vector targetToCenter = spawnedItem.GetCenter() - target.GetOrigin()
+	spawnedItem.SetOrigin( target.GetOrigin() - < 0, 0, boundingSize.z * 0.5 > )
 
-	//int bgFxId = GetParticleSystemIndex( FX_OCTANE_TT_GUN_BG )
-	//StartParticleEffectOnEntityWithPos( spawnedItem, bgFxId, FX_PATTACH_ABSORIGIN_FOLLOW, -1, < -45, 0, 0 >, < 0, 0, 0 > )
+	int bgFxId = GetParticleSystemIndex( FX_OCTANE_TT_GUN_BG )
+	StartParticleEffectOnEntityWithPos( spawnedItem, bgFxId, FX_PATTACH_ABSORIGIN_FOLLOW, -1, < -45, 0, 0 >, < 0, 0, 0 > )
 }
 
 
@@ -1694,7 +1692,7 @@ bool function RelayRockFixEnabled()
 	return GetCurrentPlaylistVarInt( "relay_rock_fix_enabled", 0 ) == 1
 }
 
-#if R5DEV
+#if DEVELOPER
 
 void function LeviathanTeleportBug()
 {
@@ -1904,5 +1902,5 @@ void function RecreateLeviathanDeathTriggers()
 
 
 }
-#endif // if R5DEV
+#endif // DEVELOPER
 #endif // SERVER

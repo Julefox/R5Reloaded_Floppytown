@@ -30,6 +30,8 @@ struct
 	table<var, ButtonData > changeCharacterButtonData
 	table<var, ButtonData > friendlyFireButtonData
 	table<var, ButtonData > thirdPersonButtonData
+	table<var, ButtonData > ExitChallengeButtonData
+	table<var, ButtonData > endmatchButtonData
 
 	InputDef& qaFooter
 } file
@@ -50,11 +52,13 @@ void function InitSystemPanelMain( var panel )
 	InitSystemPanel( panel )
 
 	AddPanelFooterOption( panel, LEFT, BUTTON_B, true, "#B_BUTTON_BACK", "#B_BUTTON_BACK" )
-	#if R5DEV
-		if ( Dev_CommandLineHasParm( "-showdevmenu" ) )
-			AddPanelFooterOption( panel, LEFT, BUTTON_Y, true, "#Y_BUTTON_DEV_MENU", "#DEV_MENU", OpenDevMenu )
+	#if DEVELOPER
+	if ( Dev_CommandLineHasParm( "-showdevmenu" ) )
+		AddPanelFooterOption( panel, LEFT, BUTTON_Y, true, "#Y_BUTTON_DEV_MENU", "#DEV_MENU", OpenDevMenu, ShouldShowDevMenu )
 	#endif
-	file.qaFooter = AddPanelFooterOption( panel, LEFT, BUTTON_X, true, "#X_BUTTON_QA", "QA", ToggleOptIn, ShouldDisplayOptInOptions )
+
+	if ( Dev_CommandLineHasParm( "-showoptinmenu" ) )
+		file.qaFooter = AddPanelFooterOption( panel, LEFT, BUTTON_X, true, "#X_BUTTON_QA", "QA", ToggleOptIn, ShouldDisplayOptInOptions )
 
 	#if CONSOLE_PROG
 		AddPanelFooterOption( panel, RIGHT, BUTTON_BACK, false, "#BUTTON_RETURN_TO_MAIN", "", ReturnToMain_OnActivate )
@@ -83,6 +87,11 @@ void function ToggleThirdPerson()
 	ClientCommand( "ToggleThirdPerson" )
 }
 
+void function SignalExitChallenge()
+{
+	RunClientScript("ExitChallengeClient")
+}
+
 void function InitSystemPanel( var panel )
 {
 	var menu = Hud_GetParent( panel )
@@ -109,6 +118,11 @@ void function InitSystemPanel( var panel )
 	file.changeCharacterButtonData[ panel ] <- clone data
 	file.friendlyFireButtonData[ panel ] <- clone data
 	file.thirdPersonButtonData[ panel ] <- clone data
+	file.endmatchButtonData[ panel ] <- clone data
+	file.ExitChallengeButtonData[ panel ] <- clone data
+	
+	file.ExitChallengeButtonData[ panel ].label = "FINISH CHALLENGE"
+	file.ExitChallengeButtonData[ panel ].activateFunc = SignalExitChallenge
 
 	file.settingsButtonData[ panel ].label = "#SETTINGS"
 	file.settingsButtonData[ panel ].activateFunc = OpenSettingsMenu
@@ -137,6 +151,9 @@ void function InitSystemPanel( var panel )
 	file.thirdPersonButtonData[ panel ].label = "TOGGLE THIRD PERSON"
 	file.thirdPersonButtonData[ panel ].activateFunc = ToggleThirdPerson
 
+	file.endmatchButtonData[ panel ].label = "END GAME"
+	file.endmatchButtonData[ panel ].activateFunc = HostEndMatch
+
 	AddPanelEventHandler( panel, eUIEvent.PANEL_SHOW, SystemPanelShow )
 }
 
@@ -156,24 +173,39 @@ void function OnSystemMenu_Open()
 
 void function UpdateSystemPanel( var panel )
 {
+	//temp workaround, not the best place for this tbh
+	if(IsConnected() && !GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		file.lobbyReturnButtonData[ panel ].label = "#RETURN_TO_LOBBY"
+	else if(IsConnected() && GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		file.lobbyReturnButtonData[ panel ].label = "EXIT AIM TRAINER"
+	file.lobbyReturnButtonData[ panel ].activateFunc = LeaveDialog
+
 	foreach ( index, button in file.buttons[ panel ] )
 		SetButtonData( panel, index, file.nullButtonData[ panel ] )
 
 	int buttonIndex = 0
-	if ( IsConnected() && !IsLobby() )
+
+	if ( IsConnected() && !IsLobby() ) // Normal system menu
 	{
 		UISize screenSize = GetScreenSize()
 		SetCursorPosition( <1920.0 * 0.5, 1080.0 * 0.5, 0> )
 
 		SetButtonData( panel, buttonIndex++, file.settingsButtonData[ panel ] )
+		if(!GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
 		{
 			if ( IsSurvivalTraining() || IsFiringRangeGameMode() )
 				SetButtonData( panel, buttonIndex++, file.lobbyReturnButtonData[ panel ] )
 			else
 				SetButtonData( panel, buttonIndex++, file.leaveMatchButtonData[ panel ] )
+		} else
+		{
+			if(ISAIMTRAINER)
+				SetButtonData( panel, buttonIndex++, file.lobbyReturnButtonData[ panel ] )
+			else
+				SetButtonData( panel, buttonIndex++, file.ExitChallengeButtonData[ panel ] )
 		}
 
-		if ( IsFiringRangeGameMode() )
+		if ( IsFiringRangeGameMode() && !GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
 		{
 			SetButtonData( panel, buttonIndex++, file.changeCharacterButtonData[ panel ] )
 		//	SetButtonData( panel, buttonIndex++, file.thirdPersonButtonData[ panel ] )
@@ -182,7 +214,7 @@ void function UpdateSystemPanel( var panel )
 				SetButtonData( panel, buttonIndex++, file.friendlyFireButtonData[ panel ] )
 		}
 	}
-	else
+	else // any other cases
 	{
 		if ( AmIPartyMember() || AmIPartyLeader() && GetPartySize() > 1 )
 			SetButtonData( panel, buttonIndex++, file.leavePartyData[ panel ] )
@@ -207,7 +239,10 @@ void function UpdateSystemPanel( var panel )
 	}
 
 	var dataCenterElem = Hud_GetChild( panel, "DataCenter" )
-	Hud_SetText( dataCenterElem, Localize( "#SYSTEM_DATACENTER", GetDatacenterName(), GetDatacenterPing() ) )
+	if(GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		Hud_SetText( dataCenterElem, "Flowstate Aim Trainer by @CafeFPS")
+	else
+		Hud_SetText( dataCenterElem, Localize( "#SYSTEM_DATACENTER", GetDatacenterName(), GetDatacenterPing() ) )
 }
 
 void function SetButtonData( var panel, int buttonIndex, ButtonData buttonData )
@@ -226,6 +261,10 @@ void function SetButtonData( var panel, int buttonIndex, ButtonData buttonData )
 
 void function OnSystemMenu_Close()
 {
+	if(ISAIMTRAINER && IsConnected() && GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false )){
+		CloseAllMenus()
+		RunClientScript("ServerCallback_OpenFRChallengesMainMenu", PlayerKillsForChallengesUI)
+	}
 }
 
 
@@ -233,6 +272,10 @@ void function OnSystemMenu_NavigateBack()
 {
 	Assert( GetActiveMenu() == file.menu )
 	CloseActiveMenu()
+	if(ISAIMTRAINER && IsConnected() && GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false )){
+		CloseAllMenus()
+		RunClientScript("ServerCallback_OpenFRChallengesMainMenu", PlayerKillsForChallengesUI)
+	}
 }
 
 
@@ -256,6 +299,11 @@ void function OpenSystemMenu()
 void function OpenSettingsMenu()
 {
 	AdvanceMenu( GetMenu( "MiscMenu" ) )
+}
+
+void function HostEndMatch()
+{
+	CreateServer( GetPlayerName() + " Lobby", "", "mp_lobby", "menufall", eServerVisibility.OFFLINE)
 }
 
 #if CONSOLE_PROG
@@ -314,6 +362,14 @@ void function UpdateOptInFooter()
 	}
 
 	UpdateFooterOptions()
+}
+
+bool function ShouldShowDevMenu()
+{
+	if(IsLobby())
+		return false
+	
+	return true
 }
 
 

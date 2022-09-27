@@ -2,7 +2,7 @@ global function Canyonlands_MapInit_Common
 global function CodeCallback_PlayerEnterUpdraftTrigger
 global function CodeCallback_PlayerLeaveUpdraftTrigger
 
-#if SERVER && R5DEV
+#if SERVER && DEVELOPER
 	global function HoverTankTestPositions
 
 #endif
@@ -81,6 +81,7 @@ void function Canyonlands_MapInit_Common()
 	printt( "Canyonlands_MapInit_Common" )
 
 	PrecacheModel( LEVIATHAN_MODEL )
+	PrecacheModel( FIRINGRANGE_256x256_ASSET )
 	//PrecacheModel( FLYER_SWARM_MODEL )
 
 	SetVictorySequencePlatformModel( $"mdl/rocks/victory_platform.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
@@ -111,7 +112,6 @@ void function Canyonlands_MapInit_Common()
 
 	#if SERVER
 		InitWaterLeviathans()
-		LootTicks_Init()
 
 		FlagSet( "DisableDropships" )
 
@@ -136,8 +136,8 @@ void function Canyonlands_MapInit_Common()
 		SURVIVAL_SetMapCenter( <0, 0, 0> )
         SURVIVAL_SetMapDelta( 4900 )
 
-        AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_pvpcurrency_container", OnPvpCurrencyContainerSpawned )    
-        AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_upgrade_station", OnSurvivalUpgradeStationSpawned )  
+        AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_pvpcurrency_container", OnPvpCurrencyContainerSpawned )
+        AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_upgrade_station", OnSurvivalUpgradeStationSpawned )
 		if ( GetMapName() == "mp_rr_canyonlands_staging" )
 		{
 			// adjust skybox for staging area
@@ -182,7 +182,7 @@ void function Canyonlands_MapInit_Common()
 
 #if SERVER
 void function OnPvpCurrencyContainerSpawned(entity ent)
-{	
+{
     if( GameRules_GetGameMode() != FREELANCE )
 	{
         if(IsValid(ent))
@@ -922,7 +922,7 @@ void function HoverTank_DebugFlightPaths_Thread()
 	printt( "++++--------------------------------------------------------------------------------------------------------------------------++++" )
 }
 
-#if SERVER && R5DEV
+#if SERVER && DEVELOPER
 void function HoverTankTestPositions()
 {
 	entity player = GetPlayerArray()[0]
@@ -1089,7 +1089,7 @@ void function OnLeviathanMarkerCreated( entity marker )
 {
 	string markerTargetName = marker.GetTargetName()
 	printt( "OnLeviathanMarkerCreated, targetName: " + markerTargetName  )
-	#if R5DEV
+	#if DEVELOPER
 		if ( IsValid( file.clientSideLeviathan1 ) && markerTargetName == CANYONLANDS_LEVIATHAN1_NAME )
 		{
 			printt( "Destroying clientSideLeviathan1 with markerName: " + markerTargetName  )

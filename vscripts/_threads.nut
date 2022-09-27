@@ -29,11 +29,10 @@ global function LevelVarInit
 global bool reloadingScripts = false
 global bool reloadedScripts = false
 
-#if R5DEV
+#if DEVELOPER
 global function __serialize_state
 global function __evalBreakpoint
 #endif
-
 
 bool function IsTable( var variable ) {
 	return (type( variable ) == "table")
@@ -146,7 +145,7 @@ void function LevelVarInit()
 }
 
 
-#if R5DEV
+#if DEVELOPER
 
 //********************************************************************************************
 // _vscript_code.nut
@@ -340,4 +339,4 @@ void function __serialize_state()
 	}
 }
 
-#endif // DEV
+#endif // DEVELOPER

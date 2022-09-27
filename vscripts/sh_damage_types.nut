@@ -94,6 +94,9 @@ global enum eDamageSourceId
 	mp_weapon_defender
 	mp_weapon_softball
 	mp_weapon_warmachine
+	mp_weapon_car
+	mp_weapon_3030
+	mp_weapon_dragon_lmg
 	//
 	melee_pilot_emptyhanded
 	melee_pilot_arena
@@ -114,6 +117,9 @@ global enum eDamageSourceId
 
 	melee_wraith_kunai
 	mp_weapon_wraith_kunai_primary
+	
+	melee_bolo_sword
+	mp_weapon_bolo_sword_primary
 
 	melee_bloodhound_axe
 	mp_weapon_bloodhound_axe_primary
@@ -406,7 +412,7 @@ void function DamageTypes_Init()
 
 	PrecacheWeapon( $"mp_weapon_rspn101" ) // used by npc_soldier ><
 
-#if R5DEV
+#if DEVELOPER
 
 	int numDamageDefs = DamageDef_GetCount()
 	table damageSourceIdEnum = expect table( getconsttable().eDamageSourceId )
@@ -456,7 +462,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.mp_weapon_gunship_turret ]				= "#WPN_GUNSHIP_MISSILE",
 
 		[ eDamageSourceId.mp_titanability_slow_trap ]				= "#DEATH_SLOW_TRAP",
-
+		[ eDamageSourceId.damagedef_suicide ] 						= "#DEATH_SUICIDE",
 		[ eDamageSourceId.rodeo ] 									= "#DEATH_TITAN_RODEO",
 		[ eDamageSourceId.rodeo_forced_titan_eject ] 				= "#DEATH_TITAN_RODEO",
 		[ eDamageSourceId.rodeo_execution ] 						= "#DEATH_RODEO_EXECUTION",
@@ -504,6 +510,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.splat ] 									= "#DEATH_SPLAT",
 		[ eDamageSourceId.titan_execution ] 						= "#DEATH_TITAN_EXECUTION",
 		[ eDamageSourceId.human_execution ] 						= "#DEATH_HUMAN_EXECUTION",
+		[ eDamageSourceId.deathField ] 								= "#DEATH_DEATH_FIELD",
 		[ eDamageSourceId.outOfBounds ] 							= "#DEATH_OUT_OF_BOUNDS",
 		[ eDamageSourceId.indoor_inferno ]	 						= "#DEATH_INDOOR_INFERNO",
 		[ eDamageSourceId.submerged ]								= "#DEATH_SUBMERGED",
@@ -546,7 +553,12 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.melee_titan_sword_aoe ]					= "#DEATH_TITAN_SWORD",
 		[ eDamageSourceId.melee_wraith_kunai ] 						= "#DEATH_MELEE_WRAITH_KUNAI",
 		[ eDamageSourceId.mp_weapon_wraith_kunai_primary ] 			= "#DEATH_MELEE_WRAITH_KUNAI",
+		[ eDamageSourceId.melee_bolo_sword ] 						= "Bolo Sword Melee",
+		[ eDamageSourceId.mp_weapon_bolo_sword_primary ] 			= "Bolo Sword Melee",
 		[ eDamageSourceId.mp_weapon_volt_smg ] 						= "#WPN_VOLT_SMG",
+		[ eDamageSourceId.mp_weapon_car ] 							= "Car SMG",
+		[ eDamageSourceId.mp_weapon_3030 ] 							= "30-30 Repeater",
+		[ eDamageSourceId.mp_weapon_dragon_lmg ] 					= "Rampage LMG",
 		[ eDamageSourceId.mp_ability_octane_stim ] 					= "#WPN_OCTANE_STIM_SHORT",
 
 		[ eDamageSourceId.mp_weapon_tesla_trap ] 					= "#DEATH_TESLA_TRAP"
@@ -563,7 +575,7 @@ void function DamageTypes_Init()
 		,[ eDamageSourceId.mp_weapon_shadow_squad_hands_primary ] 	= "#DEATH_MELEE_SHADOWSQUAD_HANDS"
 	}
 
-	#if R5DEV
+	#if DEVELOPER
 		//development, with retail versions incase a rare bug happens we dont want to show developer text
 		file.damageSourceIDToName[ eDamageSourceId.damagedef_unknownBugIt ] 			= "UNKNOWN! BUG IT!"
 		file.damageSourceIDToName[ eDamageSourceId.damagedef_unknown ] 				= "Unknown"

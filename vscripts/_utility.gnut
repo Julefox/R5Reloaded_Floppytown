@@ -64,7 +64,7 @@ void function Utility_Init()
 	RegisterSignal( "InventoryChanged" )
 
 	AddClientCommandCallback( "OnDevnetBugScreenshot", ClientCommand_OnDevnetBugScreenshot )
-	#if R5DEV
+	#if DEVELOPER
 		FlagInit( "AimAssistSwitchTest_Enabled" )
 		// AddClientCommandCallback( "DoomTitan", ClientCommand_DoomTitan )
 		AddClientCommandCallback( "toggleconsole", ClientCommand_ToggleConsole )
@@ -101,7 +101,7 @@ void function GiveAllTitans()
 	}
 }
 
-#if R5DEV
+#if DEVELOPER
 void function KillAllBadguys()
 {
 	array<entity> npcs = GetNPCArrayOfEnemies( GetPlayerArray()[0].GetTeam() )
@@ -724,9 +724,9 @@ float function YawDifference( float yaw1, float yaw2 )
 	float diff = fabs( yaw1 - yaw2 )
 
 	if ( diff > 180 )
-	    return 360 - diff
+		return 360 - diff
 	else
-	    return diff
+		return diff
 
 	unreachable
 }
@@ -1060,95 +1060,95 @@ enum eAttach
 
 void function LoadDiamond()
 {
-    printl( " " )
+	printl( " " )
 	printl( "----------------------------" )
-    printl( " " )
+	printl( " " )
 
-    // Draw a diamond of a random size and phase (of the moon) so it is easy to separate sections of logs.
-    int random_spread = RandomIntRange( 4, 7 )
-    float random_fullness = RandomFloat( 2.0 )
-    bool functionref( int, int ) compare_func
-    string msg
+	// Draw a diamond of a random size and phase (of the moon) so it is easy to separate sections of logs.
+	int random_spread = RandomIntRange( 4, 7 )
+	float random_fullness = RandomFloat( 2.0 )
+	bool functionref( int, int ) compare_func
+	string msg
 
-    if ( RandomFloat( 1.0 ) > 0.5 )
-    {
-	    compare_func = bool function( int a, int b )
-	    {
-		    return a <= b
-	    }
-    }
-    else
-    {
-	    compare_func = bool function( int a, int b )
-	    {
-		    return a >= b
-	    }
-    }
+	if ( RandomFloat( 1.0 ) > 0.5 )
+	{
+		compare_func = bool function( int a, int b )
+		{
+			return a <= b
+		}
+	}
+	else
+	{
+		compare_func = bool function( int a, int b )
+		{
+			return a >= b
+		}
+	}
 
-    for ( int i = 0; i <= random_spread - 2; i++ )
-    {
-	    msg = ""
+	for ( int i = 0; i <= random_spread - 2; i++ )
+	{
+		msg = ""
 
-	    for ( int p = 0; p <= random_spread - i; p++ )
-	    {
-		    msg = msg + " "
-	    }
+		for ( int p = 0; p <= random_spread - i; p++ )
+		{
+			msg = msg + " "
+		}
 
-	    for ( int p = 0; p <= i * 2; p++ )
-	    {
-		    if ( p == i * 2 || p == 0 )
-		    {
-			    msg = msg + "*"
-		    }
-		    else
-		    {
-			    int an_int = int( i * random_fullness )
+		for ( int p = 0; p <= i * 2; p++ )
+		{
+			if ( p == i * 2 || p == 0 )
+			{
+				msg = msg + "*"
+			}
+			else
+			{
+				int an_int = int( i * random_fullness )
 
-			    if ( compare_func( p, an_int ) )
-				    msg = msg + "*"
-			    else
-				    msg = msg + " "
-		    }
-	    }
+				if ( compare_func( p, an_int ) )
+					msg = msg + "*"
+				else
+					msg = msg + " "
+			}
+		}
 
-	    printl( msg )
-    }
+			printl( msg )
+		}
 
-    for ( int i = random_spread - 1; i >= 0; i-- )
-    {
-	    msg = ""
+		for ( int i = random_spread - 1; i >= 0; i-- )
+		{
+			msg = ""
 
-	    for ( int p = 0; p <= random_spread - i; p++ )
-	    {
-		    msg = msg + " "
-	    }
+			for ( int p = 0; p <= random_spread - i; p++ )
+			{
+				msg = msg + " "
+			}
 
 
-	    for ( int p = 0; p <= i * 2; p++ )
-	    {
-		    if ( p == i * 2 || p == 0 )
-		    {
-			    msg = msg + "*"
-		    }
-		    else
-		    {
-			    if ( compare_func( p, int( i * random_fullness ) ) )
-			    {
-				    msg = msg + "*"
-			    }
-			    else
-			    {
-				    msg = msg + " "
-			    }
-		    }
-	    }
+			for ( int p = 0; p <= i * 2; p++ )
+			{
+				if ( p == i * 2 || p == 0 )
+				{
+					msg = msg + "*"
+				}
+				else
+				{
+					if ( compare_func( p, int( i * random_fullness ) ) )
+					{
+						msg = msg + "*"
+					}
+					else
+					{
+						msg = msg + " "
+					}
+				}
+			}
 
-	    printl( msg )
-    }
+			printl( msg )
+		}
 
-    printl( " " )
+	printl( " " )
 	printl( "----------------------------" )
-    printl( " " )
+	printl( " " )
 }
 
 // this will clear all dropped weapons in the map
@@ -2550,7 +2550,7 @@ void function EmitSoundOnEntityToTeamExceptPlayer( entity ent, string sound, int
 	}
 }
 
-#if R5DEV
+#if DEVELOPER
 // DEV function to toggle player view between the skybox and the real world.
 void function ToggleSkyboxView( float scale = 0.001 )
 {
@@ -2631,7 +2631,7 @@ void function DamageRange( float value, float headShotMultiplier, int playerHeal
 	printt( format( "%i             %i              %i", numHeadshots, 0, numHeadshots ) )
 }
 
-#endif // DEV
+#endif // DEVELOPER
 
 void function MuteAll( entity player, int fadeOutTime = 2 )
 {
@@ -2876,7 +2876,7 @@ void function __SetSignalDelayedThread( entity ent, string signal, float delay )
 		Signal( ent, signal )
 }
 
-#if R5DEV
+#if DEVELOPER
 table function GetPlayerPos( entity player = null )
 {
 	if ( !player )
@@ -2942,7 +2942,7 @@ void function ToggleHud()
 			AddCinematicFlag( player, flag )
 	}
 }
-#endif // DEV
+#endif // DEVELOPER
 
 void function ClearChildren( entity parentEnt, bool b0 ) //Probably should have code give us a GetChildren() function that returns a list instead of having to iterate through NextMovePeer
 {
@@ -2988,7 +2988,7 @@ void function UpdateBadRepPresent()
 
 void function Dev_PrintMessage( entity player, string text, string subText = "", float duration = 7.0, string soundAlias = "" )
 {
-	#if R5DEV
+	#if DEVELOPER
 	// Build the message on the client
 	string sendMessage
 	for ( int textType = 0 ; textType < 2 ; textType++ )
@@ -3002,7 +3002,7 @@ void function Dev_PrintMessage( entity player, string text, string subText = "",
 	}
 	Remote_CallFunction_NonReplay( player, "Dev_PrintClientMessage", duration )
 	if ( soundAlias != "" )
-		EmitSoundOnEntity( player, soundAlias )
+		EmitSoundOnEntityOnlyToPlayer( player, player, soundAlias )
 	#endif
 }
 
@@ -3317,7 +3317,7 @@ void function ShowCrit( entity ent )
 }
 
 
-#if R5DEV
+#if DEVELOPER
 void function TeleportEnemyBotToView()
 {
 	entity player = gp()[0]
@@ -3707,8 +3707,8 @@ void function PushEntWithDamageInfo( entity ent, var damageInfo, float forceMult
 	int source = DamageInfo_GetDamageSourceIdentifier( damageInfo )
 	switch ( source )
 	{
- 		case eDamageSourceId.mp_titanweapon_vortex_shield:
-  		case eDamageSourceId.mp_titanweapon_vortex_shield_ion:
+		case eDamageSourceId.mp_titanweapon_vortex_shield:
+		case eDamageSourceId.mp_titanweapon_vortex_shield_ion:
 			return
 	}
 
@@ -4209,7 +4209,7 @@ int function GameScore_GetWinningTeam_ThisRound()
 	return TEAM_UNASSIGNED
 }
 
-#if R5DEV
+#if DEVELOPER
 void function KillIMC()
 {
 	array<entity> enemies = GetNPCArrayOfTeam( TEAM_IMC )
@@ -4313,7 +4313,7 @@ bool function IsFastPilot( entity player )
 
 void function KillPlayer( entity player, int damageSource )
 {
-	#if R5DEV
+	#if DEVELOPER
 	printt( "Played Killed from script: " )
 	DumpStack()
 	#endif
@@ -4591,12 +4591,12 @@ array<entity> function GetAllPlayersOfLockstepIndex( int index )
 table< int, array<entity> > function GetAllPlayersSortedByTeam()
 {
 	table< int, array<entity> > groupedPlayers
-	
+
 	foreach ( player in GetPlayerArray() )
 	{
 		if ( !( player.GetTeam() in groupedPlayers ) )
 			groupedPlayers[player.GetTeam()] <- []
-		
+
 		groupedPlayers[player.GetTeam()].append( player )
 	}
 
@@ -4695,7 +4695,7 @@ entity function CreatePropDynamic_NoDispatchSpawn( asset model, vector ornull or
 		if ( angles )
 			prop_dynamic.SetAngles( expect vector( angles ) )
 	}
-	
+
 	return prop_dynamic
 }
 
@@ -4747,7 +4747,7 @@ entity function CreatePropDeathBox_NoDispatchSpawn( asset model, vector ornull o
 		if ( angles )
 			prop_death_box.SetAngles( expect vector( angles ) )
 	}
-	
+
 	return prop_death_box
 }
 
@@ -4804,4 +4804,19 @@ void function SetRandomStagingPositionForPlayer( entity player )
 
 	player.SetOrigin( randomSpawnPoint.GetOrigin() )
 	player.SetAngles( randomSpawnPoint.GetAngles() )
+}
+
+array<entity> function ArrayEntSphere(vector origin, float radius) {
+    array<entity> entities
+    entity ent = Entities_FindInSphere( null, origin, radius )
+
+    for ( ;; )
+    {
+        if ( ent == null )
+            break
+		entities.append( ent )
+		printt(ent.GetTargetName())
+        ent = Entities_FindInSphere( ent, origin, radius)
+    }
+    return entities
 }

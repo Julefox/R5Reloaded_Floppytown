@@ -34,24 +34,13 @@ void function GamemodeSurvival_Init()
 	Sh_ArenaDeathField_Init()
 	SurvivalShip_Init()
 
-	switch(GetMapName())
-	{
-		case "mp_rr_aqueduct":
-			CreateWallTrigger( <425, -1590, -1689> )
-			CreateWallTrigger( <774, -6394, 2067> )
-		case "mp_rr_ashs_redemption":
-			CreateWallTrigger( <-20857, 5702, -25746> )
-		default:
-			break
-	}
-
 	FlagInit( "SpawnInDropship", false )
 	FlagInit( "PlaneDrop_Respawn_SetUseCallback", false )
 
 	AddCallback_OnPlayerKilled( OnPlayerKilled )
 	AddCallback_OnClientConnected( OnClientConnected )
 
-	AddCallback_GameStateEnter( 
+	AddCallback_GameStateEnter(
 		eGameState.Playing,
 		void function()
 		{
@@ -91,9 +80,10 @@ void function RespawnPlayerInDropship( entity player )
 	player.SetAngles( dropship.GetAngles() )
 
 	player.UnfreezeControlsOnServer()
-	
+
 	player.ForceCrouch()
 	player.Hide()
+	player.NotSolid()
 
 	player.SetPlayerNetBool( "isJumpingWithSquad", true )
 	player.SetPlayerNetBool( "playerInPlane", true )
@@ -133,16 +123,16 @@ void function Sequence_Playing()
 	{
 		vector pos = GetEnt( "info_player_start" ).GetOrigin()
 		pos.z += 5
-	
+
 		int i = 0
 		foreach ( player in GetPlayerArray() )
 		{
 			// circle
 			float r = float(i) / float(GetPlayerArray().len()) * 2 * PI
 			player.SetOrigin( pos + 500.0 * <sin( r ), cos( r ), 0.0> )
-	
+
 			DecideRespawnPlayer( player )
-	
+
 			i++
 		}
 
@@ -161,7 +151,7 @@ void function Sequence_Playing()
 		vector shipEnd = foundFlightPath[1]
 		vector shipAngles = foundFlightPath[2]
 		vector shipPathCenter = foundFlightPath[3]
-	
+
 		entity centerEnt = CreatePropScript_NoDispatchSpawn( $"mdl/dev/empty_model.rmdl", shipPathCenter, shipAngles )
 		centerEnt.Minimap_AlwaysShow( 0, null )
 		SetTargetName( centerEnt, "pathCenterEnt" )
@@ -172,6 +162,7 @@ void function Sequence_Playing()
 		Sur_SetPlaneEnt( dropship )
 
 		entity minimapPlaneEnt = CreatePropScript_NoDispatchSpawn( $"mdl/dev/empty_model.rmdl", dropship.GetOrigin(), dropship.GetAngles() )
+		minimapPlaneEnt.NotSolid()
 		minimapPlaneEnt.SetParent( dropship )
 		minimapPlaneEnt.Minimap_AlwaysShow( 0, null )
 		SetTargetName( minimapPlaneEnt, "planeEnt" )
@@ -203,8 +194,8 @@ void function Sequence_Playing()
 			if ( jumpMaster != null )
 			{
 				expect entity( jumpMaster )
-		
-				jumpMaster.SetPlayerNetBool( "isJumpmaster", true )			
+
+				jumpMaster.SetPlayerNetBool( "isJumpmaster", true )
 			}
 		}
 
@@ -277,55 +268,6 @@ void function Sequence_Playing()
 	thread Sequence_WinnerDetermined()
 }
 
-entity function CreateWallTrigger(vector pos, float box_radius = 30000 )
-{
-    entity map_trigger = CreateEntity( "trigger_cylinder" )
-    map_trigger.SetRadius( box_radius );map_trigger.SetAboveHeight( 350 );map_trigger.SetBelowHeight( 10 );
-    map_trigger.SetOrigin( pos )
-    DispatchSpawn( map_trigger )
-    thread WallTrigger( map_trigger )
-    return map_trigger
-}
-
-void function WallTrigger(entity proxy, float speed = 1)
-{ bool active = true
-    while (active)
-    {
-        if(IsValid(proxy))
-        {
-            foreach(player in GetPlayerArray())
-            {
-                if (player.GetPhysics() != MOVETYPE_NOCLIP)//won't affect noclip player
-                {
-                    if(proxy.IsTouching(player))
-						{
-							player.Zipline_Stop()
-							switch(GetMapName())
-								{
-									case "mp_rr_aqueduct":
-										player.TakeDamage(player.GetMaxHealth() + 1, null, null, { damageSourceId=damagedef_suicide, scriptType=DF_BYPASS_SHIELD })
-									default:
-										vector target_origin = player.GetOrigin()
-										vector proxy_origin = proxy.GetOrigin()
-										vector target_angles = player.GetAngles()
-										vector proxy_angles = proxy.GetAngles()
-						
-										vector velocity = target_origin - proxy_origin
-										velocity = velocity * speed
-                    
-										vector angles = target_angles - proxy_angles
-                    
-										velocity = velocity + angles
-										player.SetVelocity(velocity)
-								}
-						}
-                }
-            }
-        } else {active = false ; break}
-        wait 0.01
-    } 
-}
-
 void function Sequence_WinnerDetermined()
 {
 	FlagSet( "DeathFieldPaused" )
@@ -358,9 +300,9 @@ void function Sequence_Epilogue()
 		{
 			GameSummarySquadData gameSummaryData = GameSummary_GetPlayerData( champion )
 
-			Remote_CallFunction_NonReplay( 
-				player, 
-				"ServerCallback_AddWinningSquadData", 
+			Remote_CallFunction_NonReplay(
+				player,
+				"ServerCallback_AddWinningSquadData",
 				i, // Champion index
 				champion.GetEncodedEHandle(), // Champion EEH
 				gameSummaryData.kills,
@@ -390,7 +332,7 @@ void function UpdateMatchSummaryPersistentVars( int team )
 		{
 			if ( i >= maxTrackedSquadMembers )
 				continue
-			
+
 			entity statMember = squadMembers[i]
 			GameSummarySquadData statSummaryData = GameSummary_GetPlayerData( statMember )
 
@@ -439,20 +381,25 @@ void function OnPlayerDamaged( entity victim, var damageInfo )
 	if ( !( DamageInfo_GetCustomDamageType( damageInfo ) & DF_BYPASS_SHIELD ) )
 		currentHealth += victim.GetShieldHealth()
 
-	if ( currentHealth - damage <= 0 && PlayerRevivingEnabled() && !IsInstantDeath(damageInfo) )
-	{
-		entity attacker = DamageInfo_GetAttacker( damageInfo )
+	entity attacker = DamageInfo_GetAttacker( damageInfo )
 
+	vector damagePosition = DamageInfo_GetDamagePosition( damageInfo )
+	int damageType = DamageInfo_GetCustomDamageType( damageInfo )
+
+	StoreDamageHistoryAndUpdate( victim, Time() + 30, damage, damagePosition, damageType, sourceId, attacker )
+
+	if ( currentHealth - damage <= 0 && PlayerRevivingEnabled() && !IsInstantDeath( damageInfo ) )
+	{
 		// Supposed to be bleeding
-		Bleedout_StartPlayerBleedout( victim, DamageInfo_GetAttacker( damageInfo ) )
+		Bleedout_StartPlayerBleedout( victim, attacker )
 
 		// Add the cool splashy blood and big red crosshair hitmarker
 		DamageInfo_AddCustomDamageType( damageInfo, DF_KILLSHOT )
 
 		// Notify the player of the damage (even though it's *technically* canceled and we're hijacking the damage in order to not make an alive 100hp player instantly dead with a well placed kraber shot)
-		if (attacker.IsPlayer() && !IsWorldSpawn(attacker))
+		if (attacker.IsPlayer() && !IsWorldSpawn( attacker ))
         {
-            attacker.NotifyDidDamage( victim, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), DamageInfo_GetCustomDamageType( damageInfo ), DamageInfo_GetDamage( damageInfo ), DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
+            attacker.NotifyDidDamage( victim, DamageInfo_GetHitBox( damageInfo ), damagePosition, damageType, damage, DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
         }
 		// Cancel the damage
 		// Setting damage to 0 cancels all knockback, setting it to 1 doesn't
@@ -462,11 +409,15 @@ void function OnPlayerDamaged( entity victim, var damageInfo )
 		// Delete any shield health remaining
 		victim.SetShieldHealth( 0 )
 
-		// Run client callback
-		int scriptDamageType = DamageInfo_GetCustomDamageType( damageInfo )
+		if( GetGameState() >= eGameState.Playing && attacker.IsPlayer() && attacker != victim )
+		{
+			ScoreEvent event = GetScoreEvent( "Sur_DownedPilot" )
+
+			Remote_CallFunction_NonReplay( attacker, "ServerCallback_ScoreEvent", event.eventId, event.pointValue, event.displayType, victim.GetEncodedEHandle(), GetTotalDamageTakenByPlayer( victim, attacker ), 0 )
+		}
 
 		foreach ( cbPlayer in GetPlayerArray() )
-			Remote_CallFunction_Replay( cbPlayer, "ServerCallback_OnEnemyDowned", attacker, victim, scriptDamageType, sourceId )
+			Remote_CallFunction_Replay( cbPlayer, "ServerCallback_OnEnemyDowned", attacker, victim, damageType, sourceId )
 	}
 }
 
@@ -486,7 +437,7 @@ array<ConsumableInventoryItem> function GetAllDroppableItems( entity player )
 
 		// Add the weapon
 		ConsumableInventoryItem item
-		
+
 		item.type = data.index
 		item.count = weapon.GetWeaponPrimaryClipCount()
 
@@ -496,7 +447,7 @@ array<ConsumableInventoryItem> function GetAllDroppableItems( entity player )
 		{
 			if ( !SURVIVAL_Loot_IsRefValid( mod ) )
 				continue
-			
+
 			if ( data.baseMods.contains( mod ) )
 				continue
 
@@ -504,7 +455,7 @@ array<ConsumableInventoryItem> function GetAllDroppableItems( entity player )
 
 			// Add the attachment
 			ConsumableInventoryItem attachmentItem
-			
+
 			attachmentItem.type = attachmentData.index
 			attachmentItem.count = 1
 
@@ -588,6 +539,10 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	if ( teamEliminated )
 		HandleSquadElimination( victim.GetTeam() )
 
+	// Restore weapons for deathbox
+	if ( victim.p.storedWeapons.len() > 0 )
+		RetrievePilotWeapons( victim )
+
 	int droppableItems = GetAllDroppableItems( victim ).len()
 
 	if ( canPlayerBeRespawned || droppableItems > 0 )
@@ -634,8 +589,11 @@ void function OnClientConnected( entity player )
 					PlayerStartSpectating( player, null )
 				else
 				{
-					array<entity> respawnCandidates = isAlone ? GetPlayerArray_AliveConnected() : playerTeam
+					array<entity> respawnCandidates = isAlone ? [ GetEnt( "info_player_start" ) ] : playerTeam
 					respawnCandidates.fastremovebyvalue( player )
+
+					if ( isAlone && !IsValid( respawnCandidates[0] ) )
+						respawnCandidates = GetPlayerArray_AliveConnected()
 
 					if ( respawnCandidates.len() == 0 )
 						break
@@ -735,26 +693,26 @@ vector function SURVIVAL_GetClosestValidCircleEndLocation( vector origin )
 void function SURVIVAL_CalculateAirdropPositions()
 {
     calculatedAirdropData.clear()
-    
+
     array<vector> previousAirdrops
-    
+
     array<DeathFieldStageData> deathFieldData = SURVIVAL_GetDeathFieldStages()
-    
+
     for ( int i = deathFieldData.len() - 1; i >= 0; i-- )
     {
         string airdropPlaylistData = GetCurrentPlaylistVarString( "airdrop_data_round_" + i, "" )
-        
+
         if (airdropPlaylistData.len() == 0) //if no airdrop data for this ring, continue to next
             continue;
-            
+
         //Split the PlaylistVar that we can parse it
         array<string> dataArr = split(airdropPlaylistData, ":" )
         if(dataArr.len() < 5)
             return;
-         
+
         //First part of the playlist string is the number of airdrops for this round.
         int numAirdropsForThisRound = dataArr[0].tointeger()
-        
+
         //Create our AirdropData entry now.
         AirdropData airdropData;
         airdropData.dropCircle = i
@@ -763,13 +721,13 @@ void function SURVIVAL_CalculateAirdropPositions()
 
         //Get the deathfield data.
         DeathFieldStageData data = deathFieldData[i]
-       
+
         vector center = data.endPos
         float radius = data.endRadius
         for (int j = 0; j < numAirdropsForThisRound; j++)
         {
             Point airdropPoint = FindRandomAirdropDropPoint(AIRDROP_ANGLE_DEVIATION, center, radius, previousAirdrops)
-            
+
             if(!VerifyAirdropPoint( airdropPoint.origin, airdropPoint.angles.y ))
             {
                 //force this to loop again if we didn't verify our airdropPoint
@@ -781,10 +739,10 @@ void function SURVIVAL_CalculateAirdropPositions()
                 printt("Added airdrop with origin ", airdropPoint.origin, " to the array")
                 airdropData.originArray.append(airdropPoint.origin)
                 airdropData.anglesArray.append(airdropPoint.angles)
-                
+
                 //Should impl contents here.
                 airdropData.contents.append([dataArr[2], dataArr[3], dataArr[4]])
-            }  
+            }
         }
         calculatedAirdropData.append(airdropData)
     }
@@ -798,7 +756,7 @@ void function SURVIVAL_AddLootBin( entity lootbin )
 
 void function SURVIVAL_AddLootGroupRemapping( string hovertank, string supplyship )
 {
-	
+
 }
 
 void function SURVIVAL_DebugLoot( string lootBinsLootInside, vector origin )
@@ -813,5 +771,5 @@ void function Survival_AddCallback_OnAirdropLaunched( void functionref( entity d
 
 void function Survival_CleanupPlayerPermanents( entity player )
 {
-	
+
 }

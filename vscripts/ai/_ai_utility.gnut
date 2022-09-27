@@ -2,6 +2,20 @@ untyped
 
 globalize_all_functions
 
+void function CreateGravitationalForce( )
+{
+	entity point_push = CreateEntity( "point_push" )
+	point_push.kv.spawnflags = 31
+	point_push.kv.enabled = 1
+	point_push.kv.magnitude = 50
+	point_push.kv.radius = 150
+	point_push.SetOrigin( GetPlayerArray()[0].GetOrigin() )//+ GetPlayerArray()[0].GetForwardVector()*250 )
+	DispatchSpawn( point_push )
+	point_push.Fire( "Enable" )
+	// point_push.Fire( "Kill", "", 0.2 )
+}
+
+
 function AiUtility_Init()
 {
 	RegisterSignal( "OnNewOwner" )
@@ -338,6 +352,30 @@ void function DEV_SpawnDummyAtCrosshair()
     array<string> weapons = ["npc_weapon_lstar", "npc_weapon_energy_shotgun", "npc_weapon_hemlok"] //We are giving them original firing range weapons, they are shooting better this way
     string randomWeapon = weapons[RandomInt(weapons.len())]
     dummy.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnSpiderAtCrosshair()
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity spider = CreateSpider( 99, origin, angles )
+
+	DispatchSpawn( spider )
+}
+
+void function DEV_SpawnInfectedSoldierAtCrosshair()
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity Infected = CreateInfected( 99, origin, angles )
+
+	DispatchSpawn( Infected )
 }
 
 void function DEV_SpawnExplosiveTickAtCrosshair()

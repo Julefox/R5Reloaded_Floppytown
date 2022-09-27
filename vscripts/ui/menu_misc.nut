@@ -67,5 +67,13 @@ void function OnMiscMenu_NavigateBack()
 	}
 
 	CloseActiveMenu()
+
+	if ( IsLobby() )
+		UI_SetPresentationType( CurrentPresentationType )
+
+	if(ISAIMTRAINER){
+		CloseAllMenus()
+		RunClientScript("ServerCallback_OpenFRChallengesMainMenu", PlayerKillsForChallengesUI)
+	}
 }
 

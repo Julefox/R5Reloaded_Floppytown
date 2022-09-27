@@ -30,7 +30,7 @@ global function GetStringArrayAvailableClassesForPlayer
 global function CharacterClass_ConsiderLegHitBoxAsTorso
 global function CharacterClass_GetMenuZoomOffset
 
-#if CLIENT || UI 
+#if CLIENT || UI
 global function GetCharacterButtonMapping
 global function GetCharacterButtonOrder
 #endif
@@ -94,18 +94,18 @@ FileStruct_LifetimeLevel& fileLevel
 
 table< ItemFlavor, array<int> > legHitBoxOverrides = {}
 
-/////////////////////////
-/////////////////////////
-//// Initialiszation ////
-/////////////////////////
-/////////////////////////
+////////////////////////
+////////////////////////
+//// Initialization ////
+////////////////////////
+////////////////////////
 #if SERVER || CLIENT || UI
 void function ShCharacters_LevelInit()
 {
 	FileStruct_LifetimeLevel newFileGame
 	fileLevel = newFileGame
 
-	#if SERVER && R5DEV
+	#if SERVER && DEVELOPER
 		AddCallback_GeneratePDef( GenerateCharactersPDef )
 	#endif
 
@@ -191,7 +191,7 @@ void function OnItemFlavorRegistered_Character( ItemFlavor character )
 #endif
 
 
-#if SERVER && R5DEV
+#if SERVER && DEVELOPER
 void function GenerateCharactersPDef()
 {
 	// this persistent data enum is required by sh_xp.gnut

@@ -94,8 +94,8 @@ global function SetNextCircleDisplayCustomClosing
 global function SetNextCircleDisplayCustomClear
 
 global function SetChampionScreenRuiAsset
-
-#if R5DEV
+global function InitSurvivalHealthBar
+#if DEVELOPER
 global function Dev_ShowVictorySequence
 global function Dev_AdjustVictorySequence
 #endif
@@ -507,6 +507,14 @@ void function OnPlayerCreated( entity player )
 		if ( IsSquadMuted() )
 			SetSquadMuteState( IsSquadMuted() )
 	}
+
+	if( IsFiringRangeGameMode() )
+	{
+		ItemFlavor musicPack = GetMusicPackForPlayer( player )
+		string desiredMusicTrack = MusicPack_GetLobbyMusic( musicPack )
+
+		EmitSoundOnEntity( player, desiredMusicTrack )
+	}
 }
 
 
@@ -622,7 +630,7 @@ void function Cl_Survival_AddClient( entity player )
 	getroottable().testRui <- file.dpadMenuRui
 	SetDpadMenuVisible()
 
-	#if R5DEV
+	#if DEVELOPER
 		if ( GetBugReproNum() == 1972 )
 			file.pilotRui = CreatePermanentCockpitPostFXRui( $"ui/survival_player_hud_editor_version.rpak", HUD_Z_BASE )
 		else
@@ -653,11 +661,12 @@ void function Cl_Survival_AddClient( entity player )
 
 	SetConVarFloat( "dof_variable_blur", 0.0 )
 
-	#if(false)
-
-#endif //
-
 	WaitingForPlayersOverlay_Setup( player )
+	
+	if(GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+	{
+		RuiTrackInt( file.compassRui, "gameState", null, RUI_TRACK_SCRIPT_NETWORK_VAR_GLOBAL_INT, 0 )
+	}
 }
 
 
@@ -701,8 +710,28 @@ void function SURVIVAL_PopulatePlayerInfoRui( entity player, var rui )
 	RuiTrackFloat( rui, "playerTargetHealthFracTemp", player, RUI_TRACK_HEAL_TARGET )
 
 	OverwriteWithCustomPlayerInfoTreatment( player, rui )
+	
+	if(GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+	{
+		RuiSetColorAlpha( rui, "customCharacterColor", SrgbToLinear( <53, 222, 47> / 255.0 ), 1.0 )
+		RuiSetBool( rui, "useCustomCharacterColor", true )
+	}
+	if(RGB_HUD)
+		thread RGBRui(rui)
 }
 
+void function RGBRui(var rui)
+{
+	entity player = GetLocalClientPlayer()
+	while(RGB_HUD)
+	{
+		int randomr = RandomInt(255)
+		int randomg = RandomInt(255) 
+		int randomb = RandomInt(255)	
+		RuiSetColorAlpha( rui, "customCharacterColor", SrgbToLinear( <randomr, randomg, randomb> / 255.0 ), 1.0 )	
+		wait 0.1
+	}
+}
 
 void function OverwriteWithCustomPlayerInfoTreatment( entity player, var rui )
 {
@@ -1043,13 +1072,8 @@ void function ScorebarInitTracking( entity player, var statusRui )
 	RuiTrackFloat( statusRui, "deathfieldDistance", player, RUI_TRACK_DEATHFIELD_DISTANCE )
 	RuiTrackInt( statusRui, "teamMemberIndex", player, RUI_TRACK_PLAYER_TEAM_MEMBER_INDEX )
 
-	#if(false)
-
-#endif //
-
 	if ( GetCurrentPlaylistVarBool( "second_scorebar_enabled", false ) == true )
 	{
-		//
 		RuiTrackInt( statusRui, "squadsRemainingCount", null, RUI_TRACK_SCRIPT_NETWORK_VAR_GLOBAL_INT, GetNetworkedVariableIndex( "livingPlayerCount" ) )
 		RuiTrackInt( statusRui, "squadsRemainingCount2", null, RUI_TRACK_SCRIPT_NETWORK_VAR_GLOBAL_INT, GetNetworkedVariableIndex( "livingShadowPlayerCount" ) )
 	}
@@ -1065,8 +1089,9 @@ void function OnHealthPickupTypeChanged( entity player, int oldKitType, int kitT
 
 	if ( !IsLocalViewPlayer( player ) )
 		return
-
-	UpdateDpadHud( player )
+	
+	if(!GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		UpdateDpadHud( player )
 }
 
 
@@ -1754,7 +1779,7 @@ void function ShowMapRui()
 
 bool function MapDevCheatsAreActive()
 {
-	#if R5DEV
+	#if DEVELOPER
 		if ( !GetConVarBool( "sv_cheats" ) )
 			return false
 		if ( InputIsButtonDown( KEY_LSHIFT ) || InputIsButtonDown( BUTTON_STICK_LEFT ) )
@@ -2012,6 +2037,14 @@ void function AddInWorldMinimapObject_WhenValid( entity ent )
 		case "tesla_trap":
 			if ( IsFriendlyTeam( ent.GetTeam(), GetLocalViewPlayer().GetTeam() ) )
 				thread AddInWorldMinimapTeslaTrap( ent, file.mapTopo )
+			return
+
+		case "ctf_flag_mil":
+				thread AddInWorldMinimapObjectInternal( ent, file.mapTopo, $"rui/gamemodes/capture_the_flag/mil_flag", $"rui/gamemodes/capture_the_flag/mil_flag" )
+			return
+
+		case "ctf_flag_imc":
+				thread AddInWorldMinimapObjectInternal( ent, file.mapTopo, $"rui/gamemodes/capture_the_flag/imc_flag", $"rui/gamemodes/capture_the_flag/imc_flag" )
 			return
 	}
 
@@ -2722,7 +2755,7 @@ vector function ConvertNormalizedPosToWorldPos( vector normalizedPos, float zoom
 //
 bool function Survival_HandleKeyInput( int key )
 {
-#if R5DEV
+#if DEVELOPER
 	if ( MapDevCheatsAreActive() )
 	{
 		switch ( key )
@@ -2732,7 +2765,7 @@ bool function Survival_HandleKeyInput( int key )
 				vector worldPos = ConvertNormalizedPosToWorldPos( GetMapNormalizedAimCoordinate() )
 				GetLocalClientPlayer().ClientCommand( format( "GoToMapPoint %.3f %.3f %.3f", worldPos.x, worldPos.y, worldPos.z ) )
 				ScreenFlash( 0.0, 0.0, 0.0, 0.1, 0.5 )
-				EmitSoundOnEntity( GetLocalViewPlayer(), "dropship_mp_epilogue_warpout" )
+				EmitSoundOnEntity( GetLocalViewPlayer(), "UI_InGame_ShadowSquad_ShipIncoming" )
 				delaythread( 0.25 ) HideScoreboard()
 				return true
 
@@ -3125,7 +3158,10 @@ void function OnGamestatePrematch()
 
 void function SetDpadMenuVisible()
 {
-	RuiSetBool( file.dpadMenuRui, "isVisible", GetHudDefaultVisibility() )
+	if(!GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		RuiSetBool( file.dpadMenuRui, "isVisible", GetHudDefaultVisibility() )
+	else
+		RuiSetBool( file.dpadMenuRui, "isVisible", false )
 }
 
 
@@ -3735,7 +3771,7 @@ SquadSummaryData function GetSquadSummaryData()
 	return file.squadSummaryData
 }
 
-#if R5DEV
+#if DEVELOPER
 void function Dev_ShowVictorySequence()
 {
 	ServerCallback_AddWinningSquadData( -1, -1, 0, 0, 0, 0, 0 )
@@ -3783,7 +3819,7 @@ void function SetSquadDataToLocalTeam()
 
 	int maxTrackedSquadMembers = PersistenceGetArrayCount( "lastGameSquadStats" )
 
-	#if R5DEV
+	#if DEVELOPER
 		printt( "PD: Reading Match Summary Persistet Vars for", player, "and", maxTrackedSquadMembers, "maxTrackedSquadMembers" )
 	#endif
 
@@ -3792,7 +3828,7 @@ void function SetSquadDataToLocalTeam()
 	{
 		int eHandle = player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].eHandle" )
 
-		#if R5DEV
+		#if DEVELOPER
 			printt( "PD: ", i, "eHandle", player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].eHandle" ) )
 		#endif
 
@@ -3808,7 +3844,7 @@ void function SetSquadDataToLocalTeam()
 		data.revivesGiven = player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].revivesGiven" )
 		data.respawnsGiven = player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].respawnsGiven" )
 
-		#if R5DEV
+		#if DEVELOPER
 			printt( "PD: ", i, "kills", player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].kills" ) )
 			printt( "PD: ", i, "damageDealt", player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].damageDealt" ) )
 			printt( "PD: ", i, "survivalTime", player.GetPersistentVarAsInt( "lastGameSquadStats[" + i + "].survivalTime" ) )
@@ -3821,7 +3857,7 @@ void function SetSquadDataToLocalTeam()
 
 	file.squadSummaryData.squadPlacement = player.GetPersistentVarAsInt( "lastGameRank" )
 
-	#if R5DEV
+	#if DEVELOPER
 		printt( "PD: squadPlacement", player.GetPersistentVarAsInt( "lastGameRank" ) )
 	#endif
 
@@ -3855,7 +3891,7 @@ void function VictorySequenceOrderLocalPlayerFirst( entity player )
 
 void function ShowVictorySequence( bool placementMode = false )
 {
-	#if(!DEV)
+	#if(!DEVELOPER)
 		placementMode = false
 	#endif
 
@@ -3867,7 +3903,6 @@ void function ShowVictorySequence( bool placementMode = false )
 		array<int> offsetArray = [90, 78, 78, 90, 90, 78, 78, 90, 90, 78]
 	#endif
 
-	//
 	ScreenFade( player, 255, 255, 255, 255, 0.4, 2.0, FFADE_OUT | FFADE_PURGE )
 
 	EmitSoundOnEntity( GetLocalClientPlayer(), "UI_InGame_ChampionMountain_Whoosh" )
@@ -3878,9 +3913,8 @@ void function ShowVictorySequence( bool placementMode = false )
 
 	DeathScreenUpdate()
 
-	if ( IsSpectating() )    //
+	if ( IsSpectating() )
 	{
-		//
 		SwitchDeathScreenTab( eDeathScreenPanel.SPECTATE )
 		EnableDeathScreenTab( eDeathScreenPanel.SQUAD_SUMMARY, false )
 		EnableDeathScreenTab( eDeathScreenPanel.DEATH_RECAP, false )
@@ -3895,7 +3929,6 @@ void function ShowVictorySequence( bool placementMode = false )
 
 	ScreenFade( player, 255, 255, 255, 255, 0.4, 0.0, FFADE_IN | FFADE_PURGE )
 
-	//
 	asset defaultModel                = GetGlobalSettingsAsset( DEFAULT_PILOT_SETTINGS, "bodyModel" )
 	LoadoutEntry loadoutSlotCharacter = Loadout_CharacterClass()
 	vector characterAngles            = < file.victorySequenceAngles.x / 2.0, file.victorySequenceAngles.y, file.victorySequenceAngles.z >
@@ -3903,15 +3936,12 @@ void function ShowVictorySequence( bool placementMode = false )
 	array<entity> cleanupEnts
 	array<var> overHeadRuis
 
-	//
 	VictoryPlatformModelData victoryPlatformModelData = GetVictorySequencePlatformModel()
 	entity platformModel
 	int maxPlayersToShow = -1
 	if ( victoryPlatformModelData.isSet )
 	{
 		platformModel = CreateClientSidePropDynamic( file.victorySequencePosition + victoryPlatformModelData.originOffset, victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-		#if(true)
-			//
 			if ( IsFallLTM() )
 			{
 				entity platformModel2 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 1000, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
@@ -3931,12 +3961,10 @@ void function ShowVictorySequence( bool placementMode = false )
 				if ( IsShadowVictory() )
 					maxPlayersToShow = 16
 			}
-		#endif //
 
 		cleanupEnts.append( platformModel )
 		int playersOnPodium = 0
 
-		//
 		VictorySequenceOrderLocalPlayerFirst( player )
 
 		foreach( int i, SquadSummaryPlayerData data in file.winnerSquadSummaryData.playerData )
@@ -3960,7 +3988,6 @@ void function ShowVictorySequence( bool placementMode = false )
 
 			vector pos = GetVictorySquadFormationPosition( file.victorySequencePosition, file.victorySequenceAngles, i )
 
-			//
 			entity characterNode = CreateScriptRef( pos, characterAngles )
 			characterNode.SetParent( platformModel, "", true )
 			entity characterModel = CreateClientSidePropDynamic( pos, characterAngles, defaultModel )
@@ -3969,7 +3996,7 @@ void function ShowVictorySequence( bool placementMode = false )
 			CharacterSkin_Apply( characterModel, characterSkin )
 			cleanupEnts.append( characterModel )
 
-			#if R5DEV
+			#if DEVELOPER
 				if ( GetBugReproNum() == 1111 )
 				{
 					var topo = CreateRUITopology_Worldspace( OffsetPointRelativeToVector( pos, < 0, -50, 0 >, characterModel.GetForwardVector() ), characterAngles + <0, 180, 0>, 1000, 500 )
@@ -3983,27 +4010,22 @@ void function ShowVictorySequence( bool placementMode = false )
 				}
 			#endif
 
-			//
 			foreach( func in s_callbacks_OnVictoryCharacterModelSpawned )
 				func( characterModel, character, data.eHandle )
 
-			//
 			characterModel.SetParent( characterNode, "", false )
 			string victoryAnim = GetVictorySquadFormationActivity( i, characterModel )
 			characterModel.Anim_Play( victoryAnim )
 			characterModel.Anim_EnableUseAnimatedRefAttachmentInsteadOfRootMotion()
-			#if(true)
-				if ( IsFallLTM() )
-				{
-					//
-					float duration = characterModel.GetSequenceDuration( victoryAnim )
-					float initialTime = RandomFloatRange( 0, duration )
-					characterModel.Anim_SetInitialTime( initialTime )
-				}
-			#endif //
+			if ( IsFallLTM() )
+			{
+				float duration = characterModel.GetSequenceDuration( victoryAnim )
+				float initialTime = RandomFloatRange( 0, duration )
+				characterModel.Anim_SetInitialTime( initialTime )
+			}
 
 
-			#if R5DEV
+			#if DEVELOPER
 				if ( GetBugReproNum() == 1111 || GetBugReproNum() == 2222 )
 				{
 					playersOnPodium++
@@ -4011,14 +4033,11 @@ void function ShowVictorySequence( bool placementMode = false )
 				}
 			#endif
 
-			//
 			bool createOverheadRui = true
-			#if(true)
-				if ( IsFallLTM() && IsShadowVictory() && player.GetEncodedEHandle() != data.eHandle )
-				{
+			if ( IsFallLTM() && IsShadowVictory() && player.GetEncodedEHandle() != data.eHandle )
+			{
 					createOverheadRui = false
-				}
-			#endif //
+			}
 			if ( createOverheadRui )
 			{
 				int offset = 78
@@ -4038,12 +4057,10 @@ void function ShowVictorySequence( bool placementMode = false )
 			playersOnPodium++
 		}
 
-		//
 		VictorySoundPackage victorySoundPackage = GetVictorySoundPackage()
 		string dialogueApexChampion
 		if ( player.GetTeam() == GetWinningTeam() )
 		{
-			//
 			if ( playersOnPodium > 1 )
 				dialogueApexChampion = victorySoundPackage.youAreChampPlural
 			else
@@ -4059,7 +4076,6 @@ void function ShowVictorySequence( bool placementMode = false )
 
 		EmitSoundOnEntityAfterDelay( platformModel, dialogueApexChampion, 0.5 )
 
-		//
 		VictoryCameraPackage victoryCameraPackage = GetVictoryCameraPackage()
 
 		vector camera_offset_start = victoryCameraPackage.camera_offset_start
@@ -4081,10 +4097,8 @@ void function ShowVictorySequence( bool placementMode = false )
 		camera.SetParent( cameraMover, "", false )
 		cleanupEnts.append( camera )
 
-		//
 		GetLightEnvironmentEntity().ScaleSunSkyIntensity( file.victorySunIntensity, file.victorySkyIntensity )
 
-		//
 		float camera_move_duration = 6.5
 		cameraMover.NonPhysicsMoveTo( camera_end_pos, camera_move_duration, 0.0, camera_move_duration / 2.0 )
 		cameraMover.NonPhysicsRotateTo( camera_end_angles, camera_move_duration, 0.0, camera_move_duration / 2.0 )
@@ -4092,7 +4106,7 @@ void function ShowVictorySequence( bool placementMode = false )
 
 		wait camera_move_duration - 0.5
 
-		#if R5DEV
+		#if DEVELOPER
 			if ( placementMode )
 			{
 				if ( IsValid( platformModel ) )
@@ -4142,7 +4156,7 @@ void function ShowVictorySequence( bool placementMode = false )
 
 	file.IsShowingVictorySequence = false
 
-	#if R5DEV
+	#if DEVELOPER
 		printt( "PD: IsSquadDataPersistenceEmpty", IsSquadDataPersistenceEmpty() )
 	#endif
 

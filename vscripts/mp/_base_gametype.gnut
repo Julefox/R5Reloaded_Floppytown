@@ -1534,7 +1534,7 @@ int function CodeCallback_GetWeaponDamageSourceId( entity weapon )
 {
 	string classname = weapon.GetWeaponClassName()
 
-	#if R5DEV
+	#if DEVELOPER
 		if ( ("devWeapons" in level) && classname in level.devWeapons )
 			return 0
 
@@ -1799,7 +1799,14 @@ void function EntityOutOfBounds( entity trigger, entity ent, entity caller, var 
 
 		dataStruct.timeLeftBeforeDyingFromOutOfBounds = deadTime
 
-		ent.SetOutOfBoundsDeadTime( Time() + deadTime )
+		if ( GetMapName() == "mp_rr_aqueduct" || GetMapName() == "mp_rr_aqueduct_night" )
+		{
+			ent.SetOutOfBoundsDeadTime( Time() + 5 )
+		}
+		else
+		{
+			ent.SetOutOfBoundsDeadTime( Time() + deadTime )
+		}
 
 		thread KillEntityOutOfBounds( ent, trigger )
 	}
@@ -2007,7 +2014,8 @@ function ClearRespawnAvailable( entity player )
 
 void function SetPlayerEliminated( entity player )
 {
-	player.SetPlayerGameStat( PGS_ELIMINATED, 1 )
+	EliminatedPlayers[player.GetPlayerName()] <- player.GetPlatformUID()
+	printt("PLAYER ELIMINATED ADDED TO TABLE. " + player.GetPlayerName() + " - " + player.GetPlatformUID())
 }
 
 void function SetPlayerIntroDropSettings( entity player )
@@ -2027,12 +2035,22 @@ void function ClearPlayerPlaneViewMode( entity player )
 
 void function ClearPlayerEliminated( entity player )
 {
-	player.SetPlayerGameStat( PGS_ELIMINATED, 0 )
+	if(player.GetPlayerName() in EliminatedPlayers)
+	{
+		printt("CLEARING ELIMINATED STATE FOR PLAYER " + player.GetPlayerName() + " - " + player.GetPlatformUID())
+		delete EliminatedPlayers[player.GetPlayerName()]
+	}
 }
 
 bool function IsPlayerEliminated( entity player )
 {
-	return (player.GetPlayerGameStat( PGS_ELIMINATED ) > 0)
+	// printt("CHECKING IF PLAYER IS ELIMINATED " + player.GetPlayerName() + " - " + player.GetPlatformUID())
+	foreach(playername, id in EliminatedPlayers)
+		if(player.GetPlayerName() == playername || id == player.GetPlatformUID())
+			return true
+		else
+			return false
+	return false
 }
 
 bool function IsTeamEliminated( int team )

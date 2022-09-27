@@ -342,7 +342,7 @@ global struct ServerEntityStruct
 	string enemyHighlight = ""
 	string burnReward = ""
 	int fd_roundDeployed = -1
-	
+
 	// r5 stuff
 	EHIScriptStruct ehiss
 	bool isBusy = false
@@ -549,6 +549,8 @@ global struct ServerPlayerStruct
 
 	array<StoredWeapon> storedWeapons
 
+	int CTFClassID = 0
+
 	bool rodeoShouldAdjustJumpOffVelocity = false
 	float rodeoRequestBatteryHintLastShownTime = 0.0
 	float batteryLastTouchedNotificationTime = 0.0
@@ -600,7 +602,7 @@ global struct ServerPlayerStruct
 	int turretArrayId = -1
 
 	float hotStreakTime = 0.0
-	
+
 	// extra stuff for apex
 	int skydiveDecoysFired = 0
 	bool isInExtendedUse = false
@@ -659,7 +661,7 @@ global struct ServerPlayerStruct
 	int zoneNoTouchStack
 	int currentZoneId
 	entity DEV_lastDroppedSurvivalWeaponProp
-	
+
 	int squadRank
 
 	float respawnChanceExpiryTime
@@ -667,6 +669,35 @@ global struct ServerPlayerStruct
 	float playerDamageDealt
 	int respawnsGiven
 	int revivesGiven
+	// This is for Octane's ability chatter
+	float lastStimChatterTime = -30
+	float lastJumpPadChatterTime = -30
+	
+	//Strafer dummy challenge
+	int challengeName = 0
+	bool isChallengeActivated
+	//temp challenges data
+	int straferDummyKilledCount
+	int straferChallengeDamage
+	int straferCriticalShots
+	int straferShotsHit
+	int straferTotalShots
+	int straferShotsHitRecord = 0
+	int totalPossibleDamage
+	bool isNewBestScore = false
+	bool isRestartingLevel = false
+	int dummieKilled = 0
+	bool touchingTopTrigger = false
+}
+
+global struct ChallengeScore
+{
+	int straferDummyKilledCount
+	int straferChallengeDamage
+	int straferCriticalShots
+	int straferShotsHit
+	int straferTotalShots
+	float straferAccuracy
 }
 
 global struct ServerPlayerWaypoint

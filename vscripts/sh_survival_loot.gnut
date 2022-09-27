@@ -67,7 +67,7 @@ global function SURVIVAL_GetCharacterShieldHealthMaxForArmor
 
 #endif //
 
-global const string CMDNAME_PLAYER_SWITCHED_WEAPONS = "PlayerSwitchedWeapons"
+//global const string CMDNAME_PLAYER_SWITCHED_WEAPONS = "PlayerSwitchedWeapons"
 
 global function SURVIVAL_IsLootIrrelevant
 global function SURVIVAL_IsLootAnUpgrade
@@ -90,7 +90,7 @@ global function Dev_SpawnAllLootTypes
 global function SURVIVAL_Loot_GetByType_InLevel
 global function SURVIVAL_Loot_DisableNetworkDistanceCullingManaged
 global function SURVIVAL_Loot_EnableNetworkDistanceCullingManaged
-#if R5DEV
+#if DEVELOPER
 global function Dev_GetNextBotLootWeapon
 global function Dev_SpawnBotWithIncapShieldToView
 #endif
@@ -114,7 +114,6 @@ global function GetInstalledWeaponAttachment
 global function GetAllWeaponAttachments
 
 global function SURVIVAL_GetAllPlayerOrdnance
-global function SURVIVAL_PlayerCanUse_AnimatedInteraction
 global function SURVIVAL_CanPlayerPickup
 global function SURVIVAL_PlayerAllowedToPickup
 global function SURVIVAL_PlayerCanSwitchOrdnance
@@ -536,7 +535,7 @@ void function SURVIVAL_Loot_InitShared()
 				format( "Reference to '%s' in 'survival_weapon_mods.csv' is gated by unknown feature flag: %s", aRef, featureFlagRef ) )
 			if ( !GetFeatureFlagByString( featureFlagRef ) )
 			{
-				//printf( "Skipping reference to '%s' in 'survival_weapon_mods.csv' because feature flag %s is off.", aRef, featureFlagRef )
+				printf( "Skipping reference to '%s' in 'survival_weapon_mods.csv' because feature flag %s is off.", aRef, featureFlagRef )
 				continue
 			}
 		}
@@ -626,6 +625,23 @@ void function SURVIVAL_Loot_InitShared()
 		file.attachmentMatrix[ attachmentName ] <- aData
 	}
 
+	// Makes custom hopups compatible with vanilla weapons.
+	// Way to check for them is simple enough..
+	foreach(CustomHopupData a in GetCustomHopupArray()){
+		AttachmentData aData
+		// class name - also the name of the mod to be added.
+		aData.ref = a.className
+		// attachment slot
+		aData.attachPoint = a.attachmentSlot
+
+		foreach ( data in allWeapons )
+		{
+			if (IsAttachmentCompatibleWithCustomWeapon(data, aData)) aData.compatibleWeapons.append( data.baseWeapon )
+		}
+		// add to da matrix.
+		file.attachmentMatrix[aData.ref] <- aData
+	}
+
 	foreach ( aData in file.attachmentMatrix )
 	{
 		if ( aData.attachPoint == "barrel" ) //TODO: logic...
@@ -683,6 +699,36 @@ void function SURVIVAL_Loot_InitShared()
 	}
 }
 
+bool function IsAttachmentCompatibleWithCustomWeapon(LootData weapon, AttachmentData att)
+{
+	// Check weapon compatibility with custom attachment.
+	//
+	// Because checking for every single circumstance is way more performance heavy and ugly as hell,
+	// instead we check if the mod with the same name of the attachment class name exists on the weapon.
+	//
+	// Sure, it means we can make multiple mag attachments compatible with the same weapon,
+	// but that isn't necessarily bad.
+	array<string> mods = GetWeaponMods_Global( weapon.baseWeapon )
+	if (!mods.contains(att.ref)) return false
+	printt(att.ref, "|", att.attachPoint, "|", weapon.ref)
+	if (!weapon.supportedAttachments.contains( att.attachPoint )) {
+		// Allows adding  attachment slots to normal weapons if attachments are compatible.
+		// Means that certain weapons will have barrels added to them if a custom barrel is compatible.
+		// still won't allow them to equip vanilla attachments, however.
+		// Default OFF.
+		if (att.attachPoint != "")
+		{
+			weapon.supportedAttachments.append( att.attachPoint )
+			//if (weapon.attachmentStyle == "") weapon.attachmentStyle = "hopup"
+			if (SURVIVAL_Loot_GetLootDataByRef(att.ref).attachmentStyle == "") SURVIVAL_Loot_GetLootDataByRef(att.ref).attachmentStyle = "hopup"
+		}
+		else return false
+	}
+	// debug.
+	printt("Attachment", att.ref, "has been found to be compatible with", weapon.ref)
+	return true
+}
+
 #if SERVER
 void function OnClientConnected( entity player )
 {
@@ -694,7 +740,7 @@ void function OnClientConnected( entity player )
 
 	ValidateDataTable( player, "datatable/survival_loot.rpak" )
 	ValidateDataTable( player, "datatable/survival_weapon_mods.rpak" )
-    ValidateDataTable( player, "datatable/survival_loot_groups_new.rpak" )
+		ValidateDataTable( player, "datatable/survival_loot_groups_new.rpak" )
 }
 
 void function OnPlayerRespawned( entity player )
@@ -715,19 +761,17 @@ bool function SURVIVAL_AltUseSwapsWeapon()
 	return DOES_ALT_USE_SWAP_WEAPON
 }
 
-//#if SERVER
+// #if SERVER
 array<entity> function SURVIVAL_Loot_GetAllLoot()
 {
 	return file.allLoot
 }
-//#endif
+// #endif
 
 bool function CanPlayerLoot( entity player )
 {
-	#if(true)
-		if ( IsPlayerShadowSquad( player ) )
-			return false
-	#endif
+	if ( IsPlayerShadowSquad( player ) )
+		return false
 
 	return true
 }
@@ -958,24 +1002,22 @@ int function SURVIVAL_Loot_GetHealthPickupCategoryFromData( HealthPickup pickup 
 
 void function SURVIVAL_Loot_RegisterConditionalCheck( string ref, bool functionref( string, entity ) conditionalCheck )
 {
-	//Assert ( !( ref in file.conditionalLootChecks ), "Loot ref already has registered conditional check!" )
+	Assert ( !( ref in file.conditionalLootChecks ), "Loot ref already has registered conditional check!" )
 	file.conditionalLootChecks[ ref ] <- conditionalCheck
 }
 
 bool function SURVIVAL_Loot_RunConditionalCheck( string ref, entity player )
 {
-	//Assert( ref in file.conditionalLootChecks, "Loot ref does not have registered conditional function!" )
+	Assert( ref in file.conditionalLootChecks, "Loot ref does not have registered conditional function!" )
 	return file.conditionalLootChecks[ ref ]( ref, player )
 }
 
 string function GetAttachPointForAttachment( string attachmentName )
 {
-	var attachmentMatrix = GetDataTable( $"datatable/weapon_attachment_matrix.rpak" )
-	int attachmentRow = GetDataTableRowMatchingStringValue( attachmentMatrix, GetDataTableColumnByName( attachmentMatrix, "attachmentName" ), attachmentName )
-	Assert( attachmentRow >= 0, "Attachment not defined in datatable/weapon_attachment_matrix.rpak" )
-	int attachmentPointColumn = GetDataTableColumnByName( attachmentMatrix, "attachmentPoint" )
-
-	return GetDataTableString( attachmentMatrix, attachmentRow, attachmentPointColumn )
+	// Support for custom attachments.
+	// Leaves normal attachments unchanged too so it still works as intended,
+	// and is also faster.
+	return file.attachmentMatrix[attachmentName].attachPoint
 }
 
 #if CLIENT || SERVER
@@ -2135,29 +2177,6 @@ array<string> function SURVIVAL_GetAllPlayerOrdnance( entity player )
 	return allOrdnance
 }
 
-bool function SURVIVAL_PlayerCanUse_AnimatedInteraction( entity player, entity ent )
-{
-	if ( !IsValid( player ) )
-		return false
-
-	if ( Bleedout_IsBleedingOut( player ) )
-		return false
-
-	if ( player.ContextAction_IsActive() )
-		return false
-
-	if ( !SURVIVAL_PlayerAllowedToPickup( player ) )
-		return false
-
-	if ( IsValid( player.GetParent() ) )
-		return false
-
-	if ( ent.e.isBusy )
-		return false
-
-	return true
-}
-
 bool function SURVIVAL_CanPlayerPickup( entity player, entity pickup )
 {
 	#if SERVER
@@ -2766,7 +2785,7 @@ void function Dev_SpawnAllLootTypes( vector startPos, vector diffPosCol, vector 
 }
 #endif // SERVER
 
-#if SERVER && R5DEV
+#if SERVER && DEVELOPER
 int Dev_botWeaponIndex = -1
 string function Dev_GetNextBotLootWeapon()
 {

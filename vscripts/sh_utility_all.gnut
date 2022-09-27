@@ -109,7 +109,7 @@ void function ShUtilityAll_Init()
 	RegisterSignal( "CancelTimeout" )
 
 	//
-	#if(!UI)
+	#if !UI
 		PrecacheModel( $"mdl/fx/fire_cylinder_sm1.rmdl" )
 		PrecacheModel( $"mdl/fx/r301_leg07_fire_horns.rmdl" )
 		PrecacheModel( $"mdl/fx/r301_leg07_fire_body.rmdl" )
@@ -1458,7 +1458,7 @@ UIPos function REPLACEHud_GetParentRelativePos( var panel )
 UISize function GetScreenSize()
 {
 	#if UI
-		return REPLACEHud_GetSize( GetMenu( "MainMenu" ) )
+		return REPLACEHud_GetSize( GetMenu( "R5RMainMenu" ) )
 	#elseif CLIENT
 		array screenSize = expect array( Hud.GetScreenSize() )
 
@@ -2391,7 +2391,7 @@ entity function AssertLocalOrServerValidPlayer( entity player )
 
 bool function IsEverythingUnlocked()
 {
-	#if R5DEV
+	#if DEVELOPER
 		if ( GetCurrentPlaylistVarBool( "dev_force_everything_unlocked", false ) )
 			return true
 	#endif

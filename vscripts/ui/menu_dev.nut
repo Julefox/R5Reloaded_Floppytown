@@ -1,7 +1,7 @@
 untyped
 
 global function InitDevMenu
-#if R5DEV
+#if DEVELOPER
 global function DEV_InitLoadoutDevSubMenu
 global function SetupDevCommand // for dev
 global function SetupDevFunc // for dev
@@ -72,7 +72,7 @@ function Dummy_Untyped( param )
 
 void function InitDevMenu( var newMenuArg )
 {
-	#if R5DEV
+	#if DEVELOPER
 		var menu = GetMenu( "DevMenu" )
 
 		AddMenuEventHandler( menu, eUIEvent.MENU_OPEN, OnOpenDevMenu )
@@ -105,7 +105,7 @@ void function InitDevMenu( var newMenuArg )
 
 void function AddLevelDevCommand( string label, string command )
 {
-	#if R5DEV
+	#if DEVELOPER
 		string codeDevMenuAlias = DEV_MENU_NAME + "/" + label
 		DevMenu_Alias_DEV( codeDevMenuAlias, command )
 
@@ -116,7 +116,7 @@ void function AddLevelDevCommand( string label, string command )
 	#endif
 }
 
-#if R5DEV
+#if DEVELOPER
 void function OnOpenDevMenu()
 {
 	file.pageHistory.clear()
@@ -270,15 +270,15 @@ void function SetupDefaultDevCommandsMP()
 {
 	SetupDevMenu( "Abilities", SetDevMenu_Abilities )
 	SetupDevMenu( "Equip Weapon", SetDevMenu_Weapons )
-    SetupDevMenu( "TDM Weapon", SetDevMenu_TDMWeapons )
+	SetupDevMenu( "TDM Weapon", SetDevMenu_TDMWeapons )
 	//SetupDevMenu( "MDLSpawner", SetDevMenu_ModelSpawner )
-    SetupDevMenu( "AlterLoadout", SetDevMenu_AlterLoadout )
 
 	if ( IsSurvivalMenuEnabled() )
 	{
 		SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
 		//SetupDevMenu( "Override Spawn Character", SetDevMenu_OverrideSpawnSurvivalCharacter )
 		SetupDevMenu( "Survival", SetDevMenu_Survival )
+		SetupDevMenu( "Custom Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
 		SetupDevMenu( "Survival Weapons", SetDevMenu_SurvivalLoot, "main_weapon" )
 		SetupDevMenu( "Survival Attachments", SetDevMenu_SurvivalLoot, "attachment" )
 		SetupDevMenu( "Survival Helmets", SetDevMenu_SurvivalLoot, "helmet" )
@@ -287,10 +287,8 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevMenu( "Survival Incap Shield", SetDevMenu_SurvivalLoot, "incapshield" )
 		//SetupDevMenu( "Survival Incap Shield Debugging", SetDevMenu_SurvivalIncapShieldBots )
 
-		string itemsString = "ordnance ammo health custom_pickup"
-		#if(true)
-			itemsString += " data_knife"
-		#endif
+		string itemsString = "ordnance ammo health custom_pickup data_knife"
+
 		SetupDevMenu( "Survival Items", SetDevMenu_SurvivalLoot, itemsString )
 
 		//SetupDevCommand( "Survival Loot Zone Preprocess", "script_ui Dev_CommandLineAddParm( \"-survival_preprocess\", \"\" ); reload" )
@@ -351,6 +349,9 @@ void function SetupDefaultDevCommandsMP()
 
 	SetupDevCommand( "Toggle Skybox View", "script thread ToggleSkyboxView()" )
 	SetupDevCommand( "Toggle HUD", "ToggleHUD" )
+
+	SetupDevCommand( "Equip Custom Heirloom", "script thread SetupHeirloom()" )
+	SetupDevCommand( "Equip Custom Heirloom (All Players)", "script thread SetupHeirloom( true )" )
 	//SetupDevCommand( "Toggle Offhand Low Recharge", "ToggleOffhandLowRecharge" )
 	//SetupDevCommand( "Map Metrics Toggle", "script_client GetLocalClientPlayer().ClientCommand( \"toggle map_metrics 0 1 2 3\" )" )
 	//SetupDevCommand( "Toggle Pain Death sound debug", "script TogglePainDeathDebug()" )
@@ -365,9 +366,9 @@ void function SetupDefaultDevCommandsMP()
 
 	SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
 
-	// This adds CAPTURE MODE every time you load a level. 
+	// This adds CAPTURE MODE every time you load a level.
 	// Capture mode doesn't work, so I am commenting this out.
-	// Coded in sh_capturemode.nut 
+	// Coded in sh_capturemode.nut
 	// foreach ( DevCommand cmd in file.levelSpecificCommands )
 	// 	SetupDevCommand( cmd.label, cmd.command )
 }

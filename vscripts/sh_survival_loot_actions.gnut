@@ -308,7 +308,7 @@ bool function PickupAmmo( entity ammoPickup, entity player, int pickupFlags = 0,
 	int poolCount = player.AmmoPool_GetCount( ammoType )
 
 	bool autopickup = (pickupFlags & PICKUP_FLAG_AUTO) > 0
-	
+
 	//printt("PickupAmmo", autopickup, SURVIVAL_GetCountToFillStack( player, data.ref ), data.inventorySlotCount)
 
 	if ( autopickup && SURVIVAL_GetCountToFillStack( player, data.ref ) == data.inventorySlotCount )
@@ -334,7 +334,7 @@ bool function PickupAmmo( entity ammoPickup, entity player, int pickupFlags = 0,
 	numToPickup = minint( numToPickup, poolMax - poolCount )
 
 #if SERVER
-#if R5DEV
+#if DEVELOPER
 	//if ( !GetConVarBool( "sv_infinite_ammo" ) ) // Cvar does not exist in retail engine
 #endif
 	player.AmmoPool_SetCount( ammoType, poolCount + numToPickup )
@@ -600,7 +600,7 @@ bool function EquipEquipment( entity pickup, entity player, string equipSlot, en
 		}
 		else
 		{
-			FakePhysicsThrow( player, drop, fwd * 100, true )
+			FakePhysicsThrow( player, drop, fwd * 100 )
 		}
 	}
 	else

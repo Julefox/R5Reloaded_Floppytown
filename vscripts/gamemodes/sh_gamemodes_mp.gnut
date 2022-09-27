@@ -7,6 +7,22 @@ void function GameModes_Init_SV_CL()
 
 	////////////////////////////
 	//                        //
+	//        Menufall        //
+	//                        //
+	////////////////////////////
+
+	gameMode = MENUFALL
+	#if SERVER || CLIENT
+		GameMode_AddSharedInit( gameMode, GamemodeSurvivalShared_Init )
+	#endif
+	#if SERVER
+	GameMode_SetPilotSpawnpointsRatingFunc( gameMode, RateSpawnpoints_Generic )
+	GameMode_SetTitanSpawnpointsRatingFunc( gameMode, RateSpawnpoints_Generic )
+	GameMode_SetEvacEnabled( gameMode, false )
+	#endif
+
+	////////////////////////////
+	//                        //
 	//          TDM           //
 	//                        //
 	////////////////////////////
@@ -111,29 +127,29 @@ void function GameModes_Init_SV_CL()
 	//GameMode_AddClientInit( gameMode, ClGamemodeSurvival_Init )
 	#endif
 
-	#if DEVSCRIPTS
-		Dev_GameModes_Init_SV_CL()
-	#endif
+	//////////////////////////////////////
+	//                                  //
+	//       Custom AIMTRAINER       	//
+	//                                  //
+	//////////////////////////////////////
 
-	////////////////////////////
-	//                        //
-	//       Custom HAS       //
-	//                        //
-	////////////////////////////
-
-	gameMode = CUSTOM_HIDEANDSEEK
+	gameMode = CUSTOM_AIMTRAINER
 	#if SERVER || CLIENT
-		GameMode_AddSharedInit(gameMode, Sh_CustomHideAndSeek_Init)
+		GameMode_AddSharedInit(gameMode, Sh_ChallengesByColombia_Init)
 		GameMode_AddSharedInit( gameMode, GamemodeSurvivalShared_Init )
 	#endif
 	#if SERVER
-	GameMode_AddServerInit(gameMode, _CustomHideAndSeek_Init)
+	GameMode_AddServerInit(gameMode, _ChallengesByColombia_Init)
 	GameMode_SetPilotSpawnpointsRatingFunc( gameMode, RateSpawnpoints_Generic )
 	GameMode_SetTitanSpawnpointsRatingFunc( gameMode, RateSpawnpoints_Generic )
 	GameMode_SetEvacEnabled( gameMode, false )
 	#elseif CLIENT
-	GameMode_AddClientInit(gameMode, Cl_CustomHideAndSeek_Init)
+	GameMode_AddClientInit(gameMode, Cl_ChallengesByColombia_Init)
 	//GameMode_AddClientInit( gameMode, ClGamemodeSurvival_Init )
+	#endif
+
+	#if DEVSCRIPTS
+		Dev_GameModes_Init_SV_CL()
 	#endif
 
 }

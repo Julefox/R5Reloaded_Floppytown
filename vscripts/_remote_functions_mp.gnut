@@ -20,19 +20,10 @@ void function RemoteFunctions_Init_Begin()
 	Remote_RegisterClientFunction("ServerCallback_TDM_DoAnnouncement", "float", 0.0, 256.0, 32, "int", 0, 255)
 	Remote_RegisterClientFunction("ServerCallback_TDM_SetSelectedLocation","int", 0, 255)
 	Remote_RegisterClientFunction("ServerCallback_TDM_DoLocationIntroCutscene")
-    Remote_RegisterClientFunction("ServerCallback_TDM_PlayerKilled")
+	Remote_RegisterClientFunction("ServerCallback_TDM_PlayerKilled")
 	Remote_RegisterClientFunction("ServerCallback_KillReplayHud_Activate")
 	Remote_RegisterClientFunction("ServerCallback_KillReplayHud_Deactivate")
 
-	Remote_RegisterClientFunction("ServerCallback_HideAndSeek_DoAnnouncement", "float", 0.0, 256.0, 32, "int", 0, 255)
-    Remote_RegisterClientFunction("ServerCallback_HideAndSeek_PlayerKilled")
-
-	if ( GetMapName() == "mp_rr_floppytown" )
-	{
-		//Remote_RegisterClientFunction("ServerCallback_Crane_DoAnnouncement")
-		//Remote_RegisterClientFunction("ServerCallback_HUD_Test_DoAnnouncement")
-	}
-		
 
 	RegisterSignal("OnChangedPlayerClass")
 	RegisterSignal("BleedOut_OnStartDying")
@@ -146,30 +137,68 @@ void function RemoteFunctions_Init_Begin()
 		case CUSTOM_CTF:
 			// CTF: Server to Client
 			Remote_RegisterClientFunction( "ServerCallback_CTF_AddPointIcon", "entity", "entity", "int", 0, 255)
-			Remote_RegisterClientFunction( "ServerCallback_CTF_RecaptureFlag", "int", 0, 999, "float", 0.0, 999.0, 32, "float", 0.0, 999.0, 32)
-			Remote_RegisterClientFunction( "ServerCallback_CTF_EnemyCaptured", "entity" )
-			Remote_RegisterClientFunction( "ServerCallback_CTF_TeamCaptured", "entity" )
+			Remote_RegisterClientFunction( "ServerCallback_CTF_RecaptureFlag", "int", 0, 999, "float", 0.0, 999.0, 32, "float", 0.0, 999.0, 32, "bool")
+			Remote_RegisterClientFunction("ServerCallback_CTF_FlagCaptured", "entity", "int", 0, 255)
 			Remote_RegisterClientFunction( "ServerCallback_CTF_CustomMessages", "entity", "int", 0, 255 )
-			Remote_RegisterClientFunction( "ServerCallback_CTF_TeamWon", "int", 0, 999 )
+			Remote_RegisterClientFunction( "ServerCallback_CTF_PickedUpFlag", "entity", "bool" )
 			Remote_RegisterClientFunction( "ServerCallback_CTF_SetSelectedLocation", "int", 0, 255)
 			Remote_RegisterClientFunction( "ServerCallback_CTF_SetPointIconHint", "int", 0, 255, "int", 0, 255 )
-			Remote_RegisterClientFunction("ServerCallback_CTF_DoAnnouncement", "float", 0.0, 256.0, 32, "int", 0, 255)
-			Remote_RegisterClientFunction("ServerCallback_CTF_PlayerDied", "vector", -32000.0, 32000.0, 32, "int", 0, 255, "int", 0, 255, "entity")
-			Remote_RegisterClientFunction("ServerCallback_CTF_OpenCTFRespawnMenu", "vector", -32000.0, 32000.0, 32, "int", 0, 255, "int", 0, 255, "entity")
-			Remote_RegisterClientFunction("ServerCallback_CTF_UpdateDamage", "int", 0, 255, "float", 0.0, 9999.0, 32)
-			Remote_RegisterClientFunction("ServerCallback_CTF_PlayerSpawning")
-			Remote_RegisterClientFunction("ServerCallback_CTF_SetObjectiveText", "int", 0, 255)
-			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_EndRecaptureFlag" )
+			Remote_RegisterClientFunction("ServerCallback_CTF_DoAnnouncement", "float", 0.0, 256.0, 32, "int", 0, 255, "float", 0.0, 1000000.0, 32)
+			Remote_RegisterClientFunction( "ServerCallback_CTF_OpenCTFRespawnMenu", "vector", -32000.0, 32000.0, 32, "int", 0, 255, "int", 0, 255, "entity", "int", 0, 255)
+			Remote_RegisterClientFunction( "ServerCallback_CTF_SetObjectiveText", "int", 0, 255)
 			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_ResetFlagIcons" )
 			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_PointCaptured" )
 			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_TeamText" )
+			Remote_RegisterClientFunction( "ServerCallback_CTF_SetCorrectTime", "int", 0, 255)
+			Remote_RegisterClientFunction( "ServerCallback_CTF_UpdatePlayerStats", "int", 0, 255)
+			Remote_RegisterClientFunction( "ServerCallback_CTF_CheckUpdatePlayerLegend")
+			Remote_RegisterClientFunction( "ServerCallback_CTF_HideCustomUI" )
+			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_PrintClientMessage" )
+			Remote_RegisterUntypedFunction_deprecated( "ServerCallback_CTF_BuildClientMessage" )
+			//CTF: Vote Menu
+			Remote_RegisterClientFunction("ServerCallback_CTF_SetScreen", "int", 0, 255, "int", 0, 255, "int", 0, 255, "int", 0, 255)
+			Remote_RegisterClientFunction("ServerCallback_CTF_SetVoteMenuOpen", "bool", "int", 0, 255)
+			Remote_RegisterClientFunction("ServerCallback_CTF_UpdateVotingMaps", "int", 0, 255, "int", 0, 255, "int", 0, 255, "int", 0, 255)
+			Remote_RegisterClientFunction("ServerCallback_CTF_UpdateMapVotesClient", "int", 0, 255, "int", 0, 255, "int", 0, 255, "int", 0, 255)
 
 			// CTF: Server to UI
-			Remote_RegisterUIFunction( "OpenCTFRespawnMenu" )
 			Remote_RegisterUIFunction( "CloseCTFRespawnMenu" )
-			
 			// END CTF
+		case CUSTOM_AIMTRAINER:
+			//FR Challenges
+			Remote_RegisterClientFunction("ServerCallback_OpenFRChallengesMenu","int", 0, 999999, "int", 0, 999999, "int", 0, 999999, "float", 0.0, 1.0, 32, "int", 0, 999999, "int", 0, 999999, "int", 0, 999999, "bool")
+			Remote_RegisterClientFunction("ServerCallback_CloseFRChallengesResults")
+			Remote_RegisterUIFunction( "OpenFRChallengesMenu" )
+			Remote_RegisterUIFunction( "CloseFRChallengesMenu" )
+			Remote_RegisterClientFunction("ServerCallback_RestartChallenge", "int", 0, 30)
+			Remote_RegisterClientFunction("ServerCallback_HistoryUIAddNewChallenge", "int", 0, 999999, "int", 0, 999999, "entity", "float", 0.0, 1.0, 32, "int", 0, 999999, "int", 0, 999999, "int", 0, 999999,"int", 0, 999999)
+			Remote_RegisterClientFunction("ServerCallback_OpenFRChallengesMainMenu", "int", 0, 999999 )
+			Remote_RegisterClientFunction("ServerCallback_OpenFRChallengesHistory", "int", 0, 999999 )
+			Remote_RegisterUIFunction( "OpenFRChallengesMainMenu", "int", 0, 999999 )
+			Remote_RegisterUIFunction( "CloseFRChallengesMainMenu")
+			
+			Remote_RegisterClientFunction("ServerCallback_OpenFRChallengesSettings")
+			Remote_RegisterUIFunction( "OpenFRChallengesSettings" )
+			Remote_RegisterUIFunction( "CloseFRChallengesSettings" )
+		
+			Remote_RegisterUIFunction( "OpenFRChallengesSettingsWpnSelector" )
+			Remote_RegisterUIFunction( "CloseFRChallengesSettingsWpnSelector" )
+			Remote_RegisterClientFunction("ServerCallback_ToggleDotForHitscanWeapons", "bool")
+			Remote_RegisterClientFunction("ServerCallback_CoolCameraOnMenu")
+			Remote_RegisterClientFunction("ServerCallback_SetChallengeActivated", "bool")
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIDummiesKilled", "int", 0, 999999)
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIAccuracyViaTotalShots", "int", 0, 999999)
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIAccuracyViaShotsHits")
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIDamageViaWeaponAttack", "int", 0, 999999, "float", 0.0, 999999.0, 32)
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIDamageViaDummieDamaged", "int", 0, 999999)
+			Remote_RegisterClientFunction("ServerCallback_LiveStatsUIHeadshot", "int", 0, 999999)
+			Remote_RegisterClientFunction("ServerCallback_ResetLiveStatsUI")
+			Remote_RegisterClientFunction("ServerCallback_SetDefaultMenuSettings")			
+			Remote_RegisterClientFunction("ServerCallback_SetLaserSightsOnSMGWeapon", "entity")
+			Remote_RegisterClientFunction("ServerCallback_StopLaserSightsOnSMGWeapon", "entity")
+			Remote_RegisterClientFunction("ServerCallback_CreateDistanceMarkerForGrenadesChallengeDummies", "entity", "entity")
 		case CUSTOM_TDM:
+		case MENUFALL:
 		case SURVIVAL:
 			RegisterNetworkedVariable( "isPlayerShadowForm", SNDC_PLAYER_GLOBAL, SNVT_BOOL, false )
 			RegisterNetworkedVariable( "hasDeathFieldImmunity", SNDC_PLAYER_EXCLUSIVE, SNVT_BOOL, false )
@@ -252,7 +281,7 @@ void function RemoteFunctions_Init_Begin()
 			PlayerMatchState_RegisterNetworking()
 			Waypoints_RegisterNetworking()
 			RespawnBeacons_RegisterNetworking()
-			
+
 			Gamemode_ShadowSquad_RegisterNetworking()
 
 			MapZones_RegisterNetworking()
@@ -495,6 +524,17 @@ void function RemoteFunctions_Init_Begin()
 	Remote_RegisterClientFunction( "ServerCallback_SyncedMeleeDone" )
 
 	Remote_RegisterClientFunction( "ServerCallback_SetWeaponPreviewState", "bool" )
+
+	if ( IsLobby())
+	{
+		Remote_RegisterClientFunction( "ServerCallback_LobbyVM_UpdateUI" )
+		Remote_RegisterClientFunction( "ServerCallback_LobbyVM_StartingMatch" )
+		Remote_RegisterClientFunction( "ServerCallback_LobbyVM_SelectionUpdated", "int", 0, 255 )
+		Remote_RegisterClientFunction( "ServerCallback_ServerBrowser_JoinServer", "int", 0, 999 )
+		Remote_RegisterClientFunction( "ServerCallback_ServerBrowser_RefreshServers" )
+
+		Remote_RegisterUntypedFunction_deprecated( "ServerCallback_LobbyVM_BuildClientString" )
+	}
 
 	if ( !IsLobby() )
 	{

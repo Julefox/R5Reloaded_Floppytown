@@ -12,6 +12,7 @@ global function AttachmentTags
 global function UpdateLootRuiWithData
 global function LootGoesInPack
 global function SetupSurvivalLoot
+global function SetupCustomLoot
 global function SURVIVAL_Loot_QuickSwap
 global function SURVIVAL_Loot_UpdateRuiLastUseTime
 
@@ -1509,7 +1510,7 @@ entity function GetEntityPlayerIsLookingAt( entity player, array<entity> ents, f
 		lootItem.playerViewDot = dot
 		finalLootEnts.append( lootItem )
 
-#if R5DEV
+#if DEVELOPER
 		//DebugDrawMark( ent.GetWorldSpaceCenter(), 10, [255, 128, 0], true, 10.0 )
 		//DebugDrawText( ent.GetWorldSpaceCenter() + <0,0,16>, format( "%f\n", dot ), false, 0.1 )
 #endif
@@ -1588,6 +1589,12 @@ void function SetupSurvivalLoot( var categories )
 	string cats              = expect string( categories )
 	array<string> stringCats = split( cats, " " )
 
+	if (stringCats.contains("attachment_custom"))
+	{
+		SetupCustomLoot( "attachment" )
+		return	
+	}
+
 	// turn menu strings into real category enums
 	array<int> catTypes
 	foreach( string cat in stringCats )
@@ -1605,12 +1612,39 @@ void function SetupSurvivalLoot( var categories )
 
 		if ( !catTypes.contains( data.lootType ) )
 			continue
+		
+		if (data.lootType == eLootType.ATTACHMENT && IsCustomAttachment(data)) continue
 
 		string displayString = CreateLootDisplayString( data )
 		RunUIScript( "SetupDevCommand", displayString, "script SpawnGenericLoot( \"" + data.ref + "\", gp()[0].GetOrigin(), <-1,-1,-1>, " + data.countPerDrop + " )" )
 	}
 }
 
+void function SetupCustomLoot( var categories )
+{
+	string cats              = expect string( categories )
+	array<string> stringCats = split( cats, " " )
+
+	// turn menu strings into real category enums
+	array<int> catTypes
+	foreach( string cat in stringCats )
+		catTypes.append( SURVIVAL_Loot_GetLootTypeFromString( cat ) )
+
+	// flip thru all the loot and find the ones that match the cats we want to display
+	foreach ( ref, data in SURVIVAL_Loot_GetLootDataTable() )
+	{
+		if ( !IsLootTypeValid( data.lootType ) )
+			continue
+
+		if ( !catTypes.contains( data.lootType ) )
+			continue
+		
+		if (data.lootType == eLootType.ATTACHMENT && !IsCustomAttachment(data)) continue
+		
+		string displayString = CreateLootDisplayString( data )
+		RunUIScript( "SetupDevCommand", displayString, "script SpawnGenericLoot( \"" + data.ref + "\", gp()[0].GetOrigin(), <-1,-1,-1>, " + data.countPerDrop + " )" )
+	}
+}
 
 string function CreateLootDisplayString( LootData data )
 {
@@ -1797,17 +1831,17 @@ void function ExtendedTryHolster( entity ent, entity player, ExtendedUseSettings
 
 void function OnPlayerSwitchesToWeapon00( entity player )
 {
-	player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "0" )
+	//player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "0" )
 }
 
 void function OnPlayerSwitchesToWeapon01( entity player )
 {
-	player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "1" )
+	//player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "1" )
 }
 
 void function OnPlayerSwitchesWeapons( entity player )
 {
-	player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "-1" )
+	//player.ClientCommand( CMDNAME_PLAYER_SWITCHED_WEAPONS + " " + "-1" )
 }
 
 

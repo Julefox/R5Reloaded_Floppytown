@@ -69,8 +69,8 @@ void function InitR5RCreateServerPanel( var panel )
 	file.panels.append(Hud_GetChild(file.menu, "R5RDescPanel"))
 
 	//Setup Default Server Config
-	ServerSettings.svServerName = "A R5Reloaded Server"
-	ServerSettings.svServerDesc = "This is a R5Reloaded Server"
+	ServerSettings.svServerName = "My custom server"
+	ServerSettings.svServerDesc = "A R5Reloaded server"
 	ServerSettings.svMapName = "mp_rr_aqueduct"
 	ServerSettings.svPlaylist = "custom_tdm"
 	ServerSettings.svVisibility = eServerVisibility.OFFLINE
@@ -79,9 +79,11 @@ void function InitR5RCreateServerPanel( var panel )
 	file.tempserverdesc = ServerSettings.svServerDesc
 
 	//Setup Default Server Config
-	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), playlisttoname[ServerSettings.svPlaylist])
+	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), GetUIPlaylistName(ServerSettings.svPlaylist))
 	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( ServerSettings.svMapName ) )
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), GetUIVisibilityName(ServerSettings.svVisibility))
+
+	Hud_SetText(Hud_GetChild( file.panel, "MapServerNameInfoEdit" ), ServerSettings.svServerName)
 }
 
 void function OpenSelectedPanel( var button )
@@ -91,37 +93,15 @@ void function OpenSelectedPanel( var button )
 
 	if(Hud_GetScriptID( button ).tointeger() == 3 || Hud_GetScriptID( button ).tointeger() == 4)
 	{
-		Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), true )
-
 		Hud_SetText( Hud_GetChild( file.namepanel, "BtnServerName" ), ServerSettings.svServerName )
 		Hud_SetText( Hud_GetChild( file.descpanel, "BtnServerDesc" ), ServerSettings.svServerDesc )
 	}
 }
 
 void function StartNewGame( var button )
-{
+{	
 	//Start thread for starting the server
-	thread StartServer()
-}
-
-void function StartServer()
-{
-	//Shutdown the lobby vm
-	ShutdownHostGame()
-
-	//Set the main menus blackscreen visibility to true
-	SetMainMenuBlackScreenVisible(true)
-
-	//wait for lobby vm to be actually shut down and back at the main menu
-	while(!AtMainMenu) {
-		WaitFrame()
-	}
-
-	//Create new server with selected settings
-	CreateServer("In development floppytown", "", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
-
-	//No longer at main menu
-	AtMainMenu = false
+	CreateServer(ServerSettings.svServerName, ServerSettings.svServerDesc, ServerSettings.svMapName, ServerSettings.svPlaylist, ServerSettings.svVisibility)
 }
 
 void function SetSelectedServerMap( string map )
@@ -175,7 +155,7 @@ void function SetSelectedServerVis( int vis )
 	Hud_SetVisible( file.panels[2], false )
 
 	//Set the new visibility text
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), GetUIVisibilityName(ServerSettings.svVisibility))
 }
 
 void function ShowSelectedPanel(var panel)
@@ -202,7 +182,8 @@ void function UpdateServerName( var button )
     ServerSettings.svServerName = file.tempservername
 
 	Hud_SetVisible( file.namepanel, false )
-	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
+
+	Hud_SetText(Hud_GetChild( file.panel, "MapServerNameInfoEdit" ), ServerSettings.svServerName)
 }
 
 void function TempSaveNameChanges( var button )
@@ -215,7 +196,6 @@ void function UpdateServerDesc( var button )
     ServerSettings.svServerDesc = file.tempserverdesc
 
 	Hud_SetVisible( file.descpanel, false )
-	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
 }
 
 void function TempSaveDescChanges( var button )

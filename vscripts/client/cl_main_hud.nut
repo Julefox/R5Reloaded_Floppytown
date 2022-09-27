@@ -32,6 +32,8 @@ const float OFFHAND_ALERT_ICON_SCALE    = 4.5
 
 const bool ALWAYS_SHOW_BOOST_MOBILITY_BAR = true
 
+global string CHAT_TEXT
+
 
 struct HudVisibilityStatus
 {
@@ -692,7 +694,7 @@ void function ClientHudInit( entity player )
 {
 	Assert( player == GetLocalClientPlayer() )
 
-	#if R5DEV
+	#if DEVELOPER
 		HudElement( "Dev_Info1" ).Hide()
 		HudElement( "Dev_Info2" ).Hide()
 		HudElement( "Dev_Info3" ).Hide()
@@ -720,7 +722,7 @@ void function ClientHudInit( entity player )
 				}*/
 			}
 		}
-	#endif // DEV
+	#endif // DEVELOPER
 }
 
 
@@ -888,7 +890,7 @@ bool function ShouldMainHudBeVisible( entity player )
 			return false
 	}
 
-	#if R5DEV
+	#if DEVELOPER
 		if ( IsModelViewerActive() )
 			return false
 	#endif
@@ -953,7 +955,7 @@ bool function ShouldPermanentHudBeVisible( entity player )
 	if ( (!player.IsObserver() || player.GetObserverTarget() == player || player.GetObserverTarget() == null) && !IsAlive( player ) )
 		return false
 
-	#if R5DEV
+	#if DEVELOPER
 		if ( IsModelViewerActive() )
 			return false
 	#endif
@@ -980,6 +982,11 @@ void function InitChatHUD()
 void function UpdateChatHUDVisibility()
 {
 	local chat = HudElement( "IngameTextChat" )
+
+	//Saves what you typed to a global string
+	//used for all chat if they want to implement it into their gamemode
+	var chatTextEntry = Hud_GetChild( Hud_GetChild( chat, "ChatInputLine" ), "ChatInputTextEntry" )
+    CHAT_TEXT = Hud_GetUTF8Text(chatTextEntry)
 
 	Hud_SetAboveBlur( chat, true )
 

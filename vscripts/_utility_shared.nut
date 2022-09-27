@@ -139,13 +139,15 @@ void function InitWeaponScripts()
 	MpWeaponThermiteGrenade_Init()
 	MeleeWraithKunai_Init()
 	MpWeaponWraithKunaiPrimary_Init()
+	MeleeBoloSword_Init()
+	MpWeaponPoloSwordPrimary_Init()
 	MeleeBloodhoundAxe_Init()
 	MpWeaponBloodhoundAxePrimary_Init()
 	MeleeLifelineBaton_Init()
 	MpWeaponLifelineBatonPrimary_Init()
 	MpWeaponDeployableCover_Init()
 
-	#if R5DEV
+	#if DEVELOPER
 		MeleeShadowsquadHands_Init()
 		MpWeaponShadowsquadHandsPrimary_Init()
 		MDLSpawner_Init()
@@ -928,6 +930,9 @@ bool function ControlPanel_IsValidModel( entity controlPanel )
 bool function ControlPanel_CanUseFunction( entity playerUser, entity controlPanel )
 {
 	if ( Bleedout_IsBleedingOut( playerUser ) )
+		return false
+		
+	if ( !IsValid( playerUser ) )
 		return false
 
 	entity activeWeapon = playerUser.GetActiveWeapon( eActiveInventorySlot.mainHand )
@@ -4440,7 +4445,7 @@ vector function OffsetPointRelativeToVector( vector point, vector offset, vector
 #if SERVER
 float function GetRoundTimeLimit_ForGameMode()
 {
-#if R5DEV
+#if DEVELOPER
 	if ( level.devForcedTimeLimit )
 	{
 		//Make it needed to be called multiple times for RoundBasedGameModes
@@ -4556,18 +4561,18 @@ bool function PlayerIsInADS( entity player )
 	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
 }
 
-//bool function PlayerIsInMeleeBlockingADS( entity player )
-//{
-//	entity activeWeapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
-//
-//	if ( !IsValid( activeWeapon ) )
-//		return false
-//
-//	if ( activeWeapon.GetWeaponSettingBool( eWeaponVar.attack_button_presses_melee ) )
-//		return false
-//
-//	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
-//}
+bool function PlayerIsInMeleeBlockingADS( entity player )
+{
+	entity activeWeapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
+
+	if ( !IsValid( activeWeapon ) )
+		return false
+
+	if ( activeWeapon.GetWeaponSettingBool( eWeaponVar.attack_button_presses_melee ) )
+		return false
+
+	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
+}
 
 
 //////
@@ -5010,8 +5015,8 @@ array<entity> function GetFriendlySquadArrayForPlayer_AliveConnected( entity pla
 	{
 		if ( !IsAlive( player ) )
 			return []
-		#if SERVER
-		
+#if SERVER
+
 		// if (teamsWithPlayersAlive.len() == 0)
 		// {
 		// 	teamsWithPlayersAlive.append( team )
@@ -5024,7 +5029,7 @@ array<entity> function GetFriendlySquadArrayForPlayer_AliveConnected( entity pla
 		// 		teamFound = true
 		// }
 
-	#endif
+#endif
 		return [player]
 	}
 

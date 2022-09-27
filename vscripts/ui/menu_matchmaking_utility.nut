@@ -32,21 +32,22 @@ void function LoadLobbyAfterLeave()
 	//Set the main menus blackscreen visibility to true
 	SetMainMenuBlackScreenVisible(true)
 
+	//Just incase the player leaving is the host of the game, we wana make sure the hostgame is shut down
 	ShutdownHostGame()
 
 	//wait until fully disconnected
-	while(!AtMainMenu) {
+	while(!g_isAtMainMenu) {
 		WaitFrame()
 	}
 
 	//Create lobby server
-	CreateServer("In development floppytown", "", "mp_rr_floppytown", "survival_dev", eServerVisibility.OFFLINE)
+	CreateServer("Lobby VM", "", "mp_lobby", "menufall", eServerVisibility.HIDDEN)
 
 	//Refresh Server Browser
-	RefreshServerListing()
+	ServerBrowser_RefreshServerListing()
 
 	//No longer at main menu
-	AtMainMenu = false
+	g_isAtMainMenu = false
 }
 
 void function LeaveParty()

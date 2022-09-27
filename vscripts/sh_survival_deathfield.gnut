@@ -3,7 +3,7 @@ global function GetDeathFieldStage
 global function GetDeathfieldFinalCenter
 global function SURVIVAL_GetDeathField
 
-#if SERVER && R5DEV
+#if SERVER && DEVELOPER
 global function DEV_DrawCircleLocations
 global function DEV_SimulateFinalLocations
 global function DEV_ResetSurveyZones
@@ -26,6 +26,9 @@ global function SURVIVAL_GetSafeZoneCenter
 global function SURVIVAL_GetSafeZoneRadius
 global function SURVIVAL_GetDeathFieldShrinking
 global function SetSurveyBaconMinimapVisibility
+global function Pathfinder_SurveySuccess
+global function OnPanelUse_SurveyBeacon
+global function OnPanelUseFinished_SurveyBeacon
 #endif
 
 #if CLIENT
@@ -347,7 +350,7 @@ void function SURVIVAL_AddCallback_OnDeathFieldStopShrink( void functionref( Dea
 
 void function DeathFieldCircleWait( float waitTime )
 {
-	#if R5DEV
+	#if DEVELOPER
 		svGlobal.levelEnt.EndSignal( "DeathField_ShrinkNow" )
 	#endif
 
@@ -357,7 +360,7 @@ void function DeathFieldCircleWait( float waitTime )
 
 void function DeathFieldShrinkThink( DeathFieldData data, entity deathField )
 {
-	#if R5DEV
+	#if DEVELOPER
 		svGlobal.levelEnt.EndSignal( "DeathField_ShrinkNow" )
 	#endif
 
@@ -510,7 +513,7 @@ void function SURVIVAL_RunArenaDeathField()
 			waitthread DeathFieldCircleWait( stage.preShrinkDuration )
 
 			// only change these settings if we dev-skipped the previous circle since it will send an unwated message
-			#if R5DEV
+			#if DEVELOPER
 				if ( fabs( Time() + MARGIN_WAIT_TIME - data.startTime ) > 1.0 )
 				{
 					printt( "reset net time" )
@@ -575,7 +578,7 @@ void function SURVIVAL_RunArenaDeathField()
 		data.center = mover.GetOrigin()
 
 		// only change these settings if we dev-skipped the previous circle since it will send an unwated message
-		#if R5DEV
+		#if DEVELOPER
 			if ( Time() < GetGlobalNetTime( "nextCircleStartTime" ) + MARGIN_WAIT_TIME + stage.shrinkDuration - 1.0 )
 			{
 				SetGlobalNetTime( "nextCircleStartTime", Time() - (stage.shrinkDuration + stage.preShrinkDuration) )
@@ -750,7 +753,7 @@ bool function ClientCommand_UpdateCirclePos( entity player, array<string> args )
 	float argY    = float( args[1] )
 	vector newPos = <argX, argY, 0>
 
-	#if R5DEV
+	#if DEVELOPER
 		thread DEV_ForceDeathFieldPosition( newPos )
 		return true
 	#endif
@@ -758,7 +761,7 @@ bool function ClientCommand_UpdateCirclePos( entity player, array<string> args )
 	return false
 }
 
-#if R5DEV
+#if DEVELOPER
 void function DEV_ForceDeathFieldPosition( vector endPos )
 {
 	if ( !SURVIVAL_IsValidCircleLocation( endPos ) )
@@ -803,12 +806,12 @@ void function DEV_ResetSurveyZones()
 	file.surveyMinimapEnts.clear()
 }
 
-#endif //DEV
+#endif // DEVELOPER
 
 
 void function SURVIVAL_AddOverrideCircleLocation( vector origin, float radius )
 {
-	#if R5DEV
+	#if DEVELOPER
 		file.overrideCircleEndPos[ origin ] <- radius
 	#endif
 }
@@ -928,10 +931,10 @@ vector function GetFinalDeathFieldLocation()
         }
 			
 	}
-	vector finalLocation  = SURVIVAL_GetClosestValidCircleEndLocation( endPoint )
+	vector lootLocation  = SURVIVAL_GetClosestValidCircleEndLocation( endPoint )
 	//DebugDrawLine( <endPoint.x, endPoint.y, 0>, <lootLocation.x, lootLocation.y, 0>, 0,255,0, true, 100.0 )
-	//vector finalLocation = GetClosestEndZonePoint( lootLocation ).origin
-    //can't call above func because no navmesh
+	vector finalLocation = GetClosestEndZonePoint( lootLocation ).origin
+    //TODO: Needs more testing
 	//DebugDrawLine( <lootLocation.x, lootLocation.y, 0>, <finalLocation.x, finalLocation.y, 0>, 0,0,255, true, 100.0 )
 	return finalLocation
 }
@@ -1260,6 +1263,9 @@ void function Pathfinder_RandomizeSurveyLocations()
 
 void function SetSurveyBaconMinimapVisibility( entity player )
 {
+	wait 0.01
+	if ( !IsValid( player ) )
+		return
 	int team = player.GetTeam()
 	bool hasPathfinder = false
 
@@ -1314,7 +1320,7 @@ void function Pathfinder_AddSurveyBeacon( entity surveyBeacon )
 	anims.panelAnimation3pIdle = "antenna_pathfinder_antenna_hack_mid"
 	anims.panelAnimation3pEnd = "antenna_pathfinder_antenna_hack_end"
 
-	UseCustomPanelHackingAnims( surveyBeacon, anims )
+	UseCustomPanelHackingAnims( surveyBeacon, anims )//TODO: FIX PATH PP
 
 	SetControlPanelUseFunc( surveyBeacon, OnPanelUse_SurveyBeacon )
 	ControlPanel_SetPlayerFinishesUsingFunc( surveyBeacon, OnPanelUseFinished_SurveyBeacon )

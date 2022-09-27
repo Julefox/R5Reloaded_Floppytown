@@ -20,16 +20,16 @@ global function NotifyReloadAttemptButNoReserveAmmo
 
 global function UpdateWeaponStatusOnBindingChange
 
-#if R5DEV
+#if DEVELOPER
 global function DEV_TestUltimateStates
 global function GetUltimateWeaponState
-#endif //DEV
+#endif // DEVELOPER
 
 global enum eUltimateState
 {
 	CHARGING    // weapon is counting down
-	READY        // ready to be used - pulling out the grenade would still keep it in this state since it can be aborted.
-	ACTIVE        // weapon has been activated
+	READY       // ready to be used - pulling out the grenade would still keep it in this state since it can be aborted.
+	ACTIVE      // weapon has been activated
 }
 
 struct
@@ -48,9 +48,9 @@ struct
 	array<void functionref( entity, var, int )> weaponStatusUpdateCallbacks
 	array<void functionref( entity, var )>      primaryWeaponStatusUpdateCallbacks
 
-	#if R5DEV
+	#if DEVELOPER
 		bool devTestingUltimateStates
-	#endif //DEV
+	#endif // DEVELOPER
 } file
 
 const float NO_RESERVE_AMMO_DISPLAY_TIME = 2.0
@@ -463,8 +463,24 @@ void function UpdateRUIWeaponData( entity player, var rui, entity weapon, int ta
 			RuiSetFloat3( rui, "ammoColor", <0.0, 0.0, 0.0> )
 		}
 	}
+	if(RGB_HUD)
+		thread RGBRui(rui)
 }
 
+void function RGBRui(var rui)
+{
+	entity player = GetLocalClientPlayer()
+	while(RGB_HUD)
+	{
+		int randomr = RandomInt(255)
+		int randomg = RandomInt(255) 
+		int randomb = RandomInt(255)	
+		RuiSetFloat3( rui, "ammoColor", SrgbToLinear( <randomr, randomg, randomb> / 255.0 ))
+		RuiSetFloat3( rui, "ammoColorTab0", SrgbToLinear( <randomr, randomg, randomb> / 255.0 ))
+		RuiSetFloat3( rui, "ammoColorTab1", SrgbToLinear( <randomr, randomg, randomb> / 255.0 ))
+		wait 0.1
+	}
+}
 
 void function PrimaryWeapon_UpdateFireSelectHUD( entity weapon )
 {
@@ -975,10 +991,10 @@ void function UltimateWeaponStatusUpdate( entity player, var rui, int slot )
 	// and one callback when the weapon becomes ready to fire. Though that seems to happen at odd moments.
 	// It's unfortunate that it's so hard to get the state that an weapon is in. :-(
 
-	#if R5DEV
+	#if DEVELOPER
 		if ( file.devTestingUltimateStates )
 			return
-	#endif //DEV
+	#endif // DEVELOPER
 
 	if ( slot != OFFHAND_ULTIMATE )
 		return
@@ -1058,7 +1074,7 @@ void function UltimateReadyVideoFinished( int channel )
 	Signal( clGlobal.levelEnt, "ultimate_video_finished" )
 }
 
-#if R5DEV
+#if DEVELOPER
 void function DEV_TestUltimateStates()
 {
 	thread DEV_TestUltimateStatesThread()
@@ -1081,7 +1097,7 @@ void function DEV_TestUltimateStatesThread()
 	wait 2
 	file.devTestingUltimateStates = false
 }
-#endif //DEV
+#endif // DEVELOPER
 
 
 void function TrackATWeaponSlot( entity player, var rui )

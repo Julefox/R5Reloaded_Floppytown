@@ -92,14 +92,13 @@ global const NPC_TITAN_PILOT_PROTOTYPE  = 0
 global const HAS_TASKLIST_SYSTEM        = false
 global const HAS_MISSIONINFO_SYSTEM     = false
 
-
+global const MENUFALL                   = "menufall"
 global const TEAM_DEATHMATCH            = "tdm"
 global const SURVIVAL                   = "survival"
 global const FREELANCE                  = "freelance"
 global const CUSTOM_TDM                 = "custom_tdm"
 global const CUSTOM_CTF                 = "custom_ctf"
-global const CUSTOM_HIDEANDSEEK         = "custom_HIDEANDSEEK"
-
+global const CUSTOM_AIMTRAINER			= "custom_aimtrainer"
 
 global const FREELANCE_ENABLED          = false
 

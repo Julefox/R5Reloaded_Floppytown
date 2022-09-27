@@ -8,7 +8,8 @@ void function SV_CL_Shared_Init()
 
 	GameModes_Init()
 	Settings_Init()
-	if ( IsLobby() )
+
+	if ( IsLobby())
 	{
 		Shared_Lobby_Init()
 		return
@@ -47,7 +48,7 @@ void function SV_CL_Init()
 	*/
 
 	#if SERVER
-	  SvDemo_ConsistencyCheckString( "SV_CL_Init()" )
+		SvDemo_ConsistencyCheckString( "SV_CL_Init()" )
 	#endif
 
 	ShEHI_LevelInit_Begin()
@@ -88,7 +89,7 @@ void function SV_CL_Init()
 	GrappleWeaponInit()
 	ShInfoCords_Init()
 
-	#if R5DEV
+	#if DEVELOPER
 		ShDevUtility_Init()
 		CaptureMode_Shared_Init()
 	#endif
@@ -139,7 +140,7 @@ void function SV_CL_Init()
 	GameMode_RunSharedInits()
 	DamageHistoryInit()
 	ShPersistentData_LevelInit_Finish()
-	
+
 	ShWeaponRack_Init()
 
 
@@ -151,7 +152,7 @@ void function SV_CL_Init()
 	SURVIVAL_LootActions_InitShared()
 	SURVIVAL_LootTypes_InitShared()
 	SURVIVAL_EquipmentSlot_InitShared()
-    SURVIVAL_LootDistribution_InitShared()
+	SURVIVAL_LootDistribution_InitShared()
 	ShSurvivalTraining_Init()
 	FiringRangeGameMode_Init()
 	ShGas_Init()
@@ -164,13 +165,9 @@ void function SV_CL_Init()
 
 	Sh_Loot_Vault_Panel_Init()
 
-
 	ShLootDrones_Init()
 
 	ShLootRollers_Init()
-
-    ShZiplineUtility_Init()
-
 
 	CharacterSelectNewMenu_Init()
 
@@ -185,15 +182,9 @@ void function SV_CL_Init()
 
 	ShTutorial_Init()
 	Sh_PassiveVoices_Init()
-	#if(false)
-
-	#endif
-	#if(false)
-
-	#endif
 
 	#if CLIENT
-		Cl_DeathScreen_Init() //
+		Cl_DeathScreen_Init()
 	#endif
 
 	Sh_PersistentDamageLayer_Init()
@@ -312,18 +303,15 @@ void function Server_Init()
 	SvXP_Init()
 	Achievements_Init()
 
-	Map_Dev_Init()
-    ZiplineUtility_Init()
-
 	SvDevStats_LevelInit()
 	SURVIVAL_Loot_All_InitShared() // need this to precache the weapons
 
 	PilotsPassage_Init()
 	SneakPeek_Init()
 	JumpPad_Init()
-	#if R5DEV
+	#if DEVELOPER
 		SmokeTest_Init()
-	#endif // DEV
+	#endif // DEVELOPER
 }
 #endif // SERVER
 
@@ -395,7 +383,8 @@ void function Client_Init()
 	ClKillReplayHud_Init()
 	ClScoreboardMp_Init()
 	//ClTitanSoul_Init()
-	ClMinimap_Init()
+	if(!GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ))
+		ClMinimap_Init()
 
 	ClGruntChatter_MP_Init()
 	ClSpectatorModeAudio_Init()
@@ -463,9 +452,7 @@ void function Shared_Lobby_Init()
 	ShPing_Init()
 	ShQuickchat_Init()
 	ShChallenges_LevelInit_PreStats()
-	#if(false)
 
-#endif
 	ShItems_LevelInit_Finish()
 	ShItemPerPlayerState_LevelInit()
 	ShLoadouts_LevelInit_Finish()
@@ -488,12 +475,15 @@ void function Shared_Lobby_Init()
 		Client_Lobby_Init()
 	#endif
 
+	Sh_LobbyVM_Init()
+
 	RemoteFunctions_Init_Finish()
 }
 
 #if SERVER
 void function Server_Lobby_Init()
 {
+	_LobbyVM_Init()
 	UIVars_Init()
 	MenuCallbacks_Init()
 	Lobby_Init()
@@ -514,5 +504,6 @@ void function Client_Lobby_Init()
 	ShPassPanel_LevelInit()
 	ClLoadscreensInit()
 	ClImagePakLoadInit()
+	Cl_LobbyVM_Init()
 }
 #endif // CLIENT

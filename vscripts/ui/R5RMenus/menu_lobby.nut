@@ -2,6 +2,8 @@ global function InitR5RLobbyMenu
 global function GetUIPlaylistName
 global function GetUIMapName
 global function GetUIMapAsset
+global function GetUIVisibilityName
+global function InPlayersLobby
 
 struct
 {
@@ -22,54 +24,42 @@ global enum eServerVisibility
 	PUBLIC
 }
 
+global int CurrentPresentationType = ePresentationType.PLAY
+
 //Map to asset
-global table<string, asset> maptoasset = {
+global table<string, asset> MapAssets = {
 	[ "mp_rr_canyonlands_staging" ] = $"rui/menu/maps/mp_rr_canyonlands_staging",
 	[ "mp_rr_aqueduct" ] = $"rui/menu/maps/mp_rr_aqueduct",
+	[ "mp_rr_aqueduct_night" ] = $"rui/menu/maps/mp_rr_aqueduct_night",
 	[ "mp_rr_ashs_redemption" ] = $"rui/menu/maps/mp_rr_ashs_redemption",
 	[ "mp_rr_canyonlands_64k_x_64k" ] = $"rui/menu/maps/mp_rr_canyonlands_64k_x_64k",
 	[ "mp_rr_canyonlands_mu1" ] = $"rui/menu/maps/mp_rr_canyonlands_mu1",
 	[ "mp_rr_canyonlands_mu1_night" ] = $"rui/menu/maps/mp_rr_canyonlands_mu1_night",
 	[ "mp_rr_desertlands_64k_x_64k" ] = $"rui/menu/maps/mp_rr_desertlands_64k_x_64k",
-	[ "mp_rr_desertlands_64k_x_64k_nx" ] = $"rui/menu/maps/mp_rr_desertlands_64k_x_64k_nx"
+	[ "mp_rr_desertlands_64k_x_64k_nx" ] = $"rui/menu/maps/mp_rr_desertlands_64k_x_64k_nx",
+	[ "mp_rr_desertlands_64k_x_64k_tt" ] = $"rui/menu/maps/mp_rr_desertlands_64k_x_64k_tt",
+	[ "mp_rr_arena_composite" ] = $"rui/menu/maps/mp_rr_arena_composite",
+	[ "mp_lobby" ] = $"rui/menu/maps/mp_lobby"
 }
 
 //Map to readable name
-global table<string, string> maptoname = {
+global table<string, string> MapNames = {
 	[ "mp_rr_canyonlands_staging" ] = "Firing Range",
 	[ "mp_rr_aqueduct" ] = "Overflow",
+	[ "mp_rr_aqueduct_night" ] = "Overflow After Dark",
 	[ "mp_rr_ashs_redemption" ] = "Ash's Redemption",
 	[ "mp_rr_canyonlands_64k_x_64k" ] = "Kings Canyon S1",
 	[ "mp_rr_canyonlands_mu1" ] = "Kings Canyon S2",
 	[ "mp_rr_canyonlands_mu1_night" ] = "Kings Canyon S2 After Dark",
 	[ "mp_rr_desertlands_64k_x_64k" ] = "Worlds Edge",
-	[ "mp_rr_desertlands_64k_x_64k_nx" ] = "Worlds Edge After Dark"
-}
-
-//Playlist to readable name
-global table<string, string> playlisttoname = {
-	[ "survival_staging_baseline" ] = "Survival Staging Baseline",
-	[ "sutvival_training" ] = "Survival Training",
-	[ "survival_firingrange" ] = "Firing Range",
-	[ "survival" ] = "Survival",
-	[ "defaults" ] = "Defaults",
-	[ "ranked" ] = "Ranked",
-	[ "FallLTM" ] = "ShadowFall",
-	[ "duos" ] = "Duos",
-	[ "iron_crown" ] = "Iron Crown",
-	[ "elite" ] = "Elite",
-	[ "armed_and_dangerous" ] = "Armed and Dangerous",
-	[ "wead" ] = "wead",
-	[ "custom_tdm" ] = "Team Deathmatch",
-	[ "custom_ctf" ] = "Capture The Flag",
-	[ "tdm_gg" ] = "Gun Game",
-	[ "tdm_gg_double" ] = "Team Gun Game",
-	[ "survival_dev" ] = "Survival Dev",
-	[ "dev_default" ] = "Dev Default"
+	[ "mp_rr_desertlands_64k_x_64k_nx" ] = "Worlds Edge After Dark",
+	[ "mp_rr_desertlands_64k_x_64k_tt" ] = "Worlds Edge Mirage Voyage",
+	[ "mp_rr_arena_composite" ] = "Drop Off",
+	[ "mp_lobby" ] = "Lobby"
 }
 
 //Vis to readable name
-global table<int, string> vistoname = {
+global table<int, string> VisibilityNames = {
 	[ eServerVisibility.OFFLINE ] = "Offline",
 	[ eServerVisibility.HIDDEN ] = "Hidden",
 	[ eServerVisibility.PUBLIC ] = "Public"
@@ -95,16 +85,13 @@ void function InitR5RLobbyMenu( var newMenuArg )
 
 	//Setup panel array
 	file.panels.append(Hud_GetChild(menu, "R5RHomePanel"))
-	file.panels.append(Hud_GetChild(menu, "R5RCreateServerPanel"))
+	file.panels.append(Hud_GetChild(menu, "R5RPrivateMatchPanel"))
 	file.panels.append(Hud_GetChild(menu, "R5RServerBrowserPanel"))
 
 	//Setup Button Vars
 	file.buttons.append(Hud_GetChild(menu, "HomeBtn"))
 	file.buttons.append(Hud_GetChild(menu, "CreateServerBtn"))
 	file.buttons.append(Hud_GetChild(menu, "ServerBrowserBtn"))
-
-	//Show Home Panel
-	ShowSelectedPanel( file.panels[0], file.buttons[0] )
 }
 
 void function OpenSelectedPanel(var button)
@@ -113,9 +100,23 @@ void function OpenSelectedPanel(var button)
 	int scriptid = Hud_GetScriptID( button ).tointeger()
 	ShowSelectedPanel( file.panels[scriptid], button )
 
-	//If create server button is pressed, hide all panels for that panel
-	if(scriptid == 1)
-		HideAllCreateServerPanels()
+	switch(scriptid)
+	{
+		case 0:
+			UI_SetPresentationType( ePresentationType.PLAY )
+			CurrentPresentationType = ePresentationType.PLAY
+			break;
+		case 1:
+			PrivateMatchMenuOpened()
+			UI_SetPresentationType( ePresentationType.CHARACTER_SELECT )
+			CurrentPresentationType = ePresentationType.CHARACTER_SELECT
+			break;
+		case 2:
+			//thread ServerBrowser_RefreshServersForEveryone()
+			UI_SetPresentationType( ePresentationType.COLLECTION_EVENT )
+			CurrentPresentationType = ePresentationType.COLLECTION_EVENT
+			break;
+	}
 }
 
 void function SettingsPressed(var button)
@@ -135,22 +136,24 @@ void function OnR5RLobby_Open()
 	//needed on both show and open
 	SetupLobby()
 
-	//Load Create Server maps and playlists
-	RefreshUIPlaylists()
-	RefreshUIMaps()
+	//Show Home Panel
+	ShowSelectedPanel( file.panels[0], file.buttons[0] )
+	UI_SetPresentationType( ePresentationType.PLAY )
+	CurrentPresentationType = ePresentationType.PLAY
 
 	//Set back to default for next time
-	AtMainMenu = false
+	g_isAtMainMenu = false
+
+	server_host_name = ""
+
+	RunClientScript("UICallback_SetHostName", GetPlayerName() + "'s Lobby")
 }
 
 void function SetupLobby()
 {
 	//Setup Lobby Stuff
-	UI_SetPresentationType( ePresentationType.PLAY )
+	UI_SetPresentationType( CurrentPresentationType )
 	thread TryRunDialogFlowThread()
-
-	//Set playername
-	Hud_SetText(Hud_GetChild( file.menu, "PlayerName" ), GetPlayerName())
 
 	//Set Version
 	SetUIVersion()
@@ -181,44 +184,60 @@ void function ShowSelectedPanel(var panel, var button)
 
 string function GetUIPlaylistName(string playlist)
 {
-	//Set default playlist string
-	string playlistname = playlist
+	if(!IsLobby() || !IsConnected())
+		return ""
 
-	//If playlist in the table set it to the readable name
-	if(playlist in playlisttoname)
-		playlistname = playlisttoname[playlist]
-
-	//return the playlist name
-	return playlistname
+	return GetPlaylistVarString( playlist, "name", playlist )
 }
 
 string function GetUIMapName(string map)
 {
-	//Set default map string
-	string mapname = map
+	if(map in MapNames)
+		return MapNames[map]
 
-	//If map in the table set it to the readable name
-	if(map in maptoname)
-		mapname = maptoname[map]
+	return map
+}
 
-	//return the map name
-	return mapname
+string function GetUIVisibilityName(int vis)
+{
+	if(vis in VisibilityNames)
+		return VisibilityNames[vis]
+
+	return ""
 }
 
 asset function GetUIMapAsset(string map)
 {
-	//Set default map asset
-	asset mapasset = $"rui/menu/maps/map_not_found"
+	if(map in MapAssets)
+		return MapAssets[map]
 
-	//If map in the table set it to the correct map asset
-	if(map in maptoasset)
-		mapasset = maptoasset[map]
-
-	//return the map asset
-	return mapasset
+	return $"rui/menu/maps/map_not_found"
 }
 
 void function OnR5RLobby_Back()
 {
-	// Do nothing so it dosnt hide the menu
+	if(PMMenusOpen.maps_open || PMMenusOpen.playlists_open || PMMenusOpen.vis_open || PMMenusOpen.name_open || PMMenusOpen.desc_open || PMMenusOpen.kick_open)
+    {
+		var pmpanel = GetPanel( "R5RPrivateMatchPanel" )
+        Hud_SetVisible( Hud_GetChild(pmpanel, "R5RMapPanel"), false )
+        Hud_SetVisible( Hud_GetChild(pmpanel, "R5RPlaylistPanel"), false )
+        Hud_SetVisible( Hud_GetChild(pmpanel, "R5RVisPanel"), false )
+        Hud_SetVisible( Hud_GetChild(file.menu, "R5RNamePanel"), false )
+        Hud_SetVisible( Hud_GetChild(file.menu, "R5RDescPanel"), false )
+        Hud_SetVisible( Hud_GetChild(file.menu, "R5RKickPanel"), false )
+
+        PMMenusOpen.maps_open = false
+        PMMenusOpen.playlists_open = false
+        PMMenusOpen.vis_open = false
+        PMMenusOpen.name_open = false
+        PMMenusOpen.desc_open = false
+        PMMenusOpen.kick_open = false
+    }
+}
+
+void function InPlayersLobby(bool show, string host)
+{
+	Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobby"), show )
+    Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), show )
+	Hud_SetText( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), "You are in " + host + "'s lobby" )
 }
