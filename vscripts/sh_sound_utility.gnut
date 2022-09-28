@@ -1,0 +1,42 @@
+untyped
+
+global function ShSoundUtility_Init
+
+void function ShSoundUtility_Init()
+{
+    #if SERVER
+	    AddSpawnCallback( "ambient_generic", SoundInit )
+    #endif // SERVER
+
+    #if CLIENT
+        AddCreateCallback( "ambient_generic", SoundInit )
+        thread Test()
+    #endif // CLIENT
+}
+
+void function SoundInit( entity sound )
+{
+    if ( !IsValidSoundEnt( sound ) )
+		return
+    printt( "SoundInit( " + sound + " )" )
+}
+
+bool function IsValidSoundEnt( entity ent )
+{
+	if ( ent.GetScriptName() == "sound" )
+		return true
+
+	return false
+}
+
+#if CLIENT
+void function Test()
+{
+    wait 5
+    entity clientAG = CreateClientSideAmbientGeneric( < 3471.83472, -9720.96875, -9996.12109 >, "Desertlands_Generic_Emit_LightedSign", 0 )
+    //clientAG.SetSegmentEndpoints( player.GetOrigin() + <0,0,16>, playerOrigin + <0, 0, 72> )
+    clientAG.SetEnabled( true )
+    printt( "clientAG: " + clientAG )
+
+}
+#endif // CLIENT

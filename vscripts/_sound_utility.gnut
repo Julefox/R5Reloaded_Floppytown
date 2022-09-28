@@ -1,0 +1,74 @@
+untyped
+
+global function SoundUtility_Init
+
+
+// Const assets
+    const asset AMBIENT_GENERIC_NODE   = $"mdl/dev/editor_ambient_generic_node.rmdl"
+
+
+global struct SoundUtility
+{
+    float radius    = 0
+    asset model     = AMBIENT_GENERIC_NODE
+    bool  enabled
+    vector origin
+    string soundName
+
+    array< SoundUtility > soundArrayInit
+}
+
+global SoundUtility soundUtility
+
+void function SoundUtility_Init()
+{
+    PrecacheModel( AMBIENT_GENERIC_NODE )
+    AddCallback_EntitiesDidLoad( SoundUtility_Didload )
+    AddClientCommandCallback( "test", ClientCommand_test )
+}
+
+void function SoundUtility_Didload()
+{
+    //SoundUtility soundDev_0 = Sound_CreateSound( "Desertlands_Generic_Emit_LightedSign", < 3471.83472, -9720.96875, -9996.12109 > )
+    //Sound_Init( soundDev_0 )
+}
+
+SoundUtility function Sound_CreateSound( string soundName, vector origin )
+{
+    SoundUtility sound
+
+    sound.origin = origin
+    sound.soundName = soundName
+
+return sound }
+
+entity function Sound_Init( SoundUtility sound )
+{
+    entity soundEnt = CreateEntity( "ambient_generic" )
+
+    soundEnt.kv.radius             = 0//sound.radius
+    //soundEnt.kv.model              = "mdl/dev/editor_ambient_generic_node.rmdl" //sound.model
+    soundEnt.SetValueForModelKey( AMBIENT_GENERIC_NODE )
+    soundEnt.kv.enabled            = 1//sound.enabled
+    soundEnt.kv.origin             = TransformVectorToStringOriginSound( sound.origin )
+    soundEnt.SetOrigin(sound.origin)
+    soundEnt.kv.soundName          = sound.soundName
+    soundEnt.SetScriptName( "sound" )
+    printt( soundEnt )
+    
+return soundEnt }
+
+string function TransformVectorToStringOriginSound( vector vec )
+{   return "\"" + vec.x + " " + vec.y + " " + vec.z + "\"" }
+
+bool function ClientCommand_test( entity player, array<string> args )
+{
+	//SoundUtility soundDev_0 = Sound_CreateSound( "Desertlands_Generic_Emit_LightedSign", < 3471.83472, -9720.96875, -9996.12109 > )
+    //Sound_Init( soundDev_0 )
+    foreach ( ents in GetEntArrayByClass_Expensive( "ambient_generic" ) )
+    {
+        printt( ents )
+    }
+			
+	return true
+}

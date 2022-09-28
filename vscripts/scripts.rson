@@ -945,3 +945,16 @@ Scripts:
 [
 	freelance/_freelance.gnut
 ]
+
+// Sound Utility
+When: "SERVER"
+Scripts:
+[
+	_sound_utility.gnut
+]
+
+When: "SERVER || CLIENT"
+Scripts:
+[
+	sh_sound_utility.gnut
+]

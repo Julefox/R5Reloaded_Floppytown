@@ -183,6 +183,12 @@ void function SV_CL_Init()
 	ShTutorial_Init()
 	Sh_PassiveVoices_Init()
 
+    // Sound Utility
+    #if SERVER
+        SoundUtility_Init()
+    #endif
+    ShSoundUtility_Init()
+
 	#if CLIENT
 		Cl_DeathScreen_Init()
 	#endif
