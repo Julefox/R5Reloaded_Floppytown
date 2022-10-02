@@ -170,9 +170,6 @@ global struct ZiplineUtility
     bool isFirstTimeInited  = true
     bool isMoving           = false
     bool restPoint          = false
-    bool supportIsValid     = false
-    bool ziplineIsDestroyed = true
-    bool ziplineIsValid     = false
     bool boolHeightLimit    = false
     float endArmOffset
     float heightLimit     = 10000.0
@@ -187,6 +184,11 @@ global struct ZiplineUtility
 
     // Array
     array < ZiplineUtility > ziplineArrayInit
+
+    // Zipline state
+    bool supportIsValid     = false
+    bool ziplineIsValid     = false
+    bool ziplineIsDestroyed = true
 
     // KV.Files vars start
     bool isVertical
@@ -647,7 +649,7 @@ ZiplineUtility function GZFZN( string ziplineName )
 
 bool function IsZiplineHaveSameName( string ziplineName )
 {
-    foreach ( ziplines in ziplineUtility.ziplineArrayInit )
+    foreach ( ziplines in GetAllZiplines() )
     {
         if ( ziplines.ziplineName == ziplineName )
             return true
