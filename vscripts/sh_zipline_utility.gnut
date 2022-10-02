@@ -22,7 +22,7 @@ global function ShZiplineUtility_Init
 void function ShZiplineUtility_Init()
 {
     #if SERVER
-	    AddSpawnCallback( "prop_dynamic", UsablePanel )
+        AddSpawnCallback( "prop_dynamic", UsablePanel )
     #endif // SERVER
 
     #if CLIENT
@@ -34,7 +34,7 @@ void function ShZiplineUtility_Init()
 void function UsablePanel( entity UsableButton )
 {
     if ( !IsValidZiplineUtilityPanelEnt( UsableButton ) )
-		return
+        return
     
     SetCallback_CanUseEntityCallback( UsableButton, ZiplinePanel_CanUse )
     AddCallback_OnUseEntity( UsableButton, OnUseZiplinePanel )
@@ -42,40 +42,40 @@ void function UsablePanel( entity UsableButton )
 
 bool function IsValidZiplineUtilityPanelEnt( entity ent )
 {
-	if ( ent.GetScriptName() == ZIPLINE_PANEL_SCRIPT_NAME )
-		return true
+    if ( ent.GetScriptName() == ZIPLINE_PANEL_SCRIPT_NAME )
+        return true
 
-	return false
+    return false
 }
 
 bool function ZiplinePanel_CanUse( entity player, entity panel )
 {
-	if ( !SURVIVAL_PlayerCanUse_AnimatedInteraction( player, panel ) )
-		return false
+    if ( !SURVIVAL_PlayerCanUse_AnimatedInteraction( player, panel ) )
+        return false
 
-	return true
+    return true
 }
 
 void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFlags )
 {	
-	if ( !( useInputFlags & USE_INPUT_LONG ) )
-		return
+    if ( !( useInputFlags & USE_INPUT_LONG ) )
+        return
 
-	ExtendedUseSettings settings
-	settings.duration = ZIPLINE_ON_USE_DURATION
-    settings.useInputFlag = IN_USE_LONG
-    settings.successFunc = ZiplinePanelUseSuccess
+    ExtendedUseSettings settings
+    settings.duration       = ZIPLINE_ON_USE_DURATION
+    settings.useInputFlag   = IN_USE_LONG
+    settings.successFunc    = ZiplinePanelUseSuccess
 
-	#if CLIENT || UI
-		settings.loopSound = ZIPLINE_LOOPSOUND
-		settings.successSound = ZIPLINE_SUCCESSSOUND
-		settings.icon = ZIPLINE_ICONRUI
-		settings.hint = ZIPLINE_PROCESSING
-		settings.displayRui = ZIPLINE_DISPLAYRUI
-		settings.displayRuiFunc = ZiplinePanel_DisplayRui
+    #if CLIENT || UI
+        settings.loopSound        = ZIPLINE_LOOPSOUND
+        settings.successSound     = ZIPLINE_SUCCESSSOUND
+        settings.icon             = ZIPLINE_ICONRUI
+        settings.hint             = ZIPLINE_PROCESSING
+        settings.displayRui       = ZIPLINE_DISPLAYRUI
+        settings.displayRuiFunc   = ZiplinePanel_DisplayRui
     #endif // CLIENT || UI
 
-	thread ExtendedUse( panel, playerUser, settings )
+    thread ExtendedUse( panel, playerUser, settings )
 }
 
 void function ZiplinePanelUseSuccess( entity panel, entity player, ExtendedUseSettings settings )
@@ -89,9 +89,9 @@ void function ZiplinePanelUseSuccess( entity panel, entity player, ExtendedUseSe
 #if CLIENT || UI
     void function ZiplinePanel_DisplayRui( entity ent, entity player, var rui, ExtendedUseSettings settings )
     {
-    	RuiSetString( rui, "holdButtonHint", settings.holdHint )
-    	RuiSetString( rui, "hintText", settings.hint )
-    	RuiSetGameTime( rui, "startTime", Time() )
-    	RuiSetGameTime( rui, "endTime", Time() + settings.duration )
+        RuiSetString( rui, "holdButtonHint", settings.holdHint )
+        RuiSetString( rui, "hintText", settings.hint )
+        RuiSetGameTime( rui, "startTime", Time() )
+        RuiSetGameTime( rui, "endTime", Time() + settings.duration )
     }
 #endif // CLIENT || UI

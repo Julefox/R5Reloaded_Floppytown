@@ -218,7 +218,7 @@ void function ZiplineUtility_Didload()
         Zipline_BuildInit( ZiplineDev_0 )
 
     ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 30934.9004, -8568.30176, -26730.5488 >, < 0, 15, 0 >, < 30170.4668, -2572.01904, -25863.9375 >, < 0, -136, 0 > )
-        Zipline_CreatePanel( ZiplineDev_1, < 30168.8145, -2570.65894, -25796.5 >, < 0, 134, 0 > )
+        Zipline_CreatePanel( ZiplineDev_1, < 29918.2051, -2440.30249, -25800.2969 >, < 0, -45, 0 > )
         Zipline_CreatePanel( ZiplineDev_1, < 29962.375, -2672.30615, -25863.9375 >, < 0, 134, 0 >, 1 )
         //Zipline_PanelUsableLimit( ZiplineDev_1, 1 )
         Zipline_BuildInit( ZiplineDev_1 )
