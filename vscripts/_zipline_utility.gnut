@@ -126,6 +126,20 @@ global function GZFZN
     const asset ZIPLINE_PLANEL_WALL_SUPPORT = $"mdl/colony/antenna_01_colony_pole.rmdl"
     const asset ZIPLINE_SUPPORT             = $"mdl/industrial/security_fence_post.rmdl"
 
+enum eBoolState
+{
+    FALSE,
+    TRUE
+}
+
+enum eSkinType
+{
+    ENTIRE,
+    ARM_ONLY,
+    INVISIBLE,
+    _COUNT
+}
+
 global struct ZiplineUtility
 {
     // Entities
@@ -163,8 +177,8 @@ global struct ZiplineUtility
     float endArmOffset
     float heightLimit     = 10000.0
     float startArmOffset
-    int setSkinEnd        = 0
-    int setSkinStart      = 0
+    int setSkinEnd        = eSkinType.ENTIRE
+    int setSkinStart      = eSkinType.ENTIRE
     int xLimit            = 0
     int yLimit            = 0
     int zLimit            = 1
@@ -239,25 +253,10 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startP
 
     zipline.startPos    = startPos ; zipline.startAng  = startAng
     zipline.endPos      = endPos   ; zipline.endAng    = endAng
-    zipline.startZipAng = startAng ; zipline.endZipAng = endAng
 
-    switch ( endPos == < 0, 0, 0 > )
-    {
-        case true:
-            zipline.endAutoDetachDistance   = END_AUTO_DETACH_DISTANCE
-            zipline.isVertical              = true
-            zipline.startAutoDetachDistance = START_AUTO_DETACH_DISTANCE
-            zipline.endArmOffset            = VERTICAL_ARM_OFFSET
-            zipline.startArmOffset          = VERTICAL_ARM_OFFSET
-            break
-        case false:
-            zipline.endAutoDetachDistance   = NH_START_AUTO_DETACH_DISTANCE
-            zipline.isVertical              = false
-            zipline.startAutoDetachDistance = NH_END_AUTO_DETACH_DISTANCE
-            zipline.endArmOffset            = NH_ARM_OFFSET
-            zipline.startArmOffset          = NH_ARM_OFFSET
-        break
-    }
+    if ( endPos == < 0, 0, 0 > ) zipline.isVertical = true else zipline.isVertical = false
+
+    ZiplinePreProcess( zipline, zipline.isVertical, startAng, endAng )
 
     if ( IsZiplineVertical( zipline ) == false && startPos.z == endPos.z ) zipline.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
 
@@ -697,6 +696,30 @@ array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
     ArrayRemoveInvalid( panelArray )
 
 return panelArray }
+
+function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical, vector startAng, vector endAng )
+{
+    switch ( isVertical )
+    {
+        case true:
+            zipline.endAutoDetachDistance   = END_AUTO_DETACH_DISTANCE
+            zipline.startAutoDetachDistance = START_AUTO_DETACH_DISTANCE
+            zipline.endArmOffset            = VERTICAL_ARM_OFFSET
+            zipline.startArmOffset          = VERTICAL_ARM_OFFSET
+            zipline.startZipAng             = startAng
+            zipline.endZipAng               = startAng
+            break
+        case false:
+            zipline.endAutoDetachDistance   = NH_START_AUTO_DETACH_DISTANCE
+            zipline.startAutoDetachDistance = NH_END_AUTO_DETACH_DISTANCE
+            zipline.endArmOffset            = NH_ARM_OFFSET
+            zipline.startArmOffset          = NH_ARM_OFFSET
+            zipline.startZipAng             = startAng
+            zipline.endZipAng               = endAng
+            break
+        default: break
+    }
+}
 
 
 ////////////////////////////////////////////////////////////
