@@ -24,7 +24,7 @@ global function Zipline_SetSkin
 global function Zipline_SetSpeedScale
 global function Zipline_SetWidth
 global function Zipline_SetZiplineAngles
-global function Zipline_UnsetDropToBottom
+global function Zipline_DisableDropToBottom
 
 global function Zipline_CreatePanel
 global function Zipline_PanelNoTimer
@@ -126,17 +126,18 @@ global function GZFZN
     const asset ZIPLINE_PLANEL_WALL_SUPPORT = $"mdl/colony/antenna_01_colony_pole.rmdl"
     const asset ZIPLINE_SUPPORT             = $"mdl/industrial/security_fence_post.rmdl"
 
-enum eBoolState
-{
-    FALSE,
-    TRUE
-}
-
-enum eSkinType
+global enum eZiplineSkinType
 {
     ENTIRE,
     ARM_ONLY,
     INVISIBLE,
+    _COUNT
+}
+
+global enum ePanelSkinType
+{
+    WALL,
+    STAND,
     _COUNT
 }
 
@@ -174,8 +175,8 @@ global struct ZiplineUtility
     float endArmOffset
     float heightLimit     = 10000.0
     float startArmOffset
-    int setSkinEnd        = eSkinType.ENTIRE
-    int setSkinStart      = eSkinType.ENTIRE
+    int setSkinEnd        = eZiplineSkinType.ENTIRE
+    int setSkinStart      = eZiplineSkinType.ENTIRE
     int xLimit            = 0
     int yLimit            = 0
     int zLimit            = 1
@@ -230,6 +231,7 @@ void function ZiplineUtility_Didload()
     ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 31033.5723, -8789.80273, -26724.127 >, < 0, 0, 0 > )
         Zipline_DisableVerticalZiplineOffset( ZiplineDev_0 )
         Zipline_CreatePanel( ZiplineDev_0, < 31012.4844, -8916.56348, -26730.5488 >, < 0, 118, 0 >, 1 )
+        Zipline_SetSkin( ZiplineDev_0, eZiplineSkinType.ENTIRE )
         Zipline_PanelUsableLimit( ZiplineDev_0, 4 )
         Zipline_BuildInit( ZiplineDev_0 )
 
@@ -238,6 +240,10 @@ void function ZiplineUtility_Didload()
         Zipline_CreatePanel( ZiplineDev_1, < 29962.375, -2672.30615, -25863.9375 >, < 0, 134, 0 >, 1 )
         //Zipline_PanelUsableLimit( ZiplineDev_1, 1 )
         Zipline_BuildInit( ZiplineDev_1 )
+        
+    ZiplineUtility ZiplineDev_2 = Zipline_CreateZipline( "ZiplineDev_2", < 30806.2188, -10324.5664, -26630.0957 >, < 0, 0, 0 >, < 30806.2188, -9354.88086, -26630.0957 >, < 0, 0, 0 > )
+        Zipline_SetSkin( ZiplineDev_2, eZiplineSkinType.ARM_ONLY, eZiplineSkinType.ARM_ONLY )
+        Zipline_BuildInit( ZiplineDev_2 )
     
 }
 
@@ -245,7 +251,7 @@ void function ZiplineUtility_Didload()
 ////////////////////////////////////////////////////////////
 //  Initialize zipline
 ////////////////////////////////////////////////////////////
-ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = < 0, 0, 0 >, vector endAng = < 0, 0, 0 > )
+ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = < 0.0001, 0.0001, 0.0001 >, vector endAng = < 0, 0, 0 > )
 {
     ZiplineUtility zipline
 
@@ -256,11 +262,9 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startP
     zipline.startPos    = startPos ; zipline.startAng  = startAng
     zipline.endPos      = endPos   ; zipline.endAng    = endAng
 
-    if ( endPos == < 0, 0, 0 > ) zipline.isVertical = true else zipline.isVertical = false
+    if ( endPos == < 0.0001, 0.0001, 0.0001 > ) zipline.isVertical = true else zipline.isVertical = false
 
-    ZiplinePreProcess( zipline, zipline.isVertical, startAng, endAng )
-
-    if ( IsZiplineVertical( zipline ) == false && startPos.z == endPos.z ) zipline.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
+    ZiplinePreProcess( zipline, zipline.isVertical ) ; Zipline_SetZiplineAngles( zipline, startAng, endAng )
 
     #if ZIPLINE_DEBUG_SCRIPTS
         Zipline_PanelNoTimer( zipline )
@@ -290,68 +294,38 @@ void function Zipline_BuildInitSupportOnly( ZiplineUtility zipline )
 ////////////////////////////////////////////////////////////
 //  Change zipline params
 ////////////////////////////////////////////////////////////
-void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline )
-{   zipline.disableVerticalZiplineOffset = true }
+void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline ) { zipline.disableVerticalZiplineOffset = true }
 
-void function Zipline_EnableRestPoint ( ZiplineUtility zipline )
-{   zipline.restPoint = true }
+void function Zipline_EnableRestPoint ( ZiplineUtility zipline ) { zipline.restPoint = true }
+
+void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistance ) { zipline.fadeDistance = fadeDistance }
+
+void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit ) { zipline.heightLimit = heightLimit ; zipline.boolHeightLimit = true }
+
+void function Zipline_SetIsMoving( ZiplineUtility zipline ) { zipline.isMoving = true }
+
+void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale ) { zipline.lengthScale = lengthScale }
+
+void function Zipline_SetMaterial( ZiplineUtility zipline, string material ) { zipline.material = material }
+
+void function Zipline_SetPreserveVelocity( ZiplineUtility zipline ) { zipline.preserveVelocity = 1 }
+
+void function Zipline_SetScale( ZiplineUtility zipline, float scale ) { zipline.scale = scale }
+
+void function Zipline_SetSpeedScale( ZiplineUtility zipline, float speedScale ) { zipline.speedScale = speedScale }
+
+void function Zipline_SetWidth( ZiplineUtility zipline, float width ) { zipline.width = width }
+
+void function Zipline_SetSkin( ZiplineUtility zipline, int setSkinStart, int setSkinEnd = eZiplineSkinType.ENTIRE ) { zipline.setSkinStart = setSkinStart ; zipline.setSkinEnd = setSkinEnd }
+
+void function Zipline_DisableDropToBottom( ZiplineUtility zipline ) { zipline.dropToBottom = 0 }
 
 void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset, float endArmOffset = 0.0 )
 {
     zipline.startArmOffset = startArmOffset
-    zipline.endArmOffset   = endArmOffset
+
+    if (  endArmOffset == 0.0 && IsZiplineVertical( zipline ) == false ) zipline.endArmOffset = NH_ARM_OFFSET
 }
-
-void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 50.0 )
-{
-    zipline.startAutoDetachDistance = startAutoDetachDistance
-    zipline.endAutoDetachDistance   = endAutoDetachDistance
-}
-
-void function Zipline_SetDetachEndOnUse_OnSpawn( ZiplineUtility zipline, int detachEndOnUse, int detachEndOnSpawn )
-{
-    zipline.detachEndOnUse   = detachEndOnUse
-    zipline.detachEndOnSpawn = detachEndOnSpawn
-}
-
-void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistance )
-{   zipline.fadeDistance = fadeDistance }
-
-void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit )
-{   zipline.heightLimit = heightLimit ; zipline.boolHeightLimit = true }
-
-void function Zipline_SetIsMoving( ZiplineUtility zipline )
-{   zipline.isMoving = true }
-
-void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale )
-{   zipline.lengthScale = lengthScale }
-
-void function Zipline_SetMaterial( ZiplineUtility zipline, string material )
-{   zipline.material = material }
-
-void function Zipline_SetPreserveVelocity( ZiplineUtility zipline )
-{   zipline.preserveVelocity = 1 }
-
-void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int startPushOffInDirectionX, int endPushOffInDirectionX = 1 )
-{
-    zipline.startPushOffInDirectionX = startPushOffInDirectionX
-    zipline.endPushOffInDirectionX   = endPushOffInDirectionX
-}
-
-void function Zipline_SetScale( ZiplineUtility zipline, float scale )
-{   zipline.scale = scale }
-
-void function Zipline_SetSkin( ZiplineUtility zipline, int setSkinStart, int setSkinEnd = 0 )
-{
-    zipline.setSkinStart = setSkinStart
-    zipline.setSkinEnd   = setSkinEnd
-}
-
-void function Zipline_SetSpeedScale( ZiplineUtility zipline, float speedScale )
-{   zipline.speedScale = speedScale }
-
-void function Zipline_SetWidth( ZiplineUtility zipline, float width )
-{   zipline.width = width }
 
 void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
 {
@@ -370,14 +344,29 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipA
     }
 }
 
-void function Zipline_UnsetDropToBottom( ZiplineUtility zipline )
-{   zipline.dropToBottom = 0 }
+void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 50.0 )
+{
+    zipline.startAutoDetachDistance = startAutoDetachDistance
+    zipline.endAutoDetachDistance   = endAutoDetachDistance
+}
+
+void function Zipline_SetDetachEndOnUse_OnSpawn( ZiplineUtility zipline, int detachEndOnUse, int detachEndOnSpawn )
+{
+    zipline.detachEndOnUse   = detachEndOnUse
+    zipline.detachEndOnSpawn = detachEndOnSpawn
+}
+
+void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int startPushOffInDirectionX, int endPushOffInDirectionX = 1 )
+{
+    zipline.startPushOffInDirectionX = startPushOffInDirectionX
+    zipline.endPushOffInDirectionX   = endPushOffInDirectionX
+}
 
 
 ////////////////////////////////////////////////////////////
 //  Create panel for ziplines
 ////////////////////////////////////////////////////////////
-void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang, int skin = 0 )
+void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang, int skin = ePanelSkinType.WALL )
 {
     asset model = DecidePanelModel( skin )
     entity panel = CreateUsablePanel( model, pos, ang )
@@ -447,9 +436,7 @@ void function OnUseZiplinePanelThread( entity panel )
 void function UpdatePanelsPrompts( ZiplineUtility zipline )
 {
     string prompt
-    if ( IsZiplineDestroyed( zipline ) == true )
-        prompt = ZIPLINE_CREATE
-    else prompt = ZIPLINE_DESTROY
+    if ( IsZiplineDestroyed( zipline ) == true ) prompt = ZIPLINE_CREATE else prompt = ZIPLINE_DESTROY
 
     foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
 }
@@ -477,9 +464,7 @@ void function DecidingZipline( ZiplineUtility zipline )
 
 void function ChangePanelState( entity panel, bool forceUsable = false )
 {
-    ZiplineUtility zipline = GZFEP( panel ) ; string prompt
-
-    float waitPanelState ; float travelTime
+    ZiplineUtility zipline = GZFEP( panel ) ; string prompt ; float waitPanelState ; float travelTime
 
     if ( zipline.panelNoTimer == true ) waitPanelState = 0 else waitPanelState = RandomFloatRange( 32.0, 60.0 )
 
@@ -489,19 +474,16 @@ void function ChangePanelState( entity panel, bool forceUsable = false )
             travelTime = 0
             break
         case false:
-            if ( zipline.isMoving == true )
-                travelTime = ChooseZiplineTravelTime( zipline )
-            else
-                travelTime = 0
+            if ( zipline.isMoving == true && forceUsable == false ) travelTime = ChooseZiplineTravelTime( zipline ) else travelTime = 0
             break
         default: break
     }
 
-    if ( forceUsable == true ) travelTime = 0
+    //if ( forceUsable == true ) travelTime = 0
 
     #if ZIPLINE_DEBUG_SCRIPTS
         if ( zipline.isFirstTimeInited == false )
-            if ( IsValid( zipline.newPanel[0] ) && panel == zipline.newPanel[0] )
+            if ( IsValid( zipline.newPanel[ 0 ] ) && panel == zipline.newPanel[ 0 ] )
                 printt( zipline.ziplineName + " panels can be reused in " + ( waitPanelState + travelTime ) + " seconds" )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
@@ -533,8 +515,7 @@ void function DestoryPanelsAfterUsed( ZiplineUtility zipline )
 
     foreach ( panels in GetZiplinePanelArray( zipline ) )
     {
-        if ( IsValid( panels ) )
-        {   panels.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 ) }
+        if ( IsValid( panels ) ) panels.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
     }
     ArrayRemoveInvalid( zipline.newPanel )
 }
@@ -544,9 +525,9 @@ asset function DecidePanelModel( int skinType )
     asset skin
     switch ( skinType )
     {
-        case 0:
+        case ePanelSkinType.WALL:
             skin = ZIPLINE_PLANEL_WALL ; break
-        case 1:
+        case ePanelSkinType.STAND:
             skin = ZIPLINE_PLANEL_STAND ; break
         default:
         skin = $"" ; break
@@ -556,8 +537,7 @@ return skin }
 ////////////////////////////////////////////////////////////
 //  Get zipline params
 ////////////////////////////////////////////////////////////
-array< ZiplineUtility > function GetAllZiplines()
-{   return ziplineUtility.ziplineArrayInit }
+array< ZiplineUtility > function GetAllZiplines() { return ziplineUtility.ziplineArrayInit }
 
 vector function GetZiplineAngles( string ziplineName, string org_or_zip, string start_or_end )
 {
@@ -686,8 +666,7 @@ float function ChooseZiplineTravelTime( ZiplineUtility zipline )
     return travelTime
 }
 
-void function ChangeAllPanelState( ZiplineUtility zipline, bool forceUsable = false )
-{   foreach ( panels in GetZiplinePanelArray( zipline ) ) thread ChangePanelState( panels, forceUsable ) }
+void function ChangeAllPanelState( ZiplineUtility zipline, bool forceUsable = false ) { foreach ( panels in GetZiplinePanelArray( zipline ) ) thread ChangePanelState( panels, forceUsable ) }
 
 array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
 {
@@ -699,7 +678,7 @@ array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
 
 return panelArray }
 
-function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical, vector startAng, vector endAng )
+function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
 {
     switch ( isVertical )
     {
@@ -708,16 +687,14 @@ function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical, vector star
             zipline.startAutoDetachDistance = START_AUTO_DETACH_DISTANCE
             zipline.endArmOffset            = VERTICAL_ARM_OFFSET
             zipline.startArmOffset          = VERTICAL_ARM_OFFSET
-            zipline.startZipAng             = startAng
-            zipline.endZipAng               = startAng
             break
         case false:
             zipline.endAutoDetachDistance   = NH_START_AUTO_DETACH_DISTANCE
             zipline.startAutoDetachDistance = NH_END_AUTO_DETACH_DISTANCE
             zipline.endArmOffset            = NH_ARM_OFFSET
             zipline.startArmOffset          = NH_ARM_OFFSET
-            zipline.startZipAng             = startAng
-            zipline.endZipAng               = endAng
+
+            if ( zipline.startPos.z == zipline.endPos.z ) zipline.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
             break
         default: break
     }
@@ -746,15 +723,15 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
     {
         switch ( zipline.setSkinStart ) // With / Without support selection
         {
-            case 0: // With support
+            case eZiplineSkinType.ENTIRE: // With support
                 startSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, startPos, tempAngForSupport )
                 startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPosArm, tempAng )
                 startArm.SetParent( startSupport ) ; startSupport.SetAngles( startAng )
                 break
-            case 1: // Without support
+            case eZiplineSkinType.ARM_ONLY: // Without support
                 startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPos, startArmAng )
                 break
-            case 2: // Invisible model
+            case eZiplineSkinType.INVISIBLE: // Invisible model
                 startArm        = Zipline_CreateProp( EMPTY_MODEL, startPos, startArmAng )
             default:
             break
@@ -774,15 +751,15 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
     {
         switch ( zipline.setSkinStart ) // With / Without support selection
         {
-            case 0: // With support
+            case eZiplineSkinType.ENTIRE: // With support
                 startSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, startPos, tempAngForSupport )
                 startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPosArm, tempAng )
                 startArm.SetParent( startSupport ) ; startSupport.SetAngles( startAng )
                 break
-            case 1: // Without support
+            case eZiplineSkinType.ARM_ONLY: // Without support
                 startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPos, startArmAng )
                 break
-            case 2: // Invisible model
+            case eZiplineSkinType.INVISIBLE: // Invisible model
                 startArm        = Zipline_CreateProp( EMPTY_MODEL, startPos, startArmAng )
             default:
             break
@@ -790,15 +767,15 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 
         switch ( zipline.setSkinEnd ) // With / Without support selection
         {
-            case 0: // With support
+            case eZiplineSkinType.ENTIRE: // With support
                 endSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, endPos, tempAngForSupport )
                 endArm        = Zipline_CreateProp( ZIPLINE_ARM, endPosArm, tempAng )
                 endArm.SetParent( endSupport ) ; endSupport.SetAngles( endAng )
                 break
-            case 1: // Without support
+            case eZiplineSkinType.ARM_ONLY: // Without support
                 endArm        = Zipline_CreateProp( ZIPLINE_ARM, endPos, endArmAng )
                 break
-            case 2: // Invisible model
+            case eZiplineSkinType.INVISIBLE: // Invisible model
                 endArm        = Zipline_CreateProp( EMPTY_MODEL, endPos, endArmAng )
                 break
             default:

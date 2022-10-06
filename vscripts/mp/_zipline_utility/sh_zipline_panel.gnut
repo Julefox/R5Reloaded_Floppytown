@@ -1,0 +1,9 @@
+untyped
+
+global function ShZiplinePanel_Init
+
+
+void function ShZiplinePanel_Init()
+{
+    
+}

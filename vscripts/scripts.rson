@@ -951,11 +951,14 @@ Scripts:
 When: "SERVER"
 Scripts:
 [
-	_zipline_utility.gnut
+    mp/_zipline_utility/_zipline_utility.gnut
+	mp/_zipline_utility/_zipline_settings.gnut
+    mp/_zipline_utility/_zipline_func.gnut
 ]
 
 When: "SERVER || CLIENT"
 Scripts:
 [
-	sh_zipline_utility.gnut
+	mp/_zipline_utility/sh_zipline_utility.gnut
+    mp/_zipline_utility/sh_zipline_panel.gnut
 ]

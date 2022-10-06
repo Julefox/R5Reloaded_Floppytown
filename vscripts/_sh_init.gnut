@@ -184,10 +184,11 @@ void function SV_CL_Init()
 	Sh_PassiveVoices_Init()
 
     // Zipline Utility
-        ShZiplineUtility_Init()
         #if SERVER
             ZiplineUtility_Init()
-        #endif // SERVER
+        #elseif SERVER || CLIENT
+            ShZiplineUtility_Init()
+        #endif
     //
 
 	#if CLIENT

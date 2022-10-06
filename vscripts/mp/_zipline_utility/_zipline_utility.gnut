@@ -1,0 +1,148 @@
+untyped
+
+
+global function ZiplineUtility_Init
+
+
+// Global const values
+    global const        ZIPLINE_EXPLOSION                  = $"p_impact_exp_small_full"
+    global const float  END_AUTO_DETACH_DISTANCE           = 50.0
+    global const float  NH_ARM_OFFSET                      = 160.0
+    global const float  NH_END_AUTO_DETACH_DISTANCE        = 150.0
+    global const float  NH_START_AUTO_DETACH_DISTANCE      = 150.0
+    global const float  START_AUTO_DETACH_DISTANCE         = 100.0
+    global const float  VERTICAL_ARM_OFFSET                = 200.0
+    global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS   = 0.99
+    global const string ZIPLINE_END_SOUND                  = "explo_spectre"
+    global const string ZIPLINE_PANEL_LOCKED               = "npe_player_fail"
+    global const string ZIPLINE_START_SOUND                = "pathfinder_zipline_expand"
+
+// Global const assets
+    global const asset ZIPLINE_ARM                 = $"mdl/industrial/zipline_arm.rmdl"
+    global const asset ZIPLINE_PLANEL_WALL         = $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl"
+    global const asset ZIPLINE_PLANEL_STAND        = $"mdl/props/global_access_panel_button/global_access_panel_button_console_w_stand.rmdl"
+    global const asset ZIPLINE_PLANEL_WALL_SUPPORT = $"mdl/colony/antenna_01_colony_pole.rmdl"
+    global const asset ZIPLINE_SUPPORT             = $"mdl/industrial/security_fence_post.rmdl"
+
+// Const values
+    const vector       V_ZIPLINE_VECTOR = < 0.0001, 0.0001, 0.0001 >
+
+
+global enum eZiplineSkinType
+{
+    ENTIRE,
+    ARM_ONLY,
+    INVISIBLE,
+    _COUNT
+}
+
+global struct KVFilesSettings
+{
+    // KV.Files vars start
+    bool isVertical
+    float fadeDistance              = -1.0
+    float lengthScale               = 1.0
+    float scale                     = 1.0
+    float speedScale                = 1.0
+    float startAutoDetachDistance
+    float width                     = 2.0
+    int detachEndOnSpawn            = 0
+    int detachEndOnUse              = 0
+    int dropToBottom                = 1
+    int preserveVelocity            = 0
+    int startPushOffInDirectionX    = 1
+    int ziplineVersion              = 3
+    string material                 = "cable/zipline.vmt"
+
+    // KV.Files vars end
+    float endAutoDetachDistance
+    int endPushOffInDirectionX      = 1
+}
+
+global struct ZiplineVars
+{
+    bool destroyAll         = false
+    bool disableVerticalZiplineOffset = false
+    bool isFirstTimeInited  = true
+    bool isMoving           = false
+    bool restPoint          = false
+    bool boolHeightLimit    = false
+    float endArmOffset
+    float heightLimit     = 10000.0
+    float startArmOffset
+    int setSkinEnd        = eZiplineSkinType.ENTIRE
+    int setSkinStart      = eZiplineSkinType.ENTIRE
+    int xLimit            = 0
+    int yLimit            = 0
+    int zLimit            = 1
+    string ziplineName
+    vector zipPosOffset   = < 0, 0, 80 >
+}
+
+global struct ZiplinePanel
+{
+    array < entity > newPanel
+    bool panelNoTimer       = false
+    bool panelUsableLimit   = false
+    int numberMaxUsedPanel  = 0
+    int numberUsedPanel     = 1
+}
+
+
+global struct ZiplineUtility
+{
+    // Entities
+    entity endZiplinePoint
+    entity startZiplinePoint
+    array < entity > skinArray
+
+    // Vectors entities start / end
+    vector endAng
+    vector endPos
+    vector endZipAng
+    vector endZipPos
+    vector startAng
+    vector startPos
+    vector startZipAng
+    vector startZipPos
+
+    KVFilesSettings settings
+    ZiplineVars     vars
+    ZiplinePanel    panels
+
+    // Array
+    array < ZiplineUtility > ziplineArrayInit
+}
+global ZiplineUtility ziplineUtility
+
+
+void function ZiplineUtility_Init()
+{
+    ZiplinePrecache()
+    AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
+}
+
+void function ZiplineUtility_Didload()
+{
+    ZiplineUtility Yes = Zipline_CreateZipline( "Yes", <0,0,0>, <0,0,0> )
+}
+
+ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = V_ZIPLINE_VECTOR, vector endAng = < 0, 0, 0 > )
+{
+    ZiplineUtility zipline ; if ( IsZiplineHaveSameName( ziplineName ) ) return zipline
+
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
+
+    vars.ziplineName = ziplineName
+
+    zipline.startPos    = startPos ; zipline.startAng  = startAng
+    zipline.endPos      = endPos   ; zipline.endAng    = endAng
+
+    if ( endPos == V_ZIPLINE_VECTOR ) settings.isVertical = true else settings.isVertical = false
+
+    ZiplinePreProcess( zipline, settings.isVertical ) ; Zipline_SetZiplineAngles( zipline, startAng, endAng )
+
+    ziplineUtility.ziplineArrayInit.append( zipline )
+
+return zipline }
+

@@ -1,0 +1,70 @@
+untyped
+
+
+globalize_all_functions
+
+
+void function ZiplinePrecache()
+{
+    PrecacheModel( ZIPLINE_ARM )
+    PrecacheModel( ZIPLINE_PLANEL_STAND )
+    PrecacheModel( ZIPLINE_PLANEL_WALL )
+    PrecacheModel( ZIPLINE_PLANEL_WALL_SUPPORT )
+    PrecacheModel( ZIPLINE_SUPPORT )
+    PrecacheParticleSystem( ZIPLINE_EXPLOSION )
+}
+
+array< ZiplineUtility > function GetAllZiplines()
+{
+    return ziplineUtility.ziplineArrayInit
+}
+
+bool function IsZiplineHaveSameName( string ziplineName )
+{
+    foreach ( ziplines in GetAllZiplines() )
+    {
+        if ( ziplines.vars.ziplineName == ziplineName )
+            return true
+    }
+return false }
+
+function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
+{
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
+    switch ( isVertical )
+    {
+        case true:
+            settings.endAutoDetachDistance    = END_AUTO_DETACH_DISTANCE
+            settings.startAutoDetachDistance  = START_AUTO_DETACH_DISTANCE
+            vars.endArmOffset                 = VERTICAL_ARM_OFFSET
+            vars.startArmOffset               = VERTICAL_ARM_OFFSET
+            break
+        case false:
+            settings.endAutoDetachDistance    = NH_START_AUTO_DETACH_DISTANCE
+            settings.startAutoDetachDistance  = NH_END_AUTO_DETACH_DISTANCE
+            vars.endArmOffset                 = NH_ARM_OFFSET
+            vars.startArmOffset               = NH_ARM_OFFSET
+
+            if ( zipline.startPos.z == zipline.endPos.z ) settings.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
+            break
+        default: break
+    }
+}
+
+void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
+{
+    KVFilesSettings settings = zipline.settings
+    switch ( settings.isVertical )
+    {
+        case true:
+            zipline.startZipAng   = startZipAng
+            zipline.endZipAng     = startZipAng
+            break
+        case false:
+            zipline.startZipAng   = startZipAng
+            zipline.endZipAng     = endZipAng
+            break
+        default:
+        break
+    }
+}

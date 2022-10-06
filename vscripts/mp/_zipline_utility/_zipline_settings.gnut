@@ -1,0 +1,9 @@
+untyped
+
+global function ZiplineSettings_Init
+
+
+void function ZiplineSettings_Init()
+{
+    
+}
