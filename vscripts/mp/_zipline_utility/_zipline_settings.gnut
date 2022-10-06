@@ -1,9 +1,77 @@
 untyped
 
-global function ZiplineSettings_Init
+
+globalize_all_functions
 
 
-void function ZiplineSettings_Init()
+void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline ) { zipline.vars.disableVerticalZiplineOffset = true }
+
+void function Zipline_EnableRestPoint ( ZiplineUtility zipline ) { zipline.vars.restPoint = true }
+
+void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistance ) { zipline.settings.fadeDistance = fadeDistance }
+
+void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit ) { zipline.vars.heightLimit = heightLimit ; zipline.vars.boolHeightLimit = true }
+
+void function Zipline_SetIsMoving( ZiplineUtility zipline ) { zipline.vars.isMoving = true }
+
+void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale ) { zipline.settings.lengthScale = lengthScale }
+
+void function Zipline_SetMaterial( ZiplineUtility zipline, string material ) { zipline.settings.material = material }
+
+void function Zipline_SetPreserveVelocity( ZiplineUtility zipline ) { zipline.settings.preserveVelocity = 1 }
+
+void function Zipline_SetScale( ZiplineUtility zipline, float scale ) { zipline.settings.scale = scale }
+
+void function Zipline_SetSpeedScale( ZiplineUtility zipline, float speedScale ) { zipline.settings.speedScale = speedScale }
+
+void function Zipline_SetWidth( ZiplineUtility zipline, float width ) { zipline.settings.width = width }
+
+void function Zipline_SetSkin( ZiplineUtility zipline, int setSkinStart, int setSkinEnd = eZiplineSkinType.ENTIRE ) { zipline.vars.setSkinStart = setSkinStart ; zipline.vars.setSkinEnd = setSkinEnd }
+
+void function Zipline_DisableDropToBottom( ZiplineUtility zipline ) { zipline.settings.dropToBottom = 0 }
+
+void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset, float endArmOffset = 0.0 )
 {
-    
+    zipline.vars.startArmOffset = startArmOffset
+
+    if ( endArmOffset == 0.0 && !IsZiplineVertical( zipline ) ) zipline.vars.endArmOffset = NV_ARM_OFFSET
+}
+
+void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
+{
+    KVFilesSettings settings = zipline.settings
+    switch ( settings.isVertical )
+    {
+        case true:
+            zipline.startZipAng   = startZipAng
+            zipline.endZipAng     = startZipAng
+            break
+        case false:
+            zipline.startZipAng   = startZipAng
+            zipline.endZipAng     = endZipAng
+            break
+        default:
+        break
+    }
+}
+
+void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 50.0 )
+{
+    KVFilesSettings settings = zipline.settings
+    settings.startAutoDetachDistance = startAutoDetachDistance
+    settings.endAutoDetachDistance   = endAutoDetachDistance
+}
+
+void function Zipline_SetDetachEndOnUse_OnSpawn( ZiplineUtility zipline, int detachEndOnUse, int detachEndOnSpawn )
+{
+    KVFilesSettings settings = zipline.settings
+    settings.detachEndOnUse   = detachEndOnUse
+    settings.detachEndOnSpawn = detachEndOnSpawn
+}
+
+void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int startPushOffInDirectionX, int endPushOffInDirectionX = 1 )
+{
+    KVFilesSettings settings = zipline.settings
+    settings.startPushOffInDirectionX = startPushOffInDirectionX
+    settings.endPushOffInDirectionX   = endPushOffInDirectionX
 }

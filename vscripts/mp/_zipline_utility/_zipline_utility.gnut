@@ -3,16 +3,21 @@ untyped
 
 global function ZiplineUtility_Init
 
+global function Zipline_CreateZipline
+global function Zipline_InitZipline
+
 
 // Global const values
     global const        ZIPLINE_EXPLOSION                  = $"p_impact_exp_small_full"
     global const float  END_AUTO_DETACH_DISTANCE           = 50.0
-    global const float  NH_ARM_OFFSET                      = 160.0
-    global const float  NH_END_AUTO_DETACH_DISTANCE        = 150.0
-    global const float  NH_START_AUTO_DETACH_DISTANCE      = 150.0
+    global const float  NV_ARM_OFFSET                      = 160.0
+    global const float  NV_END_AUTO_DETACH_DISTANCE        = 150.0
+    global const float  NV_START_AUTO_DETACH_DISTANCE      = 150.0
     global const float  START_AUTO_DETACH_DISTANCE         = 100.0
     global const float  VERTICAL_ARM_OFFSET                = 200.0
     global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS   = 0.99
+    global const string VERTICAL_ZIPLINE_SCRIPT_NAME       = "IsVerticalZipline"
+    global const string NV_ZIPLINE_SCRIPT_NAME             = "IsNonVerticalZipline"
     global const string ZIPLINE_END_SOUND                  = "explo_spectre"
     global const string ZIPLINE_PANEL_LOCKED               = "npe_player_fail"
     global const string ZIPLINE_START_SOUND                = "pathfinder_zipline_expand"
@@ -34,6 +39,14 @@ global enum eZiplineSkinType
     ARM_ONLY,
     INVISIBLE,
     _COUNT
+}
+
+global struct ZiplineState
+{
+    bool isFirstTimeInited  = true
+    bool supportIsValid     = false
+    bool ziplineIsValid     = false
+    bool ziplineIsDestroyed = true
 }
 
 global struct KVFilesSettings
@@ -63,7 +76,6 @@ global struct ZiplineVars
 {
     bool destroyAll         = false
     bool disableVerticalZiplineOffset = false
-    bool isFirstTimeInited  = true
     bool isMoving           = false
     bool restPoint          = false
     bool boolHeightLimit    = false
@@ -109,6 +121,7 @@ global struct ZiplineUtility
     KVFilesSettings settings
     ZiplineVars     vars
     ZiplinePanel    panels
+    ZiplineState    state
 
     // Array
     array < ZiplineUtility > ziplineArrayInit
@@ -124,7 +137,13 @@ void function ZiplineUtility_Init()
 
 void function ZiplineUtility_Didload()
 {
-    ZiplineUtility Yes = Zipline_CreateZipline( "Yes", <0,0,0>, <0,0,0> )
+    ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 31025.5918, -8575.43945, -26730.5488 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
+    Zipline_SetSkin( ZiplineDev_0, 0, 1 )
+    Zipline_InitZipline( ZiplineDev_0 )
+
+    ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 31027.6953, -8789.94434, -26724.127 >, < 0, 0, 0 > )
+    Zipline_SetIsMoving( ZiplineDev_1 )
+    Zipline_InitZipline( ZiplineDev_1 )
 }
 
 ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = V_ZIPLINE_VECTOR, vector endAng = < 0, 0, 0 > )
@@ -145,4 +164,11 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startP
     ziplineUtility.ziplineArrayInit.append( zipline )
 
 return zipline }
+
+void function Zipline_InitZipline( ZiplineUtility zipline, bool spawnSupportOnly = false )
+{
+    if ( zipline.state.supportIsValid == false ) Zipline_CreateSupport( zipline )
+    if ( zipline.state.ziplineIsValid == false && spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    //UpdatePanelsPrompts( zipline )
+}
 

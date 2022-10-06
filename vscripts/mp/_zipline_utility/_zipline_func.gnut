@@ -19,15 +19,6 @@ array< ZiplineUtility > function GetAllZiplines()
     return ziplineUtility.ziplineArrayInit
 }
 
-bool function IsZiplineHaveSameName( string ziplineName )
-{
-    foreach ( ziplines in GetAllZiplines() )
-    {
-        if ( ziplines.vars.ziplineName == ziplineName )
-            return true
-    }
-return false }
-
 function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
@@ -40,10 +31,10 @@ function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
             vars.startArmOffset               = VERTICAL_ARM_OFFSET
             break
         case false:
-            settings.endAutoDetachDistance    = NH_START_AUTO_DETACH_DISTANCE
-            settings.startAutoDetachDistance  = NH_END_AUTO_DETACH_DISTANCE
-            vars.endArmOffset                 = NH_ARM_OFFSET
-            vars.startArmOffset               = NH_ARM_OFFSET
+            settings.endAutoDetachDistance    = NV_START_AUTO_DETACH_DISTANCE
+            settings.startAutoDetachDistance  = NV_END_AUTO_DETACH_DISTANCE
+            vars.endArmOffset                 = NV_ARM_OFFSET
+            vars.startArmOffset               = NV_ARM_OFFSET
 
             if ( zipline.startPos.z == zipline.endPos.z ) settings.lengthScale = ZIPLINE_LENGTH_OFFSET_SAME_Z_POS
             break
@@ -51,20 +42,255 @@ function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
     }
 }
 
-void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
+array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 {
-    KVFilesSettings settings = zipline.settings
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
+
+    // Entities Declaration
+    array< entity > entityArray = [ ] ; entity startSupport ; entity startArm ; entity endSupport ; entity endArm
+
+    // Offset for arm heigth | locked between 160.0 (min) / 280.0 (max)
+    float minOffset = 160.0 ; float maxOffset = 280.0 ; float startArmOffset = vars.startArmOffset ; float endArmOffset = vars.endArmOffset
+    if ( startArmOffset < minOffset ) startArmOffset = minOffset else if ( startArmOffset > maxOffset ) startArmOffset = maxOffset
+    if ( endArmOffset   < minOffset ) endArmOffset   = minOffset else if ( endArmOffset   > maxOffset ) endArmOffset   = maxOffset
+
+    // Temporary angle for the right position | Position offsets calculation
+    vector startPos = zipline.startPos ; vector startAng = zipline.startAng ; vector endPos = zipline.endPos ; vector endAng = zipline.endAng
+    vector startPosArm = startPos + < -1, -2, startArmOffset > ; vector endPosArm = endPos + < -1, -2, endArmOffset > ; vector angOffset = < 0, 90, 0 >
+    vector tempAng = < 0, 0, 0 > ; vector tempAngForSupport = < 0, 90, 0 > ; vector startArmAng = startAng - angOffset ; vector endArmAng = endAng - angOffset
+
+    if ( IsZiplineVertical( zipline ) == true ) // If vertical
+    {
+        switch ( vars.setSkinStart ) // With / Without support selection
+        {
+            case eZiplineSkinType.ENTIRE: // With support
+                startSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, startPos, tempAngForSupport )
+                startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPosArm, tempAng )
+                startArm.SetParent( startSupport ) ; startSupport.SetAngles( startAng )
+                break
+            case eZiplineSkinType.ARM_ONLY: // Without support
+                startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPos, startArmAng )
+                break
+            case eZiplineSkinType.INVISIBLE: // Invisible model
+                startArm        = Zipline_CreateProp( EMPTY_MODEL, startPos, startArmAng )
+            default:
+            break
+        }
+
+        // Add to array for return
+        if ( startSupport != null ) entityArray.append( startSupport ) ; entityArray.append( startArm )
+        
+        // Return origin point of the zipline
+        if ( vars.setSkinStart != 2 ) zipline.startZipPos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZipPos = startPos
+
+        // Set script name and target
+        foreach ( ent in entityArray ) ent.SetScriptName( VERTICAL_ZIPLINE_SCRIPT_NAME )
+        if ( startSupport != null ) SetTargetName( startSupport, vars.ziplineName ) ; SetTargetName( startArm, vars.ziplineName )
+    }
+    else // If non vertical
+    {
+        switch ( vars.setSkinStart ) // With / Without support selection
+        {
+            case eZiplineSkinType.ENTIRE: // With support
+                startSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, startPos, tempAngForSupport )
+                startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPosArm, tempAng )
+                startArm.SetParent( startSupport ) ; startSupport.SetAngles( startAng )
+                break
+            case eZiplineSkinType.ARM_ONLY: // Without support
+                startArm        = Zipline_CreateProp( ZIPLINE_ARM, startPos, startArmAng )
+                break
+            case eZiplineSkinType.INVISIBLE: // Invisible model
+                startArm        = Zipline_CreateProp( EMPTY_MODEL, startPos, startArmAng )
+            default:
+            break
+        }
+
+        switch ( vars.setSkinEnd ) // With / Without support selection
+        {
+            case eZiplineSkinType.ENTIRE: // With support
+                endSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, endPos, tempAngForSupport )
+                endArm        = Zipline_CreateProp( ZIPLINE_ARM, endPosArm, tempAng )
+                endArm.SetParent( endSupport ) ; endSupport.SetAngles( endAng )
+                break
+            case eZiplineSkinType.ARM_ONLY: // Without support
+                endArm        = Zipline_CreateProp( ZIPLINE_ARM, endPos, endArmAng )
+                break
+            case eZiplineSkinType.INVISIBLE: // Invisible model
+                endArm        = Zipline_CreateProp( EMPTY_MODEL, endPos, endArmAng )
+                break
+            default:
+            break
+        }
+
+        // Add to array for return
+        if ( startSupport != null ) entityArray.append( startSupport )  ; entityArray.append( startArm )
+        if ( endSupport   != null ) entityArray.append( endSupport )    ; entityArray.append( endArm )
+
+        // Return origin point of the zipline
+        if ( vars.setSkinStart != 2 ) zipline.startZipPos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZipPos = startPos
+        if ( vars.setSkinEnd   != 2 ) zipline.endZipPos   = PositionOffsetFromEnt( endArm,   -4, -55.5, -12 ) else zipline.endZipPos   = endPos
+
+        // Set script name and target
+        foreach ( ent in entityArray ) ent.SetScriptName( NV_ZIPLINE_SCRIPT_NAME )
+        if ( startSupport != null ) SetTargetName( startSupport, vars.ziplineName + "_start" ) ; SetTargetName( startArm, vars.ziplineName + "_start" )
+        if ( endSupport   != null ) SetTargetName( endSupport,   vars.ziplineName + "_end" )   ; SetTargetName( endArm,   vars.ziplineName + "_end" )
+    }
+
+    state.supportIsValid = true ; zipline.skinArray.extend( entityArray )
+
+return entityArray }
+
+array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
+{
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
+
+    // Calculation part
+    vector startZipPos = zipline.startZipPos ; vector endZipPos ; vector startZipAng ; vector endZipAng
+    
     switch ( settings.isVertical )
     {
         case true:
-            zipline.startZipAng   = startZipAng
-            zipline.endZipAng     = startZipAng
+            vector offset         = startZipPos - vars.zipPosOffset
+            TraceResults result   = TraceLine( offset, offset + -vars.heightLimit * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+            startZipAng           = zipline.startZipAng ; endZipAng = zipline.endZipAng
+
+            if ( vars.boolHeightLimit == false && vars.disableVerticalZiplineOffset == false )
+            {   endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
+
+            zipline.endZipPos = endZipPos
             break
         case false:
-            zipline.startZipAng   = startZipAng
-            zipline.endZipAng     = endZipAng
+            startZipAng    = zipline.startZipAng ; endZipAng = zipline.endZipAng ; endZipPos = zipline.endZipPos
+
+            startZipAng    = VectorToAngles( Normalize( endZipPos - startZipPos ) )
+            startZipAng.x  = startZipAng.x % 180.0
+            startZipAng.y  = startZipAng.y % 180.0
+            startZipAng.z  = startZipAng.z % 180.0
+
+            endZipAng      = VectorToAngles( Normalize( startZipPos - endZipPos ) )
+            endZipAng.x    = endZipAng.x % 180.0
+            endZipAng.y    = endZipAng.y % 180.0
+            endZipAng.z    = endZipAng.z % 180.0
             break
         default:
         break
     }
+
+    if ( vars.isMoving == true ) endZipPos = startZipPos - < 0, 0, 0.1 >
+
+    // Create start point
+    entity startZiplinePoint = CreateEntity( "zipline" )
+
+    startZiplinePoint.kv.DetachEndOnSpawn             = settings.detachEndOnSpawn
+    startZiplinePoint.kv.DetachEndOnUse               = settings.detachEndOnUse
+    startZiplinePoint.kv.Material                     = settings.material
+    startZiplinePoint.kv.scale                        = settings.scale
+    startZiplinePoint.kv.Width                        = settings.width
+    startZiplinePoint.kv.ZiplineAutoDetachDistance    = settings.startAutoDetachDistance
+    startZiplinePoint.kv.ZiplineDropToBottom          = settings.dropToBottom
+    startZiplinePoint.kv.ZiplineFadeDistance          = settings.fadeDistance
+    startZiplinePoint.kv.ZiplineLengthScale           = settings.lengthScale
+    startZiplinePoint.kv.ZiplinePreserveVelocity      = settings.preserveVelocity
+    startZiplinePoint.kv.ZiplinePushOffInDirectionX   = settings.startPushOffInDirectionX
+    startZiplinePoint.kv.ZiplineSpeedScale            = settings.speedScale
+    startZiplinePoint.kv.ZiplineVersion               = settings.ziplineVersion
+    startZiplinePoint.kv.ZiplineVertical              = settings.isVertical
+
+    if ( vars.restPoint == true )
+    {
+        startZiplinePoint.kv._zipline_rest_point_0    = startZipPos.x + " " + startZipPos.y  + " " + startZipPos.z
+        startZiplinePoint.kv._zipline_rest_point_1    = endZipPos.x   + " " + endZipPos.y    + " " + endZipPos.z
+    }
+
+    startZiplinePoint.SetAngles( startZipAng )
+    startZiplinePoint.SetOrigin( startZipPos )
+
+    // Create end point
+    entity endZiplinePoint = CreateEntity( "zipline_end" )
+
+    endZiplinePoint.kv.ZiplineAutoDetachDistance    = settings.endAutoDetachDistance
+    endZiplinePoint.kv.ZiplinePushOffInDirectionX   = settings.endPushOffInDirectionX
+
+    endZiplinePoint.SetAngles( endZipAng )
+    endZiplinePoint.SetOrigin( endZipPos )
+
+    startZiplinePoint.LinkToEnt( endZiplinePoint )
+
+    DispatchSpawn( startZiplinePoint ) ; DispatchSpawn( endZiplinePoint )
+
+    zipline.startZiplinePoint = startZiplinePoint
+    zipline.endZiplinePoint   = endZiplinePoint
+
+    EmitSoundOnEntity( startZiplinePoint, ZIPLINE_START_SOUND ) ; EmitSoundOnEntity( endZiplinePoint, ZIPLINE_START_SOUND )
+
+    if ( vars.isMoving == true ) thread Zipline_Mover( zipline )
+
+    state.ziplineIsValid     = true
+    state.ziplineIsDestroyed = false
+    state.isFirstTimeInited  = false
+
+return [ startZiplinePoint, endZiplinePoint ] }
+
+function Zipline_Mover( ZiplineUtility zipline )
+{
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
+
+    entity startPoint = zipline.startZiplinePoint
+    entity endPoint   = zipline.endZiplinePoint
+    array< entity > panelArray = panels.newPanel
+
+    startPoint.Zipline_Disable()
+
+    entity mover = CreateOwnedScriptMover( endPoint )
+    endPoint.SetParent( mover )
+
+    OnThreadEnd( function() : ( startPoint, endPoint, mover )
+    {
+        if ( IsValid( endPoint ) ) endPoint.ClearParent()
+        if ( IsValid( endPoint ) ) { if ( IsValid( mover ) && endPoint.GetParent() == null ) mover.Destroy() }
+        if ( IsValid( startPoint) ) startPoint.Zipline_Enable()
+    })
+
+    float travelTime = ChooseZiplineTravelTime( zipline ) ; float travelTimeDivised
+
+    if ( state.isFirstTimeInited == true ) travelTime = 1.0
+
+    travelTimeDivised = travelTime / 2
+
+    mover.MoveTo( zipline.endZipPos, travelTime, travelTimeDivised, travelTimeDivised )
+
+    wait travelTime
 }
+
+float function ChooseZiplineTravelTime( ZiplineUtility zipline )
+{
+    float travelTime
+    if ( IsZiplineVertical( zipline ) == true ) { travelTime = 6 } else { travelTime = 2 }
+    return travelTime
+}
+
+bool function IsZiplineHaveSameName( string ziplineName )
+{
+    foreach ( ziplines in GetAllZiplines() )
+    {
+        if ( ziplines.vars.ziplineName == ziplineName )
+            return true
+    }
+return false }
+
+bool function IsZiplineVertical( ZiplineUtility zipline )
+{
+    if ( zipline.settings.isVertical == true )
+        return true
+
+return false }
+
+entity function Zipline_CreateProp( asset a, vector pos, vector ang )
+{
+    entity prop = CreatePropDynamic( a, pos, ang, SOLID_VPHYSICS, 20000 )
+    prop.AllowMantle()
+    int realm = -1
+    if ( realm > -1 ) { prop.RemoveFromAllRealms() ; prop.AddToRealm( realm ) }
+    prop.e.gameModeId = realm
+
+return prop }
