@@ -3,34 +3,37 @@ untyped
 
 global function ZiplineUtility_Init
 
-global function Zipline_CreateZipline
-global function Zipline_InitZipline
 
-
-// Global const values
-    global const        ZIPLINE_EXPLOSION                  = $"p_impact_exp_small_full"
-    global const float  END_AUTO_DETACH_DISTANCE           = 50.0
-    global const float  NV_ARM_OFFSET                      = 160.0
-    global const float  NV_END_AUTO_DETACH_DISTANCE        = 150.0
-    global const float  NV_START_AUTO_DETACH_DISTANCE      = 150.0
-    global const float  START_AUTO_DETACH_DISTANCE         = 100.0
-    global const float  VERTICAL_ARM_OFFSET                = 200.0
-    global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS   = 0.99
-    global const string VERTICAL_ZIPLINE_SCRIPT_NAME       = "IsVerticalZipline"
-    global const string NV_ZIPLINE_SCRIPT_NAME             = "IsNonVerticalZipline"
-    global const string ZIPLINE_END_SOUND                  = "explo_spectre"
-    global const string ZIPLINE_PANEL_LOCKED               = "npe_player_fail"
-    global const string ZIPLINE_START_SOUND                = "pathfinder_zipline_expand"
+// Global const
+    global const       ZIPLINE_EXPLOSION                        = $"p_impact_exp_small_full"
 
 // Global const assets
-    global const asset ZIPLINE_ARM                 = $"mdl/industrial/zipline_arm.rmdl"
-    global const asset ZIPLINE_PLANEL_WALL         = $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl"
-    global const asset ZIPLINE_PLANEL_STAND        = $"mdl/props/global_access_panel_button/global_access_panel_button_console_w_stand.rmdl"
-    global const asset ZIPLINE_PLANEL_WALL_SUPPORT = $"mdl/colony/antenna_01_colony_pole.rmdl"
-    global const asset ZIPLINE_SUPPORT             = $"mdl/industrial/security_fence_post.rmdl"
+    global const asset ZIPLINE_ARM                              = $"mdl/industrial/zipline_arm.rmdl"
+    global const asset ZIPLINE_PLANEL_WALL                      = $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl"
+    global const asset ZIPLINE_PLANEL_STAND                     = $"mdl/props/global_access_panel_button/global_access_panel_button_console_w_stand.rmdl"
+    global const asset ZIPLINE_PLANEL_WALL_SUPPORT              = $"mdl/colony/antenna_01_colony_pole.rmdl"
+    global const asset ZIPLINE_SUPPORT                          = $"mdl/industrial/security_fence_post.rmdl"
 
-// Const values
-    const vector       V_ZIPLINE_VECTOR = < 0.0001, 0.0001, 0.0001 >
+// Global const float
+    global const float  ARM_MAX_OFFSET                          = 280.0
+    global const float  ARM_MIN_OFFSET                          = 160.0
+    global const float  END_AUTO_DETACH_DISTANCE                = 50.0
+    global const float  HORIZONTAL_ARM_OFFSET                   = 160.0
+    global const float  HORIZONTAL_END_AUTO_DETACH_DISTANCE     = 150.0
+    global const float  HORIZONTAL_START_AUTO_DETACH_DISTANCE   = 150.0
+    global const float  START_AUTO_DETACH_DISTANCE              = 100.0
+    global const float  VERTICAL_ARM_OFFSET                     = 200.0
+    global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS        = 0.99
+
+// Global const string
+    global const string HORIZONTAL_ZIPLINE_SCRIPT_NAME          = "IsNonVerticalZipline"
+    global const string VERTICAL_ZIPLINE_SCRIPT_NAME            = "IsVerticalZipline"
+    global const string ZIPLINE_END_SOUND                       = "explo_spectre"
+    global const string ZIPLINE_PANEL_LOCKED                    = "npe_player_fail"
+    global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
+
+// Global const vector
+    global const vector V_ZIPLINE_VECTOR                        = < 0.0001, 0.0001, 0.0001 >
 
 
 global enum eZiplineSkinType
@@ -100,13 +103,19 @@ global struct ZiplinePanel
     int numberUsedPanel     = 1
 }
 
+global enum ePanelSkinType
+{
+    WALL,
+    STAND,
+    _COUNT
+}
 
 global struct ZiplineUtility
 {
     // Entities
     entity endZiplinePoint
     entity startZiplinePoint
-    array < entity > skinArray
+    array < entity > supportArray
 
     // Vectors entities start / end
     vector endAng
@@ -137,38 +146,80 @@ void function ZiplineUtility_Init()
 
 void function ZiplineUtility_Didload()
 {
-    ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 31025.5918, -8575.43945, -26730.5488 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
-    Zipline_SetSkin( ZiplineDev_0, 0, 1 )
-    Zipline_InitZipline( ZiplineDev_0 )
+    OnMapZipline_Init()
 
-    ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 31027.6953, -8789.94434, -26724.127 >, < 0, 0, 0 > )
-    Zipline_SetIsMoving( ZiplineDev_1 )
+    AddCallback_OnClientConnected( CreateRandomZipline )
+
+    //ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 30267.6523, -8548.48926, -26724.127 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
+    //Zipline_SetSkin( ZiplineDev_0, 0, 1 )
+    //Zipline_InitZipline( ZiplineDev_0 )
+
+    ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 31041.3125, -8914.85645, -26730.5488 >, < 0, 0, 0 > )
+    //Zipline_SetIsMoving( ZiplineDev_1 )
     Zipline_InitZipline( ZiplineDev_1 )
 }
 
-ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startPos, vector startAng, vector endPos = V_ZIPLINE_VECTOR, vector endAng = < 0, 0, 0 > )
+void function CreateRandomZipline( entity player )
 {
-    ZiplineUtility zipline ; if ( IsZiplineHaveSameName( ziplineName ) ) return zipline
-
-    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
-
-    vars.ziplineName = ziplineName
-
-    zipline.startPos    = startPos ; zipline.startAng  = startAng
-    zipline.endPos      = endPos   ; zipline.endAng    = endAng
-
-    if ( endPos == V_ZIPLINE_VECTOR ) settings.isVertical = true else settings.isVertical = false
-
-    ZiplinePreProcess( zipline, settings.isVertical ) ; Zipline_SetZiplineAngles( zipline, startAng, endAng )
-
-    ziplineUtility.ziplineArrayInit.append( zipline )
-
-return zipline }
-
-void function Zipline_InitZipline( ZiplineUtility zipline, bool spawnSupportOnly = false )
-{
-    if ( zipline.state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( zipline.state.ziplineIsValid == false && spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
-    //UpdatePanelsPrompts( zipline )
+    player = gp()[0]
+    thread ThreadCreateRandomZipline( player )
 }
+
+void function ThreadCreateRandomZipline( entity player )
+{
+    wait 1
+    vector origin = < 31931, -6148, -29070 >
+    player.SetOrigin( origin )
+    player.SetAngles( < 0, -90, 0 > )
+
+
+    float z = 0.0
+
+    for ( int i = 0 ; i < 7 ; i++)
+    {
+        string randomZipline = UniqueString( "random_zipline" )
+        int vertical = RandomIntRange( 0, 2 )
+        int panel = RandomIntRange( 0, 2 )
+        int moving = RandomIntRange( 0, 2 )
+        int restPoint = RandomIntRange( 0, 2 )
+        int verticalOffset = RandomIntRange( 0, 2 )
+        int vel = RandomIntRange( 0, 2 )
+        int bottom = RandomIntRange( 0, 2 )
+        int limit = RandomIntRange( 0, 10 )
+        float startOff = RandomFloatRange( 160, 280 )
+        float endOff = RandomFloatRange( 160, 280 )
+        int DetachOnUse = 0 //RandomIntRange( 0, 2 )
+        int DetachOnSpawn = 0 //RandomIntRange( 0, 2 )
+
+        /* if ( vertical == 1 ) Zipline_CreateZipline( randomZipline, origin - < 0, 200, z >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+        else */Zipline_CreateZipline( randomZipline, origin - < 0, 200, z >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, z >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+
+        ZiplineUtility zipline = GZFZN( randomZipline )
+
+        Zipline_SetSkin( zipline, RandomIntRange( 0, 3 ), RandomIntRange( 0, 3 ) )
+        if ( panel == 1 ) Zipline_CreatePanel( zipline, origin - < 100, 200, z >, < 0, RandomFloatRange( 0, 180 ), 0 >, RandomIntRange( 0, 2 ) )
+        if ( moving == 1 ) Zipline_SetIsMoving( zipline )
+        if ( restPoint == 1 ) Zipline_EnableRestPoint( zipline )
+        if ( verticalOffset == 1 ) Zipline_DisableVerticalZiplineOffset( zipline )
+        Zipline_PanelUsableLimit( zipline, limit )
+        Zipline_SetAutoDetachDistance( zipline, RandomFloatRange( 50, 400 ), RandomFloatRange( 50, 400 ) )
+        Zipline_SetZiplineAngles( zipline, < 0, RandomFloatRange( 0, -180 ), 0 >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+        Zipline_SetArmOffset( zipline, startOff, endOff )
+        Zipline_SetWidth( zipline, float( RandomIntRange( 2, 4 ) ) )
+        Zipline_SetSpeedScale( zipline, RandomFloatRange( 1, 6 ) )
+        Zipline_SetScale( zipline, float( RandomIntRange( 1, 2 ) ) )
+        Zipline_SetLengthScale( zipline, RandomFloatRange( 0.90, 1.0 ) )
+        if ( vel == 1 ) Zipline_SetPreserveVelocity( zipline )
+        if ( bottom == 1 ) Zipline_DisableDropToBottom( zipline )
+        Zipline_SetDetachEndOnUse_OnSpawn( zipline, DetachOnUse, DetachOnSpawn )
+        Zipline_SetPushOffInDirectionX( zipline, RandomIntRange( 0, 2 ) )
+        Zipline_InitZipline( zipline )
+
+        printt( zipline.vars.ziplineName + " = restPoint: " + restPoint + " | moving: " + moving + " | limit: " + limit + " | S/E offset: " + startOff + " " + endOff + " | U/S Detach: " + DetachOnUse + " " + DetachOnSpawn )
+
+        z -= 450.0
+    }
+}
+
+
 

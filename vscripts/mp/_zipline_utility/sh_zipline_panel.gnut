@@ -1,10 +1,321 @@
 untyped
 
+#if SERVER || CLIENT
+    global function ShZiplinePanel_Init
+#endif // SERVER || CLIENT
 
-global function ShZiplinePanel_Init
+#if SERVER
+    global function UpdatePanelForFirstTimeInited
+    global function CreateUsablePanel
+    global function DecidingZipline
+    global function DecidePanelModel
+    global function UpdatePanelsPrompts
+#endif // SERVER
+
+#if CLIENT
+#endif // CLIENT
+
+#if SERVER || CLIENT // Global const strings
+    const float         ZIPLINE_ON_USE_DURATION     = 0.3
+    const string        ZIPLINE_CREATE              = "Hold %use_long% to deploy zipline"
+    const string        ZIPLINE_DESTROY             = "Hold %use_long% to destroy zipline"
+    const string        ZIPLINE_PANEL_SCRIPT_NAME   = "ZiplineUsableButton"
+    const string        ZIPLINE_PANEL_SUPPORT_SCRIPT_NAME = "ZiplineSupportButton"
+#endif // SERVER || CLIENT
+
+#if CLIENT || UI
+    const string    ZIPLINE_PROCESSING          = "Panel Processing..."
+    const string    ZIPLINE_LOOPSOUND           = "survival_titan_linking_loop"
+    const string    ZIPLINE_SUCCESSSOUND        = "lootVault_Access" //"ui_menu_store_purchase_success"
+    const asset     ZIPLINE_DISPLAYRUI          = $"ui/extended_use_hint.rpak"
+    const asset     ZIPLINE_ICONRUI             = $""
+#endif // CLIENT || UI
+
 
 
 void function ShZiplinePanel_Init()
 {
-    
+    #if SERVER
+        AddSpawnCallback( "prop_dynamic", UsablePanel )
+    #endif // SERVER
+
+    #if CLIENT
+        AddCreateCallback( "prop_dynamic", UsablePanel )
+    #endif // CLIENT
 }
+
+#if SERVER || CLIENT
+    void function UsablePanel( entity UsableButton )
+    {
+        if ( !IsValidZiplineUtilityPanelEnt( UsableButton ) )
+            return
+
+        SetCallback_CanUseEntityCallback( UsableButton, ZiplinePanel_CanUse )
+        AddCallback_OnUseEntity( UsableButton, OnUseZiplinePanel )
+    }
+
+    bool function IsValidZiplineUtilityPanelEnt( entity ent )
+    {
+        if ( ent.GetScriptName() == ZIPLINE_PANEL_SCRIPT_NAME )
+            return true
+
+        return false
+    }
+
+    bool function ZiplinePanel_CanUse( entity player, entity panel )
+    {
+        if ( !SURVIVAL_PlayerCanUse_AnimatedInteraction( player, panel ) )
+            return false
+
+        return true
+    }
+
+    void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFlags )
+    {	
+        if ( !( useInputFlags & USE_INPUT_LONG ) )
+            return
+
+        ExtendedUseSettings settings
+        settings.duration       = ZIPLINE_ON_USE_DURATION
+        settings.useInputFlag   = IN_USE_LONG
+        settings.successFunc    = ZiplinePanelUseSuccess
+
+        #if CLIENT || UI
+            settings.loopSound        = ZIPLINE_LOOPSOUND
+            settings.successSound     = ZIPLINE_SUCCESSSOUND
+            settings.icon             = ZIPLINE_ICONRUI
+            settings.hint             = ZIPLINE_PROCESSING
+            settings.displayRui       = ZIPLINE_DISPLAYRUI
+            settings.displayRuiFunc   = ZiplinePanel_DisplayRui
+        #endif // CLIENT || UI
+
+        thread ExtendedUse( panel, playerUser, settings )
+    }
+
+    void function ZiplinePanelUseSuccess( entity panel, entity player, ExtendedUseSettings settings )
+    {
+        #if SERVER
+            OnUseZiplinePanelThread( panel )
+        #endif // SERVER
+    }
+#endif // SERVER || CLIENT
+
+#if CLIENT || UI
+    void function ZiplinePanel_DisplayRui( entity ent, entity player, var rui, ExtendedUseSettings settings )
+    {
+        RuiSetString( rui, "holdButtonHint", settings.holdHint )
+        RuiSetString( rui, "hintText", settings.hint )
+        RuiSetGameTime( rui, "startTime", Time() )
+        RuiSetGameTime( rui, "endTime", Time() + settings.duration )
+    }
+#endif // CLIENT || UI
+
+#if SERVER
+    entity function CreateUsablePanel( asset model, vector pos, vector ang )
+    {
+        entity UsableButton = CreateEntity( "prop_dynamic" )
+        UsableButton.kv.solid = 6
+        UsableButton.SetValueForModelKey( model )
+        UsableButton.AllowMantle()
+        UsableButton.SetScriptName( ZIPLINE_PANEL_SCRIPT_NAME )
+        UsableButton.SetOrigin( pos )
+        UsableButton.SetAngles( ang + < 0, 90, 0 > ) // ang offset
+        DispatchSpawn( UsableButton )
+
+        UsableButton.SetUsable()
+        UsableButton.SetUsableByGroup( "pilot" )
+
+    return UsableButton }
+
+    void function OnUseZiplinePanelThread( entity panel )
+    {
+        ZiplineUtility zipline = GZFEP( panel ) ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
+
+        int panelused   = panels.numberUsedPanel++
+        int panelMaxUse = panels.numberMaxUsedPanel
+        bool isUsableLimitEnable = panels.panelUsableLimit
+
+        #if ZIPLINE_DEBUG_SCRIPTS
+            if ( isUsableLimitEnable == true ) printt( "Number of used panel: " + panelused + " / " + panelMaxUse )
+        #endif // ZIPLINE_DEBUG_SCRIPTS
+
+        if ( panelused >= panelMaxUse && state.ziplineIsDestroyed == false )
+        {
+            foreach ( panels_ in GetZiplinePanelArray( zipline ) )
+            {
+                if ( IsValid( panels_ ) )
+                {
+                    panels_.UnsetUsable()
+                    panels_.SetSkin( 1 )
+                    EmitSoundOnEntity( panels_, ZIPLINE_PANEL_LOCKED )
+                }
+            }
+
+            thread DestoryPanelsAfterUsed( zipline )
+            zipline.vars.destroyAll = true
+            DecidingZipline( zipline )
+        }
+        else
+        {
+            DecidingZipline( zipline )
+            UpdatePanelsPrompts( zipline )
+            ChangeAllPanelState( zipline )
+        }
+    }
+
+    void function UpdatePanelsPrompts( ZiplineUtility zipline )
+    {
+        string prompt
+        if ( IsZiplineDestroyed( zipline ) == true ) prompt = ZIPLINE_CREATE else prompt = ZIPLINE_DESTROY
+
+        foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
+    }
+
+    void function UpdatePanelForFirstTimeInited( ZiplineUtility zipline )
+    {
+        wait 2 // hack needed for the prompt to work
+        UpdatePanelsPrompts( zipline )
+        ChangeAllPanelState( zipline, true )
+    }
+
+    void function DecidingZipline( ZiplineUtility zipline )
+    {
+        switch ( IsZiplineDestroyed( zipline ) )
+        {
+            case true:
+                Zipline_InitZipline( zipline )
+                break
+            case false:
+                Zipline_Destroy( zipline )
+                break
+            default: break
+        }
+    }
+
+    void function ChangePanelState( entity panel, bool forceUsable = false )
+    {
+        ZiplineUtility zipline = GZFEP( panel ) ; string prompt ; float waitPanelState ; float travelTime
+
+        KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state ; ZiplinePanel panels = zipline.panels
+
+        if ( panels.panelNoTimer == true ) waitPanelState = 0 else waitPanelState = RandomFloatRange( 32.0, 60.0 )
+
+        switch ( IsZiplineDestroyed( zipline ) )
+        {
+            case true:
+                travelTime = 0
+                break
+            case false:
+                if ( vars.isMoving == true && forceUsable == false ) travelTime = ChooseZiplineTravelTime( zipline ) else travelTime = 0
+                break
+            default: break
+        }
+
+        if ( forceUsable == true ) travelTime = 0
+
+        #if ZIPLINE_DEBUG_SCRIPTS
+            if ( state.isFirstTimeInited == false )
+                if ( IsValid( panels.newPanel[ 0 ] ) && panel == panels.newPanel[ 0 ] )
+                    printt( vars.ziplineName + " panels can be reused in " + ( waitPanelState + travelTime ) + " seconds" )
+        #endif // ZIPLINE_DEBUG_SCRIPTS
+
+        if ( IsValid( panel ) )
+        {
+            if ( forceUsable == true )
+            {
+                wait travelTime
+
+                panel.SetUsable()
+                panel.SetSkin( 0 )
+            }
+            else
+            {
+                panel.UnsetUsable()
+                panel.SetSkin( 1 )
+
+                    wait waitPanelState + travelTime
+
+                panel.SetUsable()
+                panel.SetSkin( 0 )
+            }
+        }
+    }
+
+    void function DestoryPanelsAfterUsed( ZiplineUtility zipline )
+    {
+        ZiplinePanel panels = zipline.panels
+    
+            wait 4
+    
+        foreach ( panels_ in GetZiplinePanelArray( zipline ) )
+        {
+            if ( IsValid( panels_ ) ) panels_.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
+        }
+        ArrayRemoveInvalid( panels.newPanel )
+    }
+
+    asset function DecidePanelModel( int skinType )
+    {
+        asset skin
+        switch ( skinType )
+        {
+            case ePanelSkinType.WALL:
+                skin = ZIPLINE_PLANEL_WALL ; break
+            case ePanelSkinType.STAND:
+                skin = ZIPLINE_PLANEL_STAND ; break
+            default:
+            skin = $"" ; break
+        }
+    return skin }
+
+    array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
+    {
+        array< entity > panelArray = [] ; ZiplinePanel panels = zipline.panels
+
+        foreach ( panels_ in panels.newPanel ) panelArray.append( panels_ )
+
+        ArrayRemoveInvalid( panelArray )
+
+    return panelArray }
+
+    void function ChangeAllPanelState( ZiplineUtility zipline, bool forceUsable = false )
+    {
+        foreach ( panels in GetZiplinePanelArray( zipline ) )
+            thread ChangePanelState( panels, forceUsable )
+    }
+
+    void function Zipline_Destroy( ZiplineUtility zipline, bool destroyAll = false )
+    {
+        ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
+
+        entity startSkin = GetEnt( vars.ziplineName + "_start" )
+        entity endSkin   = GetEnt( vars.ziplineName + "_end" )
+        entity startZiplinePoint = zipline.startZiplinePoint
+        entity endZiplinePoint   = zipline.endZiplinePoint
+
+        if ( destroyAll == true ) vars.destroyAll = true
+
+        if ( vars.destroyAll == true && state.supportIsValid == true )
+        {
+            foreach( ents in zipline.supportArray ) if ( IsValid( ents ) ) ents.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
+            state.supportIsValid = false
+        }
+
+        if ( IsValid( startZiplinePoint ) ) Zipline_DestroyFX( startZiplinePoint )
+
+        if ( IsValid( endZiplinePoint ) ) Zipline_DestroyFX( endZiplinePoint )
+
+        state.ziplineIsValid     = false
+        state.ziplineIsDestroyed = true
+    }
+
+    void function Zipline_DestroyFX( entity ent )
+    {
+        PlayFX( ZIPLINE_EXPLOSION, ent.GetOrigin() )
+        EmitSoundAtPosition( TEAM_UNASSIGNED, ent.GetOrigin(), ZIPLINE_END_SOUND )
+    	CreatePhysExplosion( ent.GetOrigin(), 50, PHYS_EXPLOSION_LARGE, 11 )
+    	entity shake = CreateShake( ent.GetOrigin(), 5, 150, 1, 200 )
+    	shake.kv.spawnflags = 4 // SF_SHAKE_INAIR
+        if ( IsValid( ent ) ) ent.Destroy()
+    }
+#endif

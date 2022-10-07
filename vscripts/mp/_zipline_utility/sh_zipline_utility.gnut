@@ -3,12 +3,13 @@ untyped
 
 global function ShZiplineUtility_Init
 
+
 // If "true" prints scripts debug on the console
     global const bool ZIPLINE_DEBUG_SCRIPTS = true
 
 
 void function ShZiplineUtility_Init()
 {
-    
+    ShZiplinePanel_Init()
 }
 

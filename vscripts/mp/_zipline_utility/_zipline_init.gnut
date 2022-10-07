@@ -1,0 +1,15 @@
+untyped
+
+
+global function OnMapZipline_Init
+
+
+void function OnMapZipline_Init()
+{
+    switch ( GetMapName() )
+    {
+        case "mp_rr_floppytown":
+            break
+        default: break
+    }
+}

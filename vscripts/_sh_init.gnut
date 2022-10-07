@@ -186,7 +186,9 @@ void function SV_CL_Init()
     // Zipline Utility
         #if SERVER
             ZiplineUtility_Init()
-        #elseif SERVER || CLIENT
+        #endif
+
+        #if SERVER || CLIENT
             ShZiplineUtility_Init()
         #endif
     //
