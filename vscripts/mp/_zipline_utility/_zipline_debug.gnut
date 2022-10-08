@@ -40,7 +40,7 @@ void function ThreadCreateRandomZipline( entity player )
             break
         default:
             origin = < 0, 0, 0 >
-            angles = < 0, 0, 0 >
+            angles = < 0, -90, 0 >
         break
 
     }
