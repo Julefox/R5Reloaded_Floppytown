@@ -15,19 +15,19 @@
 #endif // SERVER
 
 #if SERVER || CLIENT // Const
-    const float         ZIPLINE_ON_USE_DURATION     = 0.3
-    const string        ZIPLINE_CREATE              = "Hold %use_long% to deploy zipline"
-    const string        ZIPLINE_DESTROY             = "Hold %use_long% to destroy zipline"
-    const string        ZIPLINE_PANEL_SCRIPT_NAME   = "ZiplineUsableButton"
-    const string        ZIPLINE_PANEL_SUPPORT_SCRIPT_NAME = "ZiplineSupportButton"
+    const float         ZIPLINE_ON_USE_DURATION             = 0.3
+    const string        ZIPLINE_CREATE                      = "Hold %use_long% to deploy zipline"
+    const string        ZIPLINE_DESTROY                     = "Hold %use_long% to destroy zipline"
+    const string        ZIPLINE_PANEL_SCRIPT_NAME           = "ZiplineUsableButton"
+    const string        ZIPLINE_PANEL_SUPPORT_SCRIPT_NAME   = "ZiplineSupportButton"
 #endif // SERVER || CLIENT
 
 #if CLIENT || UI // Const
-    const string    ZIPLINE_PROCESSING          = "Panel Processing..."
-    const string    ZIPLINE_LOOPSOUND           = "survival_titan_linking_loop"
-    const string    ZIPLINE_SUCCESSSOUND        = "lootVault_Access" //"ui_menu_store_purchase_success"
-    const asset     ZIPLINE_DISPLAYRUI          = $"ui/extended_use_hint.rpak"
-    const asset     ZIPLINE_ICONRUI             = $""
+    const string    ZIPLINE_PROCESSING    = "Panel Processing..."
+    const string    ZIPLINE_LOOPSOUND     = "survival_titan_linking_loop"
+    const string    ZIPLINE_SUCCESSSOUND  = "lootVault_Access" //"ui_menu_store_purchase_success"
+    const asset     ZIPLINE_DISPLAYRUI    = $"ui/extended_use_hint.rpak"
+    const asset     ZIPLINE_ICONRUI       = $""
 #endif // CLIENT || UI
 
 
@@ -54,6 +54,7 @@
         AddCallback_OnUseEntity( UsableButton, OnUseZiplinePanel )
     }
 
+
     bool function IsValidZiplineUtilityPanelEnt( entity ent )
     {
         if ( ent.GetScriptName() == ZIPLINE_PANEL_SCRIPT_NAME )
@@ -62,6 +63,7 @@
         return false
     }
 
+
     bool function ZiplinePanel_CanUse( entity player, entity panel )
     {
         if ( !SURVIVAL_PlayerCanUse_AnimatedInteraction( player, panel ) )
@@ -69,6 +71,7 @@
 
         return true
     }
+
 
     void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFlags )
     {	
@@ -91,6 +94,7 @@
 
         thread ExtendedUse( panel, playerUser, settings )
     }
+
 
     void function ZiplinePanelUseSuccess( entity panel, entity player, ExtendedUseSettings settings )
     {
@@ -126,6 +130,7 @@
         UsableButton.SetUsableByGroup( "pilot" )
 
     return UsableButton }
+
 
     void function OnUseZiplinePanelThread( entity panel )
     {
@@ -167,6 +172,7 @@
         }
     }
 
+
     void function UpdatePanelsPrompts( ZiplineUtility zipline )
     {
         string prompt
@@ -175,12 +181,14 @@
         foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
     }
 
+
     void function UpdatePanelForFirstTimeInited( ZiplineUtility zipline )
     {
         wait 1 // hack needed for the prompt to work
         UpdatePanelsPrompts( zipline )
         ChangeAllPanelState( zipline, true )
     }
+
 
     void function DecidingZipline( ZiplineUtility zipline, bool destroyAll = false )
     {
@@ -195,6 +203,7 @@
             default: break
         }
     }
+
 
     void function ChangePanelState( entity panel, bool forceUsable = false )
     {
@@ -245,6 +254,7 @@
         }
     }
 
+
     void function DestoryPanelsAfterUsed( ZiplineUtility zipline )
     {
         ZiplinePanel panels = zipline.panels
@@ -257,6 +267,7 @@
         }
         ArrayRemoveInvalid( panels.newPanel )
     }
+
 
     asset function DecidePanelModel( int skinType )
     {
@@ -276,6 +287,7 @@
 
     return skin }
 
+
     array< entity > function GetZiplinePanelArray( ZiplineUtility zipline )
     {
         array< entity > panelArray = [] ; ZiplinePanel panels = zipline.panels
@@ -286,11 +298,13 @@
 
     return panelArray }
 
+
     void function ChangeAllPanelState( ZiplineUtility zipline, bool forceUsable = false )
     {
         foreach ( panels in GetZiplinePanelArray( zipline ) )
             thread ChangePanelState( panels, forceUsable )
     }
+
 
     void function Zipline_Destroy( ZiplineUtility zipline, bool destroyAll = false )
     {
@@ -298,8 +312,8 @@
 
         entity startSkin = GetEnt( vars.ziplineName + "_start" )
         entity endSkin   = GetEnt( vars.ziplineName + "_end" )
-        entity startZiplinePoint = zipline.startZiplinePoint
-        entity endZiplinePoint   = zipline.endZiplinePoint
+        entity startEntityZiplinePoint = zipline.startEntityZiplinePoint
+        entity endEntityZiplinePoint   = zipline.endEntityZiplinePoint
 
         if ( destroyAll == true ) vars.destroyAll = true
 
@@ -309,13 +323,14 @@
             state.supportIsValid = false
         }
 
-        if ( IsValid( startZiplinePoint ) ) Zipline_DestroyFX( startZiplinePoint )
+        if ( IsValid( startEntityZiplinePoint ) ) Zipline_DestroyFX( startEntityZiplinePoint )
 
-        if ( IsValid( endZiplinePoint ) ) Zipline_DestroyFX( endZiplinePoint )
+        if ( IsValid( endEntityZiplinePoint ) ) Zipline_DestroyFX( endEntityZiplinePoint )
 
         state.ziplineIsValid     = false
         state.ziplineIsDestroyed = true
     }
+
 
     void function Zipline_DestroyFX( entity ent )
     {

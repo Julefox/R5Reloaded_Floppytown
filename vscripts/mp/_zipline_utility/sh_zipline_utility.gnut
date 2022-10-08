@@ -8,7 +8,7 @@
     global const bool ZIPLINE_DEBUG_SCRIPTS = true
 
 // If "true" create randoms ziplines for debuging
-    global const bool DEBUG_RANDOM_ZIPLINE = false
+    global const bool DEBUG_RANDOM_ZIPLINE = true
 
 
 void function ShZiplineUtility_Init()

@@ -11,7 +11,6 @@ global function ZiplineUtility_Init
     global const asset ZIPLINE_ARM                              = $"mdl/industrial/zipline_arm.rmdl"
     global const asset ZIPLINE_PLANEL_WALL                      = $"mdl/props/global_access_panel_button/global_access_panel_button_wall.rmdl"
     global const asset ZIPLINE_PLANEL_STAND                     = $"mdl/props/global_access_panel_button/global_access_panel_button_console_w_stand.rmdl"
-    global const asset ZIPLINE_PLANEL_WALL_SUPPORT              = $"mdl/colony/antenna_01_colony_pole.rmdl"
     global const asset ZIPLINE_SUPPORT                          = $"mdl/industrial/security_fence_post.rmdl"
 
 // Global const float
@@ -33,7 +32,10 @@ global function ZiplineUtility_Init
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
 
 // Global const vector
-    global const vector V_ZIPLINE_VECTOR                        = < 0.0001, 0.0001, 0.0001 >
+    global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >
+    global const vector V_ZIPLINE_VECTOR                        = < 1, 1, 1 >
+    global const vector ZIPLINE_OFFSET_FROM_GROUND              = < 0, 0, 35 >
+    global const vector ZIPLINE_OFFSET_FROM_GROUND_DETACH_END   = < 0, 0, 120 >
 
 
 global enum eZiplineSkinType
@@ -46,10 +48,10 @@ global enum eZiplineSkinType
 
 global struct ZiplineState
 {
-    bool firstInit  = true
-    bool supportIsValid     = false
-    bool ziplineIsValid     = false
-    bool ziplineIsDestroyed = true
+    bool firstInit            = true
+    bool supportIsValid       = false
+    bool ziplineIsValid       = false
+    bool ziplineIsDestroyed   = true
 }
 
 global struct KVFilesSettings
@@ -77,21 +79,20 @@ global struct KVFilesSettings
 
 global struct ZiplineVars
 {
-    bool boolHeightLimit    = false
-    bool destroyAll         = false
-    bool destroyZiplineSupportOnPanelEnd = false
-    bool disableVerticalZiplineOffset = false
-    bool isMoving           = false
-    bool indianaJonesMode   = false
-    bool restPoint          = false
-    bool spawnSupportOnly   = false
+    bool boolHeightLimit                    = false
+    bool destroyAll                         = false
+    bool destroyZiplineSupportOnPanelEnd    = false
+    bool disableVerticalZiplineOffset       = false
+    bool isMoving                           = false
+    bool indianaJonesMode                   = false
+    bool restPoint                          = false
+    bool spawnSupportOnly                   = false
     float endArmOffset
-    float heightLimit     = 10000.0
+    float heightLimit                       = 10000.0
     float startArmOffset
-    int setSkinEnd        = eZiplineSkinType.ENTIRE
-    int setSkinStart      = eZiplineSkinType.ENTIRE
+    int setSkinEnd                          = eZiplineSkinType.ENTIRE
+    int setSkinStart                        = eZiplineSkinType.ENTIRE
     string ziplineName
-    vector zipPosOffset   = < 0, 0, 80 >
 }
 
 global struct ZiplinePanel
@@ -119,19 +120,19 @@ global enum ePanelState
 global struct ZiplineUtility
 {
     // Entities
-    entity endZiplinePoint
-    entity startZiplinePoint
+    entity endEntityZiplinePoint
+    entity startEntityZiplinePoint
     array < entity > supportArray
 
     // Vectors entities start / end
-    vector endAng
-    vector endPos
-    vector endZipAng
-    vector endZipPos
-    vector startAng
-    vector startPos
-    vector startZipAng
-    vector startZipPos
+    vector endEntityAng
+    vector endEntityPos
+    vector endZiplineAng
+    vector endZiplinePos
+    vector startEntityAng
+    vector startEntityPos
+    vector startZiplineAng
+    vector startZiplinePos
 
     KVFilesSettings settings
     ZiplineVars     vars
@@ -139,7 +140,7 @@ global struct ZiplineUtility
     ZiplineState    state
 
     // Array
-    array < ZiplineUtility > ziplineArrayInit
+    array < ZiplineUtility > ziplineArray
 }
 global ZiplineUtility ziplineUtility
 
@@ -147,11 +148,12 @@ global ZiplineUtility ziplineUtility
 void function ZiplineUtility_Init()
 {
     ZiplinePrecache()
-    AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
-    AddClientCommandCallback( "IndianaJones", ClientCommand_SpawnZiplineAtCrosshair )
+    AddCallback_EntitiesDidLoad( EntitiesDidLoad )
+    
+    AddClientCommandCallback( "indianaJones", ClientCommand_SpawnIndianaJonesZiplineAtCrosshair )
 }
 
-void function ZiplineUtility_Didload()
+void function EntitiesDidLoad()
 {
     OnMapZipline_Init()
 
