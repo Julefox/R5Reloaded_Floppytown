@@ -51,7 +51,7 @@
             return
 
         SetCallback_CanUseEntityCallback( UsableButton, ZiplinePanel_CanUse )
-        AddCallback_OnUseEntity( UsableButton, OnUseZiplinePanel )
+        AddCallback_OnUseEntity( UsableButton, OnUseProcessingPanel )
     }
 
 
@@ -73,7 +73,7 @@
     }
 
 
-    void function OnUseZiplinePanel( entity panel, entity playerUser, int useInputFlags )
+    void function OnUseProcessingPanel( entity panel, entity playerUser, int useInputFlags )
     {	
         if ( !( useInputFlags & USE_INPUT_LONG ) )
             return

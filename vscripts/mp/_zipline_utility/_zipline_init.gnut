@@ -13,7 +13,7 @@ void function OnMapZipline_Init()
         case "mp_rr_canyonlands_mu1_night": // for test
                 ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 7427.3667, 26251.7637, 5872.03125 >, < 0, 106, 0 > )
                     Zipline_SetArmOffset( ZiplineDev_0, 260.0 )
-                    Zipline_SetZiplineAngles( ZiplineDev_0, < 0, -33, 0 > ) 
+                    Zipline_SetZiplineAngles( ZiplineDev_0, < 0, -33, 0 > )
 
                 ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 7763.0293, 26006.5762, 5738.84424 >, < 0, 20, 0 >, < 9335.36621, 30600.8125, 5640.03125 >, < 0, 0, 0 > )
                     Zipline_SetSkin( ZiplineDev_1, eZiplineSkinType.ARM_ONLY, eZiplineSkinType.ENTIRE )

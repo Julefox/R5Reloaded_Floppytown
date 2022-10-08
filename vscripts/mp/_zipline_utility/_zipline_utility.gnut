@@ -149,7 +149,7 @@ void function ZiplineUtility_Init()
 {
     ZiplinePrecache()
     AddCallback_EntitiesDidLoad( EntitiesDidLoad )
-    
+
     AddClientCommandCallback( "indianaJones", ClientCommand_SpawnIndianaJonesZiplineAtCrosshair )
 }
 

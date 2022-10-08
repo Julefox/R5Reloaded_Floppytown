@@ -20,24 +20,22 @@ global function GZFZN
 ////////////////////////////////////////////////////////////
 //  Initialize zipline
 ////////////////////////////////////////////////////////////
-ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startEntityPos, vector startEntityAng, vector endEntityPos = V_ZIPLINE_VECTOR, vector endEntityAng = < 0, 0, 0 > )
+ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
 {
     ZiplineUtility zipline ; if ( IsZiplineHaveSameName( ziplineName ) ) return zipline
 
-    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
+    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; vars.ziplineName = ziplineName
 
-    vars.ziplineName = ziplineName
+    zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
+    if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
 
-    zipline.startEntityPos    = startEntityPos ; zipline.startEntityAng  = startEntityAng
-    zipline.endEntityPos      = endEntityPos   ; zipline.endEntityAng    = endEntityAng
-
-    if ( endEntityPos == V_ZIPLINE_VECTOR ) settings.isVertical = true else settings.isVertical = false
+    settings.isVertical = endEntityPos == null ? true : false
 
     ZiplinePreProcess( zipline ) ; Zipline_SetZiplineAngles( zipline, startEntityAng, endEntityAng )
 
-    #if ZIPLINE_DEBUG_SCRIPTS
+    #if PANEL_DEBUG_NO_TIMER
         Zipline_PanelNoTimer( zipline )
-    #endif // ZIPLINE_DEBUG_SCRIPTS
+    #endif // PANEL_DEBUG_NO_TIMER
 
     ziplineUtility.ziplineArray.append( zipline )
 
@@ -399,7 +397,7 @@ return false }
 bool function IsCanyonlandsMap() // Used as mp_rr_canyonlands does not have ZIPLINE_PLANEL_WALL model
 {
     bool isCanyonlandsMap
-    
+
     switch ( GetMapName() )
     {
         case "mp_rr_canyonlands_staging":
