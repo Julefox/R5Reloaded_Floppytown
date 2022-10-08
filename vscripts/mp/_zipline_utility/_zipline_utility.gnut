@@ -38,15 +38,15 @@ global function ZiplineUtility_Init
 
 global enum eZiplineSkinType
 {
-    ENTIRE,
-    ARM_ONLY,
-    INVISIBLE,
-    _COUNT
+    ENTIRE,    // 0
+    ARM_ONLY,  // 1
+    INVISIBLE, // 2
+    _COUNT     // 3
 }
 
 global struct ZiplineState
 {
-    bool isFirstTimeInited  = true
+    bool firstInit  = true
     bool supportIsValid     = false
     bool ziplineIsValid     = false
     bool ziplineIsDestroyed = true
@@ -77,19 +77,19 @@ global struct KVFilesSettings
 
 global struct ZiplineVars
 {
+    bool boolHeightLimit    = false
     bool destroyAll         = false
+    bool destroyZiplineSupportOnPanelEnd = false
     bool disableVerticalZiplineOffset = false
     bool isMoving           = false
+    bool indianaJonesMode   = false
     bool restPoint          = false
-    bool boolHeightLimit    = false
+    bool spawnSupportOnly   = false
     float endArmOffset
     float heightLimit     = 10000.0
     float startArmOffset
     int setSkinEnd        = eZiplineSkinType.ENTIRE
     int setSkinStart      = eZiplineSkinType.ENTIRE
-    int xLimit            = 0
-    int yLimit            = 0
-    int zLimit            = 1
     string ziplineName
     vector zipPosOffset   = < 0, 0, 80 >
 }
@@ -99,15 +99,21 @@ global struct ZiplinePanel
     array < entity > newPanel
     bool panelNoTimer       = false
     bool panelUsableLimit   = false
-    int numberMaxUsedPanel  = 0
-    int numberUsedPanel     = 1
+    int panelMaxNumberUsed  = 0
+    int panelNumberUsed     = 1
 }
 
 global enum ePanelSkinType
 {
-    WALL,
-    STAND,
-    _COUNT
+    WALL,  // 0
+    STAND, // 1
+    _COUNT // 2
+}
+
+global enum ePanelState
+{
+    ENABLE, // 0
+    DISABLE // 1
 }
 
 global struct ZiplineUtility
@@ -142,84 +148,14 @@ void function ZiplineUtility_Init()
 {
     ZiplinePrecache()
     AddCallback_EntitiesDidLoad( ZiplineUtility_Didload )
+    AddClientCommandCallback( "IndianaJones", ClientCommand_SpawnZiplineAtCrosshair )
 }
 
 void function ZiplineUtility_Didload()
 {
     OnMapZipline_Init()
 
-    AddCallback_OnClientConnected( CreateRandomZipline )
-
-    //ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 30267.6523, -8548.48926, -26724.127 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
-    //Zipline_SetSkin( ZiplineDev_0, 0, 1 )
-    //Zipline_InitZipline( ZiplineDev_0 )
-
-    ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 31041.3125, -8914.85645, -26730.5488 >, < 0, 0, 0 > )
-    //Zipline_SetIsMoving( ZiplineDev_1 )
-    Zipline_InitZipline( ZiplineDev_1 )
+    #if ZIPLINE_DEBUG_SCRIPTS && DEBUG_RANDOM_ZIPLINE
+        AddCallback_OnClientConnected( CreateRandomZiplineOnClientConnected )
+    #endif
 }
-
-void function CreateRandomZipline( entity player )
-{
-    player = gp()[0]
-    thread ThreadCreateRandomZipline( player )
-}
-
-void function ThreadCreateRandomZipline( entity player )
-{
-    wait 1
-    vector origin = < 31931, -6148, -29070 >
-    player.SetOrigin( origin )
-    player.SetAngles( < 0, -90, 0 > )
-
-
-    float z = 0.0
-
-    for ( int i = 0 ; i < 7 ; i++)
-    {
-        string randomZipline = UniqueString( "random_zipline" )
-        int vertical = RandomIntRange( 0, 2 )
-        int panel = RandomIntRange( 0, 2 )
-        int moving = RandomIntRange( 0, 2 )
-        int restPoint = RandomIntRange( 0, 2 )
-        int verticalOffset = RandomIntRange( 0, 2 )
-        int vel = RandomIntRange( 0, 2 )
-        int bottom = RandomIntRange( 0, 2 )
-        int limit = RandomIntRange( 0, 10 )
-        float startOff = RandomFloatRange( 160, 280 )
-        float endOff = RandomFloatRange( 160, 280 )
-        int DetachOnUse = 0 //RandomIntRange( 0, 2 )
-        int DetachOnSpawn = 0 //RandomIntRange( 0, 2 )
-
-        /* if ( vertical == 1 ) Zipline_CreateZipline( randomZipline, origin - < 0, 200, z >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-        else */Zipline_CreateZipline( randomZipline, origin - < 0, 200, z >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, z >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-
-        ZiplineUtility zipline = GZFZN( randomZipline )
-
-        Zipline_SetSkin( zipline, RandomIntRange( 0, 3 ), RandomIntRange( 0, 3 ) )
-        if ( panel == 1 ) Zipline_CreatePanel( zipline, origin - < 100, 200, z >, < 0, RandomFloatRange( 0, 180 ), 0 >, RandomIntRange( 0, 2 ) )
-        if ( moving == 1 ) Zipline_SetIsMoving( zipline )
-        if ( restPoint == 1 ) Zipline_EnableRestPoint( zipline )
-        if ( verticalOffset == 1 ) Zipline_DisableVerticalZiplineOffset( zipline )
-        Zipline_PanelUsableLimit( zipline, limit )
-        Zipline_SetAutoDetachDistance( zipline, RandomFloatRange( 50, 400 ), RandomFloatRange( 50, 400 ) )
-        Zipline_SetZiplineAngles( zipline, < 0, RandomFloatRange( 0, -180 ), 0 >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-        Zipline_SetArmOffset( zipline, startOff, endOff )
-        Zipline_SetWidth( zipline, float( RandomIntRange( 2, 4 ) ) )
-        Zipline_SetSpeedScale( zipline, RandomFloatRange( 1, 6 ) )
-        Zipline_SetScale( zipline, float( RandomIntRange( 1, 2 ) ) )
-        Zipline_SetLengthScale( zipline, RandomFloatRange( 0.90, 1.0 ) )
-        if ( vel == 1 ) Zipline_SetPreserveVelocity( zipline )
-        if ( bottom == 1 ) Zipline_DisableDropToBottom( zipline )
-        Zipline_SetDetachEndOnUse_OnSpawn( zipline, DetachOnUse, DetachOnSpawn )
-        Zipline_SetPushOffInDirectionX( zipline, RandomIntRange( 0, 2 ) )
-        Zipline_InitZipline( zipline )
-
-        printt( zipline.vars.ziplineName + " = restPoint: " + restPoint + " | moving: " + moving + " | limit: " + limit + " | S/E offset: " + startOff + " " + endOff + " | U/S Detach: " + DetachOnUse + " " + DetachOnSpawn )
-
-        z -= 450.0
-    }
-}
-
-
-

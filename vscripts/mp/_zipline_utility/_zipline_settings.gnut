@@ -78,6 +78,12 @@ void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset
     if ( endArmOffset == 0.0 && !IsZiplineVertical( zipline ) ) zipline.vars.endArmOffset = HORIZONTAL_ARM_OFFSET
 }
 
+void function Zipline_SpawnSupportOnlyOnSpawn( ZiplineUtility zipline )
+{
+    ZiplineVars vars = zipline.vars
+    vars.spawnSupportOnly = true
+}
+
 void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipAng, vector endZipAng = < 0, 0, 0 > )
 {
     KVFilesSettings settings = zipline.settings
@@ -127,6 +133,11 @@ void function Zipline_PanelNoTimer( ZiplineUtility zipline )
 void function Zipline_PanelUsableLimit( ZiplineUtility zipline, int maxUse = 1 )
 {
     ZiplinePanel panels = zipline.panels
-    panels.numberMaxUsedPanel = maxUse
+    panels.panelMaxNumberUsed = maxUse
     panels.panelUsableLimit = true
+}
+
+void function Zipline_DestroyZiplineSupportOnPanelEnd( ZiplineUtility zipline )
+{
+    zipline.vars.destroyZiplineSupportOnPanelEnd = true
 }

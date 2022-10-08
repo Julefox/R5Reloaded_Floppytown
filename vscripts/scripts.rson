@@ -955,6 +955,7 @@ Scripts:
 	mp/_zipline_utility/_zipline_settings.gnut
     mp/_zipline_utility/_zipline_func.gnut
     mp/_zipline_utility/_zipline_init.gnut
+    mp/_zipline_utility/_zipline_debug.gnut
 ]
 
 When: "SERVER || CLIENT"

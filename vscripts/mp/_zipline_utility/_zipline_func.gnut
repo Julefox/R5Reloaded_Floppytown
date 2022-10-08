@@ -5,11 +5,13 @@ global function ZiplinePrecache
 global function Zipline_CreateZipline
 global function Zipline_CreatePanel
 global function Zipline_InitZipline
+global function Zipline_InitAllZiplineInScope
 
 global function GetAllZiplines
 global function IsZiplineHaveSameName
 global function IsZiplineVertical
 global function IsZiplineDestroyed
+global function IsCanyonlandsMap
 global function ChooseZiplineTravelTime
 global function GZFEP
 global function GZFZN
@@ -31,7 +33,7 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startP
 
     if ( endPos == V_ZIPLINE_VECTOR ) settings.isVertical = true else settings.isVertical = false
 
-    ZiplinePreProcess( zipline, settings.isVertical ) ; Zipline_SetZiplineAngles( zipline, startAng, endAng )
+    ZiplinePreProcess( zipline ) ; Zipline_SetZiplineAngles( zipline, startAng, endAng )
 
     #if ZIPLINE_DEBUG_SCRIPTS
         Zipline_PanelNoTimer( zipline )
@@ -48,11 +50,12 @@ return zipline }
 void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector ang, int skin = ePanelSkinType.WALL )
 {
     ZiplineState state = zipline.state ; ZiplinePanel panels = zipline.panels
+
     asset model = DecidePanelModel( skin )
     entity panel = CreateUsablePanel( model, pos, ang )
-    panel.SetSkin( 0 )
+    panel.SetSkin( ePanelState.ENABLE )
 
-    if ( state.isFirstTimeInited == true ) thread UpdatePanelForFirstTimeInited( zipline )
+    if ( state.firstInit == true ) thread UpdatePanelForFirstTimeInited( zipline )
     panels.newPanel.append( panel )
 }
 
@@ -60,11 +63,25 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
 ////////////////////////////////////////////////////////////
 //  Create zipline
 ////////////////////////////////////////////////////////////
-void function Zipline_InitZipline( ZiplineUtility zipline, bool spawnSupportOnly = false )
+void function Zipline_InitZipline( ZiplineUtility zipline )
 {
-    if ( zipline.state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( zipline.state.ziplineIsValid == false && spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
+
+    if ( state.supportIsValid == false ) Zipline_CreateSupport( zipline )
+    if ( state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
     UpdatePanelsPrompts( zipline )
+
+    vars.spawnSupportOnly   = false
+    state.firstInit         = false
+}
+
+void function Zipline_InitAllZiplineInScope()
+{
+    foreach ( ziplines in GetAllZiplines() )
+    {
+        ZiplineState state = ziplines.state
+        if ( state.firstInit == true ) Zipline_InitZipline( ziplines )
+    }
 }
 
 
@@ -186,6 +203,8 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
             if ( vars.boolHeightLimit == false && vars.disableVerticalZiplineOffset == false )
             {   endZipPos = result.endPos + < 0, 0, 35 > } else { endZipPos = result.endPos }
 
+            if ( vars.indianaJonesMode == true ) endZipPos = result.endPos + < 0, 0, 160 >
+
             zipline.endZipPos = endZipPos
             break
         case false:
@@ -256,7 +275,6 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
 
     state.ziplineIsValid     = true
     state.ziplineIsDestroyed = false
-    state.isFirstTimeInited  = false
 
 return [ startZiplinePoint, endZiplinePoint ] }
 
@@ -268,16 +286,17 @@ void function ZiplinePrecache()
 {
     PrecacheModel( ZIPLINE_ARM )
     PrecacheModel( ZIPLINE_PLANEL_STAND )
-    PrecacheModel( ZIPLINE_PLANEL_WALL )
     PrecacheModel( ZIPLINE_PLANEL_WALL_SUPPORT )
     PrecacheModel( ZIPLINE_SUPPORT )
     PrecacheParticleSystem( ZIPLINE_EXPLOSION )
+
+    if ( !IsCanyonlandsMap() ) PrecacheModel( ZIPLINE_PLANEL_WALL )
 }
 
-function ZiplinePreProcess( ZiplineUtility zipline, bool isVertical )
+function ZiplinePreProcess( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars
-    switch ( isVertical )
+    switch ( settings.isVertical )
     {
         case true:
             settings.endAutoDetachDistance    = END_AUTO_DETACH_DISTANCE
@@ -319,7 +338,7 @@ function Zipline_Mover( ZiplineUtility zipline )
 
     float travelTime = ChooseZiplineTravelTime( zipline ) ; float travelTimeDivised
 
-    if ( state.isFirstTimeInited == true ) travelTime = 1.0
+    if ( state.firstInit == true ) travelTime = 1.0
 
     travelTimeDivised = travelTime / 2
 
@@ -336,7 +355,10 @@ array< ZiplineUtility > function GetAllZiplines()
 float function ChooseZiplineTravelTime( ZiplineUtility zipline )
 {
     float travelTime
-    if ( IsZiplineVertical( zipline ) == true ) { travelTime = 6 } else { travelTime = 2 }
+    if ( IsZiplineVertical( zipline ) == true ) { travelTime = 6.0 } else { travelTime = 2.0 }
+    #if ZIPLINE_DEBUG_SCRIPTS
+        travelTime = 1.0
+    #endif // ZIPLINE_DEBUG_SCRIPTS
     return travelTime
 }
 
@@ -362,6 +384,25 @@ bool function IsZiplineDestroyed( ZiplineUtility zipline )
         return true
 
 return false }
+
+bool function IsCanyonlandsMap() // Used as mp_rr_canyonlands does not have ZIPLINE_PLANEL_WALL model
+{
+    bool isCanyonlandsMap
+    switch ( GetMapName() )
+    {
+        case "mp_rr_canyonlands_staging":
+        case "mp_rr_canyonlands_64k_x_64k":
+        case "mp_rr_canyonlands_mu1":
+        case "mp_rr_canyonlands_mu1_night":
+            isCanyonlandsMap = true
+        break
+        
+        default: 
+            isCanyonlandsMap = false
+        break
+    }
+    return isCanyonlandsMap
+}
 
 ZiplineUtility function GZFEP( entity panel )
 {

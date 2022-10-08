@@ -1,15 +1,18 @@
-untyped
+#if SERVER || CLIENT
+    untyped
 
-
-global function ShZiplineUtility_Init
+    global function ShZiplineUtility_Init
 
 
 // If "true" prints scripts debug on the console
     global const bool ZIPLINE_DEBUG_SCRIPTS = true
+
+// If "true" create randoms ziplines for debuging
+    global const bool DEBUG_RANDOM_ZIPLINE = false
 
 
 void function ShZiplineUtility_Init()
 {
     ShZiplinePanel_Init()
 }
-
+#endif // SERVER || CLIENT
