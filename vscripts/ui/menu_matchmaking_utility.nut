@@ -41,7 +41,7 @@ void function LoadLobbyAfterLeave()
 	}
 
 	//Create lobby server
-	CreateServer( "zipline_dev", "", "mp_rr_canyonlands_staging", "survival_dev", eServerVisibility.HIDDEN )
+	CreateServer("Lobby VM", "", "mp_lobby", "menufall", eServerVisibility.HIDDEN)
 
 	//Refresh Server Browser
 	ServerBrowser_RefreshServerListing()
