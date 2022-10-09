@@ -33,7 +33,6 @@ global function ZiplineUtility_Init
 
 // Global const vector
     global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >
-    global const vector V_ZIPLINE_VECTOR                        = < 1, 1, 1 >
     global const vector ZIPLINE_OFFSET_FROM_GROUND              = < 0, 0, 35 >
     global const vector ZIPLINE_OFFSET_FROM_GROUND_DETACH_END   = < 0, 0, 120 >
 
@@ -45,7 +44,6 @@ global enum eZiplineSkinType
     INVISIBLE, // 2
     _COUNT     // 3
 }
-global eZiplineSkinType eZST
 
 global struct ZiplineState
 {
@@ -111,7 +109,6 @@ global enum ePanelSkinType
     STAND, // 1
     _COUNT // 2
 }
-global ePanelSkinType ePST
 
 global enum ePanelState
 {
