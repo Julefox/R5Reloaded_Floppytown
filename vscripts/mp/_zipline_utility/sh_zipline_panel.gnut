@@ -25,7 +25,7 @@
 #if CLIENT || UI // Const
     const string    ZIPLINE_PROCESSING    = "Panel Processing..."
     const string    ZIPLINE_LOOPSOUND     = "survival_titan_linking_loop"
-    const string    ZIPLINE_SUCCESSSOUND  = "lootVault_Access" //"ui_menu_store_purchase_success"
+    const string    ZIPLINE_SUCCESSSOUND  = "lootVault_Access"
     const asset     ZIPLINE_DISPLAYRUI    = $"ui/extended_use_hint.rpak"
     const asset     ZIPLINE_ICONRUI       = $""
 #endif // CLIENT || UI

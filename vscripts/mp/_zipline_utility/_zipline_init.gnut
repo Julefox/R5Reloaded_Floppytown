@@ -35,7 +35,6 @@ void function OnMapZipline_Init()
                 ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 11338.9824, -19303.1543, -2881.60669 >, < 0, 180, 0 > )
                     Zipline_SetArmOffset( ZiplineDev_0, 240.0 )
                     Zipline_SetZiplineAngles( ZiplineDev_0, < 0, -60, 0 > )
-                    Zipline_SetHeightLimitFromTop( ZiplineDev_0, 100 )
                     Zipline_SetHeightLimitFromFloor( ZiplineDev_0, 100 )
                     Zipline_CreatePanel( ZiplineDev_0, < 11310.8701, -19496.3027, -2878.87256 >, < 0, 41, 0 >, ePanelSkinType.STAND )
 
