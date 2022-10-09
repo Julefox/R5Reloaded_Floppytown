@@ -83,13 +83,17 @@
         settings.useInputFlag   = IN_USE_LONG
         settings.successFunc    = ZiplinePanelUseSuccess
 
+        #if SERVER
+            settings.movementDisable    = true
+        #endif // SERVER
+
         #if CLIENT || UI
-            settings.loopSound        = ZIPLINE_LOOPSOUND
-            settings.successSound     = ZIPLINE_SUCCESSSOUND
-            settings.icon             = ZIPLINE_ICONRUI
-            settings.hint             = ZIPLINE_PROCESSING
-            settings.displayRui       = ZIPLINE_DISPLAYRUI
-            settings.displayRuiFunc   = ZiplinePanel_DisplayRui
+            settings.loopSound          = ZIPLINE_LOOPSOUND
+            settings.successSound       = ZIPLINE_SUCCESSSOUND
+            settings.icon               = ZIPLINE_ICONRUI
+            settings.hint               = ZIPLINE_PROCESSING
+            settings.displayRui         = ZIPLINE_DISPLAYRUI
+            settings.displayRuiFunc     = ZiplinePanel_DisplayRui
         #endif // CLIENT || UI
 
         thread ExtendedUse( panel, playerUser, settings )
