@@ -234,7 +234,12 @@
 
         if ( IsValid( panel ) )
         {
-            if ( forceUsable == true )
+            if ( state.bugIt == true )
+            {
+                panel.UnsetUsable()
+                panel.SetSkin( ePanelState.DISABLE )
+            }
+            else if ( forceUsable == true )
             {
                 wait travelTime
 

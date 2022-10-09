@@ -22,11 +22,18 @@ void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistanc
 }
 
 
-void function Zipline_SetHeightLimit( ZiplineUtility zipline, float heightLimit )
+void function Zipline_SetHeightLimitFromTop( ZiplineUtility zipline, float heightLimit )
 {
-    ZiplineVars vars        = zipline.vars
-    vars.heightLimit        = heightLimit
-    vars.boolHeightLimit    = true
+    ZiplineVars vars               = zipline.vars
+    vars.heightLimitFromTop        = heightLimit
+    vars.boolHeightLimitFromTop    = true
+}
+
+void function Zipline_SetHeightLimitFromFloor( ZiplineUtility zipline, float heightLimit )
+{
+    ZiplineVars vars                 = zipline.vars
+    vars.heightLimitFromFloor        = heightLimit
+    vars.boolHeightLimitFromFloor    = true
 }
 
 
@@ -144,8 +151,8 @@ void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int PushOf
 
 void function Zipline_IsIndianaJonesMode( ZiplineUtility zipline )
 {
-    zipline.vars.indianaJonesMode       = true
-    zipline.settings.detachEndOnSpawn   = 1
+    Zipline_SetHeightLimitFromFloor( zipline, ZIPLINE_OFFSET_FROM_FLOOR_DETACH_END )
+    zipline.settings.detachEndOnSpawn = 1
 }
 
 

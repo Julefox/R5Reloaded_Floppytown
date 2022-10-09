@@ -15,6 +15,7 @@ global function IsCanyonlandsMap
 global function ChooseZiplineTravelTime
 global function GZFEP
 global function GZFZN
+global function ZiplineBugItOnClientConnected
 
 
 ////////////////////////////////////////////////////////////
@@ -66,7 +67,7 @@ void function Zipline_InitZipline( ZiplineUtility zipline )
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
     if ( state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    if ( state.bugIt == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
     UpdatePanelsPrompts( zipline )
 
     vars.spawnSupportOnly   = false
@@ -197,13 +198,26 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
     {
         case true:
             vector offset         = startZiplinePos - TRACE_RESULTS_OFFSET
-            TraceResults result   = TraceLine( offset, offset + -vars.heightLimit * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
+            TraceResults result   = TraceLine( offset, offset + -vars.heightLimitFromTop * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
             startZiplineAng           = zipline.startZiplineAng ; endZiplineAng = zipline.endZiplineAng
 
-            if ( vars.boolHeightLimit == false && vars.disableVerticalZiplineOffset == false )
-            { endZiplinePos = result.endPos + ZIPLINE_OFFSET_FROM_GROUND } else { endZiplinePos = result.endPos }
+            if ( vars.disableVerticalZiplineOffset == false )
+            {
+                if ( vars.boolHeightLimitFromTop == true ) endZiplinePos = result.endPos
+                else if ( vars.boolHeightLimitFromFloor == true ) endZiplinePos = result.endPos + < 0, 0, vars.heightLimitFromFloor >
+                else { endZiplinePos = result.endPos + ZIPLINE_OFFSET_FROM_FLOOR }
+            }
+            else
+            {
+                endZiplinePos = result.endPos
+            }
 
-            if ( vars.indianaJonesMode == true ) { endZiplinePos = result.endPos + ZIPLINE_OFFSET_FROM_GROUND_DETACH_END }
+            if ( vars.boolHeightLimitFromTop == true && vars.boolHeightLimitFromFloor == true || vars.boolHeightLimitFromTop == true && vars.disableVerticalZiplineOffset == true || vars.boolHeightLimitFromFloor == true && vars.disableVerticalZiplineOffset == true )
+            {
+                state.bugIt = true
+                state.reason = STRING_HEIGHT_LIMIT_REASON
+                return []
+            }
 
             zipline.endZiplinePos = endZiplinePos
             break
@@ -290,6 +304,10 @@ void function ZiplinePrecache()
     if ( !IsCanyonlandsMap() ) PrecacheModel( ZIPLINE_PLANEL_WALL )
 
     PrecacheParticleSystem( ZIPLINE_EXPLOSION )
+
+    #if ZIPLINE_DEBUG_SCRIPTS
+        PrecacheParticleSystem( ZIPLINE_BUT_IT_FX )
+    #endif // ZIPLINE_DEBUG_SCRIPTS
 }
 
 
@@ -447,6 +465,50 @@ ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
             return ziplines
     }
 unreachable }
+
+
+void function ZiplineBugItOnClientConnected( entity player )
+{    
+    thread ZiplineBugIt( player )
+}
+
+
+void function ZiplineBugIt( entity player )
+{
+    if ( player == gp()[0] )
+    {
+        int count = 0
+        array< ZiplineUtility > bugedZipline = []
+
+            wait 1.0 // wait ClientConnected
+
+        foreach( ziplines in GetAllZiplines() )
+        {
+            if ( ziplines.state.bugIt == true )
+            {
+                bugedZipline.append( ziplines )
+                count += 1
+                entity fx = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( ZIPLINE_BUT_IT_FX ), ziplines.startEntityPos, < 90, 0, 0 > )
+            }
+        }
+
+        if ( count != 0 )
+        {
+            if ( count == 1 ) Dev_PrintMessage( player, count + " Zipline is invalid", "Please check console log" )
+            else Dev_PrintMessage( player, count + " Ziplines are invalid", "Please check console log" )
+
+            printt( "//----------------------------------" )
+            foreach( ziplines in bugedZipline )
+            {
+                printt( "Bug detected on: " + ziplines.vars.ziplineName )
+                if ( ziplines.state.reason != "" )
+                printt( "Reason: " + ziplines.state.reason)
+            }
+            printt( "//----------------------------------" )
+        }
+        
+    }
+}
 
 
 entity function Zipline_CreateProp( asset a, vector pos, vector ang )

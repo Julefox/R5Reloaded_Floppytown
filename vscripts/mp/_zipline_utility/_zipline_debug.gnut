@@ -115,7 +115,7 @@ bool function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair( entity player, 
     
     Zipline_CreateZipline( randomZipline, origin, angles )
     ZiplineUtility zipline = GZFZN( randomZipline )
-        Zipline_SetSkin( zipline, eZST.INVISIBLE )
+        Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
         Zipline_SetPreserveVelocity( zipline )
         Zipline_SetSpeedScale( zipline, 4.0 )
         Zipline_IsIndianaJonesMode( zipline )

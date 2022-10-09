@@ -31,6 +31,20 @@ void function OnMapZipline_Init()
                     Zipline_SetLengthScale( ZiplineDev_3, 0.98 )
                     
             break
+        case "mp_rr_desertlands_64k_x_64k":
+                ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 11338.9824, -19303.1543, -2881.60669 >, < 0, 180, 0 > )
+                    Zipline_SetArmOffset( ZiplineDev_0, 240.0 )
+                    Zipline_SetZiplineAngles( ZiplineDev_0, < 0, -60, 0 > )
+                    Zipline_SetHeightLimitFromTop( ZiplineDev_0, 100 )
+                    Zipline_SetHeightLimitFromFloor( ZiplineDev_0, 100 )
+                    Zipline_CreatePanel( ZiplineDev_0, < 11310.8701, -19496.3027, -2878.87256 >, < 0, 41, 0 >, ePanelSkinType.STAND )
+
+                ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 1110, -23227, 1850.06055 >, < 0, 180, 0 >, < 894.989502, -20209.5176, 1850.06055 > )
+                    Zipline_SetSkin( ZiplineDev_1, eZiplineSkinType.INVISIBLE, eZiplineSkinType.INVISIBLE )
+                    Zipline_SetPreserveVelocity( ZiplineDev_1 )
+                    Zipline_SetSpeedScale( ZiplineDev_1, 12.0 )
+                    Zipline_IsIndianaJonesMode( ZiplineDev_1 )
+            break
         case "mp_rr_canyonlands_staging": // for test
             ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 30267.6523, -8548.48926, -26724.127 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
                 Zipline_SetSkin( ZiplineDev_0, eZiplineSkinType.ENTIRE, eZiplineSkinType.ARM_ONLY )
