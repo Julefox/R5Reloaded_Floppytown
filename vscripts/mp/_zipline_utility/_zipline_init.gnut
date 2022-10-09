@@ -16,7 +16,7 @@ void function OnMapZipline_Init()
                     Zipline_SetZiplineAngles( ZiplineDev_0, < 0, -33, 0 > )
 
                 ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 7763.0293, 26006.5762, 5738.84424 >, < 0, 20, 0 >, < 9335.36621, 30600.8125, 5640.03125 >, < 0, 0, 0 > )
-                    Zipline_SetSkin( ZiplineDev_1, eZiplineSkinType.ARM_ONLY, eZiplineSkinType.ENTIRE )
+                    Zipline_SetSkin( ZiplineDev_1, eZST.ARM_ONLY, eZST.ENTIRE )
                     Zipline_SetLengthScale( ZiplineDev_1, 0.98 )
                     Zipline_CreatePanel( ZiplineDev_1, < 7757.08203, 25911.0625, 5653.22168 >, < 0, 20, 60 > )
                     Zipline_PanelUsableLimit( ZiplineDev_1, 4 )
@@ -26,14 +26,14 @@ void function OnMapZipline_Init()
                     Zipline_CreatePanel( ZiplineDev_2, < 8459.0957, 30207.2031, 5352.03125 >, < 0, 90, 0 > )
 
                 ZiplineUtility ZiplineDev_3 = Zipline_CreateZipline( "ZiplineDev_3", < 8784.03125, 28993.5859, 4891.94141 >, < 0, 0, 0 >, < 8882.10645, 30255.9688, 5203.30371 >, < 0, 0, 0 > )
-                    Zipline_SetSkin( ZiplineDev_3, eZiplineSkinType.ARM_ONLY, eZiplineSkinType.INVISIBLE )
+                    Zipline_SetSkin( ZiplineDev_3, eZST.ARM_ONLY, eZST.INVISIBLE )
                     Zipline_SetAutoDetachDistance( ZiplineDev_3, 50.0, 440.0 )
                     Zipline_SetLengthScale( ZiplineDev_3, 0.98 )
                     
             break
         case "mp_rr_canyonlands_staging": // for test
             ZiplineUtility ZiplineDev_0 = Zipline_CreateZipline( "ZiplineDev_0", < 30267.6523, -8548.48926, -26724.127 >, < 0, 180, 0 >, < 27560.5645, -6052.51074, -27460.7852 >, < 0, -90, 0 > )
-                Zipline_SetSkin( ZiplineDev_0, eZiplineSkinType.ENTIRE, eZiplineSkinType.ARM_ONLY )
+                Zipline_SetSkin( ZiplineDev_0, eZST.ENTIRE, eZST.ARM_ONLY )
 
             ZiplineUtility ZiplineDev_1 = Zipline_CreateZipline( "ZiplineDev_1", < 31041.3125, -8914.85645, -26730.5488 >, < 0, 0, 0 > )
                 Zipline_DisableVerticalZiplineOffset( ZiplineDev_1 )
@@ -43,7 +43,7 @@ void function OnMapZipline_Init()
                 Zipline_SetIsMoving( ZiplineDev_1 )
 
             ZiplineUtility ZiplineDev_2 = Zipline_CreateZipline( "ZiplineDev_2", < 30350.9238, -6352.99268, -26606.5664 >, < 0, 0, 0 > )
-                Zipline_SetSkin( ZiplineDev_2, eZiplineSkinType.INVISIBLE )
+                Zipline_SetSkin( ZiplineDev_2, eZST.INVISIBLE )
                 Zipline_SetPreserveVelocity( ZiplineDev_2 )
                 Zipline_IsIndianaJonesMode( ZiplineDev_2 )
 

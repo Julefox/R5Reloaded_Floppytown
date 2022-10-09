@@ -45,6 +45,7 @@ global enum eZiplineSkinType
     INVISIBLE, // 2
     _COUNT     // 3
 }
+global eZiplineSkinType eZST
 
 global struct ZiplineState
 {
@@ -110,6 +111,7 @@ global enum ePanelSkinType
     STAND, // 1
     _COUNT // 2
 }
+global ePanelSkinType ePST
 
 global enum ePanelState
 {
