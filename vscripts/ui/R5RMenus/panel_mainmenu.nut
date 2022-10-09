@@ -28,8 +28,7 @@ void function OnMainMenuPanel_Show( var panel )
 void function LaunchButton_OnActivate( var button )
 {
 	// create local lobby server
-	//CreateServer("Lobby", "", "mp_lobby", "menufall", eServerVisibility.HIDDEN)
-    CreateServer( "zipline_dev", "", "mp_rr_canyonlands_staging", "survival_dev", eServerVisibility.HIDDEN )
+	CreateServer("Lobby", "", "mp_lobby", "menufall", eServerVisibility.HIDDEN)
 }
 
 void function SetupRUI()

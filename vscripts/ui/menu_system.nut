@@ -303,7 +303,7 @@ void function OpenSettingsMenu()
 
 void function HostEndMatch()
 {
-    CreateServer( GetPlayerName() + " zipline_dev", "", "mp_rr_canyonlands_staging", "survival_dev", eServerVisibility.HIDDEN )
+	CreateServer( GetPlayerName() + " Lobby", "", "mp_lobby", "menufall", eServerVisibility.OFFLINE)
 }
 
 #if CONSOLE_PROG
