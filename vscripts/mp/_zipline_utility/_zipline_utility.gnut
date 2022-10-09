@@ -32,6 +32,8 @@ global function ZiplineUtility_Init
     global const string ZIPLINE_END_SOUND                       = "explo_spectre"
     global const string ZIPLINE_PANEL_LOCKED                    = "npe_player_fail"
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
+
+// Global const string error
     global const string STRING_HEIGHT_LIMIT_REASON              = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset()"
 
 // Global const vector
@@ -49,12 +51,12 @@ global enum eZiplineSkinType
 
 global struct ZiplineState
 {
-    bool bugIt                = false
+    bool error                = false
     bool firstInit            = true
     bool supportIsValid       = false
     bool ziplineIsValid       = false
     bool ziplineIsDestroyed   = true
-    string reason             = ""
+    string reason             = "undefined"
 }
 
 global struct KVFilesSettings
@@ -155,7 +157,7 @@ void function ZiplineUtility_Init()
     AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 
     #if ZIPLINE_DEBUG_SCRIPTS
-        AddCallback_OnClientConnected( ZiplineBugItOnClientConnected )
+        AddCallback_OnClientConnected( ZiplineErrorOnClientConnected )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
     AddClientCommandCallback( "indianaJones", ClientCommand_SpawnIndianaJonesZiplineAtCrosshair )

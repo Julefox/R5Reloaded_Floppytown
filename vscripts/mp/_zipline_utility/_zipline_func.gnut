@@ -15,7 +15,7 @@ global function IsCanyonlandsMap
 global function ChooseZiplineTravelTime
 global function GZFEP
 global function GZFZN
-global function ZiplineBugItOnClientConnected
+global function ZiplineErrorOnClientConnected
 
 
 ////////////////////////////////////////////////////////////
@@ -23,9 +23,9 @@ global function ZiplineBugItOnClientConnected
 ////////////////////////////////////////////////////////////
 ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
 {
-    ZiplineUtility zipline ; if ( IsZiplineHaveSameName( ziplineName ) ) return zipline
+    ZiplineUtility zipline ; KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; vars.ziplineName = ziplineName
+    if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueString( ziplineName ) ; vars.ziplineName = ziplineName
 
     zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
     if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
@@ -67,7 +67,7 @@ void function Zipline_InitZipline( ZiplineUtility zipline )
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
     if ( state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( state.bugIt == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    if ( state.error == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
     UpdatePanelsPrompts( zipline )
 
     vars.spawnSupportOnly   = false
@@ -214,7 +214,7 @@ array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
 
             if ( vars.boolHeightLimitFromTop == true && vars.boolHeightLimitFromFloor == true || vars.boolHeightLimitFromTop == true && vars.disableVerticalZiplineOffset == true || vars.boolHeightLimitFromFloor == true && vars.disableVerticalZiplineOffset == true )
             {
-                state.bugIt = true
+                state.error = true
                 state.reason = STRING_HEIGHT_LIMIT_REASON
                 return []
             }
@@ -467,13 +467,13 @@ ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
 unreachable }
 
 
-void function ZiplineBugItOnClientConnected( entity player )
+void function ZiplineErrorOnClientConnected( entity player )
 {    
-    thread ZiplineBugIt( player )
+    thread ZiplineError( player )
 }
 
 
-void function ZiplineBugIt( entity player )
+void function ZiplineError( entity player )
 {
     if ( player == gp()[0] )
     {
@@ -484,7 +484,7 @@ void function ZiplineBugIt( entity player )
 
         foreach( ziplines in GetAllZiplines() )
         {
-            if ( ziplines.state.bugIt == true )
+            if ( ziplines.state.error == true )
             {
                 bugedZipline.append( ziplines )
                 count += 1
@@ -500,9 +500,9 @@ void function ZiplineBugIt( entity player )
             printt( "//----------------------------------" )
             foreach( ziplines in bugedZipline )
             {
-                printt( "Bug detected on: " + ziplines.vars.ziplineName )
-                if ( ziplines.state.reason != "" )
-                printt( "Reason: " + ziplines.state.reason)
+                printt( "// Bug detected on: " + ziplines.vars.ziplineName )
+                printt( "// Reason: " + ziplines.state.reason)
+                printt( "//" )
             }
             printt( "//----------------------------------" )
         }
