@@ -93,9 +93,9 @@ void function Zipline_DisableDropToBottom( ZiplineUtility zipline )
 
 void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset, float endArmOffset = 0.0 )
 {
+    ZiplineVars vars            = zipline.vars
     zipline.vars.startArmOffset = startArmOffset
-
-    if ( endArmOffset == 0.0 && !IsZiplineVertical( zipline ) ) zipline.vars.endArmOffset = HORIZONTAL_ARM_OFFSET
+    zipline.vars.endArmOffset   = endArmOffset
 }
 
 

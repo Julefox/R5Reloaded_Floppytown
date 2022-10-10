@@ -2,7 +2,7 @@ untyped
 
 
 global function ZiplinePrecache
-global function Zipline_CreateZipline
+global function Zipline_Register
 global function Zipline_CreatePanel
 global function Zipline_InitZipline
 global function Zipline_InitAllZiplineInScope
@@ -21,11 +21,11 @@ global function ZiplineErrorOnClientConnected
 ////////////////////////////////////////////////////////////
 //  Initialize zipline
 ////////////////////////////////////////////////////////////
-ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
+ZiplineUtility function Zipline_Register( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
 {
     ZiplineUtility zipline ; KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueString( ziplineName ) ; vars.ziplineName = ziplineName
+    if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueZiplineString( ziplineName ) ; vars.ziplineName = ziplineName
 
     zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
     if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
@@ -38,9 +38,9 @@ ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startE
         Zipline_PanelNoTimer( zipline )
     #endif // PANEL_DEBUG_NO_TIMER
 
-    ziplineUtility.ziplineArray.append( zipline )
+    ziplineUtility.zipline[ziplineName] <- zipline ; ziplineUtility.ziplineArray.append( zipline )
 
-return zipline }
+return ziplineUtility.zipline[ziplineName] }
 
 
 ////////////////////////////////////////////////////////////
@@ -66,8 +66,8 @@ void function Zipline_InitZipline( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( state.error == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    if ( state.supportIsValid == false ) Zipline_InitSupport( zipline )
+    if ( state.error == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_InitZiplineEntity( zipline )
     UpdatePanelsPrompts( zipline )
 
     vars.spawnSupportOnly   = false
@@ -88,7 +88,7 @@ void function Zipline_InitAllZiplineInScope()
 ////////////////////////////////////////////////////////////
 //  Function used after Zipline_InitZipline()
 ///////////////////////////////////////////////////////////
-array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
+array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
@@ -187,7 +187,7 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 return entityArray }
 
 
-array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
+array< entity > function Zipline_InitZiplineEntity( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
 
@@ -433,6 +433,13 @@ bool function IsCanyonlandsMap() // Used as mp_rr_canyonlands does not have ZIPL
 }
 
 
+int uniqueZiplineId = 0
+string function UniqueZiplineString( string str = "" )
+{
+	return str + "_" + uniqueZiplineId++
+}
+
+
 ZiplineUtility function GZFEP( entity panel )
 {
     ZiplineUtility zipline = GetZiplineFromEntityPanel( panel )
@@ -475,39 +482,39 @@ void function ZiplineErrorOnClientConnected( entity player )
 
 void function ZiplineError( entity player )
 {
-    if ( player == gp()[0] )
+    if ( player != gp()[0] )
+        return
+
+    int count = 0
+    array< ZiplineUtility > bugedZipline = []
+
+        wait 1.0 // wait ClientConnected
+
+    foreach( ziplines in GetAllZiplines() )
     {
-        int count = 0
-        array< ZiplineUtility > bugedZipline = []
-
-            wait 1.0 // wait ClientConnected
-
-        foreach( ziplines in GetAllZiplines() )
+        if ( ziplines.state.error == true )
         {
-            if ( ziplines.state.error == true )
-            {
-                bugedZipline.append( ziplines )
-                count += 1
-                entity fx = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( ZIPLINE_BUT_IT_FX ), ziplines.startEntityPos, < 90, 0, 0 > )
-            }
+            bugedZipline.append( ziplines )
+            count += 1
+            entity fx = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( ZIPLINE_BUT_IT_FX ), ziplines.startEntityPos, < 90, 0, 0 > )
         }
-
-        if ( count != 0 )
-        {
-            if ( count == 1 ) Dev_PrintMessage( player, count + " Zipline is invalid", "Please check console log" )
-            else Dev_PrintMessage( player, count + " Ziplines are invalid", "Please check console log" )
-
-            printt( "//----------------------------------" )
-            foreach( ziplines in bugedZipline )
-            {
-                printt( "// Bug detected on: " + ziplines.vars.ziplineName )
-                printt( "// Reason: " + ziplines.state.reason)
-                printt( "//" )
-            }
-            printt( "//----------------------------------" )
-        }
-        
     }
+
+    if ( count != 0 )
+    {
+        if ( count == 1 ) Dev_PrintMessage( player, count + " Zipline is invalid", "Please check console log" )
+        else Dev_PrintMessage( player, count + " Ziplines are invalid", "Please check console log" )
+
+        printt( "//----------------------------------" )
+        foreach( ziplines in bugedZipline )
+        {
+            printt( "// Bug detected on: "  + ziplines.vars.ziplineName )
+            printt( "// Reason: "           + ziplines.state.reason)
+            printt( "//" )
+        }
+        printt( "//----------------------------------" )
+    }
+        
 }
 
 
