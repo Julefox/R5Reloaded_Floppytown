@@ -38,7 +38,7 @@ global function ZiplineUtility_Init
 
 // Global const vector
     global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >
-    global const vector ZIPLINE_OFFSET_FROM_FLOOR              = < 0, 0, 35 >
+    global const vector ZIPLINE_OFFSET_FROM_FLOOR               = < 0, 0, 35 >
 
 
 global enum eZiplineSkinType
@@ -145,8 +145,9 @@ global struct ZiplineUtility
     ZiplinePanel    panels
     ZiplineState    state
 
-    // Array
-    array < ZiplineUtility > ziplineArray
+    // Array && Table
+    array < ZiplineUtility >            ziplineArray
+    table < string, ZiplineUtility >    zipline
 }
 global ZiplineUtility ziplineUtility
 

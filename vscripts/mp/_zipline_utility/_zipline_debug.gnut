@@ -49,11 +49,11 @@ void function ThreadCreateRandomZipline( entity player )
     player.SetAngles( angles )
 
 
-    float heigth = 0.0
+    float heigth = 0.0 ; ZiplineUtility zipline
 
     for ( int i = 0 ; i < 8 ; i++)
     {
-        string randomZipline = UniqueString( "random_zipline" )
+        string randomZipline = "debug_zipline"
         int startSkin = RandomIntRange( 0, 3 ) ; int endSkin = RandomIntRange( 0, 3 )
         int panel = RandomIntRange( 0, 2 ) ; int panelSkin = RandomIntRange( 0, 2 )
         int moving = RandomIntRange( 0, 2 )
@@ -74,11 +74,9 @@ void function ThreadCreateRandomZipline( entity player )
         int dirX = RandomIntRange( 0, 2 )
         int init = 1 // RandomIntRange( 0, 2 )
 
-        if ( i == 2 ) Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-        else if ( i == 5 ) Zipline_CreateZipline( randomZipline, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 > )
-        else Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-
-        ZiplineUtility zipline = GZFZN( randomZipline )
+        if ( i == 2 ) zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+        else if ( i == 5 )  zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 > )
+        else  zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
 
             Zipline_SetSkin( zipline, startSkin, endSkin )
             if ( panel == 1 )           Zipline_CreatePanel( zipline, origin - < 100, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 >, panelSkin )

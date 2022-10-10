@@ -6,6 +6,8 @@ global function OnMapZipline_Init
 
 void function OnMapZipline_Init()
 {
+    ZiplineUtility zipline
+
     switch ( GetMapName() )
     {
         case "mp_rr_floppytown":
