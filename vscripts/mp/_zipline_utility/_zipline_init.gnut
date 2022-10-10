@@ -27,7 +27,6 @@ void function OnMapZipline_Init()
         case "mp_rr_canyonlands_mu1_night":
             break
         case "mp_rr_canyonlands_staging":
-            zipline = Zipline_Register( "ZiplineDev", < 29553.0215, -5970.95557, -28562.1875 >, < 0, 82, 0 >, < 29553.0215, -5970.95557, -28562.1875 >/*< 32358.2969, -5795.08398, -28892.8711 >*/, < 0, -102, 0 > )
             break
         case "mp_rr_desertlands_64k_x_64k_nx":
             break
