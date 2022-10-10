@@ -7,10 +7,12 @@ global function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair
 
 void function CreateRandomZiplineOnClientConnected( entity player )
 {
-    if ( player == gp()[0] )
-    {
-        thread ThreadCreateRandomZipline( player )
-    }
+    #if DEVELOPER
+        if ( player == gp()[0] )
+        {
+            thread ThreadCreateRandomZipline( player )
+        }
+    #endif // DEVELOPER
 }
 
 void function ThreadCreateRandomZipline( entity player )

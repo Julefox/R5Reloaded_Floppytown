@@ -482,15 +482,17 @@ unreachable }
 
 void function ZiplineErrorOnClientConnected( entity player )
 {    
-    thread ZiplineError( player )
+    #if DEVELOPER
+        if ( player != gp()[0] )
+            return
+
+        thread ZiplineError( player )
+    #endif // DEVELOPER
 }
 
 
 void function ZiplineError( entity player )
 {
-    if ( player != gp()[0] )
-        return
-
     int count       = 0
     int reasonNum   = 1
     array< ZiplineUtility > invalidZipline = []
@@ -525,7 +527,6 @@ void function ZiplineError( entity player )
         }
         printt( "//----------------------------------" )
     }
-        
 }
 
 
