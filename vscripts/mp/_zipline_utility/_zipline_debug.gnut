@@ -74,9 +74,9 @@ void function ThreadCreateRandomZipline( entity player )
         int dirX = RandomIntRange( 0, 2 )
         int init = 1 // RandomIntRange( 0, 2 )
 
-        if ( i == 2 ) zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
-        else if ( i == 5 )  zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 > )
-        else  zipline = Zipline_CreateZipline( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+        if ( i == 2 ) zipline = Zipline_Register( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
+        else if ( i == 5 )  zipline = Zipline_Register( randomZipline, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 > )
+        else  zipline = Zipline_Register( randomZipline, origin - < 0, 200, heigth >, < 0, RandomFloatRange( 0, -180 ), 0 >, origin - < 0, 1200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 > )
 
             Zipline_SetSkin( zipline, startSkin, endSkin )
             if ( panel == 1 )           Zipline_CreatePanel( zipline, origin - < 100, 200, heigth >, < 0, RandomFloatRange( 0, 180 ), 0 >, panelSkin )
@@ -111,7 +111,7 @@ bool function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair( entity player, 
     vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
     
-    Zipline_CreateZipline( randomZipline, origin, angles )
+    Zipline_Register( randomZipline, origin, angles )
     ZiplineUtility zipline = GZFZN( randomZipline )
         Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
         Zipline_SetPreserveVelocity( zipline )

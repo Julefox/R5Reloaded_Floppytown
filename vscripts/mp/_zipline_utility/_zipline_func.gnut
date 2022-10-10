@@ -2,7 +2,7 @@ untyped
 
 
 global function ZiplinePrecache
-global function Zipline_CreateZipline
+global function Zipline_Register
 global function Zipline_CreatePanel
 global function Zipline_InitZipline
 global function Zipline_InitAllZiplineInScope
@@ -21,11 +21,11 @@ global function ZiplineErrorOnClientConnected
 ////////////////////////////////////////////////////////////
 //  Initialize zipline
 ////////////////////////////////////////////////////////////
-ZiplineUtility function Zipline_CreateZipline( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
+ZiplineUtility function Zipline_Register( string ziplineName, vector startEntityPos, vector startEntityAng, vector ornull endEntityPos = null, vector endEntityAng = < 0, 0, 0 > )
 {
     ZiplineUtility zipline ; KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueString( ziplineName ) ; vars.ziplineName = ziplineName
+    if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueZiplineString( ziplineName ) ; vars.ziplineName = ziplineName
 
     zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
     if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
@@ -66,8 +66,8 @@ void function Zipline_InitZipline( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( state.supportIsValid == false ) Zipline_CreateSupport( zipline )
-    if ( state.error == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_CreateZiplineInit( zipline )
+    if ( state.supportIsValid == false ) Zipline_InitSupport( zipline )
+    if ( state.error == false && state.ziplineIsValid == false && vars.spawnSupportOnly == false ) Zipline_InitZiplineEntity( zipline )
     UpdatePanelsPrompts( zipline )
 
     vars.spawnSupportOnly   = false
@@ -88,7 +88,7 @@ void function Zipline_InitAllZiplineInScope()
 ////////////////////////////////////////////////////////////
 //  Function used after Zipline_InitZipline()
 ///////////////////////////////////////////////////////////
-array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
+array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
@@ -187,7 +187,7 @@ array< entity > function Zipline_CreateSupport( ZiplineUtility zipline )
 return entityArray }
 
 
-array< entity > function Zipline_CreateZiplineInit( ZiplineUtility zipline )
+array< entity > function Zipline_InitZiplineEntity( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
 
@@ -430,6 +430,13 @@ bool function IsCanyonlandsMap() // Used as mp_rr_canyonlands does not have ZIPL
         break
     }
     return isCanyonlandsMap
+}
+
+
+int uniqueZiplineId = 0
+string function UniqueZiplineString( string str = "" )
+{
+	return str + "_" + uniqueZiplineId++
 }
 
 
