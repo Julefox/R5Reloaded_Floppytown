@@ -39,6 +39,7 @@ global function ZiplineUtility_Init
     global const string DEV_PRINTMESSAGE_SUBTEXT                = "Please check console log"
     global const string STRING_HEIGHT_LIMIT_REASON              = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset()"
     global const string STRING_SE_SAME_ORIGIN_REASON            = "The vector [ Start / End ] are the same in Zipline_Register()"
+    global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the stand panel model has been selected"
 
 // Global const vector
     global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >
@@ -60,7 +61,7 @@ global struct ZiplineState
     bool supportIsValid       = false
     bool ziplineIsValid       = false
     bool ziplineIsDestroyed   = true
-    string reason             = "undefined"
+    array < string > reason
 }
 
 global struct KVFilesSettings
@@ -108,8 +109,9 @@ global struct ZiplineVars
 global struct ZiplinePanel
 {
     array < entity > newPanel
-    bool panelNoTimer       = false
     bool panelUsableLimit   = false
+    float maxTimer          = 60.0
+    float minTimer          = 32.0
     int panelMaxNumberUsed  = 0
     int panelNumberUsed     = 1
 }

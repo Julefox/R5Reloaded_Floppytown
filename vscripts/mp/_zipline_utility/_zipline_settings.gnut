@@ -49,9 +49,10 @@ void function Zipline_SetLengthScale( ZiplineUtility zipline, float lengthScale 
 }
 
 
-void function Zipline_SetMaterial( ZiplineUtility zipline, string material )
+void function Zipline_SetMaterial( ZiplineUtility zipline, asset material )
 {
-    zipline.settings.material = material
+    PrecacheMaterial( material ) ; PrecacheModel( material )
+    zipline.settings.material = string( material )
 }
 
 
@@ -125,11 +126,19 @@ void function Zipline_SetZiplineAngles( ZiplineUtility zipline, vector startZipl
 }
 
 
-void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 50.0 )
+void function Zipline_SetAutoDetachDistance( ZiplineUtility zipline, float startAutoDetachDistance, float endAutoDetachDistance = 0.0 )
 {
     KVFilesSettings settings            = zipline.settings
     settings.startAutoDetachDistance    = startAutoDetachDistance
-    settings.endAutoDetachDistance      = endAutoDetachDistance
+
+    if ( endAutoDetachDistance == 0.0 )
+    {
+        if ( IsZiplineVertical( zipline ) )
+        {
+            settings.endAutoDetachDistance    = END_AUTO_DETACH_DISTANCE
+        }
+        else settings.endAutoDetachDistance   = HORIZONTAL_END_AUTO_DETACH_DISTANCE
+    }   else settings.startAutoDetachDistance = endAutoDetachDistance
 }
 
 
@@ -157,10 +166,11 @@ void function Zipline_IsIndianaJonesMode( ZiplineUtility zipline )
 
 
 // Panels
-void function Zipline_PanelNoTimer( ZiplineUtility zipline )
+void function Zipline_SetPanelTimer( ZiplineUtility zipline, float minTimer, float maxTimer = 0.0 )
 {
     ZiplinePanel panels = zipline.panels
-    panels.panelNoTimer = true
+    panels.minTimer = minTimer
+    if ( maxTimer == 0.0 ) panels.maxTimer = minTimer else panels.maxTimer = maxTimer
 }
 
 
