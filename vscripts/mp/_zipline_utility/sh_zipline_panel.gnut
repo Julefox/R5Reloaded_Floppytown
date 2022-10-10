@@ -215,7 +215,7 @@
 
         KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state ; ZiplinePanel panels = zipline.panels
 
-        if ( panels.panelNoTimer == true ) waitPanelState = 0 else waitPanelState = RandomFloatRange( 32.0, 60.0 )
+        waitPanelState = RandomFloatRange( panels.minTimer, panels.maxTimer )
 
         switch ( IsZiplineDestroyed( zipline ) )
         {
