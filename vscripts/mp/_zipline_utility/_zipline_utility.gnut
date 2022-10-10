@@ -6,7 +6,7 @@ global function ZiplineUtility_Init
 
 // Global const
     global const       ZIPLINE_EXPLOSION                        = $"p_impact_exp_small_full"
-    global const       ZIPLINE_BUT_IT_FX                        = $"P_ar_hot_zone_far"
+    global const       ZIPLINE_ERROR_FX                         = $"P_ar_hot_zone_far"
 
 // Global const assets
     global const asset ZIPLINE_ARM                              = $"mdl/industrial/zipline_arm.rmdl"
@@ -34,7 +34,11 @@ global function ZiplineUtility_Init
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
 
 // Global const string error
+    global const string DEV_PRINTMESSAGE_TEXT_SINGULAR          = " Zipline is invalid"
+    global const string DEV_PRINTMESSAGE_TEXT_PLURAL            = " Ziplines are invalid"
+    global const string DEV_PRINTMESSAGE_SUBTEXT                = "Please check console log"
     global const string STRING_HEIGHT_LIMIT_REASON              = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset()"
+    global const string STRING_SE_SAME_ORIGIN_REASON            = "The vector [ Start / End ] are the same in Zipline_Register()"
 
 // Global const vector
     global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >

@@ -30,6 +30,8 @@ ZiplineUtility function Zipline_Register( string ziplineName, vector startEntity
     zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
     if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
 
+    if ( zipline.startEntityPos == zipline.endEntityPos ) { state.error = true ; state.reason = STRING_SE_SAME_ORIGIN_REASON }
+
     settings.isVertical = endEntityPos == null ? true : false
 
     ZiplinePreProcess( zipline ) ; Zipline_SetZiplineAngles( zipline, startEntityAng, endEntityAng )
@@ -306,7 +308,7 @@ void function ZiplinePrecache()
     PrecacheParticleSystem( ZIPLINE_EXPLOSION )
 
     #if ZIPLINE_DEBUG_SCRIPTS
-        PrecacheParticleSystem( ZIPLINE_BUT_IT_FX )
+        PrecacheParticleSystem( ZIPLINE_ERROR_FX )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 }
 
@@ -486,7 +488,7 @@ void function ZiplineError( entity player )
         return
 
     int count = 0
-    array< ZiplineUtility > bugedZipline = []
+    array< ZiplineUtility > invalidZipline = []
 
         wait 1.0 // wait ClientConnected
 
@@ -494,22 +496,22 @@ void function ZiplineError( entity player )
     {
         if ( ziplines.state.error == true )
         {
-            bugedZipline.append( ziplines )
+            invalidZipline.append( ziplines )
             count += 1
-            entity fx = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( ZIPLINE_BUT_IT_FX ), ziplines.startEntityPos, < 90, 0, 0 > )
+            entity fx = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( ZIPLINE_ERROR_FX ), ziplines.startEntityPos, < 90, 0, 0 > )
         }
     }
 
     if ( count != 0 )
     {
-        if ( count == 1 ) Dev_PrintMessage( player, count + " Zipline is invalid", "Please check console log" )
-        else Dev_PrintMessage( player, count + " Ziplines are invalid", "Please check console log" )
+        if ( count == 1 ) Dev_PrintMessage( player, count + DEV_PRINTMESSAGE_TEXT_SINGULAR, DEV_PRINTMESSAGE_SUBTEXT )
+        else Dev_PrintMessage( player, count + DEV_PRINTMESSAGE_TEXT_PLURAL, DEV_PRINTMESSAGE_SUBTEXT )
 
         printt( "//----------------------------------" )
-        foreach( ziplines in bugedZipline )
+        foreach( ziplines in invalidZipline )
         {
-            printt( "// Bug detected on: "  + ziplines.vars.ziplineName )
-            printt( "// Reason: "           + ziplines.state.reason)
+            printt( "// Error detected on: "  + ziplines.vars.ziplineName )
+            printt( "// Reason: "           + ziplines.state.reason )
             printt( "//" )
         }
         printt( "//----------------------------------" )
