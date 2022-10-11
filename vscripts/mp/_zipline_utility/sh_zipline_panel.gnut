@@ -144,7 +144,7 @@
         int panelMaxUse = panels.panelMaxNumberUsed
 
         #if ZIPLINE_DEBUG_SCRIPTS
-            if ( panels.panelUsableLimit == true ) printt( "Number of used panel: " + panelused + " / " + panelMaxUse )
+            if ( panels.panelUsableLimit ) printt( "Number of used panel: " + panelused + " / " + panelMaxUse )
         #endif // ZIPLINE_DEBUG_SCRIPTS
 
         if ( panelused >= panelMaxUse && panels.panelMaxNumberUsed != 0 )
@@ -165,7 +165,7 @@
 
             thread DestoryPanelsAfterUsed( zipline )
 
-            if ( vars.destroyZiplineSupportOnPanelEnd == true ) DecidingZipline( zipline, true )
+            if ( vars.destroyZiplineSupportOnPanelEnd ) DecidingZipline( zipline, true )
             else DecidingZipline( zipline )
         }
         else
@@ -180,7 +180,7 @@
     void function UpdatePanelsPrompts( ZiplineUtility zipline )
     {
         string prompt
-        if ( IsZiplineDestroyed( zipline ) == true ) prompt = ZIPLINE_CREATE else prompt = ZIPLINE_DESTROY
+        if ( IsZiplineDestroyed( zipline ) ) prompt = ZIPLINE_CREATE else prompt = ZIPLINE_DESTROY
 
         foreach ( panels in GetZiplinePanelArray( zipline ) ) panels.SetUsePrompts( prompt, prompt )
     }
@@ -223,27 +223,27 @@
                 travelTime = 0
                 break
             case false:
-                if ( vars.isMoving == true && forceUsable == false ) travelTime = ChooseZiplineTravelTime( zipline ) else travelTime = 0
+                if ( vars.isMoving && !forceUsable ) travelTime = ChooseZiplineTravelTime( zipline ) else travelTime = 0
                 break
             default: break
         }
 
-        if ( forceUsable == true ) travelTime = 0
+        if ( forceUsable ) travelTime = 0
 
         #if ZIPLINE_DEBUG_SCRIPTS
-            if ( state.firstInit == false && forceUsable == false )
+            if ( !state.firstInit && !forceUsable )
                 if ( IsValid( panels.newPanel[ 0 ] ) && panel == panels.newPanel[ 0 ] )
                     printt( vars.ziplineName + " panels can be reused in " + ( waitPanelState + travelTime ) + " seconds" )
         #endif // ZIPLINE_DEBUG_SCRIPTS
 
         if ( IsValid( panel ) )
         {
-            if ( state.error == true )
+            if ( state.error )
             {
                 panel.UnsetUsable()
                 panel.SetSkin( ePanelState.DISABLE )
             }
-            else if ( forceUsable == true )
+            else if ( forceUsable )
             {
                 wait travelTime
 
@@ -324,9 +324,9 @@
         entity startEntityZiplinePoint = zipline.startEntityZiplinePoint
         entity endEntityZiplinePoint   = zipline.endEntityZiplinePoint
 
-        if ( destroyAll == true ) vars.destroyAll = true
+        if ( destroyAll ) vars.destroyAll = true
 
-        if ( vars.destroyAll == true && state.supportIsValid == true )
+        if ( vars.destroyAll && state.supportIsValid )
         {
             foreach( ents in zipline.supportArray ) if ( IsValid( ents ) ) ents.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
             state.supportIsValid = false

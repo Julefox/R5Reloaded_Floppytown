@@ -6,7 +6,9 @@ globalize_all_functions
 
 void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline )
 {
-    zipline.vars.disableVerticalZiplineOffset = true
+    ZiplineVars vars                    = zipline.vars
+    vars.disableVerticalZiplineOffset   = true
+    vars.heightLimitInt                 += 1
 }
 
 
@@ -24,16 +26,18 @@ void function Zipline_SetFadeDistance( ZiplineUtility zipline, float fadeDistanc
 
 void function Zipline_SetHeightLimitFromTop( ZiplineUtility zipline, float heightLimit )
 {
-    ZiplineVars vars               = zipline.vars
-    vars.heightLimitFromTop        = heightLimit
-    vars.boolHeightLimitFromTop    = true
+    ZiplineVars vars              = zipline.vars
+    vars.heightLimitFromTop       = heightLimit
+    vars.heightLimitInt           += 1
+    vars.boolHeightLimitFromTop   = true
 }
 
 void function Zipline_SetHeightLimitFromFloor( ZiplineUtility zipline, float heightLimit )
 {
-    ZiplineVars vars                 = zipline.vars
-    vars.heightLimitFromFloor        = heightLimit
-    vars.boolHeightLimitFromFloor    = true
+    ZiplineVars vars                = zipline.vars
+    vars.heightLimitFromFloor       = heightLimit
+    vars.heightLimitInt             += 1
+    vars.boolHeightLimitFromFloor   = true
 }
 
 
@@ -158,18 +162,21 @@ void function Zipline_SetPushOffInDirectionX( ZiplineUtility zipline, int PushOf
 }
 
 
-void function Zipline_IsIndianaJonesMode( ZiplineUtility zipline )
+void function Zipline_IsIndianaJonesMode( ZiplineUtility zipline, float heightLimit = ZIPLINE_OFFSET_FROM_FLOOR_DETACH_END )
 {
-    Zipline_SetHeightLimitFromFloor( zipline, ZIPLINE_OFFSET_FROM_FLOOR_DETACH_END )
-    zipline.settings.detachEndOnSpawn = 1
+    ZiplineVars vars                          = zipline.vars
+    vars.heightLimitFromFloor                 = heightLimit
+    vars.heightLimitInt                       += 1
+    vars.boolHeightLimitByIndianaJonesMode    = true
+    zipline.settings.detachEndOnSpawn         = 1
 }
 
 
 // Panels
 void function Zipline_SetPanelTimer( ZiplineUtility zipline, float minTimer, float maxTimer = 0.0 )
 {
-    ZiplinePanel panels = zipline.panels
-    panels.minTimer = minTimer
+    ZiplinePanel panels   = zipline.panels
+    panels.minTimer       = minTimer
     if ( maxTimer == 0.0 ) panels.maxTimer = minTimer else panels.maxTimer = maxTimer
 }
 

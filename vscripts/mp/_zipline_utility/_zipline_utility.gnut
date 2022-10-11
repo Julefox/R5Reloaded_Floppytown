@@ -34,12 +34,12 @@ global function ZiplineUtility_Init
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
 
 // Global const string error
-    global const string DEV_PRINTMESSAGE_TEXT_SINGULAR          = " Zipline is invalid"
-    global const string DEV_PRINTMESSAGE_TEXT_PLURAL            = " Ziplines are invalid"
     global const string DEV_PRINTMESSAGE_SUBTEXT                = "Please check console log"
-    global const string STRING_HEIGHT_LIMIT_REASON              = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset()"
-    global const string STRING_SE_SAME_ORIGIN_REASON            = "The vector [ Start / End ] are the same in Zipline_Register()"
-    global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the stand panel model has been selected"
+    global const string DEV_PRINTMESSAGE_TEXT_PLURAL            = "Ziplines are invalid"
+    global const string DEV_PRINTMESSAGE_TEXT_SINGULAR          = "Zipline is invalid"
+    global const string REASON_ROPE_HAVE_SAME_ORIGIN            = "The rope of the zipline [ Start / End ] has the same origin, change the origin of the end zipline or the angle"
+    global const string REASON_TOO_MANY_HEIGHT_LIMIT            = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset() || Zipline_IsIndianaJonesMode() ( Because this function changes the height with SetHeightLimitFromFloor( 2nd parameter ) )"
+    global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the model has been replaced by the stand"
 
 // Global const vector
     global const vector TRACE_RESULTS_OFFSET                    = < 0, 0, 80 >
@@ -57,11 +57,13 @@ global enum eZiplineSkinType
 global struct ZiplineState
 {
     bool error                = false
+    bool errorMinor           = false
     bool firstInit            = true
     bool supportIsValid       = false
     bool ziplineIsValid       = false
     bool ziplineIsDestroyed   = true
-    array < string > reason
+    array < string > errorReason
+    array < string > errorMinorReason
 }
 
 global struct KVFilesSettings
@@ -89,20 +91,22 @@ global struct KVFilesSettings
 
 global struct ZiplineVars
 {
-    bool boolHeightLimitFromTop             = false
-    bool boolHeightLimitFromFloor           = false
-    bool destroyAll                         = false
-    bool destroyZiplineSupportOnPanelEnd    = false
-    bool disableVerticalZiplineOffset       = false
-    bool isMoving                           = false
-    bool restPoint                          = false
-    bool spawnSupportOnly                   = false
+    bool boolHeightLimitByIndianaJonesMode    = false
+    bool boolHeightLimitFromFloor             = false
+    bool boolHeightLimitFromTop               = false
+    bool destroyAll                           = false
+    bool destroyZiplineSupportOnPanelEnd      = false
+    bool disableVerticalZiplineOffset         = false
+    bool isMoving                             = false
+    bool restPoint                            = false
+    bool spawnSupportOnly                     = false
     float endArmOffset
-    float heightLimitFromTop                = 10000.0
     float heightLimitFromFloor
+    float heightLimitFromTop                  = 10000.0
     float startArmOffset
-    int setSkinEnd                          = eZiplineSkinType.ENTIRE
-    int setSkinStart                        = eZiplineSkinType.ENTIRE
+    int heightLimitInt                        = 0
+    int setSkinEnd                            = eZiplineSkinType.ENTIRE
+    int setSkinStart                          = eZiplineSkinType.ENTIRE
     string ziplineName
 }
 
