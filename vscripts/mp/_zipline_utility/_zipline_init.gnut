@@ -46,7 +46,7 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         default: break
     }
 
-    Zipline_InitAllZiplineInScope()
+    Zipline_InitAllRegisteredZiplineInScope()
 }
 
 
@@ -209,12 +209,12 @@ void function OnMapZipline_Init() // Explanation at the end of the file
             - Defines whether the support should be destroyed with the panels once the usage limit is reached
         }
 
-    # Zipline_InitZipline( ZiplineUtility zipline )
+    # RegisteredZipline_Init( ZiplineUtility zipline )
     {
         - Create the zipline once all the parameters are entered
     }
 
-    # Zipline_InitAllZiplineInScope()
+    # Zipline_InitAllRegisteredZiplineInScope()
     {
         - Create all ziplines in scope
     }
@@ -226,5 +226,5 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         Zipline_SetSkin( zipline, eZiplineSkinType.ENTIRE, eZiplineSkinType.INVISIBLE )
         Zipline_EnableRestPoint ( zipline )
         Zipline_CreatePanel( zipline, < 0, 60, 0 >, < 0, 38, 0 >, ePanelSkinType.STAND )
-    Zipline_InitZipline( zipline )
+    RegisteredZipline_Init( zipline )
 */

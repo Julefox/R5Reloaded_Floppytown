@@ -98,7 +98,7 @@ void function ThreadCreateRandomZipline( entity player )
             Zipline_SetLengthScale( zipline, length )
             Zipline_SetDetachEndOnUse_OnSpawn( zipline, detachOnUse, detachOnSpawn )
             Zipline_SetPushOffInDirectionX( zipline, dirX )
-        if ( init == 1 ) Zipline_InitZipline( zipline )
+        if ( init == 1 ) RegisteredZipline_Init( zipline )
 
         //printt( zipline.vars.ziplineName + " = restPoint: " + restPoint + " | moving: " + moving + " | limit: " + limit + " | S/E offset: " + startOff + " " + endOff + " | U/S Detach: " + DetachOnUse + " " + DetachOnSpawn )
 
@@ -119,6 +119,6 @@ bool function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair( entity player, 
         Zipline_SetPreserveVelocity( zipline )
         Zipline_SetSpeedScale( zipline, 4.0 )
         Zipline_IsIndianaJonesMode( zipline )
-    Zipline_InitZipline( zipline )
+    RegisteredZipline_Init( zipline )
 
 return true }

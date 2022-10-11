@@ -4,10 +4,10 @@ untyped
 global function ZiplinePrecache
 global function Zipline_Register
 global function Zipline_CreatePanel
-global function Zipline_InitZipline
-global function Zipline_InitAllZiplineInScope
+global function RegisteredZipline_Init
+global function Zipline_InitAllRegisteredZiplineInScope
 
-global function GetAllZiplines
+global function GetZiplineArray
 global function IsZiplineHaveSameName
 global function IsZiplineVertical
 global function IsZiplineDestroyed
@@ -66,12 +66,12 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
 ////////////////////////////////////////////////////////////
 //  Create zipline
 ////////////////////////////////////////////////////////////
-void function Zipline_InitZipline( ZiplineUtility zipline )
+void function RegisteredZipline_Init( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
     if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
-    if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZiplineEntity( zipline )
+    if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
     UpdatePanelsPrompts( zipline )
 
     vars.spawnSupportOnly   = false
@@ -79,18 +79,18 @@ void function Zipline_InitZipline( ZiplineUtility zipline )
 }
 
 
-void function Zipline_InitAllZiplineInScope()
+void function Zipline_InitAllRegisteredZiplineInScope()
 {
-    foreach ( ziplines in GetAllZiplines() )
+    foreach ( ziplines in GetZiplineArray() )
     {
         ZiplineState state = ziplines.state
-        if ( state.firstInit ) Zipline_InitZipline( ziplines )
+        if ( state.firstInit ) RegisteredZipline_Init( ziplines )
     }
 }
 
 
 ////////////////////////////////////////////////////////////
-//  Function used after Zipline_InitZipline()
+//  Function used after RegisteredZipline_Init()
 ///////////////////////////////////////////////////////////
 array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 {
@@ -191,7 +191,7 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 return entityArray }
 
 
-array< entity > function Zipline_InitZiplineEntity( ZiplineUtility zipline )
+array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
 {
     KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplinePanel panels = zipline.panels ; ZiplineState state = zipline.state
 
@@ -374,7 +374,7 @@ function Zipline_Mover( ZiplineUtility zipline )
 }
 
 
-array< ZiplineUtility > function GetAllZiplines()
+array< ZiplineUtility > function GetZiplineArray()
 {
     return ziplineUtility.ziplineArray
 }
@@ -395,7 +395,7 @@ float function ChooseZiplineTravelTime( ZiplineUtility zipline )
 
 bool function IsZiplineHaveSameName( string ziplineName )
 {
-    foreach ( ziplines in GetAllZiplines() )
+    foreach ( ziplines in GetZiplineArray() )
     {
         if ( ziplines.vars.ziplineName == ziplineName )
             return true
@@ -463,7 +463,7 @@ ZiplineUtility function GZFZN( string ziplineName )
 
 ZiplineUtility function GetZiplineFromEntityPanel( entity panel )
 {
-    foreach ( ziplines in GetAllZiplines() )
+    foreach ( ziplines in GetZiplineArray() )
     {
         if ( ziplines.panels.newPanel.contains( panel ) )
             return ziplines
@@ -473,7 +473,7 @@ unreachable }
 
 ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
 {
-    foreach ( ziplines in GetAllZiplines() )
+    foreach ( ziplines in GetZiplineArray() )
     {
         if ( ziplines.vars.ziplineName == ziplineName )
             return ziplines
@@ -519,7 +519,7 @@ void function ZiplineError( entity player )
 
         wait 1.0 // wait ClientConnected
 
-    foreach( ziplines in GetAllZiplines() )
+    foreach( ziplines in GetZiplineArray() )
     {
         if ( ziplines.state.error )
         {

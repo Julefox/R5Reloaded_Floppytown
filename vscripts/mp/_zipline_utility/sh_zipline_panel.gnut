@@ -199,7 +199,7 @@
         switch ( IsZiplineDestroyed( zipline ) )
         {
             case true:
-                Zipline_InitZipline( zipline )
+                RegisteredZipline_Init( zipline )
                 break
             case false:
                 Zipline_Destroy( zipline, destroyAll )
