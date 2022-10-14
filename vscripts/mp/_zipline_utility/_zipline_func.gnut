@@ -124,19 +124,11 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
                 break
             case eZiplineSkinType.INVISIBLE: // Invisible model
                 startArm        = Zipline_CreateProp( EMPTY_MODEL, startEntityPos, startArmAng )
-            default:
-            break
+            default: break
         }
-
-        // Add to array for return
-        if ( startSupport != null ) entityArray.append( startSupport ) ; entityArray.append( startArm )
         
         // Return origin point of the zipline
         if ( vars.setSkinStart != 2 ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
-
-        // Set script name and target
-        foreach ( ent in entityArray ) ent.SetScriptName( VERTICAL_ZIPLINE_SCRIPT_NAME )
-        if ( startSupport != null ) SetTargetName( startSupport, vars.ziplineName ) ; SetTargetName( startArm, vars.ziplineName )
     }
     else // If non vertical
     {
@@ -152,8 +144,7 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
                 break
             case eZiplineSkinType.INVISIBLE: // Invisible model
                 startArm        = Zipline_CreateProp( EMPTY_MODEL, startEntityPos, startArmAng )
-            default:
-            break
+            default: break
         }
 
         switch ( vars.setSkinEnd ) // With / Without support selection
@@ -169,20 +160,28 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
             case eZiplineSkinType.INVISIBLE: // Invisible model
                 endArm        = Zipline_CreateProp( EMPTY_MODEL, endEntityPos, endArmAng )
                 break
-            default:
-            break
+            default: break
         }
-
-        // Add to array for return
-        if ( startSupport != null ) entityArray.append( startSupport )  ; entityArray.append( startArm )
-        if ( endSupport   != null ) entityArray.append( endSupport )    ; entityArray.append( endArm )
 
         // Return origin point of the zipline
         if ( vars.setSkinStart != 2 ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
         if ( vars.setSkinEnd   != 2 ) zipline.endZiplinePos   = PositionOffsetFromEnt( endArm,   -4, -55.5, -12 ) else zipline.endZiplinePos   = endEntityPos
+    }
 
-        // Set script name and target
-        foreach ( ent in entityArray ) ent.SetScriptName( HORIZONTAL_ZIPLINE_SCRIPT_NAME )
+    entityArray.append( startSupport ) ; entityArray.append( startArm ) ; entityArray.append( endSupport ) ; entityArray.append( endArm ) ; ArrayRemoveInvalid( entityArray ) // Add to array for return
+
+    if ( IsZiplineVertical( zipline ) ) // Set script name and target
+    {
+        foreach ( ents in entityArray )
+        {
+            ents.SetScriptName( VERTICAL_ZIPLINE_SCRIPT_NAME )
+            SetTargetName( ents, vars.ziplineName )
+        }
+    }
+    else
+    {
+        foreach ( ents in entityArray ) ents.SetScriptName( HORIZONTAL_ZIPLINE_SCRIPT_NAME )
+
         if ( startSupport != null ) SetTargetName( startSupport, vars.ziplineName + "_start" ) ; SetTargetName( startArm, vars.ziplineName + "_start" )
         if ( endSupport   != null ) SetTargetName( endSupport,   vars.ziplineName + "_end" )   ; SetTargetName( endArm,   vars.ziplineName + "_end" )
     }
@@ -204,7 +203,7 @@ array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
         case true:
             vector offset         = startZiplinePos - TRACE_RESULTS_OFFSET
             TraceResults result   = TraceLine( offset, offset + -vars.heightLimitFromTop * < 0, 0, 1 >, [], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_PLAYER )
-            startZiplineAng           = zipline.startZiplineAng ; endZiplineAng = zipline.endZiplineAng
+            startZiplineAng       = zipline.startZiplineAng ; endZiplineAng = zipline.endZiplineAng
 
             if ( !vars.disableVerticalZiplineOffset )
             {
