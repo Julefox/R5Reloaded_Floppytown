@@ -3,6 +3,8 @@ untyped
 
 global function CreateRandomZiplineOnClientConnected
 global function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair
+global function ClientCommand_SpawnVerticalZiplineAtCrosshair
+global function ClientCommand_SpawnZiplineAtCrosshair
 
 
 void function CreateRandomZiplineOnClientConnected( entity player )
@@ -108,17 +110,84 @@ void function ThreadCreateRandomZipline( entity player )
 
 bool function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair( entity player, array< string > args )
 {
-    string randomZipline = UniqueString( "random_zipline" )
+    vector angles = player.EyeAngles()
+    vector forward = AnglesToForward( angles )
+    vector origin = player.EyePosition()
 
-    vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
+    vector end = origin + forward * 50000
+    TraceResults result = TraceLine( origin, end )
+    vector crosshairOrigin = result.endPos
+    vector r = result.surfaceNormal
+
+    int skin
+
+    if( r.x || r.y != 0.0 )
+        skin = eZiplineSkinType.ARM_ONLY
     
-    Zipline_Register( randomZipline, origin, angles )
-    ZiplineUtility zipline = GZFZN( randomZipline )
-        Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
+    else if ( r.z >= 0.0 )
+        skin = eZiplineSkinType.ENTIRE
+    
+    else if ( r.z <= 0.0 )
+        skin = eZiplineSkinType.INVISIBLE
+    
+    ZiplineUtility zipline = Zipline_Register( UniqueString( "random_zipline" ), crosshairOrigin, < 0, angles.y + 180, 0 > )
+        Zipline_SetSkin( zipline, skin )
         Zipline_SetPreserveVelocity( zipline )
         Zipline_SetSpeedScale( zipline, 4.0 )
         Zipline_IsIndianaJonesMode( zipline )
     RegisteredZipline_Init( zipline )
+
+return true }
+
+bool function ClientCommand_SpawnVerticalZiplineAtCrosshair( entity player, array< string > args )
+{
+    vector angles = player.EyeAngles()
+    vector forward = AnglesToForward( angles )
+    vector origin = player.EyePosition()
+
+    vector end = origin + forward * 50000
+    TraceResults result = TraceLine( origin, end )
+    vector crosshairOrigin = result.endPos
+
+    int skin = ChooseZiplineSkinByTraceResults( result.surfaceNormal )
+    
+    ZiplineUtility zipline = Zipline_Register( UniqueString( "random_zipline" ), crosshairOrigin, < 0, angles.y + 180, 0 > )
+        Zipline_SetSkin( zipline, skin )
+    RegisteredZipline_Init( zipline )
+
+return true }
+
+array< vector > ZiplinePos = []
+array< vector > ZiplineAng = []
+array< vector > ZiplineSkin = []
+bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< string > args )
+{
+    vector angles = player.EyeAngles()
+    vector forward = AnglesToForward( angles )
+    vector origin = player.EyePosition()
+
+    vector end = origin + forward * 50000
+    TraceResults result = TraceLine( origin, end )
+    vector surface = result.surfaceNormal
+
+    ZiplinePos.append( result.endPos )
+    ZiplineAng.append( < 0, angles.y + 180, 0 > )
+    ZiplineSkin.append( surface )
+
+    if ( ZiplinePos.len() != 2 )
+    {
+        return true
+    }
+
+    int skinStart = ChooseZiplineSkinByTraceResults( ZiplineSkin[0] )
+    int skinEnd   = ChooseZiplineSkinByTraceResults( ZiplineSkin[1] )
+    
+    ZiplineUtility zipline = Zipline_Register( UniqueString( "random_zipline" ), ZiplinePos[0], ZiplineAng[0], ZiplinePos[1], ZiplineAng[1] )
+        Zipline_SetSkin( zipline, skinStart, skinEnd )
+    RegisteredZipline_Init( zipline )
+
+    ZiplinePos = []
+    ZiplineAng = []
+    ZiplineSkin = []
 
 return true }

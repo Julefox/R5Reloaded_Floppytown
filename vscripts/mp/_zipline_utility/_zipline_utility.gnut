@@ -172,6 +172,9 @@ void function ZiplineUtility_Init()
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
     AddClientCommandCallback( "indianaJones", ClientCommand_SpawnIndianaJonesZiplineAtCrosshair )
+    AddClientCommandCallback( "ZiplineAtCrosshair", ClientCommand_SpawnZiplineAtCrosshair )
+    AddClientCommandCallback( "VertivalZiplineAtCrosshair", ClientCommand_SpawnVerticalZiplineAtCrosshair )
+    AddClientCommandCallback( "zipline", ClientCommand_ZiplineTest )
 }
 
 void function EntitiesDidLoad()
@@ -182,3 +185,41 @@ void function EntitiesDidLoad()
         AddCallback_OnClientConnected( CreateRandomZiplineOnClientConnected )
     #endif // ZIPLINE_DEBUG_SCRIPTS && DEBUG_RANDOM_ZIPLINE
 }
+
+bool function ClientCommand_ZiplineTest( entity player, array< string > args )
+{
+    /* if ( args.len() <= 1 ) return false
+
+    ZiplineUtility zipline = GZFZN( args[0] )
+
+    KVFilesSettings settings    = zipline.settings
+    ZiplineVars vars            = zipline.vars
+    ZiplinePanel panels         = zipline.panels
+    ZiplineState state          = zipline.state
+
+    if ( vars.ziplineName == "" ) return false */
+
+    //foreach( vectors in vars.restPointArray )
+    //    printt( vectors )
+
+    /* switch ( args[1] )
+    {
+        case "SArmOffset":
+            vars.startArmOffset = float ( args[2] )
+            printt( "SArmOffset: " + vars.startArmOffset )
+            break
+        case "destroyAll":
+            bool x
+            if ( args[2] == "1" ) x = true else x = false
+            vars.destroyAll = x
+            printt( "destroyAll: " + vars.destroyAll )
+            break
+        default: break
+    } */
+    //int test = 0
+        //printt( format( "Yes (%d)", test++ ) )
+
+    //for ( int i = 0; i < 8; i++ )
+    //    printt( format( "%i", test++ ) )
+
+return true }

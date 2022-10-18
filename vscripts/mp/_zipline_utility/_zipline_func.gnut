@@ -8,6 +8,7 @@ global function RegisteredZipline_Init
 global function Zipline_InitAllRegisteredZiplineInScope
 
 global function GetZiplineArray
+global function ChooseZiplineSkinByTraceResults
 global function IsZiplineHaveSameName
 global function IsZiplineVertical
 global function IsZiplineDestroyed
@@ -28,7 +29,7 @@ ZiplineUtility function Zipline_Register( string ziplineName, vector startEntity
     if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueZiplineString( ziplineName ) ; vars.ziplineName = ziplineName
 
     zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
-    if ( endEntityPos != null ) zipline.endEntityPos = expect vector( endEntityPos )
+    if ( endEntityPos ) zipline.endEntityPos = expect vector( endEntityPos )
 
     settings.isVertical = endEntityPos == null ? true : false
 
@@ -55,8 +56,7 @@ void function Zipline_CreatePanel( ZiplineUtility zipline, vector pos, vector an
             ZiplineAddErrorMinorReason( zipline, WALL_PANEL_MODEL_DOES_NOT_EXIST )
     #endif // ZIPLINE_DEBUG_SCRIPTS
 
-    asset model = DecidePanelModel( skin )
-    entity panel = CreateUsablePanel( model, pos, ang )
+    entity panel = CreateUsablePanel( DecidePanelModel( skin ), pos, ang )
     panel.SetSkin( ePanelState.ENABLE )
 
     if ( state.firstInit ) thread UpdatePanelForFirstTimeInited( zipline )
@@ -393,6 +393,23 @@ float function ChooseZiplineTravelTime( ZiplineUtility zipline )
 }
 
 
+int function ChooseZiplineSkinByTraceResults( vector vec )
+{
+    int skin
+
+    if( vec.x || vec.y != 0.0 )
+        skin = eZiplineSkinType.ARM_ONLY
+    
+    else if ( vec.z >= 0.0 )
+        skin = eZiplineSkinType.ENTIRE
+    
+    else if ( vec.z <= 0.0 )
+        skin = eZiplineSkinType.INVISIBLE
+
+    return skin
+}
+
+
 bool function IsZiplineHaveSameName( string ziplineName )
 {
     foreach ( ziplines in GetZiplineArray() )
@@ -463,22 +480,28 @@ ZiplineUtility function GZFZN( string ziplineName )
 
 ZiplineUtility function GetZiplineFromEntityPanel( entity panel )
 {
+    ZiplineUtility zipline
+
     foreach ( ziplines in GetZiplineArray() )
     {
         if ( ziplines.panels.newPanel.contains( panel ) )
-            return ziplines
+            zipline = ziplines
     }
-unreachable }
+
+return zipline }
 
 
 ZiplineUtility function GetZiplineFromZiplineName( string ziplineName )
 {
+    ZiplineUtility zipline
+
     foreach ( ziplines in GetZiplineArray() )
     {
         if ( ziplines.vars.ziplineName == ziplineName )
-            return ziplines
+            zipline = ziplines
     }
-unreachable }
+
+return zipline }
 
 
 void function ZiplineErrorOnClientConnected( entity player )
