@@ -169,9 +169,16 @@ bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< strin
     vector end = origin + forward * 50000
     TraceResults result = TraceLine( origin, end )
     vector surface = result.surfaceNormal
+    printt( surface )
+
+    if( surface.x || surface.y != 0.0 )
+    {
+        vector normAng = VectorToAngles( result.surfaceNormal )
+        angles   = AnglesCompose( normAng, <180, 0, 0> )
+    }
 
     ZiplinePos.append( result.endPos )
-    ZiplineAng.append( < 0, angles.y + 180, 0 > )
+    ZiplineAng.append( < 0, int ( angles.y ) + 180, 0 > )
     ZiplineSkin.append( surface )
 
     if ( ZiplinePos.len() != 2 )
@@ -181,10 +188,30 @@ bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< strin
 
     int skinStart = ChooseZiplineSkinByTraceResults( ZiplineSkin[0] )
     int skinEnd   = ChooseZiplineSkinByTraceResults( ZiplineSkin[1] )
+
+    string name = UniqueString( "random_zipline" )
     
-    ZiplineUtility zipline = Zipline_Register( UniqueString( "random_zipline" ), ZiplinePos[0], ZiplineAng[0], ZiplinePos[1], ZiplineAng[1] )
+    ZiplineUtility zipline = Zipline_Register( name, ZiplinePos[0], ZiplineAng[0], ZiplinePos[1], ZiplineAng[1] )
         Zipline_SetSkin( zipline, skinStart, skinEnd )
-    RegisteredZipline_Init( zipline )
+    Zipline_InitAllRegisteredZiplineInScope()
+
+
+    printt( "Put this function in your scripts to recreate this zipline:" + "\n" +
+    format( "ZiplineUtility zipline = Zipline_Register( %s, < %f, %f, %f >, < %i, %i, %i >, < %f, %f, %f >, < %i, %i, %i > )", name, ZiplinePos[0].x, ZiplinePos[0].y, ZiplinePos[0].z, ZiplineAng[0].x, ZiplineAng[0].y, ZiplineAng[0].z, ZiplinePos[1].x, ZiplinePos[1].y, ZiplinePos[1].z, ZiplineAng[1].x, ZiplineAng[1].y, ZiplineAng[1].z ) + "\n" +
+    format( "Zipline_SetSkin( zipline, %i, %i )", skinStart, skinEnd ) + "\n" +
+    "Zipline_InitAllRegisteredZiplineInScope()" )
+
+    //printt( "hitEnt: " + result.hitEnt )
+	//printt( "endPos: " + result.endPos )
+	//printt( "surfaceNormal: " + result.surfaceNormal )
+	//printt( "surfaceName: " + result.surfaceName )
+	//printt( "fraction: " + result.fraction )
+	//printt( "fractionLeftSolid: " + result.fractionLeftSolid )
+	//printt( "hitGroup: " + result.hitGroup )
+	//printt( "startSolid: " + result.startSolid )
+	//printt( "allSolid: " + result.allSolid )
+	//printt( "hitSky: " + result.hitSky )
+	//printt( "contents: " + result.contents )
 
     ZiplinePos = []
     ZiplineAng = []
