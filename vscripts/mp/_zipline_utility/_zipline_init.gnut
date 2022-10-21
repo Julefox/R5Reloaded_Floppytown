@@ -27,16 +27,19 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         case "mp_rr_canyonlands_mu1_night":
             break
         case "mp_rr_canyonlands_staging":
-        zipline = Zipline_Register( "ZiplineDev_0", < 32350.8438, -5870.18701, -28892.2441 >, < 0, -90, 0 >, < 29516.0078, -7288.7002, -28088.0313 > )
+        Zipline_Register( "ZiplineDev_0", < 32350.8438, -5870.18701, -28892.2441 >, < 0, -90, 0 >, < 29516.0078, -7288.7002, -28088.0313 > )
             Zipline_SetSkin( zipline, eZiplineSkinType.ENTIRE, eZiplineSkinType.INVISIBLE )
             Zipline_CreatePanel( zipline, < 32312.041, -6166.5874, -28909.5293 >, < 0, 77, 0 > )
             
-        zipline = Zipline_Register( "ZiplineDev_0", < 30361.0098, -6299.37207, -26616.1035 >, < 0, 0, 0 > )
+        Zipline_Register( "ZiplineDev_0", < 30361.0098, -6299.37207, -26616.1035 >, < 0, 0, 0 > )
             Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
             Zipline_IsIndianaJonesMode( zipline, 460.0 )
 
         Zipline_Register( "ZiplineDev_0", < 28469.093750, -8141.214355, -27955.937500 >, < 0, 290, 0 >, < 31899.732422, -9077.593750, -28652.363281 >, < 0, 189, 0 > )
             Zipline_SetSkin( zipline, 1, 0 )
+
+        //Zipline_Register( "ZiplineDev_0", < 1000, 0, 0 >, < 0, 0, 0 >, < 0, 0, 0 >, < 0, 0, 0 > )
+        //    Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE, eZiplineSkinType.INVISIBLE )
             break
         case "mp_rr_desertlands_64k_x_64k_nx":
             break

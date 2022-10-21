@@ -201,18 +201,6 @@ bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< strin
     format( "Zipline_SetSkin( zipline, %i, %i )", skinStart, skinEnd ) + "\n" +
     "Zipline_InitAllRegisteredZiplineInScope()" )
 
-    //printt( "hitEnt: " + result.hitEnt )
-	//printt( "endPos: " + result.endPos )
-	//printt( "surfaceNormal: " + result.surfaceNormal )
-	//printt( "surfaceName: " + result.surfaceName )
-	//printt( "fraction: " + result.fraction )
-	//printt( "fractionLeftSolid: " + result.fractionLeftSolid )
-	//printt( "hitGroup: " + result.hitGroup )
-	//printt( "startSolid: " + result.startSolid )
-	//printt( "allSolid: " + result.allSolid )
-	//printt( "hitSky: " + result.hitSky )
-	//printt( "contents: " + result.contents )
-
     ZiplinePos = []
     ZiplineAng = []
     ZiplineSkin = []
