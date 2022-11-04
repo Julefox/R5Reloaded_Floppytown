@@ -40,6 +40,7 @@ global function ZiplineUtility_Init
     global const string REASON_ROPE_HAVE_SAME_ORIGIN            = "The rope of the zipline [ Start / End ] has the same origin, change the origin of the end zipline or the angle"
     global const string REASON_TOO_MANY_HEIGHT_LIMIT            = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset() || Zipline_IsIndianaJonesMode() ( Because this function changes the height with SetHeightLimitFromFloor( 2nd parameter ) )"
     global const string REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST = "The link name of the zipline does not exist, please check the entered name"
+    global const string REASON_ZIPLINE_ENDPOINT_IS_NULL         = "This link name is an existing zipline but not initialized or null"
     global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the model has been replaced by the stand"
 
 // Global const vector
