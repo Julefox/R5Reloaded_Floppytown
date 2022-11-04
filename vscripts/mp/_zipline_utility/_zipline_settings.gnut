@@ -4,11 +4,12 @@ untyped
 globalize_all_functions
 
 
-void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName )
+void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName, int endPoint = eZiplineEndPointType.END )
 {
     ZiplineVars vars = zipline.vars
     vars.isLinkedZiplineEnd = true
-    
+    vars.linkedZiplineEndType = endPoint
+
     if ( !IsZiplineHaveSameName( ziplineName ) )
     {
         ZiplineAddErrorReason( zipline, REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST )
@@ -16,6 +17,7 @@ void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName )
     }
 
     vars.linkedZiplineEndName = ziplineName
+
     GZFZN( ziplineName ).vars.isLinkedZiplineHost = true
 }
 

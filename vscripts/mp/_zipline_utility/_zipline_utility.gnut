@@ -55,6 +55,12 @@ global enum eZiplineSkinType
     _COUNT     // 3
 }
 
+global enum eZiplineEndPointType
+{
+    START,     // 0
+    END        // 1
+}
+
 global struct ZiplineState
 {
     bool error                = false
@@ -111,6 +117,8 @@ global struct ZiplineVars
     int heightLimitInt                        = 0
     int setSkinEnd                            = eZiplineSkinType.ENTIRE
     int setSkinStart                          = eZiplineSkinType.ENTIRE
+    int linkedZiplineEndType
+    int linkedZiplineStartType
     string ziplineName
     string linkedZiplineEndName
     string linkedZiplineStartName

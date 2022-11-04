@@ -42,14 +42,19 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         //    Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE, eZiplineSkinType.INVISIBLE )
 
         zipline = Zipline_Register( "ZiplineDev_0_link_0", < 32315.9004, -6180.47461, -28909.5293 >, < 0, -155, 0 >, < 32687.5195, -7816.04102, -28893.1777 >, < 0, 180, 0 > )
-            Zipline_CreatePanel( zipline, < 32316.4785, -6073.02246, -28912.5059 >, < 0, 90, 0 > )
 
         zipline = Zipline_Register( "ZiplineDev_0_link_1", < 31601.7676, -7440.62744, -29115.8086 >, < 0, 42, 0 >, < 0, 0, 0 > )
-            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_0" )
-            Zipline_CreatePanel( zipline, < 31767.0313, -7314.57031, -29126.1445 >, < 0, -170, 0 > )
+            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_0", eZiplineEndPointType.START )
 
         zipline = Zipline_Register( "ZiplineDev_0_link_2", < 31898.9922, -9066.57422, -28781.0605 >, < 0, 90, 0 >, < 0, 0, 0 > )
             Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_0" )
+            Zipline_SetSkin( zipline, eZiplineSkinType.ARM_ONLY )
+
+        zipline = Zipline_Register( "ZiplineDev_0_link_3", < 30924.1973, -8108.11279, -29163.9688 >, < 0, 0, 0 >, < 0, 0, 0 > )
+            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_2", eZiplineEndPointType.START )
+
+        zipline = Zipline_Register( "ZiplineDev_0_link_4", < 29519.0176, -7284.15039, -28132.4102 >, < 0, 0, 0 >, < 0, 0, 0 > )
+            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_0", eZiplineEndPointType.END )
             Zipline_SetSkin( zipline, eZiplineSkinType.ARM_ONLY )
             break
         case "mp_rr_desertlands_64k_x_64k_nx":

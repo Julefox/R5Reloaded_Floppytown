@@ -111,6 +111,7 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
     vector startEntityPosArm = startEntityPos + < -1, -2, startArmOffset > ; vector endEntityPosArm = endEntityPos + < -1, -2, endArmOffset > ; vector angOffset = < 0, 90, 0 >
     vector tempAng = < 0, 0, 0 > ; vector tempAngForSupport = < 0, 90, 0 > ; vector startArmAng = startEntityAng - angOffset ; vector endArmAng = endEntityAng - angOffset
 
+    if ( vars.isLinkedZiplineStart ) vars.setSkinStart = eZiplineSkinType.INVISIBLE
     if ( vars.isLinkedZiplineEnd ) vars.setSkinEnd = eZiplineSkinType.INVISIBLE
 
     if ( IsZiplineVertical( zipline ) ) // If vertical
@@ -280,7 +281,20 @@ array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
     // Create end point
     entity endEntityZiplinePoint
 
-    if ( vars.isLinkedZiplineEnd ) endEntityZiplinePoint = GZFZN( vars.linkedZiplineEndName ).endEntityZiplinePoint else
+    if ( vars.isLinkedZiplineEnd )
+    {
+        switch ( vars.linkedZiplineEndType )
+        {
+            case eZiplineEndPointType.START:
+                endEntityZiplinePoint = GZFZN( vars.linkedZiplineEndName ).startEntityZiplinePoint
+            break
+
+            case eZiplineEndPointType.END:
+                endEntityZiplinePoint = GZFZN( vars.linkedZiplineEndName ).endEntityZiplinePoint
+            break
+        }
+    }
+    else
     {
         endEntityZiplinePoint = CreateEntity( "zipline_end" )
 
