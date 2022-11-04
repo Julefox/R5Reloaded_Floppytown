@@ -8,8 +8,14 @@ void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName )
 {
     ZiplineVars vars = zipline.vars
     vars.isLinkedZiplineEnd = true
-    vars.linkedZiplineEndName = ziplineName
+    
+    if ( !IsZiplineHaveSameName( ziplineName ) )
+    {
+        ZiplineAddErrorReason( zipline, REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST )
+        return
+    }
 
+    vars.linkedZiplineEndName = ziplineName
     GZFZN( ziplineName ).vars.isLinkedZiplineHost = true
 }
 

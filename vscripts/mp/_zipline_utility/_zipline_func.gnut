@@ -564,7 +564,7 @@ void function ZiplineError( entity player )
 
         if ( ziplines.state.errorMinor )
         {
-            erronedZipline.append( ziplines ) ; countMinor += 1
+            if ( !erronedZipline.contains( ziplines ) ) erronedZipline.append( ziplines ) ; countMinor += 1
         }
     }
 
