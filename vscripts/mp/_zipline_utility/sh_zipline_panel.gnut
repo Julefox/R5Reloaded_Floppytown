@@ -12,6 +12,7 @@
     global function DecidingZipline
     global function DecidePanelModel
     global function UpdatePanelsPrompts
+    global function DestoryAllPanelsInZiplineStruct
 #endif // SERVER
 
 #if SERVER || CLIENT // Const
@@ -269,6 +270,18 @@
         ZiplinePanel panels = zipline.panels
 
             wait 4
+
+        foreach ( panels_ in GetZiplinePanelArray( zipline ) )
+        {
+            if ( IsValid( panels_ ) ) panels_.Dissolve( ENTITY_DISSOLVE_CORE, < 0, 0, 0 >, 2000 )
+        }
+        ArrayRemoveInvalid( panels.newPanel )
+    }
+
+
+    void function DestoryAllPanelsInZiplineStruct( ZiplineUtility zipline )
+    {
+        ZiplinePanel panels = zipline.panels
 
         foreach ( panels_ in GetZiplinePanelArray( zipline ) )
         {

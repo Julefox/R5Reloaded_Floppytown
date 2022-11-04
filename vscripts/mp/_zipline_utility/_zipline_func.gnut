@@ -17,6 +17,7 @@ global function ChooseZiplineTravelTime
 global function GZFEP
 global function GZFZN
 global function ZiplineErrorOnClientConnected
+global function ZiplineAddErrorReason
 
 
 ////////////////////////////////////////////////////////////
@@ -110,6 +111,8 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
     vector startEntityPosArm = startEntityPos + < -1, -2, startArmOffset > ; vector endEntityPosArm = endEntityPos + < -1, -2, endArmOffset > ; vector angOffset = < 0, 90, 0 >
     vector tempAng = < 0, 0, 0 > ; vector tempAngForSupport = < 0, 90, 0 > ; vector startArmAng = startEntityAng - angOffset ; vector endArmAng = endEntityAng - angOffset
 
+    if ( vars.isLinkedZiplineEnd ) vars.setSkinEnd = eZiplineSkinType.INVISIBLE
+
     if ( IsZiplineVertical( zipline ) ) // If vertical
     {
         switch ( vars.setSkinStart ) // With / Without support selection
@@ -128,7 +131,7 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
         }
         
         // Return origin point of the zipline
-        if ( vars.setSkinStart != 2 ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
+        if ( vars.setSkinStart != eZiplineSkinType.INVISIBLE ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
     }
     else // If non vertical
     {
@@ -164,8 +167,8 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
         }
 
         // Return origin point of the zipline
-        if ( vars.setSkinStart != 2 ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
-        if ( vars.setSkinEnd   != 2 ) zipline.endZiplinePos   = PositionOffsetFromEnt( endArm,   -4, -55.5, -12 ) else zipline.endZiplinePos   = endEntityPos
+        if ( vars.setSkinStart != eZiplineSkinType.INVISIBLE ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
+        if ( vars.setSkinEnd   != eZiplineSkinType.INVISIBLE ) zipline.endZiplinePos   = PositionOffsetFromEnt( endArm,   -4, -55.5, -12 ) else zipline.endZiplinePos   = endEntityPos
     }
 
     entityArray.append( startSupport ) ; entityArray.append( startArm ) ; entityArray.append( endSupport ) ; entityArray.append( endArm ) ; ArrayRemoveInvalid( entityArray ) // Add to array for return
@@ -236,6 +239,8 @@ array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
         default: break
     }
 
+    if ( vars.isLinkedZiplineEnd || vars.isLinkedZiplineHost ) DestoryAllPanelsInZiplineStruct( zipline )
+
     if ( vars.isMoving )
         endZiplinePos = startZiplinePos - < 0, 0, 0.1 >
 
@@ -273,17 +278,24 @@ array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
     startEntityZiplinePoint.SetOrigin( startZiplinePos )
 
     // Create end point
-    entity endEntityZiplinePoint = CreateEntity( "zipline_end" )
+    entity endEntityZiplinePoint
 
-    endEntityZiplinePoint.kv.ZiplineAutoDetachDistance    = settings.endAutoDetachDistance
-    endEntityZiplinePoint.kv.ZiplinePushOffInDirectionX   = settings.endPushOffInDirectionX
+    if ( vars.isLinkedZiplineEnd ) endEntityZiplinePoint = GZFZN( vars.linkedZiplineEndName ).endEntityZiplinePoint else
+    {
+        endEntityZiplinePoint = CreateEntity( "zipline_end" )
 
-    endEntityZiplinePoint.SetAngles( endZiplineAng )
-    endEntityZiplinePoint.SetOrigin( endZiplinePos )
+        endEntityZiplinePoint.kv.ZiplineAutoDetachDistance    = settings.endAutoDetachDistance
+        endEntityZiplinePoint.kv.ZiplinePushOffInDirectionX   = settings.endPushOffInDirectionX
 
+        endEntityZiplinePoint.SetAngles( endZiplineAng )
+        endEntityZiplinePoint.SetOrigin( endZiplinePos )
+
+        DispatchSpawn( endEntityZiplinePoint )
+    }
+    
     startEntityZiplinePoint.LinkToEnt( endEntityZiplinePoint )
 
-    DispatchSpawn( startEntityZiplinePoint ) ; DispatchSpawn( endEntityZiplinePoint )
+    DispatchSpawn( startEntityZiplinePoint )
 
     zipline.startEntityZiplinePoint = startEntityZiplinePoint
     zipline.endEntityZiplinePoint   = endEntityZiplinePoint

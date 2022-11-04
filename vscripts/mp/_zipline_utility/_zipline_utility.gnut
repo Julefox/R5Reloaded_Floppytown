@@ -39,6 +39,7 @@ global function ZiplineUtility_Init
     global const string DEV_PRINTMESSAGE_TEXT_SINGULAR          = "Zipline is invalid"
     global const string REASON_ROPE_HAVE_SAME_ORIGIN            = "The rope of the zipline [ Start / End ] has the same origin, change the origin of the end zipline or the angle"
     global const string REASON_TOO_MANY_HEIGHT_LIMIT            = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset() || Zipline_IsIndianaJonesMode() ( Because this function changes the height with SetHeightLimitFromFloor( 2nd parameter ) )"
+    global const string REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST = "The link name of the zipline does not exist, please check the entered name"
     global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the model has been replaced by the stand"
 
 // Global const vector
@@ -97,6 +98,9 @@ global struct ZiplineVars
     bool destroyAll                           = false
     bool destroyZiplineSupportOnPanelEnd      = false
     bool disableVerticalZiplineOffset         = false
+    bool isLinkedZiplineEnd                   = false
+    bool isLinkedZiplineStart                 = false
+    bool isLinkedZiplineHost                  = false
     bool isMoving                             = false
     bool restPoint                            = false
     bool spawnSupportOnly                     = false
@@ -108,6 +112,8 @@ global struct ZiplineVars
     int setSkinEnd                            = eZiplineSkinType.ENTIRE
     int setSkinStart                          = eZiplineSkinType.ENTIRE
     string ziplineName
+    string linkedZiplineEndName
+    string linkedZiplineStartName
 }
 
 global struct ZiplinePanel
@@ -150,10 +156,11 @@ global struct ZiplineUtility
     vector startZiplineAng
     vector startZiplinePos
 
-    KVFilesSettings settings
-    ZiplineVars     vars
-    ZiplinePanel    panels
-    ZiplineState    state
+    // Structs
+    KVFilesSettings     settings
+    ZiplineVars         vars
+    ZiplinePanel        panels
+    ZiplineState        state
 
     // Array && Table
     array < ZiplineUtility >            ziplineArray

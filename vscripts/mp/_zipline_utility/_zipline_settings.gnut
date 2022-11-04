@@ -4,6 +4,16 @@ untyped
 globalize_all_functions
 
 
+void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName )
+{
+    ZiplineVars vars = zipline.vars
+    vars.isLinkedZiplineEnd = true
+    vars.linkedZiplineEndName = ziplineName
+
+    GZFZN( ziplineName ).vars.isLinkedZiplineHost = true
+}
+
+
 void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline )
 {
     ZiplineVars vars                    = zipline.vars
