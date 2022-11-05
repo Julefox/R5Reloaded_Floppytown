@@ -28,11 +28,16 @@ ZiplineUtility function Zipline_Register( string ziplineName, vector startEntity
 {
     ZiplineUtility zipline ; KVFilesSettings settings = zipline.settings ; ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
+    // Name
     if ( IsZiplineHaveSameName( ziplineName ) ) ziplineName = UniqueZiplineString( ziplineName ) ; vars.ziplineName = ziplineName
 
-    zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng ; zipline.endEntityAng = endEntityAng
-    if ( endEntityPos ) zipline.endEntityPos = expect vector( endEntityPos )
+    // Start Origin
+    zipline.startEntityPos = startEntityPos ; zipline.startEntityAng  = startEntityAng
 
+    // End Origin
+    if ( endEntityPos ) zipline.endEntityPos = expect vector( endEntityPos ) ; zipline.endEntityAng = endEntityAng
+
+    // Determine if is vertical
     settings.isVertical = endEntityPos == null ? true : false
 
     ZiplinePreProcess( zipline ) ; Zipline_SetZiplineAngles( zipline, startEntityAng, endEntityAng )
@@ -73,9 +78,10 @@ void function RegisteredZipline_Init( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
+    if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
+
     if ( !vars.isMoveRope )
     {
-        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
         if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
         UpdatePanelsPrompts( zipline )
 
@@ -84,7 +90,6 @@ void function RegisteredZipline_Init( ZiplineUtility zipline )
     }
     else
     {
-        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
         ZipRail_InitSupport( zipline )
         ZipRail_Init( zipline )
     }
