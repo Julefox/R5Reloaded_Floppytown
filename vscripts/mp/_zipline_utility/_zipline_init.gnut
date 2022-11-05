@@ -41,20 +41,20 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         //Zipline_Register( "ZiplineDev_0", < 1000, 0, 0 >, < 0, 0, 0 >, < 0, 0, 0 >, < 0, 0, 0 > )
         //    Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE, eZiplineSkinType.INVISIBLE )
 
-        zipline = Zipline_Register( "ZiplineDev_0_link_0", < 34592.0156, -7754.625, -28197.4492 >, < 0, 142, 0 >, < 35265.2734, -6086.50635, -27973.0293 >, < 0, 180, 0 > )
+        zipline = Zipline_Register( "ZiplineDev_link_0_0", < 34592.0156, -7754.625, -28197.4492 >, < 0, 142, 0 >, < 35265.2734, -6086.50635, -27973.0293 >, < 0, 180, 0 > )
             Zipline_SetSkin( zipline, eZiplineSkinType.ARM_ONLY, eZiplineSkinType.ARM_ONLY )
             Zipline_SetLengthScale( zipline, 0.98 )
 
-        zipline = Zipline_Register( "ZiplineDev_0_link_1", < 34818.8594, -3692.9231, -28319.8281 >, < 0, -164, 0 >, < 0, 0, 0 > )
-            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_0", eZiplineEndPointType.END )
+        zipline = Zipline_Register( "ZiplineDev_link_0_1", < 34818.8594, -3692.9231, -28319.8281 >, < 0, -164, 0 >, < 0, 0, 0 > )
+            Zipline_AttachEndTo( zipline, "ZiplineDev_link_0_0", eZiplineEndPointType.END )
             Zipline_SetLengthScale( zipline, 0.98 )
 
-        zipline = Zipline_Register( "ZiplineDev_0_link_2", < 31319.3867, -3502.78101, -27997.8203 >, < 0, 0, 0 >, < 0, 0, 0 > )
-            Zipline_AttachEndTo( zipline, "ZiplineDev_0_link_1", eZiplineEndPointType.START )
+        zipline = Zipline_Register( "ZiplineDev_link_0_2", < 31319.3867, -3502.78101, -27997.8203 >, < 0, 0, 0 >, < 0, 0, 0 > )
+            Zipline_AttachEndTo( zipline, "ZiplineDev_link_0_1", eZiplineEndPointType.START )
             Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
             Zipline_SetLengthScale( zipline, 0.98 )
 
-        zipline = Zipline_Register( "ZiplineDev_0_Path", < 33125.8945, -9901.42871, -28834.875 >, < 0, 104, 0 >, < 30071.2891, -2414.07202, -25863.9375 >, < 0, -62, 0 > )
+        zipline = Zipline_Register( "ZiplineDev_Path_0", < 33125.8945, -9901.42871, -28834.875 >, < 0, 104, 0 >, < 30071.2891, -2414.07202, -25863.9375 >, < 0, -62, 0 > )
             Zipline_AddZiplinePath( zipline, < 32687.9434, -10144.0977, -28684.5215 >, < 0, 102, 0 >, eZiplineSkinType.ENTIRE )
             Zipline_AddZiplinePath( zipline, < 32031.8906, -10112.3975, -28049.4648 >, < 0, 60, 0 >, eZiplineSkinType.ARM_ONLY )
             Zipline_AddZiplinePath( zipline, < 31048.75, -9816.57422, -27235.9258 >, < 0, 90, -22 >, eZiplineSkinType.ARM_ONLY )
