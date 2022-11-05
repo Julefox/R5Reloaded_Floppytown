@@ -16,6 +16,7 @@ global function IsCanyonlandsMap
 global function ChooseZiplineTravelTime
 global function GZFEP
 global function GZFZN
+global function Zipline_CreateProp
 global function ZiplineErrorOnClientConnected
 global function ZiplineAddErrorReason
 
@@ -72,12 +73,21 @@ void function RegisteredZipline_Init( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
-    if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
-    UpdatePanelsPrompts( zipline )
+    if ( !vars.isMoveRope )
+    {
+        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
+        if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
+        UpdatePanelsPrompts( zipline )
 
-    vars.spawnSupportOnly   = false
-    state.firstInit         = false
+        vars.spawnSupportOnly   = false
+        state.firstInit         = false
+    }
+    else
+    {
+        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
+        ZipRail_InitSupport( zipline )
+        ZipRail_Init( zipline )
+    }
 }
 
 

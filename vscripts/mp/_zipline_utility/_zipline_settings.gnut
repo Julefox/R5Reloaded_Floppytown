@@ -27,6 +27,15 @@ void function Zipline_AttachEndTo( ZiplineUtility zipline, string ziplineName, i
 }
 
 
+void function Zipline_AddZiplinePath( ZiplineUtility zipline, vector startEntityPos, vector startEntityAng, int pathSkin )
+{
+    zipline.vars.isMoveRope = true
+    zipline.moveRopePathPos.append( startEntityPos )
+    zipline.moveRopePathAng.append( startEntityAng )
+    zipline.moveRopePathSkin.append( pathSkin )
+}
+
+
 void function Zipline_DisableVerticalZiplineOffset( ZiplineUtility zipline )
 {
     ZiplineVars vars                    = zipline.vars

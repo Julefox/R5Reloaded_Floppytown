@@ -106,8 +106,9 @@ global struct ZiplineVars
     bool destroyZiplineSupportOnPanelEnd      = false
     bool disableVerticalZiplineOffset         = false
     bool isLinkedZiplineEnd                   = false
-    bool isLinkedZiplineStart                 = false
     bool isLinkedZiplineHost                  = false
+    bool isLinkedZiplineStart                 = false
+    bool isMoveRope                           = false
     bool isMoving                             = false
     bool restPoint                            = false
     bool spawnSupportOnly                     = false
@@ -156,6 +157,10 @@ global struct ZiplineUtility
     array < entity > supportArray
 
     // Vectors entities start / end
+    array < int >    moveRopePathSkin
+    array < vector > moveRopePathAng
+    array < vector > moveRopePathPos
+    array < vector > moveRopeZiplinePos
     vector endEntityAng
     vector endEntityPos
     vector endZiplineAng
@@ -190,6 +195,7 @@ void function ZiplineUtility_Init()
     AddClientCommandCallback( "indianaJones", ClientCommand_SpawnIndianaJonesZiplineAtCrosshair )
     AddClientCommandCallback( "ZiplineAtCrosshair", ClientCommand_SpawnZiplineAtCrosshair )
     AddClientCommandCallback( "VertivalZiplineAtCrosshair", ClientCommand_SpawnVerticalZiplineAtCrosshair )
+    AddClientCommandCallback( "test", ClientCommand_Test )
 }
 
 void function EntitiesDidLoad()
@@ -199,4 +205,10 @@ void function EntitiesDidLoad()
     #if ZIPLINE_DEBUG_SCRIPTS && DEBUG_RANDOM_ZIPLINE
         AddCallback_OnClientConnected( CreateRandomZiplineOnClientConnected )
     #endif // ZIPLINE_DEBUG_SCRIPTS && DEBUG_RANDOM_ZIPLINE
+}
+
+bool function ClientCommand_Test( entity player, array < string > args )
+{
+
+    return true
 }
