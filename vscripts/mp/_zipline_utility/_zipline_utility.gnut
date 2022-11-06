@@ -19,8 +19,7 @@ global function ZiplineUtility_Init
     global const float  ARM_MIN_OFFSET                          = 160.0
     global const float  END_AUTO_DETACH_DISTANCE                = 50.0
     global const float  HORIZONTAL_ARM_OFFSET                   = 160.0
-    global const float  HORIZONTAL_END_AUTO_DETACH_DISTANCE     = 150.0
-    global const float  HORIZONTAL_START_AUTO_DETACH_DISTANCE   = 150.0
+    global const float  HORIZONTAL_AUTO_DETACH_DISTANCE         = 150.0
     global const float  START_AUTO_DETACH_DISTANCE              = 100.0
     global const float  VERTICAL_ARM_OFFSET                     = 200.0
     global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS        = 0.99
@@ -29,6 +28,7 @@ global function ZiplineUtility_Init
 // Global const string
     global const string HORIZONTAL_ZIPLINE_SCRIPT_NAME          = "IsNonVerticalZipline"
     global const string VERTICAL_ZIPLINE_SCRIPT_NAME            = "IsVerticalZipline"
+    global const string TRIGGER_ZIPLINE_SCRIPT_NAME             = "ZiplineTrigger"
     global const string ZIPLINE_END_SOUND                       = "explo_spectre"
     global const string ZIPLINE_PANEL_LOCKED                    = "npe_player_fail"
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
@@ -196,6 +196,7 @@ void function ZiplineUtility_Init()
     AddClientCommandCallback( "ZiplineAtCrosshair", ClientCommand_SpawnZiplineAtCrosshair )
     AddClientCommandCallback( "VertivalZiplineAtCrosshair", ClientCommand_SpawnVerticalZiplineAtCrosshair )
     AddClientCommandCallback( "test", ClientCommand_Test )
+    AddClientCommandCallback( "GetZiplineInfo", ClientCommand_GetZiplineInfo )
 }
 
 void function EntitiesDidLoad()

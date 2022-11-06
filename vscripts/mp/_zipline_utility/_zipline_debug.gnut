@@ -5,6 +5,7 @@ global function CreateRandomZiplineOnClientConnected
 global function ClientCommand_SpawnIndianaJonesZiplineAtCrosshair
 global function ClientCommand_SpawnVerticalZiplineAtCrosshair
 global function ClientCommand_SpawnZiplineAtCrosshair
+global function ClientCommand_GetZiplineInfo
 
 
 void function CreateRandomZiplineOnClientConnected( entity player )
@@ -204,5 +205,42 @@ bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< strin
     ZiplinePos = []
     ZiplineAng = []
     ZiplineSkin = []
+
+return true }
+
+
+bool function ClientCommand_GetZiplineInfo( entity player, array< string > args )
+{
+    vector angles = player.EyeAngles()
+    vector forward = AnglesToForward( angles )
+    vector origin = player.EyePosition()
+
+    vector end = origin + forward * 50000
+    TraceResults result = TraceLine( origin, end )
+
+    entity entityTouched = result.hitEnt
+
+    string verify = entityTouched.GetScriptName()
+    bool continueScript = false
+
+    if ( verify == VERTICAL_ZIPLINE_SCRIPT_NAME || verify == HORIZONTAL_ZIPLINE_SCRIPT_NAME ) continueScript = true
+
+    if ( !continueScript ) return false
+
+    string ziplineTargetName = entityTouched.GetTargetName()
+
+    ziplineTargetName = StringReplace( ziplineTargetName, "_start", "" ) ; ziplineTargetName = StringReplace( ziplineTargetName, "_end", "" )
+
+    ZiplineUtility zipline = GZFZN( ziplineTargetName )
+
+    printt( "Zipline Name:", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
+    //printt( "Zipline :", zipline.vars.ziplineName )
 
 return true }
