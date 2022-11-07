@@ -41,6 +41,7 @@ global function ZiplineUtility_Init
     global const string REASON_TOO_MANY_HEIGHT_LIMIT            = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset() || Zipline_IsIndianaJonesMode() ( Because this function changes the height with SetHeightLimitFromFloor( 2nd parameter ) )"
     global const string REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST = "The link name of the zipline does not exist, please check the entered name"
     global const string REASON_ZIPLINE_ENDPOINT_IS_NULL         = "This link name is an existing zipline but not initialized or null"
+    global const string REASON_PANEL_WRONG_CONFIGURATION        = "The panel cannot be created in this configuration"
     global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the model has been replaced by the stand"
 
 // Global const vector
@@ -80,6 +81,7 @@ global struct KVFilesSettings
     bool isVertical
     float fadeDistance              = -1.0
     float lengthScale               = 1.0
+    float sagHeight                 = 0.0
     float scale                     = 1.0
     float speedScale                = 1.0
     float startAutoDetachDistance
@@ -87,6 +89,7 @@ global struct KVFilesSettings
     int detachEndOnSpawn            = 0
     int detachEndOnUse              = 0
     int dropToBottom                = 1
+    int enableSag                   = 0
     int preserveVelocity            = 0
     int startPushOffInDirectionX    = 1
     int ziplineVersion              = 3
@@ -210,6 +213,5 @@ void function EntitiesDidLoad()
 
 bool function ClientCommand_Test( entity player, array < string > args )
 {
-
     return true
 }

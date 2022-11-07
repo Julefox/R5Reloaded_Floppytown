@@ -128,6 +128,14 @@ void function Zipline_DisableDropToBottom( ZiplineUtility zipline )
 }
 
 
+void function Zipline_EnableSag( ZiplineUtility zipline, float sag )
+{
+    KVFilesSettings settings = zipline.settings
+    settings.enableSag = 1
+    settings.sagHeight = sag
+}
+
+
 void function Zipline_SetArmOffset( ZiplineUtility zipline, float startArmOffset, float endArmOffset = 0.0 )
 {
     ZiplineVars vars            = zipline.vars

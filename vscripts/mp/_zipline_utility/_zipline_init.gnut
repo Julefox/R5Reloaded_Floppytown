@@ -53,18 +53,24 @@ void function OnMapZipline_Init() // Explanation at the end of the file
         zipline = Zipline_Register( "ZiplineDev_Vertical", < 34090.1367, -7584.83838, -28302.6328 >, < 0, 142, 0 > )
             Zipline_SetZiplineAngles( zipline, < 0, 0, 0 > )
 
-        zipline = Zipline_Register( "ZiplineDev_Path_0", < 33125.8945, -9901.42871, -28834.875 >, < 0, 104, 0 >, < 30071.2891, -2414.07202, -25863.9375 >, < 0, -62, 0 > )
+        zipline = Zipline_Register( "ZiplineDev_Vertical", < 29772.1016, -8906.86035, -26004.0723 >, < 0, 0, 0 > )
+            Zipline_SetSkin( zipline, eZiplineSkinType.INVISIBLE )
+
+        zipline = Zipline_Register( "ZiplineDev_Path_0", < 33125.8945, -9901.42871, -28834.875 >, < 0, 104, 0 >, < 31001.793, -3501.69482, -27999.207 >, < 0, 0, 0 > )
             Zipline_AddZiplinePath( zipline, < 32687.9434, -10144.0977, -28684.5215 >, < 0, 102, 0 >, eZiplineSkinType.ENTIRE )
             Zipline_AddZiplinePath( zipline, < 32031.8906, -10112.3975, -28049.4648 >, < 0, 60, 0 >, eZiplineSkinType.ARM_ONLY )
             Zipline_AddZiplinePath( zipline, < 31048.75, -9816.57422, -27235.9258 >, < 0, 90, -22 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 30058.5664, -9701.41895, -26737.9336 >, < 90, 180, 0 >, eZiplineSkinType.ENTIRE )
-            Zipline_AddZiplinePath( zipline, < 29792.3965, -9304.25977, -26788.8027 >, < 0, -132, 0 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 28828.5938, -8622.36035, -26915.2129 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 28509.4941, -8045.77588, -26838.7246 >, < 0, 40, 0 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 27699.7578, -6617.54834, -26739.0625 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 28492.1094, -4628.29004, -26816.25 >, < 0, -60, 0 >, eZiplineSkinType.ARM_ONLY )
-            Zipline_AddZiplinePath( zipline, < 30996.0879, -2379.7478, -25878.7754 >, < 0, -106, 0 >, eZiplineSkinType.ENTIRE )
-            Zipline_CreatePanel( zipline, < 33101.2578, -10074.5586, -28840.0918 >, < 0, 91, 0 >, ePanelSkinType.STAND )
+            Zipline_AddZiplinePath( zipline, < 30083.1523, -9674.59375, -27100.4004 >, < 0, 90, -22 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 28925.248, -9347.66113, -27192.625 >, < 0, 62, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 28200.9453, -8832.94043, -27023.8242 >, < 0, 40, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 27538.1035, -7879.57471, -26856.1934 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 27528.0469, -7296.15283, -26850.3281 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 27521.6016, -6598.5127, -26847.7246 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 27544.125, -5900.31934, -26842.1992 >, < 0, 0, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 27922.9316, -4831.85352, -27065.7949 >, < 0, -44, 0 >, eZiplineSkinType.ARM_ONLY )
+            Zipline_AddZiplinePath( zipline, < 28872.9258, -4295.08984, -27350.6367 >, < 0, -57, 0 >, eZiplineSkinType.ENTIRE )
+            Zipline_SetSkin( zipline, eZiplineSkinType.ENTIRE, eZiplineSkinType.INVISIBLE )
+            Zipline_EnableSag( zipline, 40 )
 
             break
         case "mp_rr_desertlands_64k_x_64k_nx":

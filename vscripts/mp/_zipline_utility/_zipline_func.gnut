@@ -107,6 +107,9 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
     // Entities Declaration
     array< entity > entityArray = [ ] ; entity startSupport ; entity startArm ; entity midSupport ; entity midArm ; entity endSupport ; entity endArm
 
+    // Vector Declaration
+    array< vector > moveRopePath = zipline.moveRopeZiplinePos
+
     // Offset for arm heigth | locked between 160.0 (min) / 280.0 (max)
     float minOffset = ARM_MIN_OFFSET ; float maxOffset = ARM_MAX_OFFSET
     float startArmOffset = vars.startArmOffset ; float endArmOffset = vars.endArmOffset
@@ -142,7 +145,7 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 
     // Return origin point of the zipline
     if ( vars.setSkinStart != eZiplineSkinType.INVISIBLE ) zipline.startZiplinePos = PositionOffsetFromEnt( startArm, -4, -55.5, -12 ) else zipline.startZiplinePos = startEntityPos
-    zipline.moveRopeZiplinePos.append( zipline.startZiplinePos )
+    moveRopePath.append( zipline.startZiplinePos )
 
     for ( int i = 0 ; i < zipline.moveRopePathPos.len() ; i++ )
     {
@@ -159,16 +162,20 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
                 midSupport    = Zipline_CreateProp( ZIPLINE_SUPPORT, midEntityPos, tempAngForSupport )
                 midArm        = Zipline_CreateProp( ZIPLINE_ARM, midEntityPosArm, tempAng, true )
                 midArm.SetParent( midSupport ) ; midSupport.SetAngles( midEntityAng )
+                moveRopePath.append( PositionOffsetFromEnt( midArm, -4, -55.5, -12 ) )
                 break
             case eZiplineSkinType.ARM_ONLY: // Without support
                 midArm        = Zipline_CreateProp( ZIPLINE_ARM, midEntityPos, midArmAng, true )
+                moveRopePath.append( PositionOffsetFromEnt( midArm, -4, -55.5, -12 ) )
                 break
             case eZiplineSkinType.INVISIBLE: // Invisible model
-                midArm        = Zipline_CreateProp( EMPTY_MODEL, midEntityPos, midArmAng, true )
+                midArm        = Zipline_CreateProp( EMPTY_MODEL, midEntityPos, midArmAng )
+                moveRopePath.append( midEntityPos )
             default: break
         }
 
-        zipline.moveRopeZiplinePos.append( PositionOffsetFromEnt( midArm, -4, -55.5, -12 ) ) //; midArm.kv.solid = 0
+        //vector appendOrigin = PositionOffsetFromEnt( midArm, -4, -55.5, -12 )
+        //if ( pathSkin != eZiplineSkinType.INVISIBLE && IsValid( endArm ) ) zipline.moveRopeZiplinePos.append( appendOrigin ) else zipline.moveRopeZiplinePos.append( midEntityPos )
     }
 
     if ( !IsZiplineVertical( zipline ) ) // If vertical
@@ -196,8 +203,8 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
     ArrayRemoveInvalid( entityArray ) // Remove invalid ents
 
     // Return origin point of the zipline
-    if ( vars.setSkinEnd   != eZiplineSkinType.INVISIBLE && endArm != null ) zipline.endZiplinePos = PositionOffsetFromEnt( endArm, -4, -55.5, -12 ) else zipline.endZiplinePos = endEntityPos
-    zipline.moveRopeZiplinePos.append( zipline.endZiplinePos )
+    if ( vars.setSkinEnd != eZiplineSkinType.INVISIBLE && IsValid( endArm ) ) zipline.endZiplinePos = PositionOffsetFromEnt( endArm, -4, -55.5, -12 ) else zipline.endZiplinePos = endEntityPos
+    moveRopePath.append( zipline.endZiplinePos )
 
     // Set script name and target
     foreach ( ents in entityArray )
@@ -214,8 +221,8 @@ array< entity > function Zipline_InitSupport( ZiplineUtility zipline )
 
     if ( !IsZiplineVertical( zipline ) )
     {
-        if ( startSupport != null ) SetTargetName( startSupport, vars.ziplineName + "_start" ) ; SetTargetName( startArm, vars.ziplineName + "_start" )
-        if ( endSupport   != null ) SetTargetName( endSupport,   vars.ziplineName + "_end" )   ; SetTargetName( endArm,   vars.ziplineName + "_end" )
+        if ( IsValid( startSupport ) ) SetTargetName( startSupport, vars.ziplineName + "_start" ) ; SetTargetName( startArm, vars.ziplineName + "_start" )
+        if ( IsValid( endSupport ) )   SetTargetName( endSupport,   vars.ziplineName + "_end" )   ; SetTargetName( endArm,   vars.ziplineName + "_end" )
     }
 
 
@@ -269,7 +276,12 @@ array< entity > function Zipline_InitZipline( ZiplineUtility zipline )
         default: break
     }
 
-    if ( vars.isLinkedZiplineEnd || vars.isLinkedZiplineHost || vars.isMoveRope ) DestoryAllPanelsInZiplineStruct( zipline )
+    if ( vars.isLinkedZiplineEnd || vars.isLinkedZiplineHost || vars.isMoveRope )
+    {
+        if ( panels.newPanel.len() != 0 )
+            ZiplineAddErrorMinorReason( zipline, REASON_PANEL_WRONG_CONFIGURATION )
+        DestoryAllPanelsInZiplineStruct( zipline )
+    }
 
     if ( vars.isMoving )
         endZiplinePos = startZiplinePos - < 0, 0, 0.1 >
@@ -708,8 +720,8 @@ entity function CreateZiplinePath( ZiplineUtility zipline, vector origin, string
     rope.kv.perfect_circular_rotation   = 1
     rope.kv.Zipline                     = 1
     rope.kv.ZiplineAutoDetachDistance   = settings.startAutoDetachDistance
-    rope.kv.ZiplineSagEnable            = "1"
-    rope.kv.ZiplineSagHeight            = "20"
+    rope.kv.ZiplineSagEnable            = settings.enableSag
+    rope.kv.ZiplineSagHeight            = settings.sagHeight
     if( !end ) rope.kv.NextKey = NextKey
     rope.SetOrigin( origin )
 
