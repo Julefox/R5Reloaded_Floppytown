@@ -19,8 +19,7 @@ global function ZiplineUtility_Init
     global const float  ARM_MIN_OFFSET                          = 160.0
     global const float  END_AUTO_DETACH_DISTANCE                = 50.0
     global const float  HORIZONTAL_ARM_OFFSET                   = 160.0
-    global const float  HORIZONTAL_END_AUTO_DETACH_DISTANCE     = 150.0
-    global const float  HORIZONTAL_START_AUTO_DETACH_DISTANCE   = 150.0
+    global const float  HORIZONTAL_AUTO_DETACH_DISTANCE         = 150.0
     global const float  START_AUTO_DETACH_DISTANCE              = 100.0
     global const float  VERTICAL_ARM_OFFSET                     = 200.0
     global const float  ZIPLINE_LENGTH_OFFSET_SAME_Z_POS        = 0.99
@@ -29,6 +28,7 @@ global function ZiplineUtility_Init
 // Global const string
     global const string HORIZONTAL_ZIPLINE_SCRIPT_NAME          = "IsNonVerticalZipline"
     global const string VERTICAL_ZIPLINE_SCRIPT_NAME            = "IsVerticalZipline"
+    global const string TRIGGER_ZIPLINE_SCRIPT_NAME             = "ZiplineTrigger"
     global const string ZIPLINE_END_SOUND                       = "explo_spectre"
     global const string ZIPLINE_PANEL_LOCKED                    = "npe_player_fail"
     global const string ZIPLINE_START_SOUND                     = "pathfinder_zipline_expand"
@@ -41,6 +41,7 @@ global function ZiplineUtility_Init
     global const string REASON_TOO_MANY_HEIGHT_LIMIT            = "You can declare only one of this functions: SetHeightLimitFromTop() || SetHeightLimitFromFloor() || DisableVerticalZiplineOffset() || Zipline_IsIndianaJonesMode() ( Because this function changes the height with SetHeightLimitFromFloor( 2nd parameter ) )"
     global const string REASON_ZIPLINE_NAME_LINK_DOES_NOT_EXIST = "The link name of the zipline does not exist, please check the entered name"
     global const string REASON_ZIPLINE_ENDPOINT_IS_NULL         = "This link name is an existing zipline but not initialized or null"
+    global const string REASON_PANEL_WRONG_CONFIGURATION        = "The panel cannot be created in this configuration"
     global const string WALL_PANEL_MODEL_DOES_NOT_EXIST         = "Canyonlands does not have the wall panel model, the model has been replaced by the stand"
 
 // Global const vector
@@ -80,6 +81,7 @@ global struct KVFilesSettings
     bool isVertical
     float fadeDistance              = -1.0
     float lengthScale               = 1.0
+    float sagHeight                 = 0.0
     float scale                     = 1.0
     float speedScale                = 1.0
     float startAutoDetachDistance
@@ -87,6 +89,7 @@ global struct KVFilesSettings
     int detachEndOnSpawn            = 0
     int detachEndOnUse              = 0
     int dropToBottom                = 1
+    int enableSag                   = 0
     int preserveVelocity            = 0
     int startPushOffInDirectionX    = 1
     int ziplineVersion              = 3
@@ -196,6 +199,7 @@ void function ZiplineUtility_Init()
     AddClientCommandCallback( "ZiplineAtCrosshair", ClientCommand_SpawnZiplineAtCrosshair )
     AddClientCommandCallback( "VertivalZiplineAtCrosshair", ClientCommand_SpawnVerticalZiplineAtCrosshair )
     AddClientCommandCallback( "test", ClientCommand_Test )
+    AddClientCommandCallback( "GetZiplineInfo", ClientCommand_GetZiplineInfo )
 }
 
 void function EntitiesDidLoad()
@@ -209,6 +213,5 @@ void function EntitiesDidLoad()
 
 bool function ClientCommand_Test( entity player, array < string > args )
 {
-
     return true
 }

@@ -73,21 +73,12 @@ void function RegisteredZipline_Init( ZiplineUtility zipline )
 {
     ZiplineVars vars = zipline.vars ; ZiplineState state = zipline.state
 
-    if ( !vars.isMoveRope )
-    {
-        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
-        if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
-        UpdatePanelsPrompts( zipline )
+    if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
+    if ( !state.ziplineIsValid && !vars.spawnSupportOnly ) Zipline_InitZipline( zipline )
+    UpdatePanelsPrompts( zipline )
 
-        vars.spawnSupportOnly   = false
-        state.firstInit         = false
-    }
-    else
-    {
-        if ( !state.supportIsValid ) Zipline_InitSupport( zipline )
-        ZipRail_InitSupport( zipline )
-        ZipRail_Init( zipline )
-    }
+    vars.spawnSupportOnly   = false
+    state.firstInit         = false
 }
 
 
@@ -366,8 +357,8 @@ function ZiplinePreProcess( ZiplineUtility zipline )
             vars.startArmOffset               = VERTICAL_ARM_OFFSET
             break
         case false:
-            settings.endAutoDetachDistance    = HORIZONTAL_START_AUTO_DETACH_DISTANCE
-            settings.startAutoDetachDistance  = HORIZONTAL_END_AUTO_DETACH_DISTANCE
+            settings.endAutoDetachDistance    = HORIZONTAL_AUTO_DETACH_DISTANCE
+            settings.startAutoDetachDistance  = HORIZONTAL_AUTO_DETACH_DISTANCE
             vars.endArmOffset                 = HORIZONTAL_ARM_OFFSET
             vars.startArmOffset               = HORIZONTAL_ARM_OFFSET
 
