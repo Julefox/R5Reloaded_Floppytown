@@ -193,7 +193,7 @@ bool function ClientCommand_SpawnZiplineAtCrosshair( entity player, array< strin
     
     ZiplineUtility zipline = Zipline_Register( name, ZiplinePos[0], ZiplineAng[0], ZiplinePos[1], ZiplineAng[1] )
         Zipline_SetSkin( zipline, skinStart, skinEnd )
-    Zipline_InitAllRegisteredZiplineInScope()
+    RegisteredZipline_Init( zipline )
 
 
     printt( "Put this function in your scripts to recreate this zipline:" + "\n" +
